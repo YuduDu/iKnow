@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>me</title>
+	<script src="js/mui.js"></script>
+	<link href="css/mui.css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/font-awesome.css">	
+<script type="text/javascript" charset="utf-8">
+		mui.init();
+	</script>
+	<style>
+		html,
+		body {
+			min-height: 100%;
+			background-color: #efeff4;
+		}
+	</style>
+</head>
+<body>
+<div class="mui-content">
+	<div class="mui-block" style="width:100%;height:120px;background-color: #6ACCCB;text-align: center;">
+<a class="mui-media" href="me.html">
+				<a class="mui-icon mui-icon-contact" style="color:#FFFFFF;font-size:72px;margin-top: 0px;"></a>
+				<p class="mui-tab-label" style="color: #FFFFFF;margin-top: 10px;font-size: 18px;">13000000000</p>
+			</a>		
+	</div>
+<ul class="mui-table-view">
+	<li class="mui-table-view-cell mui-hidden">cared
+		<div id="M_Toggle" class="mui-switch mui-active">
+			<div class="mui-switch-handle"></div>
+		</div>
+	</li>
+	<li class="mui-table-view-cell">
+			<a class="fa fa-money" style="font-size:20px;color: #999999;padding-top: 15px;padding-bottom: 15px;">
+				<span style="color:#000000;margin-left: 10px;font-size: 16px;">账户余额</span>
+		</a>
+	</li>
+	
+	<li class="mui-table-view-cell">
+			<a class="fa fa-gift" style="font-size:20px;color: #999999;padding-top: 15px;padding-bottom: 15px;padding-left: 17px;">
+				<span style="color:#000000;margin-left: 10px;font-size: 16px;">优惠券</span>
+		</a>
+	</li>
+	
+	<li class="mui-table-view-cell">
+			<a class="fa fa-users" style="font-size:18px;color: #999999;padding-top: 15px;padding-bottom: 15px;padding-left: 16px;">
+				<span style="color:#000000;margin-left: 10px;font-size: 16px;">关于我们</span>
+		</a>
+	</li>
+</ul>
+
+<ul class="mui-table-view" style="margin-top:15px">
+  <li class="mui-table-view-cell">
+    <a id="logout-btn" class="mui-navigate" style="color:#FF9900;text-align: center;">
+      Log out
+    </a>
+  </li>
+</ul>
+</div>
+	</body>
+	<script>
+		
+		document.getElementById("logout-btn").addEventListener('tap',function () {
+			var btnArray = [{title:"Log out"},{title:"test"}];
+			plus.nativeUI.actionSheet( {
+				title:"logout",
+				cancel:"Cancel",
+				buttons:btnArray
+			} );
+		});
+		
+	</script>
+	</html>
