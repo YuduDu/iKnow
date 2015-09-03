@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-OrderApplication</title>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+
+		<script type="text/javascript">
+			// H5 plus事件处理
+			function plusReady(){
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground( "#6acccb" );
+				plus.navigator.setStatusBarStyle( "UIStatusBarStyleBlackOpaque" );
+			}
+			if(window.plus){
+				plusReady();
+			}else{
+				document.addEventListener("plusready",plusReady,false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">Order Confirmation</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div style="height:60px;position: relative;top:60px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;">小儿保健套餐</span>
+			<span class="mui-pull-right"style="line-height: 60px;padding-right: 15px;color: #666666;">$98</span>
+		</div>
+		<div style="height:50px;position: relative;top:80px;background-color: #ffffff;">
+			<p style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">人数</p>
+		</div>
+		<div style="height:50px;position: relative;top:81px;background-color: #ffffff;">
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">中医保健按摩师</a>
+		</div>
+		<div style="height:50px;position: relative;top:82px;background-color: #ffffff;">
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">服务时间</a>
+		</div>
+		<div style="height:50px;position: relative;top:102px;background-color: #ffffff;">
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">现金券/代金券/优惠码</a>
+		</div>
+		<div style="height:50px;position: relative;top:103px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">订单合计</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;">$98</span>
+		</div>
+		
+		<div style="height:50px;position: relative;top:123px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">张三</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;">+86 13000000000</span>
+		</div>
+		
+		<div style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:120px;height:40px;line-height: 25px;" href="payment.html">Submit</a></div>
+		
+		
+				<script>
+			//更换标题
+				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				
+		</script>
+
+	</body>
+
+</html>
