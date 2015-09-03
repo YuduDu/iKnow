@@ -1507,8 +1507,8 @@ border: hidden;margin-top:0px;padding-right:20px;
 
     border-bottom: 0;
     background-color: #f7f7f7;
-    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .85);
-            box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+/*    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+            box-shadow: 0 0 1px rgba(0, 0, 0, .85);*/
 
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
