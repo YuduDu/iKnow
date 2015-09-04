@@ -1,114 +1,145 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>iKnow</title>
-	<script src="js/mui.js"></script>
-	<link href="css/mui.css" rel="stylesheet"/>
-<link rel="stylesheet" href="css/font-awesome.css">	
-<script type="text/javascript" charset="utf-8">
-		mui.init();
-var _openw=null;
 
-	</script>
-	<style>
-		html,
-		body {
-			min-height: 100%;
-			background-color: #efeff4;
-		}
-	</style>
-</head>
-<body>
-	<div class="mui-content">
-	<div id="slideshow" class="mui-slider">
-		<div class="mui-slider-group">
-			<div class="mui-slider-item"><a id="slider-image" href="javascript:;"><img src="img/slide1.png"/></a></div>
-			<div class="mui-slider-item"><a href="#"><img src="img/slide2.png" /></a></div>
-			<div class="mui-slider-item"><a href="#"><img src="img/slide3.png" /></a></div>
-			<div class="mui-slider-item"><a href="#"><img src="img/slide4.png" /></a></div>
-	</div>
-		</div>
-		
-		<ul id="Services" class="mui-table-view">
-			<li class="mui-table-view-cell mui-media">
-				<a>
-					<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
-					<div class="mui-media-body">
-						小儿艾灸保健套餐
-						<p class='mui-ellipsis mui-services-provider'>天医方艾灸馆</p>
-						<p class='mui-pull-right mui-service-distance'>1.1km</p>
-						<span class='mui-price'>￥98</span><span> </span> </span><span class='mui-pricebefore'>168</span>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow</title>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				document.getElementById("slideshow").addEventListener('tap', function(e) {
+					//显示引导页
+					mui.openWindow({
+						id: 'guide',
+						url: 'guide.html',
+						show: {
+							aniShow: 'fade-in',
+							duration: 300
+						},
+						waiting: {
+							autoShow: false
+						},
+					});
+				});
+				document.getElementById("Services").addEventListener('tap', function() {
+					//显示服务详情页
+					var wv = plus.webview.create('service_detail.html', 'service_detail', {
+						'popGesture': 'close'
+					});
+					wv.show("slide-in-right", 300);
+				});
+			})
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="slideshow" class="mui-slider">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item">
+						<a id="slider-image" href="javascript:;"><img src="img/slide1.png" /></a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#"><img src="img/slide2.png" /></a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#"><img src="img/slide3.png" /></a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#"><img src="img/slide4.png" /></a>
+					</div>
+				</div>
+			</div>
+
+			<ul id="Services" class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
+						<div class="mui-media-body">
+							小儿艾灸保健套餐
+							<p class='mui-ellipsis mui-services-provider'>天医方艾灸馆</p>
+							<p class='mui-pull-right mui-service-distance'>1.1km</p>
+							<span class='mui-price'>￥98</span><span> </span> </span><span class='mui-pricebefore'>168</span>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
+						<div class="mui-media-body">
+							颈椎调理
+							<p class='mui-ellipsis mui-services-provider'>国颐堂私家养生会所</p>
+							<p class='mui-pull-right mui-service-distance'>1.1km</p>
+							<span class='mui-price'>￥98</span><span> </span> </span><span class='mui-pricebefore'>168</span>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
+						<div class="mui-media-body">
+							经络调理减肥套餐
+							<p class='mui-ellipsis mui-services-provider'>加蓝蒂娜美容减肥养生连锁</p>
+							<p class='mui-pull-right mui-service-distance'>1.1km</p>
+							<span class='mui-price'>￥98</span><span> </span> </span><span class='mui-pricebefore'>168</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+
+			<ul id="practitioner" class="mui-table-view" style="margin-top:15px">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<div style="margin-left:20px">
+							<img class="mui-media-object-profile mui-pull-left" src="img/profilepic.png">
+						</div>
+
+						<div class="mui-media-body mui-media-body-massagistlist">
+							Yihan XU
+							<p class='mui-pull-right mui-distance'>1.1km</p>
+							<p class='mui-ellipsis mui-massagist-provider'>天医方艾灸馆</p>
+							<p class='mui-ellipsis-2' ; ">7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。</p>
 					</div>
 				</a>
 			</li>
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
-					<div class="mui-media-body">
-						颈椎调理
-						<p class='mui-ellipsis mui-services-provider'>国颐堂私家养生会所</p>
-												<p class='mui-pull-right mui-service-distance'>1.1km</p>
-						<span class='mui-price'>￥98</span><span> </span> </span><span class='mui-pricebefore'>168</span>
-					</div>
-				</a>
-			</li>
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
-					<div class="mui-media-body">
-						经络调理减肥套餐
-						<p class='mui-ellipsis mui-services-provider'>加蓝蒂娜美容减肥养生连锁</p>
-												<p class='mui-pull-right mui-service-distance'>1.1km</p>
-						<span class='mui-price'>￥98</span><span> </span> </span><span class='mui-pricebefore'>168</span>
-					</div>
-				</a>
-			</li>
-		</ul>
-		
-		<ul id="practitioner" class="mui-table-view" style="margin-top:15px">
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<div style="margin-left:20px">
-						<img class="mui-media-object-profile mui-pull-left" src="img/profilepic.png">
+			<li class="mui-table-view-cell mui-media ">
+				<a href="javascript:; ">
+					<div style="margin-left:20px ">
+						<img class="mui-media-object-profile mui-pull-left " src="img/profilepic.png ">
 					</div>
 					
-					<div class="mui-media-body mui-media-body-massagistlist">
+					<div class="mui-media-body mui-media-body-massagistlist ">
 						Yihan XU
 						<p class='mui-pull-right mui-distance'>1.1km</p>
 						<p class='mui-ellipsis mui-massagist-provider'>天医方艾灸馆</p>
 						<p class='mui-ellipsis-2';">7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。</p>
-					</div>
-				</a>
-			</li>
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<div style="margin-left:20px">
-						<img class="mui-media-object-profile mui-pull-left" src="img/profilepic.png">
-					</div>
-					
-					<div class="mui-media-body mui-media-body-massagistlist">
-						Yihan XU
-						<p class='mui-pull-right mui-distance'>1.1km</p>
-						<p class='mui-ellipsis mui-massagist-provider'>天医方艾灸馆</p>
-						<p class='mui-ellipsis-2';">7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。</p>
-					</div>
-				</a>
-			</li>
-			<li class="mui-table-view-cell mui-media">
-				<a href="javascript:;">
-					<div style="margin-left:20px">
-						<img class="mui-media-object-profile mui-pull-left" src="img/profilepic.png">
-					</div>
-					
-					<div class="mui-media-body mui-media-body-massagistlist">
-						Yihan XU
-						<p class='mui-pull-right mui-distance'>1.1km</p>
-						<p class='mui-ellipsis mui-massagist-provider'>天医方艾灸馆</p>
-						<p class='mui-ellipsis-2';">7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<div style="margin-left:20px">
+							<img class="mui-media-object-profile mui-pull-left" src="img/profilepic.png">
+						</div>
+
+						<div class="mui-media-body mui-media-body-massagistlist">
+							Yihan XU
+							<p class='mui-pull-right mui-distance'>1.1km</p>
+							<p class='mui-ellipsis mui-massagist-provider'>天医方艾灸馆</p>
+							<p class='mui-ellipsis-2' ; ">7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。7年推拿经验，毕业于北京高等中医药学校，国家高级按摩师。</p>
 					</div>
 				</a>
 			</li>
@@ -116,42 +147,4 @@ var _openw=null;
 </div>
 	</footer>
 	</body>
-	<script>
-		mui.init();
-		document.getElementById("slideshow").addEventListener('tap', function(e) {
-			//显示引导页
-			mui.openWindow({
-				id: 'guide',
-				url: 'guide.html',
-				show: {
-					aniShow: 'fade-in',
-					duration: 300
-				},
-				waiting: {
-					autoShow: false
-				},
-			});
-			
-		});
-
-		document.getElementById("Services").addEventListener('tap', function(e) {
-			//显示服务详情页
-			mui.openWindow({
-				id: 'service_detail',
-				url: 'service_detail.html',
-				show: {
-					aniShow: 'slide-in-right',
-					duration: 200
-				},
-				waiting: {
-					autoShow: false
-				},
-				style:{
-					popGesture:'close'
-				}
-			});
-		});
-		
-		
-	</script>
 	</html>

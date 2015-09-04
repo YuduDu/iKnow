@@ -12,6 +12,15 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
+			mui.plusReady(function(){
+				document.getElementById("orderbtn").addEventListener('tap', function() {
+					//显示订单支付页
+					var wv = plus.webview.create('payment.html', 'payment', {
+						'popGesture': 'close'
+					});
+					wv.show("slide-in-right",300);
+				});
+			})
 		</script>
 
 		<script type="text/javascript">
@@ -43,7 +52,7 @@
 		</header>
 		<div style="height:60px;position: relative;top:60px;background-color: #ffffff;">
 			<span style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;">小儿保健套餐</span>
-			<span class="mui-pull-right"style="line-height: 60px;padding-right: 15px;color: #666666;">$98</span>
+			<span class="mui-pull-right"style="line-height: 60px;padding-right: 15px;color: #666666;font-size: 14px;">$98</span>
 		</div>
 		<div style="height:50px;position: relative;top:80px;background-color: #ffffff;">
 			<p style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">人数</p>
@@ -59,15 +68,15 @@
 		</div>
 		<div style="height:50px;position: relative;top:103px;background-color: #ffffff;">
 			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">订单合计</span>
-			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;">$98</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;">$98</span>
 		</div>
 		
 		<div style="height:50px;position: relative;top:123px;background-color: #ffffff;">
 			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">张三</span>
-			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;">+86 13000000000</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;">+86 13000000000</span>
 		</div>
 		
-		<div style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:120px;height:40px;line-height: 25px;" href="payment.html">Submit</a></div>
+		<div id="orderbtn"style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:120px;height:40px;line-height: 25px;">Submit</a></div>
 		
 		
 				<script>
