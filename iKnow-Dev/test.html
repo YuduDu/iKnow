@@ -9,21 +9,21 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
-				alert("plusready");
 				mui.ajax('http://gene.rnet.missouri.edu/iKnow/service.php', {
 					data: {
 						action: 'get_all_users'
 					},
 					type: 'post', //HTTP请求类型
-					timeout: 10, //超时时间设置为10秒； 
+					timeout: 100000, //超时时间设置为10秒； 
 					success: function(data) {
-						var list.document.getElementById("list");
-						var finallist='';
-						console.log('success');
-						for(i=data.length-1;i>=0;i--){
-							finallist=finallist+'<li class="mui-table-view-cell"><span>'+data[i].userId+'</span><span class="mui-pull-right">'+data[i].userName+'</span></li>'
+						var obj = eval ('({"test":'+data+'})');
+						for (i in obj.test){
+							document.getElementById(i).innerHTML = obj.test[i].userName
+							
+							console.log(obj.test[i].userName)
 						}
-						list.innerHTML=finallist;
+						//console.log(.length)
+						//console.log(obj.test[i].userName);
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
@@ -41,9 +41,19 @@
 		</header>
 		<div id="body" class="mui-content">
 			<div class="mui-card">
-				<ul class="mui-table-view" id="list">
-					
-				</ul>
+				<div class="mui-card">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell" id="1">
+
+						</li>
+						<li class="mui-table-view-cell" id="2">
+						
+						</li>
+						<li class="mui-table-view-cell" id="3">
+							
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</body>
