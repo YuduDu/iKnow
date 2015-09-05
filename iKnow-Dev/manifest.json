@@ -1,18 +1,20 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
 	"id": "H526EBBCC",
-	"name": "iKnow",	"version": {
-		"name": "1.1.1",
+	"name": "iKnow",
+	"version": {
+		"name": "1.1.2",
 		"code": "83"
 	},
 	"description": "",
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "index.html",
+	"launch_path": "login.html",
 	"developer": {
-		"name": "",		"email": "",
-		"url": "http://www.dcloud.io"
+		"name": "Yihan XU",
+		"email": "yihan.xu@gmail.com",
+		"url": "http://xuyihan.com.cn"
 	},
 	"permissions": {
 		"Accelerometer": {
@@ -54,9 +56,7 @@
 		"Invocation": {
 			"description": "使用Native.js能力"
 		},
-		"Messaging": {
-			"description": "访问通讯能力"
-		},
+
 		"Orientation": {
 			"description": "访问方向感应器"
 		},
@@ -99,7 +99,9 @@
 		},
 		"NativeObj": {
 			"description": "原生对象"
-		}
+		},
+		"OAuth": {},
+		"Share": {}
 	},
 	"plus": {
 		"splashscreen": {
@@ -108,9 +110,35 @@
 			"delay": "300"
 		},
 		"runmode": "liberate",
-		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",		"distribute": {
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",
+		"distribute": {
+			"plugins": {
+				"maps": {
+					"amap": {
+						"appkey_ios": "b81de66d47fd80eae88b9dc63428de38",
+						"appkey_android": "0a83cac6b24a0cb8f37b3393466768e9",
+						"description": ""
+					}
+				},
+				"share": {
+					"sina": {
+						"appkey": "2276754592",
+						"appsecret": "7acf1a5203ed76cbebf02d439879c66a",
+						"redirect_uri": "http://xuyihan.com.cn",
+						"description": "可选，新浪微博分享"
+					}
+				},
+				"oauth": {
+					"sina": {
+						"appkey": "2276754592",
+						"appsecret": "7acf1a5203ed76cbebf02d439879c66a",
+						"redirect_uri": "http://xuyihan.com.cn"
+					}
+				}
+			},
 			"apple": {
-				"appid": "",				"mobileprovision": "",
+				"appid": "",
+				"mobileprovision": "",
 				"password": "",
 				"p12": "",
 				"devices": "universal",
@@ -134,15 +162,22 @@
 						"retina": "unpackage/res/icons/114x114.png",
 						"retina7": "unpackage/res/icons/120x120.png",
 						"spotlight-normal": "unpackage/res/icons/29x29.png",
-						"spotlight-retina": "unpackage/res/icons/58x58.png", 						"spotlight-retina7": "unpackage/res/icons/80x80.png",						"settings-normal": "unpackage/res/icons/29x29.png",
+						"spotlight-retina": "unpackage/res/icons/58x58.png",
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",
+						"settings-normal": "unpackage/res/icons/29x29.png",
 						"settings-retina": "unpackage/res/icons/58x58.png",
 						"retina8": "unpackage/res/icons/180x180.png",
 						"settings-retina8": "unpackage/res/icons/87x87.png"
 					},
 					"ipad": {
-						"normal": "unpackage/res/icons/72x72.png", 						"retina": "unpackage/res/icons/144x144.png",
-						"normal7": "unpackage/res/icons/76x76.png", 						"retina7": "unpackage/res/icons/152x152.png",
-						"spotlight-normal": "unpackage/res/icons/50x50.png", 						"spotlight-retina": "unpackage/res/icons/100x100.png", 						"spotlight-normal7": "unpackage/res/icons/40x40.png",						"spotlight-retina7": "unpackage/res/icons/80x80.png",
+						"normal": "unpackage/res/icons/72x72.png",
+						"retina": "unpackage/res/icons/144x144.png",
+						"normal7": "unpackage/res/icons/76x76.png",
+						"retina7": "unpackage/res/icons/152x152.png",
+						"spotlight-normal": "unpackage/res/icons/50x50.png",
+						"spotlight-retina": "unpackage/res/icons/100x100.png",
+						"spotlight-normal7": "unpackage/res/icons/40x40.png",
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",
 						"settings-normal": "unpackage/res/icons/29x29.png",
 						"settings-retina": "unpackage/res/icons/58x58.png"
 					}
@@ -160,7 +195,10 @@
 					"iphone": {
 						"default": "",
 						"retina35": "",
-						"retina40": "img/Default-667h@2x.png","retina55":"img/Default-736h@3x.png","retina47":"img/Default-667h@3x.png","retina55l":"img/Default-Landscape-736h@3x.png"
+						"retina40": "img/Default-667h@2x.png",
+						"retina55": "img/Default-736h@3x.png",
+						"retina47": "img/Default-667h@3x.png",
+						"retina55l": "img/Default-Landscape-736h@3x.png"
 					},
 					"ipad": {
 						"portrait": "",
