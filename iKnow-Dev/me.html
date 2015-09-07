@@ -13,9 +13,6 @@
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-			var viewApi = mui('#app').view({
-			defaultPage: '#me'
-		});
 		</script>
 		<style>
 			html,
@@ -142,16 +139,30 @@
 			//退出操作******************
 		document.getElementById('exit').addEventListener('tap', function() {
 			if (mui.os.ios) {
-				mui.openWindow({
-					url: 'login.html',
-					id: 'login',
-					show: {
-						aniShow: 'pop-in'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
+				var btnArray = [{
+				title: "注销当前账号"
+			}];
+			plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: btnArray
+			}, function(event) {
+				var index = event.index;
+				switch (index) {
+					case 1:
+						//app.setState({});
+						mui.openWindow({
+							url: 'login.html',
+							id: 'login',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+						break;
+				}
+			});
 				return;
 			}
 			var btnArray = [{

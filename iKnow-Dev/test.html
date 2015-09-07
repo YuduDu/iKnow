@@ -1,37 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>AJAX test</title>
-		<script src="js/mui.min.js"></script>
-		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/template.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-			mui.plusReady(function() {
-				mui.ajax('http://gene.rnet.missouri.edu/iKnow/service.php', {
-					data: {
-						action: 'get_all_users'
-					},
-					type: 'post', //HTTP请求类型
-					timeout: 100000, //超时时间设置为10秒； 
-					success: function(data) {
-						var obj = eval ('({"test":'+data+'})');
-						for (i in obj.test){
-							document.getElementById(i).innerHTML = obj.test[i].userName
-							
-							console.log(obj.test[i].userName)
-						}
-						//console.log(.length)
-						//console.log(obj.test[i].userName);
-					},
-					error: function(xhr, type, errorThrown) {
-						console.log(type);
-						console.log(JSON.stringify(xhr));
-					}
-				});
-			})
+			mui.plusReady(function() {})
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
 		</script>
+
 	</head>
 
 	<body>
@@ -39,22 +25,37 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">AJAX test</h1>
 		</header>
-		<div id="body" class="mui-content">
-			<div class="mui-card">
+
+		<div class="mui-content" id="content" style="position: relative;padding-top: 64px;"></div>
+		<script id="test" type="text/html">
 				<div class="mui-card">
 					<ul class="mui-table-view">
-						<li class="mui-table-view-cell" id="1">
-
-						</li>
-						<li class="mui-table-view-cell" id="2">
-						
-						</li>
-						<li class="mui-table-view-cell" id="3">
-							
-						</li>
+						{{each list as value i}}
+						<li class="mui-table-view-cell">用户 {{i + 1}}:{{value.userName}}</li>
+						{{/each}}
 					</ul>
 				</div>
-			</div>
-		</div>
+		</script>
+		<script>
+			mui.ajax('http://gene.rnet.missouri.edu/iKnow/service.php', {
+				data: {
+					action: 'get_all_users'
+				},
+				type: 'post', //HTTP请求类型
+				timeout: 100000, //超时时间设置为10秒； 
+				success: function(data) {
+					var obj = JSON.parse(data)
+					var html = template('test', {
+						list: obj
+					});
+					document.getElementById('content').innerHTML = html;
+				},
+				error: function(xhr, type, errorThrown) {
+					console.log(type);
+					console.log(JSON.stringify(xhr));
+				}
+			});
+		</script>
 	</body>
+
 </html>
