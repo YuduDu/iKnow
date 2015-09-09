@@ -4,7 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title></title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>注册</title>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
 		<style>
@@ -33,6 +35,19 @@
 				padding: 10px;
 			}
 		</style>
+		<script type="text/javascript">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景
+				plus.navigator.setStatusBarBackground("#ffffff");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
 	</head>
 
 	<body>
@@ -43,8 +58,8 @@
 		<div class="mui-content">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
-					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+					<label>手机</label>
+					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号">
 				</div>
 				<div class="mui-input-row">
 					<label>密码</label>
@@ -60,12 +75,14 @@
 				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
 			</div>
 			<div class="mui-content-padded">
-				<p>注册真实可用，注册成功后的用户可用于登录，但是示例程序并未和服务端交互，用户相关数据仅存储于本地。</p>
+				<p>注册真实可用。登陆模块尚未连接服务器，只能使用微博登陆</p>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
+			plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+
 			function insertdata() {
 					mui.ajax('http://gene.rnet.missouri.edu/iKnow/insert.php', {
 						data: {
