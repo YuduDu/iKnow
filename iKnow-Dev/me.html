@@ -73,6 +73,8 @@
 			<button id="reg">reg</button>
 			<button id="setting">setting</button>
 			<button id="navigate" onclick="navigateWithMap();">navigate</button>
+			<button id="insert" onclick="insertdata();">insert</button>
+			<button id="disc">disc</button>
 		</div>
 	</body>
 	<script>
@@ -89,6 +91,9 @@
 				},
 			});
 		});
+		
+		
+		
 		document.getElementById("login").addEventListener('tap', function() {
 			mui.openWindow({
 				id: 'login',
@@ -136,6 +141,24 @@
 				plus.maps.openSysMap(dst, "MU", src);
 					
 			}
+		
+		function insertdata(){
+			mui.ajax('http://gene.rnet.missouri.edu/iKnow/insert.php', {
+				data: {
+					customid: '138000',
+					custompassword:'testtest'
+				},
+				type: 'post', //HTTP请求类型 
+				timeout: 100000, //超时时间设置为10秒；   
+				success: function(data) {
+					console.log(data)
+				},
+				error: function(xhr, type, errorThrown) {
+					console.log(type);
+					console.log(JSON.stringify(xhr));
+				}
+			});
+		}
 			//退出操作******************
 		document.getElementById('exit').addEventListener('tap', function() {
 			if (mui.os.ios) {
