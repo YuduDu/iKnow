@@ -81,47 +81,29 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
-			plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
-
-			function insertdata() {
-					mui.ajax('http://gene.rnet.missouri.edu/iKnow/insert.php', {
-						data: {
-							customid: '138000',
-							custompassword: 'testtest'
-						},
-						type: 'post', //HTTP请求类型 
-						timeout: 100000, //超时时间设置为10秒；   
-						success: function(data) {
-							console.log(data)
-						},
-						error: function(xhr, type, errorThrown) {
-							console.log(type);
-							console.log(JSON.stringify(xhr));
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var settings = app.getSettings();
+					var regButton = doc.getElementById('reg');
+					var accountBox = doc.getElementById('account');
+					var passwordBox = doc.getElementById('password');
+					var passwordConfirmBox = doc.getElementById('password_confirm');
+					regButton.addEventListener('tap', function(event) {
+						var passwordConfirm = passwordConfirmBox.value;
+						if (passwordConfirmBox.value != passwordBox.value) {
+							plus.nativeUI.toast('密码两次输入不一致');
+							return;
 						}
-					});
-				}
-				(function($, doc) {
-					$.init();
-					$.plusReady(function() {
-						var settings = app.getSettings();
-						var regButton = doc.getElementById('reg');
-						var accountBox = doc.getElementById('account');
-						var passwordBox = doc.getElementById('password');
-						var passwordConfirmBox = doc.getElementById('password_confirm');
-						regButton.addEventListener('tap', function(event) {
-							var passwordConfirm = passwordConfirmBox.value;
-							if (passwordConfirmBox.value != passwordBox.value) {
-								plus.nativeUI.toast('密码两次输入不一致');
-								return;
-							}
-							mui.ajax('http://gene.rnet.missouri.edu/iKnow/insert.php', {
-								data: {
-									customid: accountBox.value,
-									custompassword: passwordBox.value
-								},
-								type: 'post', //HTTP请求类型 
-								timeout: 100000, //超时时间设置为10秒；   
-								success: function(data) {
+						mui.ajax('http://gene.rnet.missouri.edu/iKnow/signup.php', {
+							data: {
+								customid: accountBox.value,
+								custompassword: passwordBox.value
+							},
+							type: 'post', //HTTP请求类型 
+							timeout: 100000, //超时时间设置为10秒；   
+							success: function(data) {
+								if (data != 'exist') {
 									plus.nativeUI.toast('注册成功');
 									$.openWindow({
 										url: 'login.html',
@@ -130,15 +112,17 @@
 											aniShow: 'pop-in'
 										}
 									});
-								},
-								error: function(xhr, type, errorThrown) {
-									console.log(type);
-									console.log(JSON.stringify(xhr));
 								}
-							});
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log(type);
+								console.log(JSON.stringify(xhr));
+							}
 						});
 					});
-				}(mui, document));
+				});
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			}(mui, document));
 		</script>
 	</body>
 

@@ -115,11 +115,11 @@
 		<script>
 			(function($, doc) {
 				$.init({
-					statusBarBackground: '#f7f7f7'
+					//statusBarBackground: '#f7f7f7'
 				});
 				$.plusReady(function() {
-					plus.navigator.setStatusBarBackground("#ffffff");
-				plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+					//plus.navigator.setStatusBarBackground("#ffffff");
+				//plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
 					plus.screen.lockOrientation("portrait-primary");
 					var settings = app.getSettings();
 					var state = app.getState();
@@ -128,6 +128,7 @@
 						"url": 'index.html'
 					});
 					var toMain = function() {
+						plus.navigator.setStatusBarStyle( "UIStatusBarStyleBlackOpaque" );
 						$.fire(mainPage, 'show', null);
 						setTimeout(function() {
 							$.openWindow({
