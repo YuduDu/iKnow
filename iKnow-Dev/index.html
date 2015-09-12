@@ -48,11 +48,16 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6acccb;">
-			<h1 id="title" class="mui-title" style="color: #ffffff;">iKnow</h1>
-			<a id="search" class="fa fa-search fa-lg fa-pull-right" style="color: #ffffff;padding-top:10px"></a>
+			<h1 id="title" class="mui-title" style="color: #ffffff;font-weight: 800;font-size: 20px;">身知道</h1>
+			<a id="search" class="fa fa-search fa-lg fa-pull-right" style="color: #ffffff;padding-top:10px;"></a>
 			<a id="editbtn" class="mui-pull-right" style="color: #ffffff;padding-top: 10px;display:none">Edit</a>
-			<a id="city" class="mui-pull-left" style="color: #ffffff;padding-top: 10px;">Beijing</a>
-			<a id="dropdowncity" class="fa fa-angle-down mui-pull-left" style="color: #ffffff;padding-top:12px;padding-left:5px;"></a>
+			<span><select id=city class="mui-btn" style="width:auto;background-color: transparent;font-size:17px;top:4px;color:#ffffff;padding-left:0px;padding-right: 5px;">
+				<option value="item-1">北京市</option>
+				<option value="item-2">上海市</option>
+				<option value="item-3">成都市</option>
+				<option value="item-4">深圳市</option>
+				<option value="item-5">广州市</option>
+			</select></span><span id='dropdowncity' class="fa fa-angle-down" style="margin-top:12px;color:#ffffff"></span>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
 			<a id="defaultTab" class="mui-tab-item mui-active" href="homelist.html">
@@ -67,7 +72,7 @@
 				<span class="mui-icon mui-icon-star"></span>
 				<span class="mui-tab-label">Discover</span>
 			</a>
-			<a class="mui-tab-item" href="me.html">
+			<a id="mebtn" class="mui-tab-item" href="me.html">
 				<span class="mui-icon mui-icon-contact"></span>
 				<span class="mui-tab-label">Me</span>
 			</a>
@@ -90,7 +95,11 @@
 					return;
 				}
 				//更换标题
-				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				if(this.querySelector('.mui-tab-label').innerHTML != 'Home'){
+			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;}
+			else{
+				title.innerHTML = '身知道'
+			}
 				//隐藏图标
 				if (targetTab != subpages[0]) {
 					search.style.display = 'none';

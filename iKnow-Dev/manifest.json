@@ -3,7 +3,7 @@
 	"id": "H526EBBCC",
 	"name": "iKnow",
 	"version": {
-		"name": "1.1.4",
+		"name": "1.1.8",
 		"code": "83"
 	},
 	"description": "",
@@ -100,19 +100,26 @@
 		"NativeObj": {
 			"description": "原生对象"
 		},
-		"OAuth": {},
-		"Share": {}
+		"Statistic": {}
 	},
 	"plus": {
 		"splashscreen": {
-			"autoclose": true,
-			"waiting": false,
+			"autoclose": false,
+			"waiting": true,
 			"delay": "300"
 		},
 		"runmode": "liberate",
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",
 		"distribute": {
 			"plugins": {
+				"statics": {
+					"umeng": {
+						"appkey_ios": "55f3896a67e58e4f2a001242",
+						"channelid_ios": "iknowappiosdev",
+						"appkey_android": "55f38a1967e58e4f7a0010f1",
+						"channelid_android": "iknowappandroiddev"
+					}
+				},
 				"maps": {
 					"amap": {
 						"appkey_ios": "b81de66d47fd80eae88b9dc63428de38",
@@ -120,21 +127,8 @@
 						"description": ""
 					}
 				},
-				"share": {
-					"sina": {
-						"appkey": "2276754592",
-						"appsecret": "7acf1a5203ed76cbebf02d439879c66a",
-						"redirect_uri": "http://xuyihan.com.cn",
-						"description": "可选，新浪微博分享"
-					}
-				},
-				"oauth": {
-					"sina": {
-						"appkey": "2276754592",
-						"appsecret": "7acf1a5203ed76cbebf02d439879c66a",
-						"redirect_uri": "http://xuyihan.com.cn"
-					}
-				}
+				"share": {},
+				"oauth": {}
 			},
 			"apple": {
 				"appid": "",
@@ -150,7 +144,7 @@
 				"keystore": "",
 				"password": "",
 				"aliasname": "",
-				"permissions": ["<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>", "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>", "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>", "<uses-permission android:name=\"android.permission.VIBRATE\"/>", "<uses-permission android:name=\"android.permission.READ_LOGS\"/>", "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>", "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>", "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>", "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>", "<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>", "<uses-permission android:name=\"android.permission.CAMERA\"/>", "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>", "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>", "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>", "<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>", "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>", "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>", "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>", "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>", "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>", "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>", "<uses-feature android:name=\"android.hardware.camera\"/>", "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>", "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"]
+				"permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>", "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>", "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>", "<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>", "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>", "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>", "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>", "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>", "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>", "<uses-permission android:name=\"android.permission.VIBRATE\"/>", "<uses-permission android:name=\"android.permission.READ_LOGS\"/>", "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>", "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>", "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>", "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>", "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>", "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>", "<uses-feature android:name=\"android.hardware.camera\"/>", "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>", "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>", "<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>", "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>", "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>", "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>", "<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>", "<uses-permission android:name=\"android.permission.CAMERA\"/>"]
 			},
 			"orientation": ["portrait-primary", "portrait-secondary"],
 			"icons": {

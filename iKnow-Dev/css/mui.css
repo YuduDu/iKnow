@@ -295,7 +295,7 @@ a
 {
     text-decoration: none;
 
-    color: #007aff;
+    color: #6ACCCB;
 }
 a:active
 {
@@ -1293,14 +1293,14 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 .mui-btn-positive, .mui-btn-success, .mui-btn-green
 {
     color: #fff;
-    border: 1px solid #4cd964;
-    background-color: #4cd964;
+    border: 1px solid #6ACCCB;
+    background-color: #6ACCCB;
 }
 .mui-btn-positive:enabled:active, .mui-btn-positive.mui-active:enabled, .mui-btn-success:enabled:active, .mui-btn-success.mui-active:enabled, .mui-btn-green:enabled:active, .mui-btn-green.mui-active:enabled
 {
     color: #fff;
-    border: 1px solid #2ac845;
-    background-color: #2ac845;
+    border: 1px solid #16a085;
+    background-color: #16a085;
 }
 
 .mui-btn-warning, .mui-btn-yellow
@@ -1502,8 +1502,8 @@ border: hidden;margin-top:0px;padding-right:20px;
 
     height: 64px;
     padding-top: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
 
     border-bottom: 0;
     background-color: #f7f7f7;

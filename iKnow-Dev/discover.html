@@ -13,7 +13,77 @@
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-			
+			mui.plusReady(function() {
+				mui.ajax('http://gene.rnet.missouri.edu/iKnow/db.php', {
+					data: {
+						action: 'get_news'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data)
+						var html = template('news', {
+							list: obj
+						});
+						document.getElementById('content').innerHTML = html;
+						mui('#content').on('tap', 'li', function() {
+							mui.openWindow({
+								url: 'disc_detail.html',
+								id: 'disc_detail',
+								extras: {
+									newsid: obj[this.getAttribute('data-id')].newsid,
+									newstitle: obj[this.getAttribute('data-id')].newstitle,
+									newscontent: obj[this.getAttribute('data-id')].newscontent
+								},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: '正在加载...', //等待对话框上显示的提示内容
+								}
+							})
+						})
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				//			document.getElementById("newsbtn").addEventListener('tap', function() {
+				//				mui.openWindow({
+				//					id: 'disc_detail',
+				//					url: 'disc_detail.html',
+				//					show: {
+				//						aniShow: 'fade-in',
+				//						duration: 300
+				//					},
+				//					waiting: {
+				//						autoShow: false
+				//					},
+				//				});
+				//			});
+				document.getElementById("newslistbtn").addEventListener('tap', function() {
+					//显示热门服务列表页
+					mui.openWindow({
+						id: 'newslist',
+						url: 'newslist.html',
+						show: {
+							aniShow: 'pop-in',
+							duration: 300
+						},
+						waiting: {
+							autoShow: false
+						},
+					});
+				});
+			})
 		</script>
 		<style>
 			html,
@@ -55,7 +125,7 @@
 
 			<ul class="mui-table-view" style="margin:15px 0px 0px 0px;line-height: 40px;">
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right" style="color:#56abe4">
+					<a id="newslistbtn" class="mui-navigate-right" style="color:#56abe4">
 						保健科普
 					</a>
 				</li>
@@ -66,7 +136,7 @@
 		</div>
 		<script id="news" type="text/html">
 			{{each list as value i}}
-			<li class="mui-table-view-cell mui-media">
+			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
 				<a id="newsbtn">
 					<img class="mui-media-object mui-pull-right" src="{{value.pic}}">
 					<p class="mui-ellipsis-2 mui-ellipsis-discovertitle">{{value.newstitle}}</p>
@@ -75,40 +145,6 @@
 			{{/each}}
 		</script>
 		<script>
-			mui.ajax('http://gene.rnet.missouri.edu/iKnow/db.php', {
-				data: {
-					action: 'get_news'
-				},
-				type: 'post', //HTTP请求类型 
-				timeout: 100000, //超时时间设置为10秒；  
-				success: function(data) {
-					var obj = JSON.parse(data)
-					var html = template('news', {
-						list: obj
-					});
-					//console.log(obj[1].newscontent);
-					document.getElementById('content').innerHTML = html;
-				},
-				error: function(xhr, type, errorThrown) {
-					console.log(type);
-					console.log(JSON.stringify(xhr));
-				}
-			});
-			
-			document.getElementById("newsbtn").addEventListener('tap', function() {
-			mui.openWindow({
-				id: 'disc_detail',
-				url: 'disc_detail.html',
-				show: {
-					aniShow: 'fade-in',
-					duration: 300
-				},
-				waiting: {
-					autoShow: false
-				},
-			});
-		});
-		
 		</script>
 	</body>
 

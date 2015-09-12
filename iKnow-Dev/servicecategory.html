@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-ServiceCategory</title>
+		<script src="js/template.js"></script>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function(){
+				
+			})
+		</script>
+		
+		<script type="text/javascript">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground("#6acccb");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;top:0px">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">服务类别</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div class="mui-content" style="padding-top:64px">
+			<div style="width:100%;height:100px;background-image:url(img/hanzheng.png);opacity:0.4">
+				<p style="color:#000000;font-weight: bold;font-size: 24px;padding:60px 0 0 15px">汗蒸</p>
+			</div>
+			<div style="width:100%;height:100px;background-image:url(img/tuina.png);opacity:0.4">
+				<p style="color:#000000;font-weight: bold;font-size: 24px;padding:60px 0 0 15px">推拿</p>
+			</div>
+			<div style="width:100%;height:100px;background-image:url(img/baguan.png);opacity:0.4">
+				<p style="color:#000000;font-weight: bold;font-size: 24px;padding:60px 0 0 15px">拔罐</p>
+			</div>
+			<div style="width:100%;height:100px;background-image:url(img/guasha.png);opacity:0.4">
+				<p style="color:#000000;font-weight: bold;font-size: 24px;padding:60px 0 0 15px">刮痧</p>
+			</div>
+			<div style="width:100%;height:100px;background-image:url(img/huoliao.png);opacity:0.4">
+				<p style="color:#000000;font-weight: bold;font-size: 24px;padding:60px 0 0 15px">火疗</p>
+			</div>
+			<div style="width:100%;height:100px;background-image:url(img/zuliao2.png);opacity:0.4">
+				<p style="color:#000000;font-weight: bold;font-size: 24px;padding:60px 0 0 15px">足疗</p>
+			</div>
+		</div>
+
+	</body>
+
+</html>

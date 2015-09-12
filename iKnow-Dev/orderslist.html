@@ -14,11 +14,11 @@
 			mui.init();
 			mui.plusReady(function() {
 				document.getElementById("orderdetail").addEventListener('tap', function() {
-					//显示服务详情页 
+					//显示订单详情页 
 					var wv = plus.webview.create('orderdetail.html', 'orderdetail', {
 						'popGesture': 'close'
 					});
-					wv.show("slide-in-right",300);
+					wv.show("pop-in",300);
 				});
 			})
 		</script>
@@ -75,14 +75,13 @@
 								<span style="font-size:14px; color:#666666">待消费</span>
 								<span><button class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right">Cancel</button></span>
 							</div>
-
 						</div>
 					</a>
 				</li>
 			</ul>
 		</div>
 	</body>
-
+ 
 	<script>
 	</script>
 

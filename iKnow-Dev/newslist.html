@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-NewsList</title>
+		<script src="js/template.js"></script>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script id="news" type="text/html">
+			{{each list as value i}}
+			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
+				<a id="newsbtn">
+					<img class="mui-media-object mui-pull-right" src="{{value.pic}}">
+					<p class="mui-ellipsis-2 mui-ellipsis-discovertitle">{{value.newstitle}}</p>
+				</a>
+			</li>
+			{{/each}}
+		</script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			mui.plusReady(function() {
+				mui.ajax('http://gene.rnet.missouri.edu/iKnow/db.php', {
+					data: {
+						action: 'get_news'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data)
+						var html = template('news', {
+							list: obj
+						});
+						document.getElementById('content').innerHTML = html;
+						mui('#content').on('tap', 'li', function() {
+							mui.openWindow({
+								url: 'disc_detail.html',
+								id: 'disc_detail',
+								extras: {
+									newsid: obj[this.getAttribute('data-id')].newsid,
+									newstitle: obj[this.getAttribute('data-id')].newstitle,
+									newscontent: obj[this.getAttribute('data-id')].newscontent
+								},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: '正在加载...', //等待对话框上显示的提示内容
+								}
+							})
+						})
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+			})
+		</script>
+		<script type="text/javascript ">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground("#6acccb ");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque ");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready ", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav " style="position: fixed; background-color: #6ACCCB;top:0px ">
+			<h1 id="title " class="mui-title " style="color: #ffffff; ">保健科普</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte "></a>
+		</header>
+		<div class="mui-content " style="padding-top:80px ">
+			<ul id="content" class="mui-table-view" style="margin-top:0px">
+
+			</ul>
+		</div>
+
+		<script>
+			 //更换标题
+			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+		</script>
+
+	</body>
+
+</html>

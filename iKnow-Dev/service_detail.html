@@ -11,14 +11,23 @@
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" charset="utf-8">
-			mui.init();
+			mui.init({
+				swipeBack:true
+			});
+			
 			mui.plusReady(function() {
+				var self=plus.webview.currentWebview();
+				var test = self.serviceid;
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				console.log(test);
 				document.getElementById("orderbtn").addEventListener('tap', function() {
 					//显示预定提交页
 					var wv = plus.webview.create('orderapplication.html', 'orderapplication', {
 						'popGesture': 'close'
 					});
-					wv.show("slide-in-right",300);
+					wv.show("pop-in",300);
 				});
 			})
 		</script>
@@ -82,12 +91,7 @@
 				<p style="font-size:24px;color:#56abe4;line-height: 60px;padding-left: 15px;">Specification</p>
 			</div>
 			<div style="background-color: #ffffff; height:120px;position:relative;top:46px;margin-left:10px;margin-right:10px;margin-bottom: 15px;"></div>
-
 		</div>
-		<script>
-			 //更换标题
-			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
-		</script>
 
 	</body>
 
