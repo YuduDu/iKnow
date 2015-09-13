@@ -20,19 +20,7 @@
 					document.getElementById("accountname").innerHTML = anhtml
 				});
 			
-			//				document.getElementById("test").addEventListener('tap', function() {
-			//					mui.openWindow({
-			//						id: 'test',
-			//						url: 'test.html',
-			//						show: {
-			//							aniShow: 'fade-in',
-			//							duration: 300
-			//						},
-			//						waiting: {
-			//							autoShow: false
-			//						},
-			//					});
-			//				});
+							
 			//				document.getElementById("login").addEventListener('tap', function() {
 			//					mui.openWindow({
 			//						id: 'login',
@@ -200,9 +188,25 @@
 			<button id="reg">reg</button>
 			<button id="setting">setting</button>
 				<button id="navigate" onclick="navigateWithMap();">navigate</button>
-				<button id="disc">disc</button>-->
+				<button id="disc">disc</button>--> 
+				<button id="test">test</button>
 			</div>
 		</div>
+		<script>
+			document.getElementById("test").addEventListener('tap', function() {
+								mui.openWindow({
+									id: 'test',
+									url: "test.html",
+									show: {
+										aniShow: 'fade-in',
+										duration: 300
+									},
+									waiting: {
+										autoShow: false
+									},
+								});
+							});
+		</script>
 	</body>
 	<script>
 	</script>

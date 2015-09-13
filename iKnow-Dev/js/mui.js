@@ -7,6 +7,7 @@
  * MUI核心JS
  * @type _L4.$|Function
  */
+
 var mui = (function(document, undefined) {
 	var readyRE = /complete|loaded|interactive/;
 	var idSelectorRE = /^#([\w-]+)$/;

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-Service_detail</title>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var service_id = self.serviceid;
+				var distance = self.distance;
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				document.getElementById("orderbtn").addEventListener('tap', function() {
+					//显示预定提交页
+					var wv = plus.webview.create('orderapplication.html', 'orderapplication', {
+						'popGesture': 'close'
+					});
+					wv.show("pop-in", 300);
+				});
+				mui.ajax('http://gene.rnet.missouri.edu/iKnow/servicedetail.php', {
+					data: {
+						serviceid: service_id
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data);
+						document.getElementById("servicename").innerHTML = self.servicename;
+						document.getElementById("shortdesc").innerHTML = obj[0].shortdesc;
+						document.getElementById("price").innerHTML = "$" + self.price;
+						document.getElementById("funcdes").innerHTML = obj[0].funcdes;
+						document.getElementById("shopname").innerHTML = self.shopname;
+						document.getElementById("address").innerHTML = obj[0].address;
+						var maplink = "http://api.map.baidu.com/marker?location="+self.latitude+","+self.longtitude+"&title="+self.shopname+"&content="+obj[0].address+"&output=html&src=iKnowApp"; 
+						document.getElementById("address").href = maplink;
+						document.getElementById("intro").innerHTML = obj[0].intro;
+						document.getElementById("openhour").innerHTML = "营业时间:"+obj[0].opentime.slice(0,5)+"-"+obj[0].closetime.slice(0,5);
+						document.getElementById("phone").href = "tel:" + obj[0].phone;
+						document.getElementById("distance").innerHTML = distance+"Km";
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				document.addEventListener('scroll',function(e){
+					console.log("scrolled");
+					if(window.scrollY>137){
+						document.getElementById("header").style.backgroundColor ="rgba(106,204,203,1)";
+					}
+					else{
+						document.getElementById("header").style.backgroundColor ="rgba(106,204,203,0.5)";
+					}
+				});
+			})
+		</script>
+
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header"class="mui-bar mui-bar-nav" style="position: fixed; background-color: rgba(106,204,203,0.5)">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">服务项目</h1>
+			<a id="share" class="mui-icon mui-icon-upload mui-pull-right icon-whilte" style="color: #ffffff;padding-top:10px"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div id="servicedetail_wrap">
+			<div style="width:100%;height:200px;position:relative;background-image:url(img/detailbg.jpg);background-size: cover">
+
+				<p id="shopname" style="position:absolute;margin-left:15px;bottom: 20px;color: #ffffff; font-size:16px"></p>
+				<p style="position:absolute;margin-left:15px;bottom: 0px;color: #CCCCCC; font-size:14px" id="openhour">营业时间:08:00-23:00</p>
+				<p style="position:absolute;margin-right:15px;bottom:0px;right: 0px;color: #CCCCCC; font-size:14px" id="distance">定位中</p>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;">
+				<p style="font-size: 16px;color: #333333; padding-left:10px;padding-top: 15px;line-height: 10px;" id="servicename">加载中</p>
+				<p style="height: auto; font-size: 14px;color: #666666; padding: 0 0 10px 10px;line-height: 20px;" id="shortdesc">加载中</p>
+			</div>
+			<div style="background-color: #ffffff; height:60px;position:relative;top:1px">
+				<div id="locationdiv" style="width:40px;height:100%;vertical-align:middle;padding-left:5px;position:absolute;line-height:60px">
+					<a id="locationbtn" class="mui-icon mui-icon-location" style="color:#6ACCCB;font-size:32px;line-height:20px" href="http://api.map.baidu.com/marker?location=40.047669,116.313082&title=我的位置&content=百度奎科大厦
+&output=html&src=yourComponyName|yourAppName"></a>
+				</div>
+				<div style="width:100%;height:100%;vertical-align:middle;position:absolute;padding-left:40px;">
+					<table border="0px" style="font-size:14px;height:60px;color:#666666;margin-right:50px">
+						<tr>
+							<td style="padding-right:40px" >
+								<a id="address" href=""></a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div style="width:40px;height:100%;right:10px;padding-left:5px;position:absolute;line-height:60px">
+					<a class="mui-icon mui-icon-phone-filled" style="color:#ff9900;font-size:32px;line-height:21px" href="" id="phone"></a>
+				</div>
+			</div>
+			<div style="background-color: #ffffff; height:60px;position:relative;top:20px">
+				<span style="line-height:60px;font-size:28px;color:#ff9900;margin-left:15px" id="price">￥</span>
+				<a id="orderbtn" class="mui-btn mui-btn-negative mui-pull-right" style="top:14px;right:15px">Order</a>
+			</div>
+			<div style="background-color: #ffffff; height:60px;position:relative;top:35px;margin-left:10px;margin-right:10px">
+				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">服务功效</p>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;top:36px;margin-left:10px;margin-right:10px">
+				<p style="padding: 15px 15px 15px 15px;" id="funcdes">加载中
+				</p>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;top:40px;margin-left:10px;margin-right:10px">
+				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">下单须知</p>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;top:31px;margin-left:10px;margin-right:10px;margin-top: 0px;">
+				<p style="padding: 15px 15px 15px 15px;" id="intro">加载中
+				</p>
+			</div>
+		</div>
+		<script>
+			
+		</script>
+	</body>
+
+</html>
