@@ -8,13 +8,17 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 }
 
 function getmassagistlist(){
+	//echo "start";
 	$con = DBconnect();
-	$getmassagist = mysql_query("SELECT shopid,phone,name,stars,intro,pic FROM MassagistDetail",$con);
+	$result = DBfetchall("SELECT shopid,phone,name,stars,intro,pic FROM MassagistDetail",$con);
+	//echo "get row";
 	//echo $getservice;
+	//echo $result;
 	$Arr = array();
-	while($row=mysql_fetch_row($getmassagist)){
-		$getshopname = mysql_query("select name from Shop where shopid=".$row[0].";" , $con);
-		$row2=mysql_fetch_array($getshopname);
+	foreach ($result as $row){
+		//echo $row;
+		//$getshopname = mysql_query("select name from Shop where shopid=".$row[0].";" , $con);
+		$row2=DBfetchone("select name from Shop where shopid=".$row[0].";" , $con);
 		//echo $row[0],$row[1];
 		$a=array("massagistid"=>$row[1],"shopname"=>$row2[0],"name"=>$row[2],"stars"=>$row[3],"intro"=>$row[4],"pic"=>$row[5]);
 		//echo $a;

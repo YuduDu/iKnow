@@ -9,12 +9,12 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 
 function getserviceslist(){
 	$con =DBconnect();
-	$getservice = mysql_query("SELECT serviceid,shopid,name,price FROM Service",$con);
+	$getservice = DBfetchall("SELECT serviceid,shopid,name,price FROM Service",$con);
 	$Arr = array();
-	while($row=mysql_fetch_row($getservice)){
-		$getshopname = mysql_query("select name,pic from Shop where shopid=".$row[1].";" , $con);
-		$row2=mysql_fetch_array($getshopname);
+	foreach ($getservice as $row){
+		$row2 = DBfetchone("select name,pic from Shop where shopid=".$row[1].";" , $con);
 		$a=array("serviceid"=>$row[0],"shopname"=>$row2[0],"servicename"=>$row[2],"price"=>$row[3],"pic"=>$row2[1]);
+		//var_dump($row2);
 		array_push($Arr,$a);
 	}
 	echo json_encode($Arr);

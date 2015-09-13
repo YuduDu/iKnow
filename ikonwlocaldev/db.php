@@ -9,9 +9,11 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 
 function getnews(){
 	$con=DBconnect();
-	$result = mysql_query("SELECT * FROM news",$con);
+	$result = DBfetchall("SELECT * FROM news",$con);
+	//var_dump($result);
+	//echo json_encode($result);
 	$Arr = array();
-	while($row=mysql_fetch_row($result)){
+	foreach($result as $row){
 		$a=array("newsid"=>$row[0],"newstitle"=>$row[1],"newscontent"=>$row[2],"url"=>$row[3],"pic"=>$row[4]);
 		array_push($Arr,$a);
 	}
