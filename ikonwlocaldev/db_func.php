@@ -20,12 +20,12 @@ function DBconnect(){
 function DBfetchall($query,$con){
     if(isset($query)&&isset($con)){
         //$return=array();
-        $result = mysql_query($query,$con) or die("Error:".mysql_error());
+        $result = mysql_query($query,$con) or die("Fetchall Error:".mysql_error());
         while($row = mysql_fetch_array($result)) {
             $rows[]=$row;
         }
-        return $rows;
-        }
+        if(!empty($rows)){return $rows;}else return true;
+    }
     else
         return false;
 
@@ -33,7 +33,7 @@ function DBfetchall($query,$con){
 
 function DBfetchone($query,$con){
     if(isset($query)&&isset($con)){
-        $result = mysql_query($query,$con) or die("Error:".mysql_error());
+        $result = mysql_query($query,$con) or die("Fetchone Error:".mysql_error());
         return mysql_fetch_array($result);
     }
     else

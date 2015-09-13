@@ -3,9 +3,9 @@
 //echo "this is a test"
 require_once 'db_func.php';
 if($_POST){
-	$id=$_POST['customid'];
-	$pd=$_POST['custompassword'];
-	signup($id,$pd);
+  $id=$_POST['customid'];
+  $pd=$_POST['custompassword'];
+  signup($id,$pd);
     //signup($_POST[form]);
 }
 
@@ -13,23 +13,23 @@ function signup($id,$pd)//working fine
 {
 
   $con = DBconnect();
-  $checkid = 'select phone from Customer where Phone = ' . $id . ';';
-
-  if (!empty(DBfetchone($checkid, $con))
-  ) {
+  $checkid = 'select phone from Customer where Phone = "' . $id . '";';
+  $result = DBfetchone($checkid, $con);
+  if (!empty($result)) {
     echo "exist";
-  } else {
-
-    $sql = 'insert Customer (phone, password,signupdate) values (' . $id . ',"' . $pd .'",current_date());';
-    //echo $sql;
-    DBfetchall($sql, $con);
-    //echo "1 record added";
-    mysql_close($con);
-
+  } 
+  else {
+    $sql = 'insert Customer (phone, password,signupdate) values ("' . $id . '","' . $pd .'",current_date());';
+    $tmp = DBfetchall($sql, $con);
+    if($tmp)
+    {
+    echo 1;
+    }
   }
+  mysql_close($con);
 }
 
-function signup1($form)//NOT FINISH
+/*function signup1($form)//NOT FINISH
 {
   //echo $form;
   $info = json_decode($form);//$form format better be ["key":"value","key2":"value2"]
@@ -38,7 +38,7 @@ function signup1($form)//NOT FINISH
     echo $row;
     $tmp = join(",",array_keys($row));
     echo $tmp;
-  }
+  }*/
 
  /* $con = DBconnect();
   $checkid = 'select phone from Customer where Phone = ' . $id . ';';
@@ -56,7 +56,7 @@ function signup1($form)//NOT FINISH
     mysql_close($con);
 
   }*/
-}
+//}
 
 
 ?>
