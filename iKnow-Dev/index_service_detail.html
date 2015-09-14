@@ -36,17 +36,18 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
+						//console.log(obj.shortdesc);
 						document.getElementById("servicename").innerHTML = self.servicename;
-						document.getElementById("shortdesc").innerHTML = obj[0].shortdesc;
+						document.getElementById("shortdesc").innerHTML = obj.shortdesc;
 						document.getElementById("price").innerHTML = "$" + self.price;
-						document.getElementById("funcdes").innerHTML = obj[0].funcdes;
+						document.getElementById("funcdes").innerHTML = obj.funcdes;
 						document.getElementById("shopname").innerHTML = self.shopname;
-						document.getElementById("address").innerHTML = obj[0].address;
-						var maplink = "http://api.map.baidu.com/marker?location="+self.latitude+","+self.longtitude+"&title="+self.shopname+"&content="+obj[0].address+"&output=html&src=iKnowApp"; 
+						document.getElementById("address").innerHTML = obj.address;
+						var maplink = "http://api.map.baidu.com/marker?location="+self.latitude+","+self.longtitude+"&title="+self.shopname+"&content="+obj.address+"&output=html&src=iKnowApp"; 
 						document.getElementById("address").href = maplink;
-						document.getElementById("intro").innerHTML = obj[0].intro;
-						document.getElementById("openhour").innerHTML = "营业时间:"+obj[0].opentime.slice(0,5)+"-"+obj[0].closetime.slice(0,5);
-						document.getElementById("phone").href = "tel:" + obj[0].phone;
+						document.getElementById("intro").innerHTML = obj.intro;
+						document.getElementById("openhour").innerHTML = "营业时间:"+obj.opentime.slice(0,5)+"-"+obj.closetime.slice(0,5);
+						document.getElementById("phone").href = "tel:" + obj.phone;
 						document.getElementById("distance").innerHTML = distance+"Km";
 					},
 					error: function(xhr, type, errorThrown) {
