@@ -23,10 +23,27 @@
 				});
 				document.getElementById("orderbtn").addEventListener('tap', function() {
 					//显示预定提交页
-					var wv = plus.webview.create('orderapplication.html', 'orderapplication', {
-						'popGesture': 'close'
+					mui.openWindow({
+						id: 'orderaplication',
+						url: "orderapplication.html",
+						extras:{
+									serviceid:self.serviceid,
+									servicename:self.servicename,
+									price:self.price
+								},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
 					});
-					wv.show("pop-in", 300);
 				});
 				mui.ajax('http://gene.rnet.missouri.edu/iKnow/servicedetail.php', {
 					data: {
@@ -39,29 +56,28 @@
 						//console.log(obj.shortdesc);
 						document.getElementById("servicename").innerHTML = self.servicename;
 						document.getElementById("shortdesc").innerHTML = obj.shortdesc;
-						document.getElementById("price").innerHTML = "$" + self.price;
+						document.getElementById("price").innerHTML = "￥" + self.price;
 						document.getElementById("funcdes").innerHTML = obj.funcdes;
 						document.getElementById("shopname").innerHTML = self.shopname;
 						document.getElementById("address").innerHTML = obj.address;
-						var maplink = "http://api.map.baidu.com/marker?location="+self.latitude+","+self.longtitude+"&title="+self.shopname+"&content="+obj.address+"&output=html&src=iKnowApp"; 
+						var maplink = "http://api.map.baidu.com/marker?location=" + self.latitude + "," + self.longtitude + "&title=" + self.shopname + "&content=" + obj.address + "&output=html&src=iKnowApp";
 						document.getElementById("address").href = maplink;
 						document.getElementById("intro").innerHTML = obj.intro;
-						document.getElementById("openhour").innerHTML = "营业时间:"+obj.opentime.slice(0,5)+"-"+obj.closetime.slice(0,5);
+						document.getElementById("openhour").innerHTML = "营业时间:" + obj.opentime.slice(0, 5) + "-" + obj.closetime.slice(0, 5);
 						document.getElementById("phone").href = "tel:" + obj.phone;
-						document.getElementById("distance").innerHTML = distance+"Km";
+						document.getElementById("distance").innerHTML = distance + "Km";
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
 						console.log(JSON.stringify(xhr));
 					}
 				});
-				document.addEventListener('scroll',function(e){
+				document.addEventListener('scroll', function(e) {
 					console.log("scrolled");
-					if(window.scrollY>137){
-						document.getElementById("header").style.backgroundColor ="rgba(106,204,203,1)";
-					}
-					else{
-						document.getElementById("header").style.backgroundColor ="rgba(106,204,203,0.5)";
+					if (window.scrollY > 137) {
+						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,1)";
+					} else {
+						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,0.5)";
 					}
 				});
 			})
@@ -77,7 +93,7 @@
 	</head>
 
 	<body>
-		<header id="header"class="mui-bar mui-bar-nav" style="position: fixed; background-color: rgba(106,204,203,0.5)">
+		<header id="header" class="mui-bar mui-bar-nav" style="position: fixed; background-color: rgba(106,204,203,0.5)">
 			<h1 id="title" class="mui-title" style="color: #ffffff;">服务项目</h1>
 			<a id="share" class="mui-icon mui-icon-upload mui-pull-right icon-whilte" style="color: #ffffff;padding-top:10px"></a>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
@@ -101,7 +117,7 @@
 				<div style="width:100%;height:100%;vertical-align:middle;position:absolute;padding-left:40px;">
 					<table border="0px" style="font-size:14px;height:60px;color:#666666;margin-right:50px">
 						<tr>
-							<td style="padding-right:40px" >
+							<td style="padding-right:40px">
 								<a id="address" href=""></a>
 							</td>
 						</tr>
@@ -131,7 +147,6 @@
 			</div>
 		</div>
 		<script>
-			
 		</script>
 	</body>
 
