@@ -34,7 +34,7 @@
 						<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
 						</div>
 						<div class="mui-media-body mui-media-body-massagistlist ">
-							{{value.name}}
+							<span>{{value.name}}</span><span><img src="http://gene.rnet.missouri.edu/iKnow/img/vip/3.png" style="width:16px;height:16px;"/></span>
 							<p class='mui-pull-right mui-distance'>{{value.distance}} Km</p>
 							<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 							<p class='mui-ellipsis-2'>{{value.intro}}</p>
@@ -68,6 +68,9 @@
 						styles: {
 								popGesture: 'close'
 							},
+								extras:{
+									//distance: point1
+								},
 								show: {
 									autoShow: true, //页面loaded事件发生后自动显示，默认为true
 									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
