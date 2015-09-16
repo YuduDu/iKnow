@@ -179,6 +179,12 @@
 							<span style="color:#333333;margin-left: 10px;font-size: 16px;">评分鼓励</span>
 						</a>
 					</li>
+					
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="update">
+							<span style="color:#333333;margin-left: 10px;font-size: 16px;">查看更新</span>
+						</a>
+					</li>
 				</ul>
 
 				<ul class="mui-table-view" style="margin-top:15px">
@@ -215,6 +221,10 @@
 					}
 				});
 			});
+			
+			document.getElementById("update").addEventListener('tap', function(){
+				plus.runtime.openURL('http://pre.im/3065');
+			})
 		</script>
 	</body>
 	<script>
