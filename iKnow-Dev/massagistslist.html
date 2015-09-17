@@ -79,8 +79,8 @@
 						<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
 						</div>
 						<div class="mui-media-body mui-media-body-massagistlist ">
-							<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
-							<p class='mui-pull-right mui-distance'>{{value.distance}} Km</p>
+							<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
+							<p class='mui-pull-right mui-distance'>{{value.distance}} km</p>
 							<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 							<p class='mui-ellipsis-2'>{{value.intro}}</p>
 						</div>
@@ -117,7 +117,15 @@
 		</header>
 		<div class="mui-content" style="padding-top:15px">
 			<ul id="massagist"  style="height: 102px;background-color: #ffffff;margin-bottom:15px;position: relative;top: 64px;padding-left: 0px;margin-top:0px">
-
+				<li class="mui-table-view-cell mui-media ">
+					<a href="javascript:; ">
+						<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover; ">
+						</div>
+						<div class="mui-media-body mui-media-body-massagistlist" style="color:#999999;padding-left: 80px;">
+							加载中
+						</div>
+					</a>
+				</li>
 			</ul>
 		</div>
 <script>

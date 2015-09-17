@@ -79,7 +79,7 @@
 						document.getElementById("intro").innerHTML = obj.intro;
 						document.getElementById("openhour").innerHTML = "营业时间:" + obj.opentime.slice(0, 5) + "-" + obj.closetime.slice(0, 5);
 						document.getElementById("phone").href = "tel:" + obj.phone;
-						document.getElementById("distance").innerHTML = distance + "Km";
+						document.getElementById("distance").innerHTML = distance + "km";
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);

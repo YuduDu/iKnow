@@ -19,24 +19,24 @@
 					anhtml = plus.storage.getItem("useraccount");
 					document.getElementById("accountname").innerHTML = anhtml
 				});
-				document.getElementById("ajax").addEventListener('tap', function() {
-					mui.openWindow({
-						id: 'test2',
-						url: 'test2.html',
-						styles: {
-							popGesture: 'close'
-						},
-						show: {
-							autoShow: true, //页面loaded事件发生后自动显示，默认为true
-							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-						},
-						waiting: {
-							autoShow: true, //自动显示等待框，默认为true
-							title: '正在加载...', //等待对话框上显示的提示内容
-						}
-					});
-				});
+//				document.getElementById("ajax").addEventListener('tap', function() {
+//					mui.openWindow({
+//						id: 'test2',
+//						url: 'test2.html',
+//						styles: {
+//							popGesture: 'close'
+//						},
+//						show: {
+//							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+//							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+//							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+//						},
+//						waiting: {
+//							autoShow: true, //自动显示等待框，默认为true
+//							title: '正在加载...', //等待对话框上显示的提示内容
+//						}
+//					});
+//				});
 				//				document.getElementById("reg").addEventListener('tap', function() {
 				//					mui.openWindow({
 				//						id: 'reg',
@@ -198,30 +198,30 @@
 			<button id="setting">setting</button>
 				<button id="navigate" onclick="navigateWithMap();">navigate</button>
 				<button id="disc">disc</button>-->
-				<button id="test">test</button>
-				<button id="ajax">test2</button>
+				<!--<button id="test">test</button>
+				<button id="ajax">test2</button>-->
 			</div>
 		</div>
 		<script>
-			document.getElementById("test").addEventListener('tap', function() {
-				mui.openWindow({
-					id: 'test',
-					url: "test.html",
-					styles: {
-						popGesture: 'close'
-					},
-					show: {
-						autoShow: true, //页面loaded事件发生后自动显示，默认为true
-						aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-						duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-					},
-					waiting: {
-						autoShow: true, //自动显示等待框，默认为true
-						title: '正在加载...', //等待对话框上显示的提示内容
-					}
-				});
-			});
-			
+//			document.getElementById("test").addEventListener('tap', function() {
+//				mui.openWindow({
+//					id: 'test',
+//					url: "test.html",
+//					styles: {
+//						popGesture: 'close'
+//					},
+//					show: {
+//						autoShow: true, //页面loaded事件发生后自动显示，默认为true
+//						aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+//						duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+//					},
+//					waiting: {
+//						autoShow: true, //自动显示等待框，默认为true
+//						title: '正在加载...', //等待对话框上显示的提示内容
+//					}
+//				});
+//			});
+//			
 			document.getElementById("update").addEventListener('tap', function(){
 				plus.runtime.openURL('http://pre.im/3065');
 			})
