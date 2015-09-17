@@ -87,7 +87,7 @@
 					var accountBox = doc.getElementById('account');
 					regButton.addEventListener('tap', function(event) {
 						
-						url = "https://api.nexmo.com/verify/json?api_key=f0d4a876&api_secret=6598d913&brand=iKnow_Verification&number=1";
+						url = "https://api.nexmo.com/verify/json?api_key=27883592&api_secret=c2516ec5&brand=NexmoVerifyTest&number=1";
 						url += accountBox.value;
 						//发送短信
 						mui.get(url, {}, function(data) {
@@ -104,7 +104,7 @@
 								//已成功发送短信，等待用户输入验证码提交
 								reg2Button.addEventListener('tap', function(event) {
 									var phoneverifyBox = doc.getElementById('phoneverify');
-									url = "https://api.nexmo.com/verify/check/json?api_key=f0d4a876&api_secret=6598d913&request_id="
+									url = "https://api.nexmo.com/verify/check/json?api_key=27883592&api_secret=c2516ec5&request_id="
 									url += data.request_id;
 									url += "&code=";
 									url += phoneverifyBox.value;

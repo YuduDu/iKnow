@@ -22,6 +22,7 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
+						console.log(obj[0].pic);
 						var html = template('news', {
 							list: obj
 						});
