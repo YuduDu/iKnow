@@ -77,6 +77,32 @@
 					});
 					e.preventDefault();
 				})
+				
+				document.getElementById("selectmassagist").addEventListener('tap',function(){
+					mui.openWindow({
+									id: 'orderapplication_massagist',
+									url: "orderapplication_massagist.html",
+									extras:{
+									serviceid:self.serviceid,
+									servicename:self.servicename,
+									price:self.price,
+								},
+									styles: {
+										popGesture: 'close'
+									},
+									show: {
+										autoShow: true, //页面loaded事件发生后自动显示，默认为true
+										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+									},
+									waiting: {
+										autoShow: true, //自动显示等待框，默认为true
+										title: '正在加载...', //等待对话框上显示的提示内容
+									}
+								});
+				})
+				
+				document.getElementById("phonespan").innerHTML = plus.storage.getItem("useraccount");
 			})
 		</script>
 
@@ -112,15 +138,15 @@
 			<span class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price">$98</span>
 		</div>
 		<div style="height:50px;position: relative;top:80px;background-color: #ffffff;">
-			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">人数<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="membersspan"><select style="padding:10px 0 10px 0;height:40px;"><option value="item-1">1</option>
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">人数<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="membersspan"><select style="padding:10px 0 10px 0;height:40px;margin:5px 0 5px 40px"><option value="item-1">1</option>
 				<option value="item-2">2</option>
 				<option value="item-3">3</option></select></span></a>
 		</div>
 		<div style="height:50px;position: relative;top:81px;background-color: #ffffff;">
-			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">中医保健按摩师<span class="mui-pull-right" style="color:#ff9900" id="massagistspan">待选</span></a>
+			<a id="selectmassagist" class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">中医保健按摩师<span class="mui-pull-right" style="color:#ff9900;margin:0 -48px 0 40px" id="massagistspan">选择技师</span></a>
 		</div>
 		<div style="height:50px;position: relative;top:82px;background-color: #ffffff;">
-			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">服务时间<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="timeslotspan">18:00-19:00</span></a>
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">服务时间<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="timeslotspan">选择时间</span></a>
 		</div>
 		<div style="height:50px;position: relative;top:102px;background-color: #ffffff;">
 			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">现金券/代金券/优惠码</a>
@@ -132,10 +158,10 @@
 
 		<div style="height:50px;position: relative;top:123px;background-color: #ffffff;">
 			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="namespan">联系方式</span>
-			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="phonespan">+86 13000000000</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="phonespan"></span>
 		</div>
 
-		<div id="orderbtn" style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:120px;height:40px;line-height: 25px;">Pay by Stripe</a></div>
+		<div id="orderbtn" style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:135px;height:40px;line-height: 25px;background-color: #3498db;border-color:#3498db;"><span style="font-weight:bold;font-size:18px;">stripe</span> 安全支付</a></div>
 
 		<script>
 			 //更换标题

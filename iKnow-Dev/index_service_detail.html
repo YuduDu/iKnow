@@ -14,7 +14,19 @@
 			mui.init({
 				swipeBack: true
 			});
+			var shares = {};
 			mui.plusReady(function() {
+				plus.share.getServices(function(s) {
+					if (s && s.length > 0) {
+						for (var i = 0; i < s.length; i++) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+						console.log('获取成功');
+					}
+				}, function() {
+					console.log("获取分享服务列表失败");
+				});
 				var self = plus.webview.currentWebview();
 				var service_id = self.serviceid;
 				var distance = self.distance;
@@ -26,11 +38,11 @@
 					mui.openWindow({
 						id: 'orderaplication',
 						url: "orderapplication.html",
-						extras:{
-									serviceid:self.serviceid,
-									servicename:self.servicename,
-									price:self.price
-								},
+						extras: {
+							serviceid: self.serviceid,
+							servicename: self.servicename,
+							price: self.price
+						},
 						styles: {
 							popGesture: 'close'
 						},
@@ -45,12 +57,14 @@
 						}
 					});
 				});
+				var mapview = "";
 				mui.ajax('http://gene.rnet.missouri.edu/iKnow/servicedetail.php', {
 					data: {
 						serviceid: service_id
 					},
 					type: 'post', //HTTP请求类型 
-					timeout: 100000, //超时时间设置为10秒；  
+					timeout: 100000, //超时时间设置为10秒；
+					async: false,
 					success: function(data) {
 						var obj = JSON.parse(data);
 						//console.log(obj.shortdesc);
@@ -80,6 +94,79 @@
 						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,0.5)";
 					}
 				});
+				
+				
+				
+				document.getElementById("sharebtn").addEventListener('tap', function() {
+					console.log('tapped');
+					var ids = [{
+							id: "weixin",
+							ex: "WXSceneSession"
+						}, {
+							id: "weixin",
+							ex: "WXSceneTimeline"
+						}, {
+							id: "sinaweibo"
+						}, {
+							id: "tencentweibo"
+						}, {
+							id: "qq"
+						}],
+						bts = [{
+							title: "发送给微信好友"
+						}, {
+							title: "分享到微信朋友圈"
+						}, {
+							title: "分享到新浪微博"
+						}, {
+							title: "分享到腾讯微博"
+						}, {
+							title: "分享到QQ"
+						}];
+					plus.nativeUI.actionSheet({
+						cancel: "取消",
+						buttons: bts
+					}, function(e) {
+						var i = e.index;
+						if (i > 0) {
+							var s_id = ids[i - 1].id;
+							var share = shares[s_id];
+							if (share) {
+								if (share.authenticated) {
+									shareMessage(share, ids[i - 1].ex);
+								} else {
+									share.authorize(function() {
+										shareMessage(share, ids[i - 1].ex);
+									}, function(e) {
+										console.log("认证授权失败：" + e.code + " - " + e.message);
+									});
+								}
+							} else {
+								mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+							}
+						}
+					});
+				});
+
+				function shareMessage(share, ex) {
+					var msg = {
+						extra: {
+							scene: ex
+						}
+					};
+					msg.href = "http://pre.im/3065";
+					msg.title = "身知道App";
+					msg.content = "我正在体验身知道上门健康服务，你也试试吧！";
+					if (~share.id.indexOf('weibo')) {
+						msg.content += "；体验地址：http://pre.im/3065";
+					}
+					msg.thumbs = ["img/icon120.png"];
+					share.send(msg, function() {
+						console.log("分享到\"" + share.description + "\"成功！ ");
+					}, function(e) {
+						console.log("分享到\"" + share.description + "\"失败: " + e.code + " - " + e.message);
+					});
+				}
 			})
 		</script>
 
@@ -95,7 +182,7 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav" style="position: fixed; background-color: rgba(106,204,203,0.5)">
 			<h1 id="title" class="mui-title" style="color: #ffffff;">服务项目</h1>
-			<a id="share" class="mui-icon mui-icon-upload mui-pull-right icon-whilte" style="color: #ffffff;padding-top:10px"></a>
+			<a id="sharebtn" class="mui-icon mui-icon-upload mui-pull-right icon-whilte" style="color: #ffffff;padding-top:10px"></a>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
 		</header>
 		<div id="servicedetail_wrap">
@@ -129,20 +216,20 @@
 			</div>
 			<div style="background-color: #ffffff; height:60px;position:relative;top:20px">
 				<span style="line-height:60px;font-size:28px;color:#ff9900;margin-left:15px" id="price">￥</span>
-				<a id="orderbtn" class="mui-btn mui-btn-negative mui-pull-right" style="top:14px;right:15px">Order</a>
+				<a id="orderbtn" class="mui-btn mui-btn-negative mui-pull-right" style="margin:14px 0 14px 0;right:15px">立即预定</a>
 			</div>
 			<div style="background-color: #ffffff; height:60px;position:relative;top:35px;margin-left:10px;margin-right:10px">
 				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">服务功效</p>
 			</div>
 			<div style="background-color: #ffffff; height:auto;position:relative;top:36px;margin-left:10px;margin-right:10px">
-				<p style="padding: 15px 15px 15px 15px;" id="funcdes">加载中
+				<p style="padding: 15px 15px 15px 15px;" id="funcdes">加载中...
 				</p>
 			</div>
 			<div style="background-color: #ffffff; height:auto;position:relative;top:40px;margin-left:10px;margin-right:10px">
 				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">下单须知</p>
 			</div>
 			<div style="background-color: #ffffff; height:auto;position:relative;top:31px;margin-left:10px;margin-right:10px;margin-top: 0px;">
-				<p style="padding: 15px 15px 15px 15px;" id="intro">加载中
+				<p style="padding: 15px 15px 15px 15px;" id="intro">加载中...
 				</p>
 			</div>
 		</div>
