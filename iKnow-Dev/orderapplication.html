@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-OrderApplication</title>
 		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script src="https://checkout.stripe.com/checkout.js"></script>
@@ -30,7 +31,7 @@
 					image: '/img/documentation/checkout/marketplace.png',
 					locale: 'auto',
 					token: function(token) {
-						console.log(token.id)
+						//console.log(token.id)
 							// Use the token to create the charge with a server-side script.
 							// You can access the token ID with `token.id`
 						mui.ajax('http://gene.rnet.missouri.edu/iKnow/test/charge.php', {
@@ -41,6 +42,7 @@
 							type: 'post', //HTTP请求类型
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
+								console.log(data);
 								//服务器返回响应，根据响应结果，分析是否登录成功；
 								mui.openWindow({
 									id: 'paymentsuccess',
@@ -69,7 +71,7 @@
 				document.getElementById("orderbtn").addEventListener('tap', function(e) {
 					handler.open({
 						name: '身知道预订支付',
-						description: '东方力道中医推拿院-单人全身精油按摩',
+						description: self.servicename,
 						amount: self.price*100,
 						image: 'http://gene.rnet.missouri.edu/iKnow/img/icon/icon180.png',
 						alipay: 'true',

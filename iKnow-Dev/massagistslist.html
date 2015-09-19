@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-MassagistsList</title>
 		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
 		<script src="js/mui.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -16,7 +17,7 @@
 				swipeBack:true
 			});
 			mui.plusReady(function(){
-				mui.ajax('http://gene.rnet.missouri.edu/iKnow/massagistlist.php', {
+				mui.ajax(url.therapistslist, {
 					data: {
 						action: 'get_massagist_list'
 					},
@@ -35,7 +36,19 @@
 							list: obj
 						});
 						document.getElementById('massagist').innerHTML = html;
-						mui('#massagist').on('tap','li',function(){
+						
+						},function(e){
+							Post2Template(url.therapistslist,'get_massagist_list','massagistslist','massagist');
+						})
+						//console.log(data);
+						
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				mui('#massagist').on('tap','li',function(){
 							mui.openWindow({
 								url:'massagistslist.html',
 								id:'massagistslist',
@@ -61,15 +74,6 @@
 								}
 							})
 						})
-						})
-						//console.log(data);
-						
-					},
-					error: function(xhr, type, errorThrown) {
-						console.log(type);
-						console.log(JSON.stringify(xhr));
-					}
-				});
 			})
 		</script>
 		<script id="massagistslist" type="text/html ">
@@ -80,7 +84,7 @@
 						</div>
 						<div class="mui-media-body mui-media-body-massagistlist ">
 							<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
-							<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance}} km</p>
+							<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>
 							<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 							<p class='mui-ellipsis-2'>{{value.intro}}</p>
 						</div>

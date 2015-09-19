@@ -9,12 +9,13 @@
 		<title>discover</title>
 		<script src="js/mui.js"></script>
 		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
-				mui.ajax('http://gene.rnet.missouri.edu/iKnow/db.php', {
+				mui.ajax(url.discovernews, {
 					data: {
 						action: 'get_news'
 					},

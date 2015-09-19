@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title></title>
 		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/customize.js"></script>
 		<link href="css/style.css" rel="stylesheet" />
 		<style>
 			.area {
@@ -105,7 +106,7 @@
 				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
 				</div>
 			</div>
-			
+
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/mui.enterfocus.js"></script>
@@ -172,16 +173,21 @@
 					var autoLoginButton = doc.getElementById("autoLogin");
 					var regButton = doc.getElementById('reg');
 					var forgetButton = doc.getElementById('forgetPassword');
+
 					loginButton.addEventListener('tap', function(event) {
-						mui.ajax('http://gene.rnet.missouri.edu/iKnow/login.php', {
+					//var form = new Array();
+					//form["phone"] = accountBox.value;
+					//form["password"]=passwordBox.value;
+					var newform = JSON.stringify({"phone": accountBox.value,"password": passwordBox.value });
+					console.log(newform);
+						mui.ajax(url.login, {
 							data: {
-								customid: accountBox.value,
-								custompassword: passwordBox.value
+								form: newform
 							},
 							type: 'post', //HTTP请求类型 
 							timeout: 100000, //超时时间设置为10秒；   
 							success: function(data) {
-								//console.log(data);
+								console.log(data);
 								if (data == 'success') {
 									//localStorage.setItem("useraccount", accountBox.value);
 									plus.storage.setItem("useraccount", accountBox.value);

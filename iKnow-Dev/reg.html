@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>注册</title>
 		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/customize.js"></script>
 		<link href="css/style.css" rel="stylesheet" />
 		<style>
 			.area {
@@ -87,7 +88,7 @@
 					var accountBox = doc.getElementById('account');
 					regButton.addEventListener('tap', function(event) {
 						
-						url = "https://api.nexmo.com/verify/json?api_key=27883592&api_secret=c2516ec5&brand=NexmoVerifyTest&number=1";
+						url = "https://api.nexmo.com/verify/json?api_key="+api.nexmo_api_key+"&api_secret="+api.nexmo_api_secret+"&brand=NexmoVerifyTest&number=1";
 						url += accountBox.value;
 						//发送短信
 						mui.get(url, {}, function(data) {
@@ -104,7 +105,7 @@
 								//已成功发送短信，等待用户输入验证码提交
 								reg2Button.addEventListener('tap', function(event) {
 									var phoneverifyBox = doc.getElementById('phoneverify');
-									url = "https://api.nexmo.com/verify/check/json?api_key=27883592&api_secret=c2516ec5&request_id="
+									url = "https://api.nexmo.com/verify/check/json?api_key="+api.nexmo_api_key+"&api_secret="+api.nexmo_api_secret+"&request_id="
 									url += data.request_id;
 									url += "&code=";
 									url += phoneverifyBox.value;

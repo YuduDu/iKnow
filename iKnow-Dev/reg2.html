@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>注册</title>
 		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/customize.js"></script>
 		<link href="css/style.css" rel="stylesheet" />
 		<style>
 			.area {
@@ -95,7 +96,7 @@
 							plus.nativeUI.toast('密码两次输入不一致');
 							return;
 						}
-						mui.ajax('http://gene.rnet.missouri.edu/iKnow/signup.php', {
+						mui.ajax(url.signup, {
 							data: {
 								customid: accountBox2.value,
 								custompassword: passwordBox.value

@@ -8,6 +8,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-Service_detail</title>
 		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" charset="utf-8">
@@ -58,7 +59,7 @@
 					});
 				});
 				var mapview = "";
-				mui.ajax('http://gene.rnet.missouri.edu/iKnow/servicedetail.php', {
+				mui.ajax(url.indexservicedetail, {
 					data: {
 						serviceid: service_id
 					},
@@ -67,7 +68,7 @@
 					async: false,
 					success: function(data) {
 						var obj = JSON.parse(data);
-						//console.log(obj.shortdesc);
+						console.log(data);
 						document.getElementById("servicename").innerHTML = self.servicename;
 						document.getElementById("shortdesc").innerHTML = obj.shortdesc;
 						document.getElementById("price").innerHTML = "￥" + self.price;

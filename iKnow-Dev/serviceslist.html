@@ -8,65 +8,35 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-ServicesList</title>
 		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
 		<script src="js/mui.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
-				mui.ajax('http://gene.rnet.missouri.edu/iKnow/servicelist.php', {
+				mui.ajax(url.serviceslist, {
 					data: {
 						action: 'get_services_list'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						var obj = JSON.parse(data)
+						this.obj = JSON.parse(data)
 						plus.geolocation.getCurrentPosition(function(p) {
-							var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
-							for  (item in obj ){
-							var point2lat =	eval(obj[item].latitude);
-							var point2long = eval(obj[item].longtitude);
-							obj[item].distance = distancefunc(p.coords.latitude,p.coords.longitude,point2lat,point2long).toFixed(1);
-							}
-							var html = template('serviceslist', {
-							list: obj
-						});
-							document.getElementById('Services').innerHTML = html;
-						mui('#Services').on('tap','li',function(){
-							mui.openWindow({
-								url:'index_service_detail.html',
-								id:'index_service_detail',
-								extras:{
-									serviceid:obj[this.getAttribute('data-id')].serviceid,
-									distance:obj[this.getAttribute('data-id')].distance,
-									servicename:obj[this.getAttribute('data-id')].servicename,
-									shopname:obj[this.getAttribute('data-id')].shopname,
-									price:obj[this.getAttribute('data-id')].price,
-									latitude:obj[this.getAttribute('data-id')].latitude,
-									longtitude:obj[this.getAttribute('data-id')].longtitude
-								},
-								styles: {
-								popGesture: 'close'
-							},
-								show: {
-									autoShow: true, //页面loaded事件发生后自动显示，默认为true
-									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-								},
-								waiting: {
-									autoShow: true, //自动显示等待框，默认为true
-									title: '正在加载...', //等待对话框上显示的提示内容
+								//this.point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+								for (item in obj) {
+									var point2lat = eval(obj[item].latitude);
+									var point2long = eval(obj[item].longtitude);
+									obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
 								}
+								var html = template('serviceslist', {
+									list: obj
+								});
+								document.getElementById('Services').innerHTML = html;
+							},function(e){
+							Post2Template(url.serviceslist,'get_services_list','serviceslist','Services');
 							})
-						})
-						})
-						//console.log(result);
-						
-						
-						//console.log(obj[0].serviceid);
-					
-						
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
@@ -74,6 +44,33 @@
 					}
 				});
 				
+				mui('#Services').on('tap', 'li', function() {
+									mui.openWindow({
+										url: 'index_service_detail.html',
+										id: 'index_service_detail',
+										extras: {
+											serviceid: obj[this.getAttribute('data-id')].serviceid,
+											distance: obj[this.getAttribute('data-id')].distance,
+											servicename: obj[this.getAttribute('data-id')].servicename,
+											shopname: obj[this.getAttribute('data-id')].shopname,
+											price: obj[this.getAttribute('data-id')].price,
+											latitude: obj[this.getAttribute('data-id')].latitude,
+											longtitude: obj[this.getAttribute('data-id')].longtitude
+										},
+										styles: {
+											popGesture: 'close'
+										},
+										show: {
+											autoShow: true, //页面loaded事件发生后自动显示，默认为true
+											aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+											duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+										},
+										waiting: {
+											autoShow: true, //自动显示等待框，默认为true
+											title: '正在加载...', //等待对话框上显示的提示内容
+										}
+									})
+								})
 			})
 		</script>
 		<script id="serviceslist" type="text/html ">
@@ -84,7 +81,7 @@
 					<div class="mui-media-body ">
 						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.servicename}}</p>
 						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>
-						<p class='mui-pull-right mui-service-distance'>{{value.distance}} km</p>
+						<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>
 						<span class='mui-price'>￥{{value.price}}</span>
 					</div>
 				</a>

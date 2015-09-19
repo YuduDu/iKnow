@@ -8,63 +8,40 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow</title>
 		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
 		<script src="js/template.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/font-awesome.css">
 
 		<script type="text/javascript" charset="utf-8">
-			mui.init(); 
+			mui.init();
 			mui.plusReady(function() {
-				mui.ajax('http://gene.rnet.missouri.edu/iKnow/recommand.php', {
+				mui.ajax(url.homeservices, {
 					data: {
 						action: 'get_recommand_service'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						var obj = JSON.parse(data)
+						console.log(data);
+						this.obj = JSON.parse(data)
 						plus.geolocation.getCurrentPosition(function(p) {
-							var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
-							for (item in obj) {
-								var point2lat = eval(obj[item].latitude);
-								var point2long = eval(obj[item].longtitude);
-								obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
-							}
-							var html = template('serviceslist', {
-								list: obj
-							});
-							document.getElementById('Services').innerHTML = html;
-							mui('#Services').on('tap', 'li', function() {
-								mui.openWindow({
-									url: 'index_service_detail.html',
-									id: 'index_service_detail',
-									extras: {
-										serviceid: obj[this.getAttribute('data-id')].serviceid,
-										distance: obj[this.getAttribute('data-id')].distance,
-										servicename: obj[this.getAttribute('data-id')].servicename,
-										shopname: obj[this.getAttribute('data-id')].shopname,
-										price: obj[this.getAttribute('data-id')].price,
-										latitude: obj[this.getAttribute('data-id')].latitude,
-										longtitude: obj[this.getAttribute('data-id')].longtitude
-									},
-									styles: {
-										popGesture: 'close'
-									},
-									show: {
-										autoShow: true, //页面loaded事件发生后自动显示，默认为true
-										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-									},
-									waiting: {
-										autoShow: true, //自动显示等待框，默认为true
-										title: '正在加载...', //等待对话框上显示的提示内容
-									}
-								})
+								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+								for (item in obj) {
+									var point2lat = eval(obj[item].latitude);
+									var point2long = eval(obj[item].longtitude);
+									obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+								}
+								var html = template('serviceslist', {
+									list: obj
+								});
+								document.getElementById('Services').innerHTML = html;
+							},
+							function(e) {
+								Post2Template(url.homeservices,'get_recommand_service','serviceslist','Services');
+								Post2Template(url.hometherapists,'get_recommand_massagist','massagistslist','massagist');
+								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
 							})
-						},
-						function(e){
-							plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
-						})
 					},
 					error: function(xhr, type, errorThrown) {
 						plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
@@ -72,60 +49,96 @@
 						console.log(JSON.stringify(xhr));
 					}
 				});
-				mui.ajax('http://gene.rnet.missouri.edu/iKnow/recommand.php', {
+				
+								mui('#Services').on('tap', 'li', function() {
+						mui.openWindow({
+							url: 'index_service_detail.html',
+							id: 'index_service_detail',
+							extras: {
+								serviceid: obj[this.getAttribute('data-id')].serviceid,
+								distance: obj[this.getAttribute('data-id')].distance,
+								servicename: obj[this.getAttribute('data-id')].servicename,
+								shopname: obj[this.getAttribute('data-id')].shopname,
+								price: obj[this.getAttribute('data-id')].price,
+								latitude: obj[this.getAttribute('data-id')].latitude,
+								longtitude: obj[this.getAttribute('data-id')].longtitude
+							},
+							styles: {
+								popGesture: 'close'
+							},
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						})
+					})
+				
+					//console.log(point1);
+				mui.ajax(url.hometherapists, {
 					data: {
 						action: 'get_recommand_massagist'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						var obj = JSON.parse(data);
+						this.obj2 = JSON.parse(data);
 						plus.geolocation.getCurrentPosition(function(p) {
-							plus.storage.setItem("point1lat", p.coords.latitude);
-								for (item in obj) {
-									var point2lat = eval(obj[item].latitude);
-									var point2long = eval(obj[item].longtitude);
-									obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+								plus.storage.setItem("point1lat", p.coords.latitude);
+								for (item in obj2) {
+									var point2lat = eval(obj2[item].latitude);
+									var point2long = eval(obj2[item].longtitude);
+									obj2[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
 								}
 								var html = template('massagistslist', {
-									list: obj
+									list: obj2
 								});
 								document.getElementById('massagist').innerHTML = html;
-								mui('#massagist').on('tap', 'li', function() {
-									mui.openWindow({
-										url: 'massagistslist.html',
-										id: 'massagistslist',
-										extras: {
-											massagistid: obj[this.getAttribute('data-id')].massagistid,
-											name: obj[this.getAttribute('data-id')].name,
-											distance: obj[this.getAttribute('data-id')].distance,
-											intro: obj[this.getAttribute('data-id')].intro,
-											shopname: obj[this.getAttribute('data-id')].shopname,
-											price: obj[this.getAttribute('data-id')].price
-										},
-										styles: {
-											popGesture: 'close'
-										},
-										show: {
-											autoShow: true, //页面loaded事件发生后自动显示，默认为true
-											aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-											duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-										},
-										waiting: {
-											autoShow: true, //自动显示等待框，默认为true
-											title: '正在加载...', //等待对话框上显示的提示内容
-										}
-									})
-								})
-							})
+							}) 
 							//console.log(data);
 					},
 					error: function(xhr, type, errorThrown) {
+						
 						plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
 						console.log(type);
 						console.log(JSON.stringify(xhr));
 					}
 				});
+				
+				
+				mui('#massagist').on('tap', 'li', function() {
+					mui.openWindow({
+						url: 'massagistslist.html',
+						id: 'massagistslist',
+						extras: {
+							massagistid: obj2[this.getAttribute('data-id')].massagistid,
+							name: obj2[this.getAttribute('data-id')].name,
+							distance: obj2[this.getAttribute('data-id')].distance,
+							intro: obj2[this.getAttribute('data-id')].intro,
+							shopname: obj2[this.getAttribute('data-id')].shopname,
+							price: obj2[this.getAttribute('data-id')].price
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+				
+
+				
 				document.getElementById("slideshow").addEventListener('tap', function(e) {
 					//显示引导页
 					mui.openWindow({
@@ -140,68 +153,11 @@
 						},
 					});
 				});
-				document.getElementById("servicelistbtn").addEventListener('tap', function(e) {
-					//显示热门服务列表页
-					mui.openWindow({
-						id: 'serviceslist',
-						url: 'serviceslist.html',
-						styles: {
-							popGesture: 'close'
-						},
-						extras: {
-							//distance: point1
-						},
-						show: {
-							autoShow: true, //页面loaded事件发生后自动显示，默认为true
-							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-						},
-						waiting: {
-							autoShow: true, //自动显示等待框，默认为true
-							title: '正在加载...', //等待对话框上显示的提示内容
-						}
-					});
-				});
-				document.getElementById("servicecategorybtn").addEventListener('tap', function(e) {
-					//显示热门服务分类页
-					mui.openWindow({
-						id: 'servicecategory',
-						url: 'servicecategory.html',
-						styles: {
-							popGesture: 'close'
-						},
-						show: {
-							autoShow: true, //页面loaded事件发生后自动显示，默认为true
-							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-						},
-						waiting: {
-							autoShow: true, //自动显示等待框，默认为true
-							title: '正在加载...', //等待对话框上显示的提示内容
-						}
-					});
-				});
-				document.getElementById("massagistlistbtn").addEventListener('tap', function(e) {
-					//显示金牌保健师列表页
-					mui.openWindow({
-						id: 'massagistslist',
-						url: 'massagistslist.html',
-						styles: {
-							popGesture: 'close'
-						},
-						show: {
-							autoShow: true, //页面loaded事件发生后自动显示，默认为true
-							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-						},
-						waiting: {
-							autoShow: true, //自动显示等待框，默认为true
-							title: '正在加载...', //等待对话框上显示的提示内容
-						}
-					});
-				});
+				openWindowfunc('servicelistbtn','serviceslist');
+				openWindowfunc('servicecategorybtn','servicecategory');
+				openWindowfunc('massagistlistbtn','massagistslist');
 				plus.webview.currentWebview().setStyle({
-					scrollIndicator: 'none'
+				scrollIndicator: 'none'
 				});
 			})
 		</script>
@@ -259,7 +215,7 @@
 				</li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
-						<span class="mui-icon"><img src="img/wet.png" style="width:36px;height:36px"/></span> 
+						<span class="mui-icon"><img src="img/wet.png" style="width:36px;height:36px"/></span>
 						<div class="mui-media-body" style="padding-left: 0px;color: #3fbacd;margin-top:0px">汗蒸浴场</div>
 					</a>
 				</li>
@@ -320,27 +276,7 @@
 				</li>
 			</ul>
 		</div>
-		<script>
-			function distancefunc(lat1, lon1, lat2, lon2, unit) {
-				var radlat1 = Math.PI * lat1 / 180
-				var radlat2 = Math.PI * lat2 / 180
-				var radlon1 = Math.PI * lon1 / 180
-				var radlon2 = Math.PI * lon2 / 180
-				var theta = lon1 - lon2
-				var radtheta = Math.PI * theta / 180
-				var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-				dist = Math.acos(dist)
-				dist = dist * 180 / Math.PI
-				dist = dist * 60 * 1.1515
-				if (unit == "K") {
-					dist = dist * 1.609344
-				}
-				if (unit == "N") {
-					dist = dist * 0.8684
-				}
-				return dist
-			}
-		</script>
+
 		<script id="serviceslist" type="text/html ">
 			{{each list as value i}}
 			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
@@ -349,7 +285,7 @@
 					<div class="mui-media-body ">
 						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.servicename}}</p>
 						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>
-						<p class='mui-pull-right mui-service-distance'>{{value.distance}} km</p>
+						<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>
 						<span class='mui-price'>￥{{value.price}}</span>
 					</div>
 				</a>
@@ -365,7 +301,7 @@
 					</div>
 					<div class="mui-media-body mui-media-body-massagistlist ">
 						<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
-						<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance}} km</p>
+						<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>
 						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 						<p class='mui-ellipsis-2'>{{value.intro}}</p>
 					</div>
