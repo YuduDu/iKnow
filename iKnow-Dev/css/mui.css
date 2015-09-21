@@ -3352,7 +3352,7 @@ select:focus
 
 .mui-segmented-control
 {
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
 
     position: relative;
@@ -3364,7 +3364,7 @@ select:focus
 
     table-layout: fixed;
 
-    border: 1px solid #007aff;
+    border: 1px solid #6ACCCB;
     border-radius: 3px;
     background-color: transparent;
 
@@ -3392,7 +3392,7 @@ select:focus
 }
 .mui-segmented-control .mui-control-item
 {
-    line-height: 38px;
+    line-height: 30px;
 
     display: table-cell;
     overflow: hidden;
@@ -3405,9 +3405,9 @@ select:focus
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    color: #007aff;
-    border-color: #007aff;
-    border-left: 1px solid #007aff;
+    color: #6ACCCB;
+    border-color: #6ACCCB;
+    border-left: 1px solid #6ACCCB;
 }
 .mui-segmented-control .mui-control-item:first-child
 {
@@ -3416,8 +3416,9 @@ select:focus
 .mui-segmented-control .mui-control-item.mui-active
 {
     color: #fff;
-    background-color: #007aff;
+    background-color: #6ACCCB;
 }
+
 .mui-segmented-control.mui-segmented-control-inverted
 {
     width: 100%;

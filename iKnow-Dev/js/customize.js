@@ -1,18 +1,22 @@
 var url = {
 		newslist: "http://gene.rnet.missouri.edu/iKnow/db.php",
 		discovernews:"http://gene.rnet.missouri.edu/iKnow/db.php",
-		login:"http://gene.rnet.missouri.edu/iKnow/login.php",
+		login:"http://gene.rnet.missouri.edu/iKnow/login2.php",
 		signup:"http://gene.rnet.missouri.edu/iKnow/signup.php",
 		homeservices:"http://gene.rnet.missouri.edu/iKnow/recommand.php",
 		hometherapists:"http://gene.rnet.missouri.edu/iKnow/recommand.php",
 		serviceslist:"http://gene.rnet.missouri.edu/iKnow/servicelist.php",
 		therapistslist:"http://gene.rnet.missouri.edu/iKnow/massagistlist.php",
-		slideimage1:"http://gene.rnet.missouri.edu/iKnow/login.php",
-		slideimage2:"http://gene.rnet.missouri.edu/iKnow/login.php",
-		slideimage3:"http://gene.rnet.missouri.edu/iKnow/login.php",
-		slideimage4:"http://gene.rnet.missouri.edu/iKnow/login.php",
+		slideimage1:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide1.jpg",
+		slideimage2:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide2.jpg",
+		slideimage3:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide3.jpg",
+		slideimage4:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide4.jpg",
 		indexservicedetail:"http://gene.rnet.missouri.edu/iKnow/servicedetail.php",
 	}
+
+var constant = {
+	versionid:"1.5.9"
+}
 
 var api = {
 		nexmo_api_key:"27883592",
@@ -88,3 +92,23 @@ function openWindowfunc(elementid,windowid){
 					});
 				});
 }
+
+function shareMessage(share, ex) {
+					var msg = {
+						extra: {
+							scene: ex
+						}
+					};
+					msg.href = "http://pre.im/3065";
+					msg.title = "身知道App分享：";
+					msg.content = self.servicename;
+					if (~share.id.indexOf('weibo')) {
+						msg.content += "；体验地址：http://pre.im/3065";
+					}
+					msg.thumbs = ["img/icon120.png"];
+					share.send(msg, function() {
+						plus.nativeUI.toast("分享到\"" + share.description + "\"成功！ ");
+					}, function(e) {
+						plus.nativeUI.toast("分享到\"" + share.description + "\"失败: " + e.code + " - " + e.message);
+					});
+				}

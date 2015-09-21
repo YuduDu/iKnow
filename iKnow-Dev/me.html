@@ -9,6 +9,7 @@
 		<title>me</title>
 		<script src="js/mui.js"></script>
 		<script src="/js/app.js"></script>
+		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<script type="text/javascript" charset="utf-8">
@@ -19,6 +20,7 @@
 					anhtml = plus.storage.getItem("useraccount");
 					document.getElementById("accountname").innerHTML = anhtml
 				});
+				document.getElementById("versionnum").innerHTML = constant.versionid;
 //				document.getElementById("ajax").addEventListener('tap', function() {
 //					mui.openWindow({
 //						id: 'test2',
@@ -183,7 +185,7 @@
 					<li class="mui-table-view-cell">
 						<a class="mui-navigate-right" id="update">
 							<span style="color:#333333;margin-left: 10px;font-size: 16px;">检查更新</span>
-							<span class="pull-right" style="padding-right: 20px;color:#666666">1.5.7</span>
+							<span class="pull-right" style="padding-right: 20px;color:#666666" id="versionnum"></span>
 						</a>
 					</li>
 				</ul>

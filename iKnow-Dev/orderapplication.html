@@ -80,29 +80,8 @@
 					e.preventDefault();
 				})
 				
-				document.getElementById("selectmassagist").addEventListener('tap',function(){
-					mui.openWindow({
-									id: 'orderapplication_massagist',
-									url: "orderapplication_massagist.html",
-									extras:{
-									serviceid:self.serviceid,
-									servicename:self.servicename,
-									price:self.price,
-								},
-									styles: {
-										popGesture: 'close'
-									},
-									show: {
-										autoShow: true, //页面loaded事件发生后自动显示，默认为true
-										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-									},
-									waiting: {
-										autoShow: true, //自动显示等待框，默认为true
-										title: '正在加载...', //等待对话框上显示的提示内容
-									}
-								});
-				})
+				openWindowfunc('selectmassagist','orderapplication_massagist')
+				openWindowfunc('selecttimebtn','SelectTime')
 				
 				document.getElementById("phonespan").innerHTML = plus.storage.getItem("useraccount");
 			})
@@ -148,7 +127,7 @@
 			<a id="selectmassagist" class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">中医保健按摩师<span class="mui-pull-right" style="color:#ff9900;margin:0 -48px 0 40px" id="massagistspan">选择技师</span></a>
 		</div>
 		<div style="height:50px;position: relative;top:82px;background-color: #ffffff;">
-			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">服务时间<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="timeslotspan">选择时间</span></a>
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="selecttimebtn">服务时间<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="timeslotspan">选择时间</span></a>
 		</div>
 		<div style="height:50px;position: relative;top:102px;background-color: #ffffff;">
 			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">现金券/代金券/优惠码</a>

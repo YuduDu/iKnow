@@ -19,46 +19,7 @@
 		</header>
 		<div class="mui-content">
 		<script src="https://checkout.stripe.com/checkout.js"></script>
-		<button id="customButton">Purchase</button>
-		<script>
-			var handler = StripeCheckout.configure({
-			    key: 'pk_test_XOAM8G6tnBANFHGUKpqRRvx0',
-			    image: '/img/documentation/checkout/marketplace.png',
-			    locale: 'auto',
-			    token: function(token) {
-			    	console.log(token.id)
-			      // Use the token to create the charge with a server-side script.
-			      // You can access the token ID with `token.id`
-			    }
-			  });
-			  
-			  document.getElementById("customButton").addEventListener('tap',function(e){
-			  	handler.open({
-			      name: '身知道预订支付',
-			      description: '东方力道中医推拿院-单人全身精油按摩',
-			      amount: 20000000,
-			      image:'http://gene.rnet.missouri.edu/iKnow/img/icon/icon180.png',
-			      alipay:'true'
-			      
-			    });
-			    e.preventDefault();
-			  })
-			
-//			  $('#customButton').on('click', function(e) {
-//			    // Open Checkout with further options
-//			    handler.open({
-//			      name: '身知道预订支付',
-//			      description: '东方力道中医推拿院-单人全身精油按摩',
-//			      amount: 2000000000
-//			    });
-//			    e.preventDefault();
-//			  });
-			
-			  // Close Checkout on page navigation
-			  $(window).on('popstate', function() {
-			    handler.close();
-			  });
-		</script>
+		<script type="text/javascript" src="//iknowdev1.tw.simplybook.me/iframe/pm_loader_v2.php?width=960&url=//iknowdev1.tw.simplybook.me&theme=clean_slide_cyan&layout=cleanside&timeline=modern_week&mode=auto&mobile_redirect=1"></script>
 		</div>
 		
 	</body>
