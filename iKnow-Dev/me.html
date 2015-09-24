@@ -15,11 +15,15 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
-				window.addEventListener('pagebeforeshow', function() {
-					console.log('updated');
+				self = plus.webview.currentWebview()
+				window.addEventListener('refreshme',function(event){   //监听自定义事件
+        self.reload(true);
+        console.log('reloaded')
+    });
+				
 					anhtml = plus.storage.getItem("useraccount");
 					document.getElementById("accountname").innerHTML = anhtml
-				});
+			
 				document.getElementById("versionnum").innerHTML = constant.versionid;
 //				document.getElementById("ajax").addEventListener('tap', function() {
 //					mui.openWindow({

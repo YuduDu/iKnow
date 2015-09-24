@@ -146,6 +146,11 @@
 							});
 						}, 0);
 					};
+					if(!mepage){
+    var mepage = plus.webview.getWebviewById('me.html');
+  }
+  //触发详情页面的newsId事件
+  
 					//检查 "登录状态/锁屏状态" 开始
 					if (settings.autoLogin && state.token && settings.gestures) {
 						$.openWindow({
@@ -192,6 +197,7 @@
 									//localStorage.setItem("useraccount", accountBox.value);
 									plus.storage.setItem("useraccount", accountBox.value);
 									plus.nativeUI.toast('登陆成功');
+									mui.fire(mepage,'refreshme',{});
 									toMain();
 								} else {
 									plus.nativeUI.toast('手机号或密码错误')
