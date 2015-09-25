@@ -21,10 +21,12 @@ function DBfetchall($query,$con){
     if(isset($query)&&isset($con)){
         //$return=array();
         $result = mysql_query($query,$con) or die("Fetchall Error:".mysql_error());
+        //return mysql_fetch_array($result);
         while($row = mysql_fetch_array($result)) {
             $rows[]=$row;
         }
-        if(!empty($rows)){return $rows;}else return true;
+        if(!empty($rows)){return $rows;}
+        else return null;
     }
     else
         return false;
@@ -34,18 +36,35 @@ function DBfetchall($query,$con){
 function DBfetchone($query,$con){
     if(isset($query)&&isset($con)){
         $result = mysql_query($query,$con) or die("Fetchone Error:".mysql_error());
-        return mysql_fetch_array($result);
+        //var_dump(mysql_fetch_assoc($result));
+        return mysql_fetch_assoc($result);
     }
     else
         return false;
 
 }
 
-function DBinsert($table,$array){
+function DBselectonekey($parameterarray=null, $keyarray=null, $keyname=null, $table=null, $con){
+    //echo "DBselect:";
+    //var_dump($parameterarray);
+    $para = join(",",$parameterarray);
+    //echo $para;
+    //echo "para done";
+    $results=array();
+    foreach($keyarray as $key){
+       $query = "select {$para} from {$table} where {$keyname} = {$key}";
+        $result = DBfetchone($query,$con);
+        //var_dump($result);
+        array_push($results,$result);
+    }
+    return $results;
+}
+
+function DBinsert($table,$array,$con){
     $keys = join(",",array_keys($array));
     $vals = "'".join("','",array_values($array))."'";
     $sql = "insert into {$table}($keys) values ({$vals})";
-    if(!mysql_query($sql)){
+    if(!mysql_query($sql,$con)){
         die("Error:".mysql_error());
     }
     else return true;

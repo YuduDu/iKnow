@@ -20,7 +20,7 @@ if(isset($_POST['serviceid'])&&$_POST['serviceid']!=""){
 }
 
 
-function getservicedetail
+//function getservicedetail
 function getservicedetail($id){
     $con = DBconnect();
     //$massagistdetail = DBfetchone("Select from ")
