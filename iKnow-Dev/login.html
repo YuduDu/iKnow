@@ -118,7 +118,7 @@
 				});
 				$.plusReady(function() {
 					plus.navigator.setStatusBarBackground("#6acccb");
-				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+					plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
 					plus.screen.lockOrientation("portrait-primary");
 					var settings = app.getSettings();
 					var state = app.getState();
@@ -132,25 +132,24 @@
 							$.openWindow({
 								id: 'index',
 								show: {
-								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
 									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
 									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-							},
-							styles: {
-								popGesture: 'close'
-							},
-							waiting: {
-								autoShow: true, //自动显示等待框，默认为true
+								},
+								styles: {
+									popGesture: 'close'
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
 									title: '正在加载...', //等待对话框上显示的提示内容
-							}
+								}
 							});
 						}, 0);
 					};
-					if(!mepage){
-    var mepage = plus.webview.getWebviewById('me.html');
-  }
-  //触发详情页面的newsId事件
-  
+					if (!mepage) {
+						var mepage = plus.webview.getWebviewById('me.html');
+					}
+					//触发详情页面的newsId事件
 					//检查 "登录状态/锁屏状态" 开始
 					if (settings.autoLogin && state.token && settings.gestures) {
 						$.openWindow({
@@ -178,13 +177,14 @@
 					var autoLoginButton = doc.getElementById("autoLogin");
 					var regButton = doc.getElementById('reg');
 					var forgetButton = doc.getElementById('forgetPassword');
-
 					loginButton.addEventListener('tap', function(event) {
-					//var form = new Array();
-					//form["phone"] = accountBox.value;
-					//form["password"]=passwordBox.value;
-					var newform = JSON.stringify({"phone": accountBox.value,"password": passwordBox.value });
-					console.log(newform);
+						//var form = new Array();
+						//form["phone"] = accountBox.value;
+						//form["password"]=passwordBox.value;
+						var newform = JSON.stringify({
+							"phone": accountBox.value,
+							"password": passwordBox.value
+						});
 						mui.ajax(url.login, {
 							data: {
 								pass: newform
@@ -197,7 +197,7 @@
 									//localStorage.setItem("useraccount", accountBox.value);
 									plus.storage.setItem("useraccount", accountBox.value);
 									plus.nativeUI.toast('登陆成功');
-									mui.fire(mepage,'refreshme',{});
+									mui.fire(mepage, 'refreshme', {});
 									toMain();
 								} else {
 									plus.nativeUI.toast('手机号或密码错误')
@@ -237,38 +237,37 @@
 							id: 'reg',
 							show: {
 								autoShow: true, //页面loaded事件发生后自动显示，默认为true
-									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 							},
 							styles: {
 								popGesture: 'close'
 							},
 							waiting: {
 								autoShow: true, //自动显示等待框，默认为true
-									title: '正在加载...', //等待对话框上显示的提示内容
+								title: '正在加载...', //等待对话框上显示的提示内容
 							}
 						});
 					}, false);
-//					forgetButton.addEventListener('tap', function(event) {
-//						$.openWindow({
-//							url: 'forget_password.html',
-//							id: 'forget_password',
-//							show: {
-//								autoShow: true, //页面loaded事件发生后自动显示，默认为true
-//									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-//									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-//							},
-//							styles: {
-//								popGesture: 'close'
-//							},
-//							waiting: {
-//								autoShow: true, //自动显示等待框，默认为true
-//									title: '正在加载...', //等待对话框上显示的提示内容
-//							}
-//						});
-//					}, false);
+					//					forgetButton.addEventListener('tap', function(event) {
+					//						$.openWindow({
+					//							url: 'forget_password.html',
+					//							id: 'forget_password',
+					//							show: {
+					//								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+					//									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+					//									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					//							},
+					//							styles: {
+					//								popGesture: 'close'
+					//							},
+					//							waiting: {
+					//								autoShow: true, //自动显示等待框，默认为true
+					//									title: '正在加载...', //等待对话框上显示的提示内容
+					//							}
+					//						});
+					//					}, false);
 					//
-					
 					//
 					var backButtonPress = 0;
 					$.back = function(event) {

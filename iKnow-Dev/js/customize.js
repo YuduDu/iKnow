@@ -3,6 +3,7 @@ var url = {
 		discovernews:"http://gene.rnet.missouri.edu/iKnow/db.php",
 		login:"http://gene.rnet.missouri.edu/iKnow/login2.php",
 		signup:"http://gene.rnet.missouri.edu/iKnow/signup.php",
+		order:"http://gene.rnet.missouri.edu/iKnow/order.php",
 		homeservices:"http://gene.rnet.missouri.edu/iKnow/recommand.php",
 		hometherapists:"http://gene.rnet.missouri.edu/iKnow/recommand.php",
 		serviceslist:"http://gene.rnet.missouri.edu/iKnow/servicelist.php",
@@ -15,7 +16,7 @@ var url = {
 	}
 
 var constant = {
-	versionid:"1.5.9"
+	versionid:"1.6.0"
 }
 
 var api = {

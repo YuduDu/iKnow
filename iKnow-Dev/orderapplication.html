@@ -20,12 +20,7 @@
 				var self = plus.webview.currentWebview();
 				document.getElementById("servicename").innerHTML = self.servicename;
 				document.getElementById("price").innerHTML = "￥" + self.price;
-				//document.getElementById("membersspan").innerHTML = ;
-				//document.getElementById("massagistspan").innerHTML = obj.funcdes;
-				//document.getElementById("timeslotspan").innerHTML = self.shopname;
 				document.getElementById("totalspan").innerHTML = "￥" + self.price;
-				//document.getElementById("namespan").innerHTML = obj.intro;
-				//document.getElementById("phonespan").innerHTML = distance + "Km";
 				var handler = StripeCheckout.configure({
 					key: 'pk_test_XOAM8G6tnBANFHGUKpqRRvx0',
 					image: '/img/documentation/checkout/marketplace.png',
@@ -79,8 +74,55 @@
 					});
 					e.preventDefault();
 				})
+								
+				document.getElementById('selectmassagist').addEventListener('tap', function(e) {
+					//显示热门服务分类页
+					mui.openWindow({
+						id: 'orderapplication_massagist',
+						url: 'orderapplication_massagist.html',
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						extras:{
+							serviceid: self.serviceid,
+							servicename: self.servicename,
+							price: self.price,
+							malist: malist
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					});
+				});
 				
-				openWindowfunc('selectmassagist','orderapplication_massagist')
+				
+				var newform = JSON.stringify({
+							"serviceid": self.serviceid,
+							"customerid": plus.storage.getItem("useraccount")
+						});
+						mui.ajax(url.order, {
+							data: {
+								basic_order: newform
+							},
+							type: 'post', //HTTP请求类型 
+							timeout: 100000, //超时时间设置为10秒；   
+							success: function(data) {
+								this.malist = JSON.parse(data)
+							},
+							error: function(xhr, type, errorThrown) {
+								console.log(type);
+								console.log(JSON.stringify(xhr));
+							}
+						});
+								
+				
+				
 				openWindowfunc('selecttimebtn','SelectTime')
 				
 				document.getElementById("phonespan").innerHTML = plus.storage.getItem("useraccount");

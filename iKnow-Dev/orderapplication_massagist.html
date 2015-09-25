@@ -20,11 +20,39 @@
 				var self = plus.webview.currentWebview();
 				document.getElementById("servicename").innerHTML = self.servicename;
 				document.getElementById("price").innerHTML = "￥" + self.price;
-				
-
+				console.log(self.malist[0].pic);
+				var html = template('1massagisttem', {
+									list: self.malist
+								});
+								document.getElementById('1massagist').innerHTML = html;
 			})
 		</script>
-
+		
+		<script id="1massagisttem" type="text/html ">
+			{{each list as value i}}
+			<div class="mui-input-row mui-radio" style="height:auto;border-bottom: thin;border-bottom-style: solid;border-bottom-color: #f2f2f2;">
+						<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
+							<a href="javascript:; " style="padding-right:25px">
+								<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+								</div>
+								<div class="mui-media-body mui-media-body-massagistlist ">
+									<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
+									<p class='mui-ellipsis-2' style="padding-right:25px">{{value.intro}}</p>
+								</div>
+							</a>
+							<input class="mui-pull-right" name="radio1" type="radio" checked style="
+    padding-left: 300px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 60px;
+    right: 0px;
+">
+						</li>
+					</div>
+			{{/each}}
+		</script>
+		
+		
 		<script type="text/javascript">
 			 // H5 plus事件处理
 			function plusReady() {
@@ -58,64 +86,108 @@
 				<span style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;" id="servicename">小儿保健套餐</span>
 				<span class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price">$98</span>
 			</div>
-			
-			<div style="background-color: #ffffff; height:60px;position:relative;top:15px;margin-left:10px;margin-right:10px">
-				<p style="font-size:18px;color:#56abe4;line-height: 60px;padding-left: 15px;">中级保健师</p>
-			</div>
-			<ul id="1massagist"  style="height: 102px;background-color: #ffffff;margin-bottom:15px;position: relative;top: 16px;padding-left: 0px;margin:0 10px 0 10px">
-					<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
-					<a href="javascript:; ">
-						<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
-						</div>
-						<div class="mui-media-body mui-media-body-massagistlist ">
-							<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
-							<p class='mui-pull-right mui-distance'>{{value.distance}} Km</p>
-							<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
-							<p class='mui-ellipsis-2'>{{value.intro}}</p>
-						</div>
-					</a>
-				</li>
-			</ul>
-			<div style="background-color: #ffffff; height:60px;position:relative;top:40px;margin-left:10px;margin-right:10px">
-				<p style="font-size:18px;color:#56abe4;line-height: 60px;padding-left: 15px;">高级保健师</p>
-			</div>
-			<ul id="2massagist"  style="height: 102px;background-color: #ffffff;margin-bottom:15px;position: relative;top: 41px;padding-left: 0px;margin:0 10px 0 10px">
-					<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
-					<a href="javascript:; ">
-						<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
-						</div>
-						<div class="mui-media-body mui-media-body-massagistlist ">
-							<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
-							<p class='mui-pull-right mui-distance'>{{value.distance}} Km</p>
-							<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
-							<p class='mui-ellipsis-2'>{{value.intro}}</p>
-						</div>
-					</a>
-				</li>
-			</ul>
-			<div style="background-color: #ffffff; height:60px;position:relative;top:65px;margin-left:10px;margin-right:10px">
-				<p style="font-size:18px;color:#56abe4;line-height: 60px;padding-left: 15px;">专家保健师</p>
-			</div>
-			<ul id="3massagist"  style="height: 102px;background-color: #ffffff;margin-bottom:15px;position: relative;top: 66px;padding-left: 0px;margin:0 10px 0 10px">
-					<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
-					<a href="javascript:; ">
-						<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
-						</div>
-						<div class="mui-media-body mui-media-body-massagistlist ">
-							<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
-							<p class='mui-pull-right mui-distance'>{{value.distance}} Km</p>
-							<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
-							<p class='mui-ellipsis-2'>{{value.intro}}</p>
-						</div>
-					</a>
-				</li>
-			</ul>
+			<form  style="height:auto;">
+				<div style="background-color: #ffffff; height:60px;position:relative;top:15px;margin-left:10px;margin-right:10px">
+					<p style="font-size:18px;color:#56abe4;line-height: 60px;padding-left: 15px;">中级保健师</p>
+				</div>
+				<ul id="1massagist" style="height: auto;background-color: #ffffff;margin-bottom:15px;position: relative;top: 16px;padding-left: 0px;margin:0 10px 0 10px">
+					<div class="mui-input-row mui-radio" style="height:auto;border-bottom: thin;border-bottom-style: solid;border-bottom-color: #f2f2f2;">
+						<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
+							<a href="javascript:; ">
+								<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+								</div>
+								<div class="mui-media-body mui-media-body-massagistlist ">
+									<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
+									<p class='mui-ellipsis-2'>{{value.intro}}</p>
+								</div>
+							</a>
+							<input class="mui-pull-right" name="radio1" type="radio" checked>
+						</li>
+					</div>
+					<div class="mui-input-row mui-radio" style="height:auto">
+						<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
+							<a href="javascript:; ">
+								<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+								</div>
+								<div class="mui-media-body mui-media-body-massagistlist ">
+									<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
+									<p class='mui-ellipsis-2'>{{value.intro}}</p>
+								</div>
+							</a>
+							<input class="mui-pull-right" name="radio1" type="radio">
+						</li>
+					</div>
+
+				</ul>
+				<div style="background-color: #ffffff; height:60px;position:relative;top:40px;margin-left:10px;margin-right:10px">
+					<p style="font-size:18px;color:#56abe4;line-height: 60px;padding-left: 15px;">高级保健师</p>
+				</div>
+				<ul id="2massagist" style="height: auto;background-color: #ffffff;margin-bottom:15px;position: relative;top: 41px;padding-left: 0px;margin:0 10px 0 10px">
+					<div class="mui-input-row mui-radio" style="height:auto">
+						<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
+							<a href="javascript:; ">
+								<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+								</div>
+								<div class="mui-media-body mui-media-body-massagistlist ">
+									<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
+									<p class='mui-ellipsis-2'>{{value.intro}}</p>
+								</div>
+							</a>
+							<input class="mui-pull-right" name="radio1" type="radio" checked>
+						</li>
+					</div>
+					<div class="mui-input-row mui-radio" style="height:auto">
+						<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
+							<a href="javascript:; ">
+								<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+								</div>
+								<div class="mui-media-body mui-media-body-massagistlist ">
+									<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
+									<p class='mui-ellipsis-2'>{{value.intro}}</p>
+								</div>
+							</a>
+							<input class="mui-pull-right" name="radio1" type="radio">
+						</li>
+					</div>
+
+				</ul>
+				<div style="background-color: #ffffff; height:60px;position:relative;top:65px;margin-left:10px;margin-right:10px">
+					<p style="font-size:18px;color:#56abe4;line-height: 60px;padding-left: 15px;">专家保健师</p>
+				</div>
+				<ul id="3massagist" style="height: auto;background-color: #ffffff;margin-bottom:15px;position: relative;top: 66px;padding-left: 0px;margin:0 10px 0 10px">
+
+					<div class="mui-input-row mui-radio" style="height:auto">
+						<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
+							<a href="javascript:; ">
+								<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+								</div>
+								<div class="mui-media-body mui-media-body-massagistlist ">
+									<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
+									<p class='mui-ellipsis-2'>{{value.intro}}</p>
+								</div>
+							</a>
+							<input class="mui-pull-right" name="radio1" type="radio" checked>
+						</li>
+					</div>
+					<div class="mui-input-row mui-radio" style="height:auto">
+						<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
+							<a href="javascript:; ">
+								<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+								</div>
+								<div class="mui-media-body mui-media-body-massagistlist ">
+									<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="width:20px;height:16px;"/></span>
+									<p class='mui-ellipsis-2'>{{value.intro}}</p>
+								</div>
+							</a>
+							<input class="mui-pull-right" name="radio1" type="radio">
+						</li>
+					</div>
+				</ul>
+			</form>
 		</div>
-		
-		
+
 		<script>
 			 //更换标题
-			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
 		</script>
 
 	</body>
