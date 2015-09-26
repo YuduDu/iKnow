@@ -27,8 +27,8 @@
 					locale: 'auto',
 					token: function(token) {
 						//console.log(token.id)
-							// Use the token to create the charge with a server-side script.
-							// You can access the token ID with `token.id`
+						// Use the token to create the charge with a server-side script.
+						// You can access the token ID with `token.id`
 						mui.ajax('http://gene.rnet.missouri.edu/iKnow/test/charge.php', {
 							data: {
 								stripeToken: token.id,
@@ -64,17 +64,40 @@
 					}
 				});
 				document.getElementById("orderbtn").addEventListener('tap', function(e) {
+					var newform = JSON.stringify({
+						"massaid": plus.storage.getItem("order_massaid"),
+						"qty": plus.storage.getItem("order_qty")
+					});
+					mui.ajax(url.order, {
+						data: {
+							submit: newform
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；   
+						success: function(data) {
+							this.maorder = JSON.parse(data)
+							console.log(this.maorder);
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(type);
+							console.log(JSON.stringify(xhr));
+						}
+					});
 					handler.open({
 						name: '身知道预订支付',
 						description: self.servicename,
-						amount: self.price*100,
+						amount: self.price * 100,
 						image: 'http://gene.rnet.missouri.edu/iKnow/img/icon/icon180.png',
 						alipay: 'true',
-						currency:'CNY'
+						currency: 'CNY'
 					});
 					e.preventDefault();
 				})
-								
+				plus.storage.setItem("order_qty", 1);
+				document.getElementById("qtyselect").onchange = function() {
+					plus.storage.setItem("order_qty", this.value);
+					mui.fire(orderpage, 'updateorder', {});
+				}
 				document.getElementById('selectmassagist').addEventListener('tap', function(e) {
 					//显示热门服务分类页
 					mui.openWindow({
@@ -88,7 +111,7 @@
 							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
 							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 						},
-						extras:{
+						extras: {
 							serviceid: self.serviceid,
 							servicename: self.servicename,
 							price: self.price,
@@ -100,32 +123,58 @@
 						}
 					});
 				});
-				
-				
 				var newform = JSON.stringify({
-							"serviceid": self.serviceid,
-							"customerid": plus.storage.getItem("useraccount")
-						});
-						mui.ajax(url.order, {
-							data: {
-								basic_order: newform
-							},
-							type: 'post', //HTTP请求类型 
-							timeout: 100000, //超时时间设置为10秒；   
-							success: function(data) {
-								this.malist = JSON.parse(data)
-							},
-							error: function(xhr, type, errorThrown) {
-								console.log(type);
-								console.log(JSON.stringify(xhr));
-							}
-						});
-								
-				
-				
-				openWindowfunc('selecttimebtn','SelectTime')
-				
+					"serviceid": self.serviceid,
+					"customerid": plus.storage.getItem("useraccount")
+				});
+				mui.ajax(url.order, {
+					data: {
+						basic_order: newform
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；   
+					success: function(data) {
+						this.malist = JSON.parse(data)
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				openWindowfunc('selecttimebtn', 'SelectTime')
 				document.getElementById("phonespan").innerHTML = plus.storage.getItem("useraccount");
+				plus.storage.setItem("order_qty", "1");
+				plus.storage.setItem("order_massaid", "null");
+				plus.storage.setItem("order_massaname", "null");
+				var orderpage = plus.webview.currentWebview();
+				//				mui.fire(orderpage, 'updateorder', {});
+				var massaname = null
+				window.addEventListener('updateorder', function(event) { //监听自定义事件
+					if (plus.storage.getItem("order_massaname") != massaname) {
+						massaname = plus.storage.getItem("order_massaname");
+						document.getElementById('massagistspan').innerHTML = massaname;
+					}
+					var newform = JSON.stringify({
+						"massaid": plus.storage.getItem("order_massaid"),
+						"qty": plus.storage.getItem("order_qty")
+					});
+					mui.ajax(url.order, {
+						data: {
+							order: newform
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；   
+						success: function(data) {
+							this.maorder = JSON.parse(data)
+							console.log(this.maorder);
+							document.getElementById("totalspan").innerHTML = this.maorder;
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(type);
+							console.log(JSON.stringify(xhr));
+						}
+					});
+				});
 			})
 		</script>
 
@@ -161,12 +210,12 @@
 			<span class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price"></span>
 		</div>
 		<div style="height:50px;position: relative;top:80px;background-color: #ffffff;">
-			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">人数<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="membersspan"><select style="padding:10px 0 10px 0;height:40px;margin:5px 0 5px 40px"><option value="item-1">1</option>
-				<option value="item-2">2</option>
-				<option value="item-3">3</option></select></span></a>
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">人数<span class="mui-pull-right" style="padding-left:60px;padding-right:40px;color:#ff9900" id="membersspan"><select id="qtyselect" style="padding:10px 0 10px 0;height:40px;margin:5px 0 5px 40px"><option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option></select></span></a>
 		</div>
 		<div style="height:50px;position: relative;top:81px;background-color: #ffffff;">
-			<a id="selectmassagist" class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">中医保健按摩师<span class="mui-pull-right" style="color:#ff9900;margin:0 -48px 0 40px" id="massagistspan">选择技师</span></a>
+			<a id="selectmassagist" class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">中医保健按摩师<span class="mui-pull-right" style="color:#ff9900;margin:0 -108px 0 40px" id="massagistspan">选择技师</span></a>
 		</div>
 		<div style="height:50px;position: relative;top:82px;background-color: #ffffff;">
 			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="selecttimebtn">服务时间<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="timeslotspan">选择时间</span></a>
