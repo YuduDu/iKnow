@@ -22,7 +22,7 @@ function DBfetchall($query,$con){
         //$return=array();
         $result = mysql_query($query,$con) or die("Fetchall Error:".mysql_error());
         //return mysql_fetch_array($result);
-        while($row = mysql_fetch_array($result)) {
+        while($row = mysql_fetch_assoc($result)) {
             $rows[]=$row;
         }
         if(!empty($rows)){return $rows;}
@@ -44,7 +44,8 @@ function DBfetchone($query,$con){
 
 }
 
-function DBselectonekey($parameterarray=null, $keyarray=null, $keyname=null, $table=null, $con){
+//function DBselectonekey($parameter)
+function DBselectsUseonekey($parameterarray=null, $keyarray=null, $keyname=null, $table=null, $con){
     //echo "DBselect:";
     //var_dump($parameterarray);
     $para = join(",",$parameterarray);
@@ -53,6 +54,7 @@ function DBselectonekey($parameterarray=null, $keyarray=null, $keyname=null, $ta
     $results=array();
     foreach($keyarray as $key){
        $query = "select {$para} from {$table} where {$keyname} = {$key}";
+        //echo $query;
         $result = DBfetchone($query,$con);
         //var_dump($result);
         array_push($results,$result);

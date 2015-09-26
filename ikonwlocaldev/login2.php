@@ -26,7 +26,7 @@
         //echo "db connnect";
         //var_dump($pdw);
         //echo (string)$char["password"];
-        if ((string)$char["password"]==$pdw[0]){
+        if ((string)$char["password"]==$pdw["password"]){
             echo "success";
         }
         else echo "Fail";

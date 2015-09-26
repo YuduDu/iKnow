@@ -28,10 +28,10 @@ function getservicedetail($id){
     //echo $getservice;
     $Arr = array();
     while($service=mysql_fetch_row($servicedetail)){
-        $getshopdetail = mysql_query("select name,latitude,longtitude,phone,address,pic from Shop where shopid=".$service[0].";", $con);
+        $getshopdetail = mysql_query("select name,latitude,longtitude,phone,address,pic from Shop where shopid=".$service["shopid"].";", $con);
         $shop=mysql_fetch_array($getshopdetail);
         //echo $row[0],$row[1];
-        $a=array("servicename"=>$service[1],"shortdesc"=>$service[2],"price"=>$service[3],"funcdes"=>$service[4],"intro"=>$service[5],"shopname"=>$shop[0],"latitude"=>$shop[1],"longtitude"=>$shop[2],"phone"=>$shop[3],"address"=>$shop[4],"pic"=>$shop[5]);
+        $a=array("servicename"=>$service["name"],"shortdesc"=>$service["shortdesc"],"price"=>$service["price"],"funcdes"=>$service["funcdesc"],"intro"=>$service["intro"],"shopname"=>$shop["name"],"latitude"=>$shop["latitude"],"longtitude"=>$shop["longtitude"],"phone"=>$shop["phone"],"address"=>$shop["address"],"pic"=>$shop["pic"]);
         //echo $a;
         array_push($Arr,$a);
     }

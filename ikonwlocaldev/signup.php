@@ -2,7 +2,7 @@
 <?php
 //echo "this is a test"
 require_once 'db_func.php';
-if($_POST){
+if(isset($_POST['customid'])&&isset($_POST['custompassword'])){
   $id=$_POST['customid'];
   $pd=$_POST['custompassword'];
   signup($id,$pd);
