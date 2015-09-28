@@ -18,6 +18,7 @@
 			});
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
+				var massanametemp = 'null'
 				document.getElementById("servicename").innerHTML = self.servicename;
 				document.getElementById("price").innerHTML = "￥" + self.price;
 				document.getElementById("totalspan").innerHTML = "￥" + self.price;
@@ -29,15 +30,19 @@
 						//console.log(token.id)
 						// Use the token to create the charge with a server-side script.
 						// You can access the token ID with `token.id`
-						mui.ajax('http://gene.rnet.missouri.edu/iKnow/test/charge.php', {
+						mui.ajax('http://gene.rnet.missouri.edu/iKnow/order.php', {
 							data: {
-								stripeToken: token.id,
+								submit: token.id,
 							},
 							//dataType: 'json', //服务器返回json格式数据
 							type: 'post', //HTTP请求类型
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
-								console.log(data);
+								if (data != 'success'){
+									plus.nativeUI.toast('支付请求失败，请返回重试');
+									return;
+								}
+								
 								//服务器返回响应，根据响应结果，分析是否登录成功；
 								mui.openWindow({
 									id: 'paymentsuccess',
@@ -64,25 +69,6 @@
 					}
 				});
 				document.getElementById("orderbtn").addEventListener('tap', function(e) {
-					var newform = JSON.stringify({
-						"massaid": plus.storage.getItem("order_massaid"),
-						"qty": plus.storage.getItem("order_qty")
-					});
-					mui.ajax(url.order, {
-						data: {
-							submit: newform
-						},
-						type: 'post', //HTTP请求类型 
-						timeout: 100000, //超时时间设置为10秒；   
-						success: function(data) {
-							this.maorder = JSON.parse(data)
-							console.log(this.maorder);
-						},
-						error: function(xhr, type, errorThrown) {
-							console.log(type);
-							console.log(JSON.stringify(xhr));
-						}
-					});
 					handler.open({
 						name: '身知道预订支付',
 						description: self.servicename,
@@ -115,7 +101,8 @@
 							serviceid: self.serviceid,
 							servicename: self.servicename,
 							price: self.price,
-							malist: malist
+							malist: malist,
+							massanametemp: massanametemp
 						},
 						waiting: {
 							autoShow: true, //自动显示等待框，默认为true
@@ -154,6 +141,7 @@
 						massaname = plus.storage.getItem("order_massaname");
 						document.getElementById('massagistspan').innerHTML = massaname;
 					}
+					massanametemp = plus.storage.getItem("order_massaname")
 					var newform = JSON.stringify({
 						"massaid": plus.storage.getItem("order_massaid"),
 						"qty": plus.storage.getItem("order_qty")
@@ -167,7 +155,7 @@
 						success: function(data) {
 							this.maorder = JSON.parse(data)
 							console.log(this.maorder);
-							document.getElementById("totalspan").innerHTML = this.maorder;
+							document.getElementById("totalspan").innerHTML = "￥" + this.maorder;
 						},
 						error: function(xhr, type, errorThrown) {
 							console.log(type);
