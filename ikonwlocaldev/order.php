@@ -6,13 +6,14 @@
  * Time: 4:58 PM
  */
 require_once "db_func.php";
-
+require_once('stripe-config.php');
+\Stripe\Stripe::setApiKey("sk_test_pijvVr7Jl5AjrLIymIx2qETk");
 session_start();
 //$_SESSION['timeout'] = time();
-
+//echo "begin:";
 if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
 {
-
+    //echo "begin:";
     $_SESSION['customerid']= null;
     $_SESSION['serviceid'] = null;
     $_SESSION['massaid'] = null;
@@ -21,8 +22,9 @@ if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
     $_SESSION['unitprice'] = null;
     $_SESSION['qty'] = 1;
     $_SESSION["level"] = "M";
-   // var_dump($_SESSION);
-    //echo "begin:";
+    $_SESSION['status'] = null;
+    // var_dump($_SESSION);
+
     $basic_order_parameter = json_decode($_POST['basic_order']);
     foreach($basic_order_parameter as $key => $val){
         $_SESSION[$key]=$val;
@@ -57,7 +59,7 @@ if(isset($_POST['order'])&&$_POST['order']!=NULL)
     $con=DBconnect();
     if($_SESSION['massaid']!=NULL)
     {
-    $_SESSION["level"] = getlevel($con);
+        $_SESSION["level"] = getlevel($con);
     }
     //echo "level:".$_SESSION["level"];
     $_SESSION["unitprice"]=getunitprice($con);
@@ -69,22 +71,16 @@ if(isset($_POST['order'])&&$_POST['order']!=NULL)
 
 if(isset($_POST['submit'])&&$_POST['submit']!=null)
 {
-    $order_parameter = json_decode($_POST['submit']);
-    foreach($order_parameter as $key => $val){
-        $_SESSION[$key]=$val;
-    }
-
-    //var_dump($_SESSION);
-    $con=DBconnect();
-    $_SESSION["level"] = getlevel($con);
-    //echo "level:".$_SESSION["level"];
-    $_SESSION["unitprice"]=getunitprice($con);
-    $_SESSION['amount']=calculateamount();
-    //var_dump($_SESSION);
-    echo $_SESSION['amount'];
+    $token = $_POST['submit'];
+    charge($token);
     placeorder();
 
 }
+
+/*if(isset($_POST['stripeToken'])&&$_POST['stripeToken']!=null){
+    $token  = $_POST['stripeToken'];
+    charge($token);
+}*/
 
 //get unitprice by massaid
 function getlevel($con){
@@ -116,16 +112,42 @@ function calculateamount(){
 
 }
 
+
+//make payment with stripe
+function charge($token){
+    //echo "start:";
+    $phone = $_SESSION["customerid"];
+    $customer = \Stripe\Customer::create(array(
+        //'email' => 'customer@example.com',
+        'card'  => $token,
+        'description' => $phone
+        //'metadata' => array("phone" => $_SESSION["customerid"])
+    ));
+    //echo "1 done:";
+    $money=$_SESSION['amount']*100;
+
+    //echo $money;
+    $charge = \Stripe\Charge::create(array(
+        'customer' => $customer->id,
+        'amount'   => $money,
+        'currency' => 'usd'
+    ));
+    //$result = json_decode($charge);
+    //var_dump($charge);
+    //var_dump($charge["status"]);
+
+    if($charge["status"]=="succeeded"){
+        echo "success";
+    }
+
+    //echo "hehe";
+}
 //insert order information into database
 function placeorder(){
+    //var_dump($_SESSION);
     session_destroy();
 }
 
-//make payment with stripe
-function charge(){
-
-
-}
 
 
 

@@ -12,5 +12,5 @@ $stripe = array(
     "publishable-key"=>"pk_test_XOAM8G6tnBANFHGUKpqRRvx0"
 );
 \Stripe\Stripe::setApiKey($stripe['secret_key']);
-echo "hehe";
+//echo "hehe";
 ?>

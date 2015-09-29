@@ -5,11 +5,66 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 		case 'get_news':getnews(); break;
 		case 'get_recommand_service':recommand_service(); break;
 		case 'get_recommand_massagist':recommand_massagesit(); break;
+		case 'get_recommand_news':{
+			if(!isset($_POST['id'])) {
+				//echo "hehe";
+				recommand_news();
+			}
+			else recommand_news($_POST['id']);
+			//recommand_news();
+		}break;
 		case 'get_massagist_list':getmassagistlist(); break;
-		case 'get_services_list':getserviceslist(); break;
+		case 'get_services_list':
+		{
+			//echo "hehe1";
+			if(isset($_POST["categoryid"])&&$_POST["categoryid"]!=null){
+				//echo "hehe2";
+				if($_POST["categoryid"]=="null"){
+					getserviceslist();
+				}
+				else
+					getservicesbycategory($_POST["categoryid"]);
+			}
+			else echo "Error: categoryid wrong";
+
+		}break;
+		/*case 'get_services_by_category':
+		{
+
+
+		}break;*/
 		default:
 	}
 }
+
+function recommand_news($id=null){
+	//var_dump(is_int($id));
+	$con = DBconnect();
+	if($id!=null){
+		$query = "SELECT * FROM Recommand_news WHERE id = ".$id.";";
+		$result = DBfetchone($query,$con);
+		echo json_encode($result);
+	}
+	else{
+		$query = "SELECT id, title, pic FROM Recommand_news";
+		$result = DBfetchall($query,$con);
+		echo json_encode($result);
+
+	}
+
+}
+function getservicesbycategory($categoryid){
+	//echo “hehe”;
+	$con = DBconnect();
+	$query = "SELECT serviceid,shopid,name,price FROM Service WHERE catid=".$categoryid.";";
+	//$getcatname = "SELECT name FROM Category WHERE catid = ".$categoryid.";";
+//	$catname = DBfetchone($getcatname,$con);
+	$result = DBfetchall($query,$con);
+	$arr = getserviceslistinfo_by_basicinfo($result,$con);
+//	$return=array($catname["name"]=>$arr);
+	echo json_encode($arr);
+}
+
 
 function getnews(){
 	$con=DBconnect();
@@ -62,13 +117,18 @@ function getmassagistlist(){
 function getserviceslist(){
 	$con =DBconnect();
 	$getservice = DBfetchall("SELECT serviceid,shopid,name,price FROM Service",$con);
+	$Arr =getserviceslistinfo_by_basicinfo($getservice,$con);
+	echo json_encode($Arr);
+}
+
+function getserviceslistinfo_by_basicinfo($array,$con){
 	$Arr = array();
-	foreach ($getservice as $row){
+	foreach ($array as $row){
 		$row2 = DBfetchone("select name,pic,latitude,longtitude from Shop where shopid=".$row["shopid"].";" , $con);
 		$a=array("serviceid"=>$row["serviceid"],"shopname"=>$row2["name"],"servicename"=>$row["name"],"price"=>$row["price"],"pic"=>$row2["pic"],"latitude"=>$row2["latitude"],"longtitude"=>$row2["longtitude"]);
 		//var_dump($row2);
 		array_push($Arr,$a);
 	}
-	echo json_encode($Arr);
+	return $Arr;
 }
 ?>
