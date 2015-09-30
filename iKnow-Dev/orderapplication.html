@@ -30,7 +30,7 @@
 						//console.log(token.id)
 						// Use the token to create the charge with a server-side script.
 						// You can access the token ID with `token.id`
-						mui.ajax('http://gene.rnet.missouri.edu/iKnow/order.php', {
+						mui.ajax(url.order, {
 							data: {
 								submit: token.id,
 							},
@@ -38,6 +38,7 @@
 							type: 'post', //HTTP请求类型
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
+								console.log(data)
 								if (data != 'success'){
 									plus.nativeUI.toast('支付请求失败，请返回重试');
 									return;
@@ -68,11 +69,17 @@
 						});
 					}
 				});
+				
 				document.getElementById("orderbtn").addEventListener('tap', function(e) {
+					console.log("name:"+plus.storage.getItem("order_massaname"));
+					if(plus.storage.getItem("order_massaname") == null || plus.storage.getItem("order_qty") == null){
+						mui.toast('请先选择技师');
+						return;
+					}
 					handler.open({
 						name: '身知道预订支付',
 						description: self.servicename,
-						amount: self.price * 100,
+						//amount: self.price * 100,
 						image: 'http://gene.rnet.missouri.edu/iKnow/img/icon/icon180.png',
 						alipay: 'true',
 						currency: 'CNY'
@@ -114,6 +121,8 @@
 					"serviceid": self.serviceid,
 					"customerid": plus.storage.getItem("useraccount")
 				});
+				console.log('hehe');
+				console.log("serviceid:"+self.serviceid+"customerid:"+plus.storage.getItem("useraccount"))
 				mui.ajax(url.order, {
 					data: {
 						basic_order: newform
@@ -146,6 +155,7 @@
 						"massaid": plus.storage.getItem("order_massaid"),
 						"qty": plus.storage.getItem("order_qty")
 					});
+					console.log("massaid:"+plus.storage.getItem("order_massaid")+"qty:"+plus.storage.getItem("order_qty"));
 					mui.ajax(url.order, {
 						data: {
 							order: newform

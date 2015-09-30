@@ -4,9 +4,8 @@ var url = {
 		login:"http://gene.rnet.missouri.edu/iKnow/login2.php",
 		signup:"http://gene.rnet.missouri.edu/iKnow/signup.php",
 		order:"http://gene.rnet.missouri.edu/iKnow/order.php",
-		homeservices:"http://gene.rnet.missouri.edu/iKnow/recommand.php",
-		hometherapists:"http://gene.rnet.missouri.edu/iKnow/recommand.php",
-		serviceslist:"http://gene.rnet.missouri.edu/iKnow/servicelist.php",
+		serviceslist:"http://gene.rnet.missouri.edu/iKnow/list.php",
+		list:"http://gene.rnet.missouri.edu/iKnow/list.php",
 		therapistslist:"http://gene.rnet.missouri.edu/iKnow/massagistlist.php",
 		slideimage1:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide1.jpg",
 		slideimage2:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide2.jpg",
@@ -16,9 +15,15 @@ var url = {
 	}
 
 var constant = {
-	versionid:"1.6.0"
+	versionid:"1.6.4"
 }
 
+var categorypair = {
+	1:'推拿按摩',
+	2:'刮痧火罐',
+	3:'汗蒸浴场',
+	4:'足疗养生'
+}
 var api = {
 		nexmo_api_key:"27883592",
 		nexmo_api_secret:"c2516ec5"

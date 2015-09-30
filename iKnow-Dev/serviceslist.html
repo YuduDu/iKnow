@@ -15,9 +15,22 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				//console.log(self.categoryid);
+				if(self.categoryid){
+					actionvalue = 'get_services_list';
+					categoryidvalue = self.categoryid;
+				}
+				else{
+					actionvalue = 'get_services_list';
+					categoryidvalue = 'null';
+				}
+				console.log('actionvalue'+actionvalue);
+				console.log('categoryid'+categoryidvalue)
 				mui.ajax(url.serviceslist, {
 					data: {
-						action: 'get_services_list'
+						action: actionvalue,
+						categoryid: categoryidvalue
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
@@ -43,6 +56,21 @@
 						console.log(JSON.stringify(xhr));
 					}
 				});
+				
+				switch (categoryidvalue) {
+					case '1':
+						document.getElementById("title").innerHTML = categorypair[1]
+						break;
+					case '2':
+						document.getElementById("title").innerHTML = categorypair[2]
+						break;
+					case '3':
+						document.getElementById("title").innerHTML = categorypair[3]
+						break;
+					case '4':
+						document.getElementById("title").innerHTML = categorypair[4]
+						break;	
+				}
 				
 				mui('#Services').on('tap', 'li', function() {
 									mui.openWindow({

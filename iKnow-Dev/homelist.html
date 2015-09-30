@@ -16,14 +16,14 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
-				mui.ajax(url.homeservices, {
+				mui.ajax(url.list, {
 					data: {
 						action: 'get_recommand_service'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						console.log(data);
+						//console.log(data);
 						this.obj = JSON.parse(data)
 						plus.geolocation.getCurrentPosition(function(p) {
 								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
@@ -38,8 +38,8 @@
 								document.getElementById('Services').innerHTML = html;
 							},
 							function(e) {
-								Post2Template(url.homeservices,'get_recommand_service','serviceslist','Services');
-								Post2Template(url.hometherapists,'get_recommand_massagist','massagistslist','massagist');
+								Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
+								Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
 								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
 							})
 					},
@@ -50,7 +50,30 @@
 					}
 				});
 				
-								mui('#Services').on('tap', 'li', function() {
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_recommand_news'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log(data);
+						var obj = JSON.parse(data);
+						var html = template('slidetemplate', {
+									list: obj
+							}); 
+							//console.log(obj[0].title)
+							console.log(html)
+						document.getElementById('slideshowul').innerHTML = html;
+					},
+					error: function(xhr, type, errorThrown) {
+						//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				
+				mui('#Services').on('tap', 'li', function() {
 						mui.openWindow({
 							url: 'index_service_detail.html',
 							id: 'index_service_detail',
@@ -77,9 +100,29 @@
 							}
 						})
 					})
-				
 					//console.log(point1);
-				mui.ajax(url.hometherapists, {
+				mui('#homecategory').on('tap', 'li', function() {
+					mui.openWindow({
+						url: 'serviceslist.html',
+						id: 'serviceslist',
+						extras: {
+							categoryid: this.getAttribute('data-id')
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+				mui.ajax(url.list, {
 					data: {
 						action: 'get_recommand_massagist'
 					},
@@ -98,18 +141,15 @@
 									list: obj2
 								});
 								document.getElementById('massagist').innerHTML = html;
-							}) 
+							})
 							//console.log(data);
 					},
 					error: function(xhr, type, errorThrown) {
-						
 						plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
 						console.log(type);
 						console.log(JSON.stringify(xhr));
 					}
 				});
-				
-				
 				mui('#massagist').on('tap', 'li', function() {
 					mui.openWindow({
 						url: 'massagistslist.html',
@@ -136,28 +176,33 @@
 						}
 					})
 				})
-				
-
-				
-				document.getElementById("slideshow").addEventListener('tap', function(e) {
-					//显示引导页
+				mui('#slideshowul').on('tap', 'div', function() {
 					mui.openWindow({
-						id: 'guide',
-						url: 'guide.html',
+						url: 'slidecontent.html',
+						id: 'slidecontent',
+						extras: {
+							newsid: this.getAttribute('data-id')
+						},
+						styles: {
+							popGesture: 'close'
+						},
 						show: {
-							aniShow: 'fade-in',
-							duration: 300
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 						},
 						waiting: {
-							autoShow: false
-						},
-					});
-				});
-				openWindowfunc('servicelistbtn','serviceslist');
-				openWindowfunc('servicecategorybtn','servicecategory');
-				openWindowfunc('massagistlistbtn','massagistslist');
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+
+				openWindowfunc('servicelistbtn', 'serviceslist');
+				openWindowfunc('servicecategorybtn', 'servicecategory');
+				openWindowfunc('massagistlistbtn', 'massagistslist');
 				plus.webview.currentWebview().setStyle({
-				scrollIndicator: 'none'
+					scrollIndicator: 'none'
 				});
 			})
 		</script>
@@ -177,17 +222,17 @@
 	<body>
 		<div class="mui-content">
 			<div id="slideshow" class="mui-slider" style="height:160px" ;>
-				<div class="mui-slider-group">
-					<div class="mui-slider-item">
-						<a id="slider-image-1" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide1.jpg" /></a>
+				<div id="slideshowul"class="mui-slider-group">
+					<div data-id = "1" class="mui-slider-item">
+						<a id="slider-image-1" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide3.jpg" /></a>
 					</div>
-					<div class="mui-slider-item">
+					<div data-id = "2" class="mui-slider-item">
 						<a id="slider-image-2" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide2.jpg" /></a>
 					</div>
-					<div class="mui-slider-item">
-						<a id="slider-image-3" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide3.jpg" /></a>
+					<div data-id = "3" class="mui-slider-item">
+						<a id="slider-image-3" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide1.jpg" /></a>
 					</div>
-					<div class="mui-slider-item">
+					<div data-id = "4" class="mui-slider-item">
 						<a id="slider-image-4" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide4.jpg" /></a>
 					</div>
 				</div>
@@ -200,26 +245,26 @@
 					</a>
 				</li>
 			</ul>
-			<ul class="mui-table-view mui-grid-view" style="margin-bottom: 15px;padding-right:0px;padding-top: 10px;">
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+			<ul id="homecategory" class="mui-table-view mui-grid-view" style="margin-bottom: 15px;padding-right:0px;padding-top: 10px;">
+				<li data-id="1" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
 						<span class="mui-icon"><img src="img/massage.png" style="width:36px;height:36px"/></span>
 						<div class="mui-media-body" style="padding-left: 0px;color: #00cd92;margin-top:0px">推拿按摩</div>
 					</a>
 				</li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+				<li data-id="2" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
 						<span class="mui-icon"><img src="img/gas.png" style="width:36px;height:36px"/></span>
 						<div class="mui-media-body" style="padding-left: 0px;color: #ff6600;margin-top:0px">刮痧火罐</div>
 					</a>
 				</li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+				<li data-id="3" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
 						<span class="mui-icon"><img src="img/wet.png" style="width:36px;height:36px"/></span>
 						<div class="mui-media-body" style="padding-left: 0px;color: #3fbacd;margin-top:0px">汗蒸浴场</div>
 					</a>
 				</li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+				<li data-id="4" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
 						<span class="mui-icon"><img src="img/human_footprints.png" style="width:36px;height:36px"/></span>
 						<div class="mui-media-body" style="padding-left: 0px;color: #FFCC00;margin-top:0px">足疗养生</div>
@@ -253,18 +298,6 @@
 				</li>
 			</ul>
 			<ul id="massagist" class="mui-table-view">
-				<!--<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
-				<a href="javascript:; ">
-					<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
-					</div>
-					<div class="mui-media-body mui-media-body-massagistlist ">
-						<span>{{value.name}}</span><span><img src="img/v3.png" style="width:24px;height:24px;padding-top:0px"/></span>
-						<p class='mui-pull-right mui-distance'>{{value.distance}} km</p>
-						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
-						<p class='mui-ellipsis-2'>{{value.intro}}</p>
-					</div>
-				</a>
-			</li>-->
 				<li class="mui-table-view-cell mui-media ">
 					<a href="javascript:; ">
 						<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover; ">
@@ -293,6 +326,13 @@
 			{{/each}}
 		</script>
 
+		<script id="slidetemplate" type="text/html ">
+			{{each list as value i}}
+			<div data-id="{{value.id}}" class="mui-slider-item">
+				<a id="slider-image-{{value.id}}" href="javascript:;"><img src="{{value.pic}}"/></a>
+			</div>
+			{{/each}}
+		</script>
 		<script id="massagistslist" type="text/html ">
 			{{each list as value i}}
 			<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
@@ -302,7 +342,7 @@
 					<div class="mui-media-body mui-media-body-massagistlist ">
 						<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
 						<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>
-						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p> 
+						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 						<p class='mui-ellipsis-2'>{{value.intro}}</p>
 					</div>
 				</a>

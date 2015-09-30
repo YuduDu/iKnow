@@ -14,6 +14,7 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init({
 				swipeBack: true
+				
 			});
 			var shares = {};
 			mui.plusReady(function() {
@@ -34,10 +35,33 @@
 				plus.webview.currentWebview().setStyle({
 					scrollIndicator: 'none'
 				});
+//				var orderapplicationPage = mui.preload({
+//						"id": 'main',
+//						"url": 'main.html',
+//						id: 'orderaplication',
+//						url: "orderapplication.html",
+//						extras: {
+//							serviceid: self.serviceid,
+//							servicename: self.servicename,
+//							price: self.price
+//						},
+//						styles: {
+//							popGesture: 'close'
+//						},
+//						show: {
+//							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+//							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+//							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+//						},
+//						waiting: {
+//							autoShow: true, //自动显示等待框，默认为true
+//							title: '正在加载...', //等待对话框上显示的提示内容
+//						}
+//					});
 				document.getElementById("orderbtn").addEventListener('tap', function() {
 					//显示预定提交页
 					mui.openWindow({
-						id: 'orderaplication',
+						id: 'orderapplication',
 						url: "orderapplication.html",
 						extras: {
 							serviceid: self.serviceid,
@@ -57,6 +81,7 @@
 							title: '正在加载...', //等待对话框上显示的提示内容
 						}
 					});
+//					orderapplicationPage.show('pop-in', 300);
 				});
 				var mapview = "";
 				mui.ajax(url.indexservicedetail, {
@@ -95,9 +120,6 @@
 						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,0.5)";
 					}
 				});
-				
-				
-				
 				document.getElementById("sharebtn").addEventListener('tap', function() {
 					console.log('tapped');
 					var ids = [{
@@ -148,8 +170,6 @@
 						}
 					});
 				});
-
-				
 			})
 		</script>
 

@@ -17,7 +17,7 @@
 				swipeBack:true
 			});
 			mui.plusReady(function(){
-				mui.ajax(url.therapistslist, {
+				mui.ajax(url.list, {
 					data: {
 						action: 'get_massagist_list'
 					},
@@ -38,7 +38,7 @@
 						document.getElementById('massagist').innerHTML = html;
 						
 						},function(e){
-							Post2Template(url.therapistslist,'get_massagist_list','massagistslist','massagist');
+							Post2Template(url.list,'get_massagist_list','massagistslist','massagist');
 						})
 						//console.log(data);
 						
