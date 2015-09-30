@@ -16,7 +16,7 @@ function getservicedetail($id){
     $service = DBfetchone("SELECT shopid,name,shortdesc,price,funcdesc,intro FROM Service WHERE serviceid = ".$id.";",$con);
     //echo $getservice;
     //$Arr = array();
-    $shop = DBfetchone("select name,latitude,longtitude,phone,address,pic from Shop where shopid=".$service[0].";", $con);
-    $a=array("servicename"=>$service[1],"shortdesc"=>$service[2],"price"=>$service[3],"funcdes"=>$service[4],"intro"=>$service[5],"shopname"=>$shop[0],"latitude"=>$shop[1],"longtitude"=>$shop[2],"phone"=>$shop[3],"address"=>$shop[4],"pic"=>$shop[5]);
+    $shop = DBfetchone("select name,latitude,longtitude,phone,address,pic,opentime,closetime from Shop where shopid=".$service["shopid"].";", $con);
+    $a=array("servicename"=>$service["name"],"shortdesc"=>$service["shortdesc"],"price"=>$service["price"],"funcdes"=>$service["funcdesc"],"intro"=>$service["intro"],"shopname"=>$shop["name"],"latitude"=>$shop["latitude"],"longtitude"=>$shop["longtitude"],"phone"=>$shop["phone"],"address"=>$shop["address"],"pic"=>$shop["pic"],"opentime"=>$shop["opentime"],"closetime"=>$shop["closetime"]);
     echo json_encode($a);
 }
