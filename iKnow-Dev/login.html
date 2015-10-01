@@ -149,6 +149,9 @@
 					if (!mepage) {
 						var mepage = plus.webview.getWebviewById('me.html');
 					}
+					if (!orderlistpage) {
+						var orderlistpage = plus.webview.getWebviewById('orderslist.html');
+					}
 					//触发详情页面的newsId事件
 					//检查 "登录状态/锁屏状态" 开始
 					
@@ -199,6 +202,7 @@
 									plus.storage.setItem("useraccount", accountBox.value);
 									plus.nativeUI.toast('登陆成功');
 									mui.fire(mepage, 'refreshme', {});
+									mui.fire(orderlistpage, 'refreshme', {});
 									toMain();
 								} else {
 									plus.nativeUI.toast('手机号或密码错误')

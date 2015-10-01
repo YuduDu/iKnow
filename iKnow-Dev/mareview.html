@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-MassagistsReview</title>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			mui.plusReady(function() {})
+		</script>
+		<script type="text/javascript">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground("#6acccb");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+			img {
+				width: 36px;
+				margin-right: 6px;
+			}
+			.starrate {
+				font-size: 16px;
+				color: #ff6600;
+				padding-right: 18px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;top:0px">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">订单评价</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+			<a id="confirmbtn" class="mui-pull-right" style="color: #ffffff;padding: 12px 0px 12px 30px">发布</a>
+		</header>
+		<div class="mui-content" style="position:relative;top:15px">
+			<div style="height:100px;background-color: #ffffff;text-align: center;padding-top:15px;position: relative;">
+				<span style="margin-left: 5px;"><img src="img/star_off.png"/></span>
+				<span><img src="img/star_off.png"/></span>
+				<span><img src="img/star_off.png"/></span>
+				<span><img src="img/star_off.png"/></span>
+				<span><img src="img/star_off.png"/></span>
+				<div style="text-align: center;padding-top:10px;position: relative;">
+					<span class="starrate">1星</span>
+					<span class="starrate">2星</span>
+					<span class="starrate">3星</span>
+					<span class="starrate">4星</span>
+					<span class="starrate" style="padding-right: 0px;">5星</span>
+				</div>
+			</div>
+			<div style="position: relative;height:auto;background-color: #ffffff;top:15px">
+				<div style="border-bottom: solid;border-bottom-width:1px;border-bottom-color:#f2f2f2;height:50px;">
+					<a class="fa fa-envelope" style="padding: 10px 0 0 15px;font-size: 24px;color:#999999"></a>
+					<span style="font-size: 16px;color: #999999;">评价</span>
+				</div>
+				<textarea id="textarea" rows="5" placeholder="您的评价" style="border: none;color: #333333;"></textarea>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

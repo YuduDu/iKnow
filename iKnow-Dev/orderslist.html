@@ -8,18 +8,74 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-Orderlist</title>
 		<script src="js/mui.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
-				document.getElementById("orderdetail").addEventListener('tap', function() {
-					//显示订单详情页 
-					var wv = plus.webview.create('orderdetail.html', 'orderdetail', {
-						'popGesture': 'close'
-					});
-					wv.show("pop-in",300);
+				self = plus.webview.currentWebview()
+				window.addEventListener('refreshme', function(event) { //监听自定义事件
+					self.reload(true);
+					console.log('ordersreloaded')
 				});
+				document.getElementById("orderlist").addEventListener('tap', function(e) {
+					//显示订单详情页 
+					var target = e.target;
+					if (target.id == 'reviewbtn') {
+						mui.openWindow({
+							id: 'mareview',
+							url: "mareview.html",
+							styles: {
+								popGesture: 'close'
+							},
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						});
+					} else {
+						var wv = plus.webview.create('orderdetail.html', 'orderdetail', {
+							'popGesture': 'close'
+						});
+						wv.show("pop-in", 300);
+					}
+				});
+				console.log('ordershehe')
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_order_list',
+						customid: plus.storage.getItem("useraccount")
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data);
+						if(data=='[]'){
+							console.log('none')
+							document.getElementById("noitem").style.display = ''
+							document.getElementById("orderlist").style.display = 'none'
+						}else{
+							
+							console.log(data);
+						var html = template('orderlisttemplate', {
+							list: obj
+						});
+						document.getElementById('orderlist').innerHTML = html;
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				
 			})
 		</script>
 		<style>
@@ -28,61 +84,65 @@
 				min-height: 100%;
 				background-color: #efeff4;
 			}
+			.pic {
+				min-width:120px;min-height:80px;width120px;height:80px;margin-right:0px
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<ul id="orderdetail" class="mui-table-view">
+			<ul id="orderlist" class="mui-table-view">
 				<li class="mui-table-view-cell mui-media">
 					<a href="javascript:;">
-						<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
+						<img class="mui-media-object-large mui-pull-left" src="img/defaultpic.png">
 						<div class="mui-media-body" style="position: relative">
-							<p class='mui-order-title'>小儿艾灸保健套餐</p>
-							<span class='mui-ellipsis' style="font-size:14px;color:#666666">天医方艾灸馆</span>
-							<span class='mui-order-price mui-pull-right' style="">￥98</span>
-							<div style="margin-top: 5px;">
-								<span style="font-size:14px; color:#666666">已消费</span>
-								<span><button class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right">Review</button></span>
-							</div>
-
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
-						<div class="mui-media-body" style="position: relative">
-							<p class='mui-order-title'>小儿艾灸保健套餐</p>
-							<span class='mui-ellipsis' style="font-size:14px;color:#666666">天医方艾灸馆</span>
-							<span class='mui-order-price mui-pull-right' style="">￥98</span>
-							<div style="margin-top: 5px;">
-								<span style="font-size:14px; color:#666666">待支付</span>
-								<span><button class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right">Pay</button></span>
-							</div>
-
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object-large mui-pull-left" src="img/pic.png">
-						<div class="mui-media-body" style="position: relative">
-							<p class='mui-order-title'>小儿艾灸保健套餐</p>
-							<span class='mui-ellipsis' style="font-size:14px;color:#666666">天医方艾灸馆</span>
-							<span class='mui-order-price mui-pull-right' style="">￥98</span>
-							<div style="margin-top: 5px;">
-								<span style="font-size:14px; color:#666666">待消费</span>
-								<span><button class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right">Cancel</button></span>
-							</div>
+							<p class='mui-order-title' style="color:#999999">加载中...</p>
 						</div>
 					</a>
 				</li>
 			</ul>
+			<ul id="noitem" class="mui-table-view" style="display: none;top:15px">
+				<li class="mui-table-view-cell mui-media" style="text-align: center;">
+					<div style="text-align: center;"><img style="width:80px" src="img/sadface.png"/></div>
+					<p>您还没有预约订单</p>
+				</li>
+			</ul>
 		</div>
 	</body>
- 
-	<script>
+
+	<script id="orderlisttemplate" type="text/html ">
+		{{each list as value i}}
+		{{if value.status == 'UNPAID'}}
+		<li class="mui-table-view-cell mui-media">
+			<a href="javascript:;">
+				<img class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
+				<div class="mui-media-body" style="position: relative">
+					<p class='mui-order-title'>{{value.servicename}}</p>
+					<span class='mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
+					<div style="margin-top: 5px;">
+						<span style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
+					</div>
+				</div>
+			</a>
+		</li>
+		{{/if}}
+		{{if value.status == 'UNCOMMENT'}}
+		<li class="mui-table-view-cell mui-media">
+			<a href="javascript:;">
+				<img class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
+				<div class="mui-media-body" style="position: relative">
+					<p class='mui-ellipsis mui-order-title'>{{value.servicename}}</p>
+					<span class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
+					<div style="margin-top: 5px;">
+						<span style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
+						<span><button id="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
+					</div>
+				</div>
+			</a>
+		</li>
+		{{/if}}
+		{{/each}}
 	</script>
 
 </html>
