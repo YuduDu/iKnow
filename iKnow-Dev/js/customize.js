@@ -12,6 +12,7 @@ var url = {
 		slideimage3:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide3.jpg",
 		slideimage4:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide4.jpg",
 		indexservicedetail:"http://gene.rnet.missouri.edu/iKnow/servicedetail.php",
+		appt:"http://gene.rnet.missouri.edu/iKnow/appointment_model.php"
 	}
 
 var constant = {
@@ -27,6 +28,10 @@ var categorypair = {
 var api = {
 		nexmo_api_key:"27883592",
 		nexmo_api_secret:"c2516ec5"
+}
+var timeset1 = {
+	list1:['08:00','09:00','10:00','11:00','12:00','13:00','14:00'],
+	list2:['15:00','16:00','17:00','18:00','19:00','20:00','21:00']
 }
 
 function Post2Template(url,action,templateid,bodyid){
@@ -98,6 +103,8 @@ function openWindowfunc(elementid,windowid){
 					});
 				});
 }
+
+
 
 function shareMessage(share, ex) {
 					var msg = {
