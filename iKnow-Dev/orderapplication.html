@@ -79,6 +79,10 @@
 						mui.toast('请先选择技师');
 						return;
 					}
+					if (plus.storage.getItem("apptdate") == null || plus.storage.getItem("appttime") == null) {
+						mui.toast('请先选择时间');
+						return;
+					}
 					handler.open({
 						name: '身知道预订支付',
 						description: self.servicename,
@@ -90,6 +94,9 @@
 					e.preventDefault();
 				})
 				plus.storage.setItem("order_qty", 1);
+				plus.storage.setItem("apptdate", '');
+				plus.storage.setItem('apptyear', '2015');
+				plus.storage.setItem("appttime", '');
 				document.getElementById("qtyselect").onchange = function() {
 					plus.storage.setItem("order_qty", this.value);
 					mui.fire(orderpage, 'updateorder', {});
@@ -124,7 +131,7 @@
 					"serviceid": self.serviceid,
 					"customerid": plus.storage.getItem("useraccount")
 				});
-				console.log('hehe');
+				//console.log('hehe');
 				console.log("serviceid:" + self.serviceid + "customerid:" + plus.storage.getItem("useraccount"))
 				mui.ajax(url.order, {
 					data: {
@@ -140,23 +147,63 @@
 						console.log(JSON.stringify(xhr));
 					}
 				});
-				openWindowfunc('selecttimebtn', 'SelectTime')
+				//openWindowfunc('selecttimebtn', 'SelectTime');
+				document.getElementById('selecttimebtn').addEventListener('tap', function(e) {
+					//显示热门服务分类页
+					if (plus.storage.getItem('order_massaid') == '' || plus.storage.getItem('order_massaid') == null) {
+						plus.nativeUI.toast('请先选择保健师')
+						return;
+					}
+					mui.openWindow({
+						id: 'SelectTime',
+						url: "SelectTime.html",
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					});
+				});
 				document.getElementById("phonespan").innerHTML = plus.storage.getItem("useraccount");
 				plus.storage.setItem("order_qty", "1");
 				plus.storage.setItem("order_massaid", "null");
 				plus.storage.setItem("order_massaname", "null");
 				var orderpage = plus.webview.currentWebview();
 				//				mui.fire(orderpage, 'updateorder', {});
-				var massaname = null
+				var massaname = null;
+//				window.addEventListener('updatetime', function() {
+//					//					if(plus.storage.getItem('appptdate')&&plus.storage.getItem('appttime')){
+//					
+//				})
 				window.addEventListener('updateorder', function(event) { //监听自定义事件
+					console.log(plus.storage.getItem('apptdate') +'-'+ plus.storage.getItem('appttime'));
+					if (plus.storage.getItem('apptdate')) {
+						console.log('hehe')
+						document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
+					}
+					else{
+						document.getElementById("timeslotspan").innerHTML = '选择时间'
+					}
 					if (plus.storage.getItem("order_massaname") != massaname) {
 						massaname = plus.storage.getItem("order_massaname");
 						document.getElementById('massagistspan').innerHTML = massaname;
 					}
+//										document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
+
 					massanametemp = plus.storage.getItem("order_massaname")
+					var nowtime = new Date();
+					console.log(plus.storage.getItem('apptyear'));
 					var newform = JSON.stringify({
 						"massaid": plus.storage.getItem("order_massaid"),
-						"qty": plus.storage.getItem("order_qty")
+						"qty": plus.storage.getItem("order_qty"),
+						"starttime": plus.storage.getItem('apptyear')+'-'+plus.storage.getItem('apptdate')+' '+plus.storage.getItem('appttime')+':00'
 					});
 					console.log("massaid:" + plus.storage.getItem("order_massaid") + "qty:" + plus.storage.getItem("order_qty"));
 					mui.ajax(url.order, {

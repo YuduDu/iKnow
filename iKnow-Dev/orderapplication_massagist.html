@@ -80,6 +80,9 @@
 				}
 				var opener = plus.webview.currentWebview().opener();
 				document.getElementById("confirmbtn").addEventListener('tap', function() {
+					plus.storage.removeItem('apptdate');
+					plus.storage.removeItem('appttime');
+					plus.storage.removeItem('apptyear');
 					mui.fire(plus.webview.getWebviewById(opener.id), 'updateorder', {});
 					mui.back();
 				})

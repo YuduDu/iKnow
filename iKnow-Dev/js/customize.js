@@ -16,7 +16,7 @@ var url = {
 	}
 
 var constant = {
-	versionid:"1.6.5"
+	versionid:"1.6.6"
 }
 
 var categorypair = {
