@@ -27,7 +27,7 @@
 					image: '/img/documentation/checkout/marketplace.png',
 					locale: 'auto',
 					token: function(token) {
-						//console.log(token.id)
+						console.log(token.id)
 						// Use the token to create the charge with a server-side script.
 						// You can access the token ID with `token.id`
 						mui.ajax(url.order, {
@@ -41,6 +41,7 @@
 								console.log(data)
 								if (data != 'success') {
 									plus.nativeUI.toast('支付请求失败，请返回重试');
+									mui.back();
 									return;
 								}
 								if (!orderlistpage) {
@@ -69,6 +70,8 @@
 							error: function(xhr, type, errorThrown) {
 								//异常处理；
 								console.log(errorThrown);
+								plus.nativeUI.toast('支付请求失败，请返回重试');
+									mui.back();
 							}
 						});
 					}
@@ -183,7 +186,7 @@
 //					
 //				})
 				window.addEventListener('updateorder', function(event) { //监听自定义事件
-					console.log(plus.storage.getItem('apptdate') +'-'+ plus.storage.getItem('appttime'));
+					//console.log(plus.storage.getItem('apptdate') +'-'+ plus.storage.getItem('appttime'));
 					if (plus.storage.getItem('apptdate')) {
 						console.log('hehe')
 						document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
@@ -198,14 +201,11 @@
 //										document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
 
 					massanametemp = plus.storage.getItem("order_massaname")
-					var nowtime = new Date();
-					console.log(plus.storage.getItem('apptyear'));
 					var newform = JSON.stringify({
 						"massaid": plus.storage.getItem("order_massaid"),
 						"qty": plus.storage.getItem("order_qty"),
-						"starttime": plus.storage.getItem('apptyear')+'-'+plus.storage.getItem('apptdate')+' '+plus.storage.getItem('appttime')+':00'
 					});
-					console.log("massaid:" + plus.storage.getItem("order_massaid") + "qty:" + plus.storage.getItem("order_qty"));
+					//console.log("massaid:" + plus.storage.getItem("order_massaid") + "qty:" + plus.storage.getItem("order_qty"));
 					mui.ajax(url.order, {
 						data: {
 							order: newform

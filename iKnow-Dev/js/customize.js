@@ -12,7 +12,8 @@ var url = {
 		slideimage3:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide3.jpg",
 		slideimage4:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide4.jpg",
 		indexservicedetail:"http://gene.rnet.missouri.edu/iKnow/servicedetail.php",
-		appt:"http://gene.rnet.missouri.edu/iKnow/appointment_model.php"
+		appt:"http://gene.rnet.missouri.edu/iKnow/appointment_model.php",
+		comment: "http://gene.rnet.missouri.edu/iKnow/comment.php"
 	}
 
 var constant = {

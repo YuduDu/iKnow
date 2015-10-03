@@ -38,7 +38,10 @@
 							waiting: {
 								autoShow: true, //自动显示等待框，默认为true
 								title: '正在加载...', //等待对话框上显示的提示内容
-							}
+							},
+							extras: {
+  							orderid: target.name
+  						}
 						});
 					} else {
 						var wv = plus.webview.create('orderdetail.html', 'orderdetail', {
@@ -136,7 +139,7 @@
 					<span class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
 					<div style="margin-top: 5px;">
 						<span style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
-						<span><button id="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
+						<span><button id="reviewbtn" name="{{value.orderid}}" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
 					</div>
 				</div>
 			</a>

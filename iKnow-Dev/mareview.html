@@ -16,7 +16,80 @@
 			mui.init({
 				swipeBack: true
 			});
-			mui.plusReady(function() {})
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var starelement = document.getElementsByName("star");
+				var starrate = 5;
+				console.log(self.orderid);
+				console.log(starelement.length)
+				document.getElementById('star1').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_off.png";
+						document.getElementById("star3").src="img/star_off.png";
+						document.getElementById("star4").src="img/star_off.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 1;
+						
+				});
+				document.getElementById('star2').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_off.png";
+						document.getElementById("star4").src="img/star_off.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 2;
+				});
+				document.getElementById('star3').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_on.png";
+						document.getElementById("star4").src="img/star_off.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 3;
+				});
+				document.getElementById('star4').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_on.png";
+						document.getElementById("star4").src="img/star_on.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 4;
+				});
+				document.getElementById('star5').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_on.png";
+						document.getElementById("star4").src="img/star_on.png";
+						document.getElementById("star5").src="img/star_on.png";
+						starrate = 5;
+					})
+				
+				
+				document.getElementById("confirmbtn").addEventListener('tap',function(){
+					textvalue = document.getElementById("textarea").value
+					var newform = JSON.stringify({
+					"orderid": self.orderid,
+					"content": textvalue,
+					"stars": starrate
+				});
+					console.log(newform);
+					mui.ajax(url.comment, {
+					data: {
+						comment: newform
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log(data);
+					},
+					error: function(xhr, type, errorThrown) {
+						//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				})
+			})
 		</script>
 		<script type="text/javascript">
 			 // H5 plus事件处理
@@ -57,11 +130,11 @@
 		</header>
 		<div class="mui-content" style="position:relative;top:15px">
 			<div style="height:100px;background-color: #ffffff;text-align: center;padding-top:15px;position: relative;">
-				<span style="margin-left: 5px;"><img src="img/star_off.png"/></span>
-				<span><img src="img/star_off.png"/></span>
-				<span><img src="img/star_off.png"/></span>
-				<span><img src="img/star_off.png"/></span>
-				<span><img src="img/star_off.png"/></span>
+				<span style="margin-left: 5px;"><img id="star1" name="star" src="img/star_off.png"/></span>
+				<span><img id="star2" name="star" src="img/star_off.png"/></span>
+				<span><img id="star3" name="star" src="img/star_off.png"/></span>
+				<span><img id="star4" name="star" src="img/star_off.png"/></span>
+				<span><img id="star5" name="star" src="img/star_off.png"/></span>
 				<div style="text-align: center;padding-top:10px;position: relative;">
 					<span class="starrate">1星</span>
 					<span class="starrate">2星</span>
