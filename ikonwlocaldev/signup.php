@@ -21,10 +21,7 @@ function signup($id,$pd)//working fine
   else {
     $sql = 'insert Customer (phone, password,signupdate) values ("' . $id . '","' . $pd .'",current_date());';
     $tmp = DBfetchall($sql, $con);
-    if($tmp)
-    {
     echo 1;
-    }
   }
   mysql_close($con);
 }
