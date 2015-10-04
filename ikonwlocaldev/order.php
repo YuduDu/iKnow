@@ -9,11 +9,10 @@ require_once "db_func.php";
 require_once('stripe-config.php');
 \Stripe\Stripe::setApiKey("sk_test_pijvVr7Jl5AjrLIymIx2qETk");
 session_start();
-//$_SESSION['timeout'] = time();
-//echo "begin:";
+
 if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
 {
-    //echo "begin:";
+
     $_SESSION['customerid']= null;
     $_SESSION['serviceid'] = null;
     $_SESSION['massaid'] = null;
@@ -22,8 +21,9 @@ if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
     $_SESSION['unitprice'] = null;
     $_SESSION['qty'] = 1;
     $_SESSION["level"] = "M";
-    $_SESSION['status'] = null;
-    // var_dump($_SESSION);
+    $_SESSION['status'] = "UNPAID";
+    //$_SESSION['starttime']=null;
+
 
     $basic_order_parameter = json_decode($_POST['basic_order']);
     foreach($basic_order_parameter as $key => $val){
@@ -32,7 +32,7 @@ if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
     $con=DBconnect();
     $massagistlist_query = "select masaid from Has_Service where serviceid = ".(int)$_SESSION['serviceid'];
     $massagistlist = DBfetchall($massagistlist_query,$con);
-    //var_dump($massagistlist);
+
     if($massagistlist!=null){
         $massagistids = array();
         foreach($massagistlist as $massa){
@@ -44,43 +44,40 @@ if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
         //echo $para;
     }
     else echo "NULL";
-    //var_dump($_SESSION);
+
 
 }
 
 if(isset($_POST['order'])&&$_POST['order']!=NULL)
 {
-    $order_parameter = json_decode($_POST['order']);
+    $order_parameter =json_decode($_POST['order']);
+    $con=DBconnect();
     foreach($order_parameter as $key => $val){
         $_SESSION[$key]=$val;
     }
-
-    //var_dump($_SESSION);
-    $con=DBconnect();
-    if($_SESSION['massaid']!=NULL)
-    {
-        $_SESSION["level"] = getlevel($con);
-    }
-    //echo "level:".$_SESSION["level"];
-    $_SESSION["unitprice"]=getunitprice($con);
-    $_SESSION['amount']=calculateamount();
+    $_SESSION['amount']=calculateamount($con);
     //var_dump($_SESSION);
     echo $_SESSION['amount'];
+    //echo "after order info: ".var_dump($_SESSION);
+    //test place order function here
     //placeorder();
 }
 
+
+
 if(isset($_POST['submit'])&&$_POST['submit']!=null)
 {
+    //take the hidden token of card information from $_post
+    echo "begin charge: Taking token now";
     $token = $_POST['submit'];
+    //make payment with stripe
+    $con = DBconnect();
+    echo "begin charge: ";
     charge($token);
-    placeorder();
+    //place the order into database
+    placeorder($con);
 
 }
-
-/*if(isset($_POST['stripeToken'])&&$_POST['stripeToken']!=null){
-    $token  = $_POST['stripeToken'];
-    charge($token);
-}*/
 
 //get unitprice by massaid
 function getlevel($con){
@@ -96,7 +93,6 @@ function getunitprice($con){
         case "E":$para = array("price_expert");break;
         default;
     }
-    //var_dump($para);
     $unitprice = DBselectsUseonekey($para,array($_SESSION["serviceid"]),"serviceid",Service,$con);
     return $unitprice[0][$para[0]];
 }
@@ -106,7 +102,12 @@ function getmassagist_info($info,$array_id){
 
 }
 //calculate the amount of the order
-function calculateamount(){
+function calculateamount($con){
+    if($_SESSION['massaid']!=NULL)
+    {
+        $_SESSION["level"] = getlevel($con);
+    }
+    $_SESSION["unitprice"]=(float)getunitprice($con);
     $amount = $_SESSION['unitprice']*$_SESSION['qty'];
     return $amount;
 
@@ -117,55 +118,70 @@ function calculateamount(){
 function charge($token){
     //echo "start:";
     $phone = $_SESSION["customerid"];
+    //echo "In charge function now!!  ";
     $customer = \Stripe\Customer::create(array(
-        //'email' => 'customer@example.com',
         'card'  => $token,
         'description' => $phone
-        //'metadata' => array("phone" => $_SESSION["customerid"])
     ));
-    //echo "1 done:";
+    //echo "customer information done, token has been used.";
     $money=$_SESSION['amount']*100;
 
-    //echo $money;
     $charge = \Stripe\Charge::create(array(
         'customer' => $customer->id,
         'amount'   => $money,
         'currency' => 'usd'
     ));
-    //$result = json_decode($charge);
-    //var_dump($charge);
-    //var_dump($charge["status"]);
 
-    if($charge["status"]=="succeeded"){
-        echo "success";
+    //echo "charge status:".$charge["status"];
+    if(isset($charge["error"])){
+        return json_encode($charge);
+    }
+    else{
+        if(isset($charge)&&$charge["status"]=="succeeded"){
+            $_SESSION['status']="UNCOMMENT";
+        }
     }
 
-    //echo "hehe";
 }
 //insert order information into database
-function placeorder(){
-    //var_dump($_SESSION);
+function placeorder($con){
+
+    $test = $_SESSION;
+    //get shopid and massagistname from MassagistDetail using massaid
+    $info = DBfetchone2($con,"MassagistDetail",array('shopid','name'),array("phone"=>$test['massaid']));
+    $info["massagistname"]=$info["name"];
+    unset($info["name"]);
+    $test = array_merge($test,$info);
+
+    //get shopname from "Shop" using Shopid
+    $info = DBfetchone2($con,"Shop", array('name'),array("shopid"=>$test['shopid']));
+    $info["shopname"]=$info["name"];
+    unset($info["name"]);
+    $test = array_merge($test,$info);
+
+    //get order time
+    $info["time"]= date("Y-m-d H:i:s", time());
+
+    //get servicename from service using serviceid
+    $info = DBfetchone2($con,"Service",array('name'),array("serviceid"=>$test['serviceid']));
+    $info["servicename"]=$info["name"];
+    unset($info["name"]);
+    $test = array_merge($test,$info);
+
+    //echo "before place order to database: ".var_dump($test);
+
+    $orderid = DBinsert('Order',$test,$con);
+
+    if(isset($orderid)){
+        echo "success";
+    }
+    //else echo "hehe";
     session_destroy();
 }
 
 
 
 
-/*
-if(isset($_POST["order"])&&$_POST["order"]!=NUll)
-{
-    $order_parameter = json_decode($_POST["order"]);
-   // $_SESSION[
-    foreach($basic_order_parameter as $key => $val){
-        $_SESSION[$key]=$val;
-    }
-    $_SESSION["amount"]=$_SESSION["qty"]*$_SESSION["price"];
-}
-
-var_dump($_SESSION);
 
 
-
-
-*/
 

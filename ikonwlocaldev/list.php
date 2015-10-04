@@ -28,6 +28,12 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 			else echo "Error: categoryid wrong";
 
 		}break;
+		case 'get_order_list':{
+			if(isset($_POST['customid'])&&$_POST['customid']!=null){
+				getorderlist($_POST['customid']);
+			}
+			else echo "Error: no customerid";
+		}break;
 		/*case 'get_services_by_category':
 		{
 
@@ -37,17 +43,32 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 	}
 }
 
+
+function getorderlist($customid = null){
+	$con = DBconnect();
+	$listinfo = DBfetchall2($con,"Order",array('orderid','servicename','shopid','shopname','status','unitprice'),array("customerid"=>$customid));
+	//var_dump($listinfo);
+	$list=array();
+	foreach($listinfo as $item) {
+		$pic = DBfetchone2($con, "Shop", array("pic"), array("shopid" => $item['shopid']));
+		$item=array_merge($item,$pic);
+		unset($item['shopid']);
+		$list[]=$item;
+	}
+	echo json_encode($list);
+
+}
 function recommand_news($id=null){
 	//var_dump(is_int($id));
 	$con = DBconnect();
 	if($id!=null){
-		$query = "SELECT * FROM Recommand_news WHERE id = ".$id.";";
-		$result = DBfetchone($query,$con);
+		//$query = "SELECT * FROM Recommand_news WHERE id = ".$id.";";
+		$result = DBfetchone2($con,'Recommand_news',array('*'),array('id'=>$id));
 		echo json_encode($result);
 	}
 	else{
-		$query = "SELECT id, title, pic FROM Recommand_news";
-		$result = DBfetchall($query,$con);
+		//$query = "SELECT id, title, pic FROM Recommand_news";
+		$result = DBfetchall2($con,'Recommand_news',array('id','title','pic'));
 		echo json_encode($result);
 
 	}
