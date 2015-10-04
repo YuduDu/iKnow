@@ -68,11 +68,11 @@ if(isset($_POST['order'])&&$_POST['order']!=NULL)
 if(isset($_POST['submit'])&&$_POST['submit']!=null)
 {
     //take the hidden token of card information from $_post
-    echo "begin charge: Taking token now";
+    //echo "begin charge: Taking token now";
     $token = $_POST['submit'];
     //make payment with stripe
     $con = DBconnect();
-    echo "begin charge: ";
+    //echo "begin charge: ";
     charge($token);
     //place the order into database
     placeorder($con);
@@ -147,6 +147,14 @@ function charge($token){
 function placeorder($con){
 
     $test = $_SESSION;
+
+
+    //get order time
+    $time = date("Y-m-d H:i:s", time());
+    //echo $time;
+    $test["time"]= $time;
+
+
     //get shopid and massagistname from MassagistDetail using massaid
     $info = DBfetchone2($con,"MassagistDetail",array('shopid','name'),array("phone"=>$test['massaid']));
     $info["massagistname"]=$info["name"];
@@ -158,9 +166,6 @@ function placeorder($con){
     $info["shopname"]=$info["name"];
     unset($info["name"]);
     $test = array_merge($test,$info);
-
-    //get order time
-    $info["time"]= date("Y-m-d H:i:s", time());
 
     //get servicename from service using serviceid
     $info = DBfetchone2($con,"Service",array('name'),array("serviceid"=>$test['serviceid']));

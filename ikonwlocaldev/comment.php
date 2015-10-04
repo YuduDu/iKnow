@@ -27,9 +27,11 @@ if(isset($_POST["comment"])&&$_POST["comment"]!=null){
     //var_dump($values);
     //$keys." ".$values;
 
-
+    $id = DBinsert("Comment",$comment,$con);
     //var_dump($comment);
-    if( is_int(DBinsert("Comment",$comment,$con))){
+    if( is_int($id)){
+        $query = "update `Order` set status = 'DONE' where orderid = ".$id.";";
+        DBfetchone($query,$con);
         echo "success";
     }
     else echo "insert comment wrong";
