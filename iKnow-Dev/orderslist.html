@@ -71,7 +71,7 @@
 						var html = template('orderlisttemplate', {
 							list: obj
 						});
-						console.log(html);
+						//console.log(html);
 						document.getElementById('orderlist').innerHTML = html;
 						}
 					},
@@ -142,6 +142,20 @@
 					<div style="margin-top: 5px;">
 						<span style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
 						<span><button id="{{value.orderid}}" name="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
+					</div>
+				</div>
+			</a>
+		</li>
+		{{/if}}
+		{{if value.status == 'DONE'}}
+		<li class="mui-table-view-cell mui-media">
+			<a href="javascript:;">
+				<img class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
+				<div class="mui-media-body" style="position: relative">
+					<p class='mui-ellipsis mui-order-title'>{{value.servicename}}</p>
+					<span class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
+					<div style="margin-top: 5px;">
+						<span style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
 					</div>
 				</div>
 			</a>

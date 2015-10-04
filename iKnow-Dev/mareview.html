@@ -19,7 +19,7 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				var starelement = document.getElementsByName("star");
-				var starrate = 5;
+				var starrate = 0;
 				console.log(self.orderid);
 				console.log(starelement.length)
 				document.getElementById('star1').addEventListener('tap',function(){
@@ -67,7 +67,8 @@
 				
 				document.getElementById("confirmbtn").addEventListener('tap',function(){
 					textvalue = document.getElementById("textarea").value
-					var newform = JSON.stringify({
+					if(textvalue!=''&&starrate!=0){
+						var newform = JSON.stringify({
 					"orderid": self.orderid,
 					"content": textvalue,
 					"stars": starrate
@@ -94,6 +95,10 @@
 						console.log(JSON.stringify(xhr));
 					}
 				});
+					}
+					else {
+						plus.nativeUI.toast('请输入星级及评价内容')
+					}
 				})
 			})
 		</script>
