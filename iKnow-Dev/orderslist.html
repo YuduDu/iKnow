@@ -20,10 +20,11 @@
 					self.reload(true);
 					console.log('ordersreloaded')
 				});
+				
 				document.getElementById("orderlist").addEventListener('tap', function(e) {
 					//显示订单详情页 
 					var target = e.target;
-					if (target.id == 'reviewbtn') {
+					if (target.name == 'reviewbtn') {
 						mui.openWindow({
 							id: 'mareview',
 							url: "mareview.html",
@@ -40,7 +41,7 @@
 								title: '正在加载...', //等待对话框上显示的提示内容
 							},
 							extras: {
-  							orderid: target.name
+  							orderid: target.id
   						}
 						});
 					} else {
@@ -70,6 +71,7 @@
 						var html = template('orderlisttemplate', {
 							list: obj
 						});
+						console.log(html);
 						document.getElementById('orderlist').innerHTML = html;
 						}
 					},
@@ -139,7 +141,7 @@
 					<span class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
 					<div style="margin-top: 5px;">
 						<span style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
-						<span><button id="reviewbtn" name="{{value.orderid}}" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
+						<span><button id="{{value.orderid}}" name="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
 					</div>
 				</div>
 			</a>

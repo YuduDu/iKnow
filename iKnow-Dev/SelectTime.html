@@ -57,6 +57,7 @@
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						var pickeddatetemp = datearray[0][0];
+						console.log(data);
 						if (data=='') {
 							//console.log('hehe');
 							
@@ -78,7 +79,7 @@
 								})
 							}
 						} else {
-//							this.obj = JSON.parse(data);
+							this.obj = JSON.parse(data);
 //							for (var i = 0; i < obj.length; i++) {
 //								objdatetemp = obj[i].start.slice(5, 10);
 //								objtimetemp = obj[i].start.slice(11, 16);
@@ -102,13 +103,13 @@
 									finaltime[1] = pickeddate;
 									//console.log(pickeddate);
 									//console.log(pickeddatetemp);
-//									for (i = 0; i < obj.length; i++) {
-//										objdatetemp = obj[i].start.slice(5, 10);
-//										objtimetemp = obj[i].start.slice(11, 16);
-//										if (objdatetemp == pickeddate) {
-//											document.getElementById(objtimetemp).style.display = 'none'
-//										}
-//									}
+									for (i = 0; i < obj.length; i++) {
+										objdatetemp = obj[i].start.slice(5, 10);
+										objtimetemp = obj[i].start.slice(11, 16);
+										if (objdatetemp == pickeddate) {
+											document.getElementById(objtimetemp).style.display = 'none'
+										}
+									}
 								})
 							}
 						}

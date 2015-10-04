@@ -81,6 +81,12 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						console.log(data);
+						if(data=='success'){
+							plus.nativeUI.toast('评价成功');
+							var backorderslist = plus.webview.getWebviewById('orderslist.html');
+							backorderslist.evalJS('document.getElementById("'+self.orderid+'").style.display="none";');
+							mui.back();
+						}
 					},
 					error: function(xhr, type, errorThrown) {
 						//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
