@@ -33,14 +33,14 @@ function DBfetchall($query,$con){
 
 }
 
-function DBfetchall2($con,$table, $resultlist,$condition_array = null){
+function DBfetchall2($con,$table, $resultlist,$condition_array = null,$morecondition = ""){//将condition——array改成condition_string直接写条件语句
     $key = array_keys($condition_array);
     $value = array_values($condition_array);
     $para = join(",",array_values($resultlist));
     if($condition_array!=null) {
-        $query = "select $para from `$table` where $key[0] = $value[0] ;";
+        $query = "select $para from `$table` where $key[0] = $value[0] $morecondition;";
     }
-    else $query = "select $para from `$table`;";
+    else $query = "select $para from `$table` $morecondition;";
     //echo $query;
     //echo $query;
     $result = mysql_query($query,$con) or die("Fetchall Error:".mysql_error());
@@ -52,7 +52,7 @@ function DBfetchall2($con,$table, $resultlist,$condition_array = null){
 }
 
 
-function DBfetchone2($con,$table, $resultlist,$condition_array = null){
+function DBfetchone2($con,$table, $resultlist,$condition_array = null){//
     $key = array_keys($condition_array);
     $value = array_values($condition_array);
     $para = join(",",array_values($resultlist));
@@ -76,8 +76,13 @@ function DBfetchone($query,$con){
 
 }
 
-//function DBselectonekey($parameter)
-function DBselectsUseonekey($parameterarray=null, $keyarray=null, $keyname=null, $table=null, $con){
+function DBselectonekey($con, $parameterarray = "*",$keypair_string=null,$table = null){
+    $para = join(",",$parameterarray);
+    $query = "select {$para} from {$table} where {$keypair_string} ;";
+
+}
+
+function DBselectsUseonekey($parameterarray="*", $keyarray=null, $keyname=null, $table=null, $con){
     //echo "DBselect:";
     //var_dump($parameterarray);
     $para = join(",",$parameterarray);

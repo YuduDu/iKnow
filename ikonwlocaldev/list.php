@@ -20,10 +20,11 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 			if(isset($_POST["categoryid"])&&$_POST["categoryid"]!=null){
 				//echo "hehe2";
 				if($_POST["categoryid"]=="null"){
-					getserviceslist();
+					getserviceslist(null,null);
 				}
 				else
-					getservicesbycategory($_POST["categoryid"]);
+					//getservicesbycategory($_POST["categoryid"]);
+					getserviceslist($_POST["categoryid"],null);
 			}
 			else echo "Error: categoryid wrong";
 
@@ -34,11 +35,12 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 			}
 			else echo "Error: no customerid";
 		}break;
-		/*case 'get_services_by_category':
+		case 'massagist_get_services_list':
 		{
-
-
-		}break;*/
+			if(isset($_POST["massaid"])&&$_POST["massaid"]!=null){
+				getserviceslist(null,$_POST["massaid"]);
+			}
+		}
 		default:
 	}
 }
@@ -74,17 +76,48 @@ function recommand_news($id=null){
 	}
 
 }
-function getservicesbycategory($categoryid){
+/*function getservicesbycategory($categoryid){
 	//echo “hehe”;
 	$con = DBconnect();
-	$query = "SELECT serviceid,shopid,name,price FROM Service WHERE catid=".$categoryid.";";
-	//$getcatname = "SELECT name FROM Category WHERE catid = ".$categoryid.";";
-//	$catname = DBfetchone($getcatname,$con);
 	$result = DBfetchall($query,$con);
-	$arr = getserviceslistinfo_by_basicinfo($result,$con);
-//	$return=array($catname["name"]=>$arr);
+
 	echo json_encode($arr);
+}*/
+
+
+
+function getserviceslist($categoryid =null, $massaid = null){
+	$con =DBconnect();
+
+	if ($categoryid!=null&&$massaid==null){
+		$query = "SELECT serviceid,shopid,name,price FROM Service WHERE catid=".$categoryid.";";
+		$result = DBfetchall($query,$con);
+		$Arr = getserviceslistinfo_by_basicinfo($result,$con);
+	}
+	else if($categoryid==null && $massaid==null)
+	{
+		$getservice = DBfetchall("SELECT serviceid,shopid,name,price FROM Service",$con);
+		$Arr =getserviceslistinfo_by_basicinfo($getservice,$con);
+	}
+	else if($categoryid==null&&$massaid!=null)
+	{
+		$services = DBfetchall2($con,"Has_Service",array("serviceid","amount"),array("masaid"=>$massaid),"order by amount desc");
+		//var_dump($services);
+		//echo "you are in there";
+		$Arr = array();
+		foreach ($services as $service){
+			$service_info = DBfetchone2($con,"Service",array("serviceid","name","duration","price"),$service);
+			$service_info["amount"]=$service["amount"];
+			array_push($Arr,$service_info);
+		}
+	}
+	else{
+		$Arr = "Get Service List Error: BackEnd Please Check your input! ";
+	}
+
+	echo json_encode($Arr);
 }
+
 
 
 function getnews(){
@@ -135,12 +168,7 @@ function getmassagistlist(){
 }
 
 
-function getserviceslist(){
-	$con =DBconnect();
-	$getservice = DBfetchall("SELECT serviceid,shopid,name,price FROM Service",$con);
-	$Arr =getserviceslistinfo_by_basicinfo($getservice,$con);
-	echo json_encode($Arr);
-}
+
 
 function getserviceslistinfo_by_basicinfo($array,$con){
 	$Arr = array();
@@ -152,4 +180,6 @@ function getserviceslistinfo_by_basicinfo($array,$con){
 	}
 	return $Arr;
 }
+
+
 ?>
