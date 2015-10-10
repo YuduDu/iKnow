@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>注册</title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/customize.js"></script>
+		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 30%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 70%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+		</style>
+		<script type="text/javascript">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景
+				//plus.navigator.setStatusBarBackground("#ffffff");
+				//plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background-color: #6acccb;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #ffffff;"></a>
+			<h1 class="mui-title"style="color: #ffffff;">注册</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row" style="height:50px;">
+					<label style="padding-top:15px">手机</label>
+					<input id='account' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号" style="min-height: 50px;">
+				</div>
+
+				<div id="phoneverifydiv" class="mui-input-row" style="display:none">
+					<label>验证码</label>
+					<input id='phoneverify' type="tel" class="mui-input-clear mui-input" placeholder="请输入4位验证码">
+				</div>
+
+			</form>
+			<div id="regdiv" class="mui-content-padded" style="">
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-green">验证手机号</button>
+			</div>
+			<div id="reg2div" class="mui-content-padded" style="display:none">
+				<button id='reg2' class="mui-btn mui-btn-block mui-btn-green">提交</button>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var settings = app.getSettings();
+					var regButton = doc.getElementById('reg');
+					var reg2Button = doc.getElementById('reg2')
+					var accountBox = doc.getElementById('account');
+					regButton.addEventListener('tap', function(event) {
+						
+						url = "https://api.nexmo.com/verify/json?api_key="+api.nexmo_api_key+"&api_secret="+api.nexmo_api_secret+"&brand=NexmoVerifyTest&number=1";
+						url += accountBox.value;
+						//发送短信
+						mui.get(url, {}, function(data) {
+							//var obj = JSON.parse(data);
+							console.log(data.status);
+							plus.storage.setItem("phonenum", accountBox.value);
+									
+							if (data.status == 0) {
+								//手机号符合规则，进入验证手机号归属，等待电话
+						document.getElementById("phoneverifydiv").style.display = "";
+						document.getElementById("regdiv").style.display = "none";
+						document.getElementById("reg2div").style.display = "";
+						plus.nativeUI.toast('请等待验证短信并将4位验证码输入验证框');
+								//已成功发送短信，等待用户输入验证码提交
+								reg2Button.addEventListener('tap', function(event) {
+									var phoneverifyBox = doc.getElementById('phoneverify');
+									url = "https://api.nexmo.com/verify/check/json?api_key="+api.nexmo_api_key+"&api_secret="+api.nexmo_api_secret+"&request_id="
+									url += data.request_id;
+									url += "&code=";
+									url += phoneverifyBox.value;
+									//验证手机验证码
+									console.log(url);
+									mui.get(url, {}, function(data) {
+											//var obj = JSON.parse(data);
+										if (data.status == '0') {
+											//如果验证码正确，则进入主页
+											sessionStorage.setItem('phonenum',phoneverifyBox.value)
+											$.openWindow({
+												url: 'reg2.html',
+												id: 'reg2',
+												show: {
+													aniShow: 'pop-in'
+												}
+											});
+										}
+										else{
+											plus.nativeUI.toast(data.error_text);
+											return;
+										}
+									}, 'json');
+								})
+							}
+							else{
+								plus.nativeUI.toast(data.error_text);
+								return;
+							}
+						}, 'json');
+					});
+				});
+				//plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

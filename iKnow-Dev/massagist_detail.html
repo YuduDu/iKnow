@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-Service_detail</title>
+		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/template.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			var shares = {};
+			mui.plusReady(function() {
+				plus.share.getServices(function(s) {
+					if (s && s.length > 0) {
+						for (var i = 0; i < s.length; i++) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+						console.log('获取成功');
+					}
+				}, function() {
+					console.log("获取分享服务列表失败");
+				});
+				var self = plus.webview.currentWebview();
+				var service_id = self.serviceid;
+				var distance = self.distance;
+				//console.log(self.distance)
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				mui.ajax(url.massagistdetail, {
+					data: {
+						massagistid: self.massagistid
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；
+					async: false,
+					success: function(data) {
+						this.obj = JSON.parse(data);
+						console.log(data);
+						plus.geolocation.getCurrentPosition(function(p) {
+								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+								
+									var point2lat = eval(obj.shop_info.latitude);
+									var point2long = eval(obj.shop_info.longtitude);
+									obj.shop_info.distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+								
+								console.log(obj.shop_info.name)
+								document.getElementById("title").innerHTML = obj.massagist_info.name;
+												document.getElementById("shopname").innerHTML = obj.shop_info.name;
+						//						document.getElementById("price").innerHTML = "￥" + self.price;
+						//						document.getElementById("funcdes").innerHTML = obj.funcdes;
+//												document.getElementById("matitle").innerHTML = obj.massagist_info.level;
+						//						document.getElementById("address").innerHTML = obj.address;
+						//						var maplink = "http://api.map.baidu.com/marker?location=" + self.latitude + "," + self.longtitude + "&title=" + self.shopname + "&content=" + obj.address + "&output=html&src=iKnowApp";
+						//						document.getElementById("address").href = maplink;
+												document.getElementById("shortdesc").innerHTML = obj.massagist_info.intro;
+												document.getElementById("openhour").innerHTML = "营业时间:" + obj.shop_info.opentime.slice(0, 5) + "-" + obj.shop_info.closetime.slice(0, 5);
+						//						document.getElementById("phone").href = "tel:" + obj.phone;
+												document.getElementById("distance").innerHTML = distance + "km";
+												
+												switch (obj.massagist_info.level){
+													case 'H': document.getElementById("matitle").innerHTML = '高级保健师'
+														break;
+													case 'E': document.getElementById("matitle").innerHTML = '专家保健师'
+														break;
+													case 'M': document.getElementById("matitle").innerHTML = '中级保健师'
+														break;
+													default: '呵呵'
+														break;
+												}
+												
+												var html1 = template('servicelisttemplate', {
+									list: obj.service_list
+								});
+								document.getElementById('servicelist').innerHTML = html1;
+								
+								var html2 = template('commenttemplate', {
+									list: obj.comment_list
+								});
+								document.getElementById('comments').innerHTML = html2;
+							},
+							function(e) {
+//								Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
+//								Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
+								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
+							})
+						
+						
+												
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				document.addEventListener('scroll', function(e) {
+					console.log("scrolled");
+					if (window.scrollY > 137) {
+						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,1)";
+					} else {
+						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,0.5)";
+					}
+				});
+				
+				mui('#servicelist').on('tap', 'li', function() {
+						mui.openWindow({
+							url: 'index_service_detail.html',
+							id: 'index_service_detail',
+							extras: {
+								serviceid: obj.service_list[this.getAttribute('data-id')].serviceid,
+								distance: obj.shop_info.distance,
+								servicename: obj.service_list[this.getAttribute('data-id')].name,
+								shopname: obj.shop_info.name,
+								price: obj.service_list[this.getAttribute('data-id')].price,
+								latitude: obj.shop_info.latitude,
+								longtitude: obj.shop_info.longtitude
+							},
+							styles: {
+								popGesture: 'close'
+							},
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						})
+					})
+				
+				document.getElementById("sharebtn").addEventListener('tap', function() {
+					console.log('tapped');
+					var ids = [{
+							id: "weixin",
+							ex: "WXSceneSession"
+						}, {
+							id: "weixin",
+							ex: "WXSceneTimeline"
+						}, {
+							id: "sinaweibo"
+						}, {
+							id: "tencentweibo"
+						}, {
+							id: "qq"
+						}],
+						bts = [{
+							title: "发送给微信好友"
+						}, {
+							title: "分享到微信朋友圈"
+						}, {
+							title: "分享到新浪微博"
+						}, {
+							title: "分享到腾讯微博"
+						}, {
+							title: "分享到QQ"
+						}];
+					plus.nativeUI.actionSheet({
+						cancel: "取消",
+						buttons: bts
+					}, function(e) {
+						var i = e.index;
+						if (i > 0) {
+							var s_id = ids[i - 1].id;
+							var share = shares[s_id];
+							if (share) {
+								if (share.authenticated) {
+									shareMessage(share, ids[i - 1].ex);
+								} else {
+									share.authorize(function() {
+										shareMessage(share, ids[i - 1].ex);
+									}, function(e) {
+										console.log("认证授权失败：" + e.code + " - " + e.message);
+									});
+								}
+							} else {
+								mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+							}
+						}
+					});
+				});
+			})
+		</script>
+
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="position: fixed; background-color: rgba(106,204,203,0.5)">
+			<h1 id="title" class="mui-title" style="color: #ffffff;"></h1>
+			<a id="sharebtn" class="mui-icon mui-icon-upload mui-pull-right icon-whilte" style="color: #ffffff;padding-top:10px"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div id="servicedetail_wrap">
+			<div style="width:100%;height:200px;position:relative;background-image:url(img/detailbg.jpg);background-size: cover">
+
+				<p id="shopname" style="position:absolute;margin-left:15px;bottom: 20px;color: #ffffff; font-size:16px"></p>
+				<p style="position:absolute;margin-left:15px;bottom: 0px;color: #CCCCCC; font-size:14px" id="openhour"></p>
+				<p style="position:absolute;margin-right:15px;bottom:0px;right: 0px;color: #CCCCCC; font-size:14px" id="distance">定位中</p>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;">
+				<p style="font-size: 16px;color: #333333; padding-left:10px;padding-top: 15px;line-height: 10px;" id="matitle">加载中...</p>
+				<p style="height: auto; font-size: 14px;color: #666666; padding: 0 0 10px 10px;line-height: 20px;" id="shortdesc">加载中...</p>
+			</div>
+			<ul class="mui-table-view" style="margin:0px 10px 0px 10px;top:6px;line-height: 40px;">
+				<li class="mui-table-view-cell">
+					<a id='massagistlistbtn' class="mui-navigate-right" style="color:#56abe4;font-size: 20px;">
+						服务列表
+					</a>
+				</li>
+			</ul>
+			<div style="background-color: #ffffff; height:auto;position:relative;top:6px;margin-left:10px;margin-right:10px">
+				<ul id="servicelist" class="mui-table-view">
+				<li class="mui-table-view-cell" style="height:auto">
+					<a class="mui-navigate-right" style="height:auto">
+						<div><p id="servicename" class='mui-ellipsis' style="color:#666666;font-size:17px;margin-bottom:5px">加载中...</p></div>
+					</a>
+				</li>
+			</ul>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;top:10px;margin-left:10px;margin-right:10px">
+				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">用户评价</p>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;top:1px;margin-left:10px;margin-right:10px;margin-top: 0px;">
+				<ul id="comments" class="mui-table-view">
+				<li class="mui-table-view-cell" style="height:70px">
+					<p style="word-wrap: break-word;color: #333333;">加载中...</p>
+				</li>
+			</ul>
+			</div>
+		</div>
+		<script id="servicelisttemplate" type="text/html ">
+			{{each list as value i}}
+			<li data-id="{{i}}" class="mui-table-view-cell" style="height:auto">
+					<a class="mui-navigate-right" style="height:auto">
+						<div><p id="servicename" class='mui-ellipsis' style="color:#666666;font-size:17px;margin-bottom:5px">{{value.name}}</p></div>
+						<div class="fa fa-clock-o" style="color: #999999;font-size: 14px;padding-top:0px">  {{value.duration}}小时</div><div class="fa fa-file-text-o" style="margin-left:10px;color: #999999;font-size: 14px;">  {{value.amount}}单</div>
+						<div id="unitprice" class='mui-price' style="margin-top:10px;font-size:24px">￥{{value.price}}</div>
+					</a>
+				</li>
+			{{/each}}
+		</script>
+		<script id="commenttemplate" type="text/html ">
+			{{each list as value i}}
+			<li class="mui-table-view-cell" style="height:auto">
+					<div><span style="color: #666666;font-size: 14px;">{{value.customerid}}</span><span class="mui-pull-right" style="color: #666666;font-size: 14px;">{{value.date}}</span></div>
+					{{if value.stars == 5}}<img style="height:16px;" src="img/5stars.png"/>{{/if}}
+					{{if value.stars == 4}}<img style="height:16px;" src="img/4stars.png"/>{{/if}}
+					{{if value.stars == 3}}<img style="height:16px;" src="img/3stars.png"/>{{/if}}
+					{{if value.stars == 2}}<img style="height:16px;" src="img/2stars.png"/>{{/if}}
+					{{if value.stars == 1}}<img style="height:16px;" src="img/1stars.png"/>{{/if}}
+					<p style="word-wrap: break-word;color: #333333;">{{value.content}}</p>
+				</li>
+			{{/each}}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-OrderDetail</title>
+		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack:true
+			});
+		</script>
+
+		<script type="text/javascript">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				var self = plus.webview.currentWebview();
+				plus.navigator.setStatusBarBackground("#6acccb");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				var newform = JSON.stringify({
+							"orderid": self.orderid,
+							"customerid": plus.storage.getItem("useraccount")
+						});
+				console.log(newform)
+				mui.ajax(url.orderdetail, {
+					data: {
+						information: newform
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data);
+						console.log(obj.servicename);
+						document.getElementById("time").innerHTML = obj.time;
+						document.getElementById("orderid").innerHTML = obj.orderid;
+						if(obj.promotion){document.getElementById("promotion").innerHTML = obj.promotion;}
+						document.getElementById("amount").innerHTML = obj.amount;
+						document.getElementById("unitprice").innerHTML = obj.unitprice;
+						document.getElementById("shopname").innerHTML = obj.shopname;
+						document.getElementById("massagistname").innerHTML = obj.massagistname;
+						document.getElementById("servicename").innerHTML = obj.servicename;
+						document.getElementById("pic").src = obj.pic;
+						document.getElementById("customerid").innerHTML = obj.customerid;
+						
+						switch (obj.status) {
+					case 'DONE':
+						document.getElementById("status").innerHTML = '已评价';
+						break;
+					case 'UNPAIED':
+						document.getElementById("status").innerHTML = '未支付';
+						break;
+					case 'UNCOMMENT':
+						document.getElementById("status").innerHTML = '待评价';
+						break;
+					case 'WARN':
+						document.getElementById("status").innerHTML = '订单异常';
+						break;
+				}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;top:0px">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">Order Detail</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div class="mui-content" style="padding-top:0px">
+			
+			<ul id="Services" style="height: 102px;background-color: #ffffff;margin-bottom:15px;position: relative;top: 64px;padding-left: 0px;margin-top:0px">
+			<li class="mui-table-view-cell mui-media" style="position: relative;top:0px;">
+				<a>
+					<img class="mui-media mui-pull-left " id="pic" style="min-width:120px;min-height:80px;width120px;height:80px;margin-right:10px" src="img/defaultpic.png">
+					<div class="mui-media-body ">
+						<p id="servicename" class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">加载中...</p>
+						<p id="shopname" class='mui-ellipsis mui-services-provider'></p>
+						<span id="unitprice" class='mui-price'></span>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<div style="height:50px;position: relative;top:70px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">订单号</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="orderid"></span>
+		</div>
+		<div style="height:50px;position: relative;top:71px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">下单时间</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="time" ></span>
+		</div>
+		<div style="height:50px;position: relative;top:72px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">订单状态</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="status"></span>
+		</div>
+		<div style="height:50px;position: relative;top:92px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">中级保健按摩技师</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="massagistname"></span>
+		</div>
+		<div style="height:50px;position: relative;top:93px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">服务时间</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;"></span>
+		</div>
+		<div style="height:50px;position: relative;top:94px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">现金券/代金券/优惠码</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="promotion">无</span>
+		</div>
+		<div style="height:50px;position: relative;top:114px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">订单合计</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="amount">$98</span>
+		</div>
+		<div style="height:50px;position: relative;top:115px;background-color: #ffffff;margin-bottom: 15px;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">我的联系方式</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="customerid">+86 13000000000</span>
+		</div>
+		</div>
+		
+
+		<script>
+			 //更换标题
+			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+		</script>
+
+	</body>
+
+</html>
