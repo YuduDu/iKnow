@@ -14,12 +14,12 @@ $_SESSION['starttime']=null;
 $_SESSION['duration'] = null;
 $_SESSION['endtime'] = null;
 
-//--------------test only----------------------
+/*-------------test only----------------------
 $_SESSION["customerid"]=1;
 $_SESSION["massaid"]=1;
 $_SESSION["serviceid"]=1;
 $_SESSION['orderid']=23449;
-//------------------------------------
+//------------------------------------*/
 
 if(isset($_POST["starttime"])&&$_POST["starttime"]!=null){
     $time1 = $_POST["starttime"];
@@ -42,7 +42,7 @@ function make_appointment(){
     echo "end time is :" .$end;
     $_SESSION["endtime"]=$end;
     var_dump($_SESSION);
-    insert_service_appt($con,$_SESSION['massaid'],$_SESSION['customerid'],$_SESSION["starttime"],$_SESSION["endtime"],$_SESSION['serviceid'],$_SESSION['orderid']);
+    return insert_service_appt($con,$_SESSION['massaid'],$_SESSION['customerid'],$_SESSION["starttime"],$_SESSION["endtime"],$_SESSION['serviceid'],$_SESSION['orderid']);
 }
 
 
@@ -58,11 +58,9 @@ function get_duration($con,$sid){
 function insert_service_appt($con,$mid, $cid, $start, $end, $sid, $orid){
     $sql_insert = "INSERT INTO massagist_appt (massaid, customerid, start, end, serviceid, orderid) VALUES (".$mid.",".$cid.",'".$start."','".$end."',".$sid.",".$orid.");";
     if (mysql_query($sql_insert,$con)) {
-        echo "New record created successfully";
+        return True;
     }
     else {
-        echo "Insert Error: " . mysql_error();
+        return "Insert Error: " . mysql_error();
     }
-    $result = mysql_query($sql_insert);
-    echo var_dump($result);
 }
