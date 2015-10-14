@@ -30,6 +30,14 @@
 						console.log(token.id)
 						// Use the token to create the charge with a server-side script.
 						// You can access the token ID with `token.id`
+						mui.ajax(url.appointment_succ,{
+							data:{
+								starttime:plus.storage.getItem("apptdate")
+							},
+							type:'post',
+							timeout:10000
+						})
+						
 						mui.ajax(url.order, {
 							data: {
 								submit: token.id,
@@ -227,7 +235,7 @@
 		</script>
 
 		<script type="text/javascript">
-			 // H5 plus事件处理
+			// H5 plus事件处理
 			function plusReady() {
 				// 设置系统状态栏背景为红色
 				plus.navigator.setStatusBarBackground("#6acccb");
@@ -284,7 +292,7 @@
 		<div id="orderbtn" style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:135px;height:40px;line-height: 25px;background-color: #3498db;border-color:#3498db;"><span style="font-weight:bold;font-size:18px;">stripe</span> 安全支付</a></div>
 
 		<script>
-			 //更换标题
+			//更换标题
 			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
 		</script>
 

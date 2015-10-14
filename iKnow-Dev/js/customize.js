@@ -15,7 +15,8 @@ var url = {
 		appt:"http://gene.rnet.missouri.edu/iKnow/appointment_model.php",
 		comment: "http://gene.rnet.missouri.edu/iKnow/comment.php",
 		orderdetail:"http://gene.rnet.missouri.edu/iKnow/orderdetail.php",
-		massagistdetail:"http://gene.rnet.missouri.edu/iKnow/massagistdetail.php"
+		massagistdetail:"http://gene.rnet.missouri.edu/iKnow/massagistdetail.php",
+		appointment_succ:"http://gene.rnet.missouri.edu/iKnow/appointment_succ.php"
 	}
 
 var constant = {
