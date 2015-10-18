@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - iKnow@gene.rnet.missouri.edu" uuid="aa431d79-2f9d-4b4c-b800-09ad7f11a82e">
+    <database-info product="MySQL" version="5.0.95" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="iKnow"/>
+    <table name="Admin" schema="" catalog="iKnow" type="TABLE">
+      <column name="adminid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="adminid"/>
+    </table>
+    <table name="Category" schema="" catalog="iKnow" type="TABLE">
+      <column name="catid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="describe" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pic" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <primary-key name="PRIMARY" columns="catid"/>
+      <exported-key name="category" table="Service" schema="" catalog="iKnow" columns="catid"/>
+    </table>
+    <table name="Comment" schema="" catalog="iKnow" type="TABLE">
+      <column name="orderid" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="massaid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="content" sqlType="VARCHAR" precision="300" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="stars" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="JzMn"/>
+      <column name="customerid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="orderid"/>
+      <foreign-key name="FK_massaid" columns="massaid" ref-table="MassagistDetail" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_customer" columns="customerid" ref-table="Customer" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_order" columns="orderid" ref-table="Order" ref-schema="" ref-catalog="iKnow" ref-columns="orderid" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="FK_customer" unique="false" columns="customerid"/>
+      <index name="FK_massaid" unique="false" columns="massaid"/>
+    </table>
+    <table name="Customer" schema="" catalog="iKnow" type="TABLE">
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="signupdate" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="Country" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="phone"/>
+      <exported-key name="FK_customer" table="Comment" schema="" catalog="iKnow" columns="customerid"/>
+      <exported-key name="customer_foreignkey" table="Order" schema="" catalog="iKnow" columns="customerid"/>
+      <exported-key name="customerid_fk" table="massagist_appt" schema="" catalog="iKnow" columns="customerid"/>
+    </table>
+    <table name="Has_Service" schema="" catalog="iKnow" type="TABLE">
+      <column name="hsid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="Cg=="/>
+      <column name="masaid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="hsid"/>
+      <foreign-key name="HSmassagist" columns="masaid" ref-table="Massagist" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="HSservice" columns="serviceid" ref-table="Service" ref-schema="" ref-catalog="iKnow" ref-columns="serviceid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="massagist_idx" unique="false" columns="masaid"/>
+      <index name="service_idx" unique="false" columns="serviceid"/>
+    </table>
+    <table name="Massagist" schema="" catalog="iKnow" type="TABLE">
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="phone"/>
+      <exported-key name="HSmassagist" table="Has_Service" schema="" catalog="iKnow" columns="masaid"/>
+      <exported-key name="mdphone" table="MassagistDetail" schema="" catalog="iKnow" columns="phone"/>
+      <exported-key name="massagist_foreignkey" table="Order" schema="" catalog="iKnow" columns="massaid"/>
+      <exported-key name="Remassagist" table="Recommand_massagist" schema="" catalog="iKnow" columns="massagistid"/>
+    </table>
+    <table name="MassagistDetail" schema="" catalog="iKnow" type="TABLE">
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="stars" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="JzMn"/>
+      <column name="shopid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="intro" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="level" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J00n"/>
+      <column name="visiting_start" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="visiting_end" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <primary-key name="PRIMARY" columns="phone"/>
+      <foreign-key name="mdphone" columns="phone" ref-table="Massagist" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="mdshop" columns="shopid" ref-table="Shop" ref-schema="" ref-catalog="iKnow" ref-columns="shopid" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="FK_massaid" table="Comment" schema="" catalog="iKnow" columns="massaid"/>
+      <exported-key name="massaid_fk" table="massagist_appt" schema="" catalog="iKnow" columns="massaid"/>
+      <index name="mstore_idx" unique="false" columns="shopid"/>
+    </table>
+    <table name="Order" schema="" catalog="iKnow" type="TABLE">
+      <column name="orderid" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="customerid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="massaid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="qty" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <column name="time" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="promotion" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="ENUM" precision="9" scale="0" nullable="false" jdbcType="1" def="J1dBUk4n"/>
+      <column name="amount" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="unitprice" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="level" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J00n"/>
+      <column name="shopid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="shopname" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="massagistname" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="servicename" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="orderid"/>
+      <foreign-key name="customer_foreignkey" columns="customerid" ref-table="Customer" ref-schema="" ref-catalog="iKnow" ref-columns="Phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="massagist_foreignkey" columns="massaid" ref-table="Massagist" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="promotion_foreignkey" columns="promotion" ref-table="Promotion" ref-schema="" ref-catalog="iKnow" ref-columns="Promotionid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="serviced_foreignkey" columns="serviceid" ref-table="Service" ref-schema="" ref-catalog="iKnow" ref-columns="serviceid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_order" table="Comment" schema="" catalog="iKnow" columns="orderid"/>
+      <exported-key name="order_pk" table="massagist_appt" schema="" catalog="iKnow" columns="orderid"/>
+      <index name="customer_foreignkey" unique="false" columns="customerid"/>
+      <index name="massagist_foreignkey" unique="false" columns="massaid"/>
+      <index name="promotion_foreignkey" unique="false" columns="promotion"/>
+      <index name="serviced_foreignkey" unique="false" columns="serviceid"/>
+    </table>
+    <table name="Promotion" schema="" catalog="iKnow" type="TABLE">
+      <column name="Promotionid" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="value" sqlType="FLOAT" precision="12" scale="0" nullable="true" jdbcType="7"/>
+      <column name="valid" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="Promotionid"/>
+      <exported-key name="promotion_foreignkey" table="Order" schema="" catalog="iKnow" columns="promotion"/>
+    </table>
+    <table name="Recommand_massagist" schema="" catalog="iKnow" type="TABLE">
+      <column name="massagistid" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="shopname" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="stars" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="JzMn"/>
+      <column name="intro" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="longtitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="massagistid"/>
+      <foreign-key name="Remassagist" columns="massagistid" ref-table="Massagist" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="Recommand_news" schema="" catalog="iKnow" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="content" sqlType="VARCHAR" precision="2000" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="Recommand_service" schema="" catalog="iKnow" type="TABLE">
+      <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="shopname" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="servicename" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="price" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="longtitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="serviceid"/>
+      <foreign-key name="R-serviced" columns="serviceid" ref-table="Service" ref-schema="" ref-catalog="iKnow" ref-columns="serviceid" update-rule="0" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="Service" schema="" catalog="iKnow" type="TABLE">
+      <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="shopid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="shortdesc" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="price" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="funcdesc" sqlType="VARCHAR" precision="1000" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="intro" sqlType="VARCHAR" precision="1000" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="catid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="price_high" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="price_expert" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="duration" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="serviceid"/>
+      <foreign-key name="category" columns="catid" ref-table="Category" ref-schema="" ref-catalog="iKnow" ref-columns="catid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="sshop" columns="shopid" ref-table="Shop" ref-schema="" ref-catalog="iKnow" ref-columns="shopid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="HSservice" table="Has_Service" schema="" catalog="iKnow" columns="serviceid"/>
+      <exported-key name="serviced_foreignkey" table="Order" schema="" catalog="iKnow" columns="serviceid"/>
+      <exported-key name="R-serviced" table="Recommand_service" schema="" catalog="iKnow" columns="serviceid"/>
+      <exported-key name="serviceid_fk" table="massagist_appt" schema="" catalog="iKnow" columns="serviceid"/>
+      <index name="category_idx" unique="false" columns="catid"/>
+      <index name="sstore_idx" unique="false" columns="shopid"/>
+    </table>
+    <table name="Shop" schema="" catalog="iKnow" type="TABLE">
+      <column name="shopid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="longtitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="address" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="opentime" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <column name="closetime" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <primary-key name="PRIMARY" columns="shopid"/>
+      <exported-key name="mdshop" table="MassagistDetail" schema="" catalog="iKnow" columns="shopid"/>
+      <exported-key name="sshop" table="Service" schema="" catalog="iKnow" columns="shopid"/>
+    </table>
+    <table name="massagist_appt" schema="" catalog="iKnow" type="TABLE">
+      <column name="orderid" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="massaid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="start" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="end" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="customerid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="orderid"/>
+      <foreign-key name="customerid_fk" columns="customerid" ref-table="Customer" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="massaid_fk" columns="massaid" ref-table="MassagistDetail" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="order_pk" columns="orderid" ref-table="Order" ref-schema="" ref-catalog="iKnow" ref-columns="orderid" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="serviceid_fk" columns="serviceid" ref-table="Service" ref-schema="" ref-catalog="iKnow" ref-columns="serviceid" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="customerid_fk" unique="false" columns="customerid"/>
+      <index name="massaid_fk" unique="false" columns="massaid"/>
+      <index name="serviceid_fk" unique="false" columns="serviceid"/>
+    </table>
+    <table name="news" schema="" catalog="iKnow" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="content" sqlType="VARCHAR" precision="2000" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="pic" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+  </data-source>
+</component>
