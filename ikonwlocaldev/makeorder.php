@@ -155,7 +155,7 @@ function charge($token,$con){
 }
 
 function updateorder_status($con,$status){
-    $query = "update Order set status = '".$status."' where orderid = '".$_SESSION['orderid']."';";
+    $query = "update `Order` set status = '".$status."' where orderid = '".$_SESSION['orderid']."';";
     if(mysql_query($query,$con))
     {
         echo "success";
@@ -176,7 +176,8 @@ function placeorder($con){
     $test["time"]= $time;
     //unset starttime setted in appointment function
     unset($test["starttime"]);
-
+    unset($test["duration"]);
+    unset($test["endtime"]);
     //get shopid and massagistname from MassagistDetail using massaid
     $info = DBfetchone2($con,"MassagistDetail",array('shopid','name'),array("phone"=>$test['massaid']));
     $info["massagistname"]=$info["name"];
@@ -198,6 +199,7 @@ function placeorder($con){
     //echo "before place order to database: ".var_dump($test);
 
     $orderid = DBinsert('Order',$test,$con);
+    $_SESSION["orderid"] = $orderid;
 
     if(isset($orderid)){
         return True;
