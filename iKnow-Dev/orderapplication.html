@@ -30,15 +30,17 @@
 						console.log(token.id)
 						// Use the token to create the charge with a server-side script.
 						// You can access the token ID with `token.id`
+						var starttimestring = (plus.storage.getItem("apptyear")+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString();
+						console.log(starttimestring);
 						mui.ajax(url.appointment_succ,{
 							data:{
-								starttime:plus.storage.getItem("apptdate")
+								starttime:starttimestring.toString()
 							},
 							type:'post',
-							timeout:10000
-						})
-						
-						mui.ajax(url.order, {
+							timeout:10000,
+							success: function(data){
+								console.log(data);
+								mui.ajax(url.order, {
 							data: {
 								submit: token.id,
 							},
@@ -82,6 +84,53 @@
 									mui.back();
 							}
 						});
+							}
+						})
+						
+//						mui.ajax(url.order, {
+//							data: {
+//								submit: token.id,
+//							},
+//							//dataType: 'json', //服务器返回json格式数据
+//							type: 'post', //HTTP请求类型
+//							timeout: 10000, //超时时间设置为10秒；
+//							success: function(data) {
+//								console.log(data)
+//								if (data != 'success') {
+//									plus.nativeUI.toast('支付请求失败，请返回重试');
+//									mui.back();
+//									return;
+//								}
+//								if (!orderlistpage) {
+//									var orderlistpage = plus.webview.getWebviewById('orderslist.html');
+//								}
+//								mui.fire(orderlistpage, 'refreshme', {});
+//								console.log('refreshed')
+//									//服务器返回响应，根据响应结果，分析是否登录成功；
+//								mui.openWindow({
+//									id: 'paymentsuccess',
+//									url: "PaymentSuccess.html",
+//									styles: {
+//										popGesture: 'close'
+//									},
+//									show: {
+//										autoShow: true, //页面loaded事件发生后自动显示，默认为true
+//										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+//										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+//									},
+//									waiting: {
+//										autoShow: true, //自动显示等待框，默认为true
+//										title: '正在加载...', //等待对话框上显示的提示内容
+//									}
+//								});
+//							},
+//							error: function(xhr, type, errorThrown) {
+//								//异常处理；
+//								console.log(errorThrown);
+//								plus.nativeUI.toast('支付请求失败，请返回重试');
+//									mui.back();
+//							}
+//						});
 					}
 				});
 				document.getElementById("orderbtn").addEventListener('tap', function(e) {
@@ -195,6 +244,7 @@
 //				})
 				window.addEventListener('updateorder', function(event) { //监听自定义事件
 					//console.log(plus.storage.getItem('apptdate') +'-'+ plus.storage.getItem('appttime'));
+					//console.log(('2015'+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString());
 					if (plus.storage.getItem('apptdate')) {
 						console.log('hehe')
 						document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');

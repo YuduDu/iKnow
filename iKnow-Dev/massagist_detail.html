@@ -63,7 +63,7 @@
 						//						var maplink = "http://api.map.baidu.com/marker?location=" + self.latitude + "," + self.longtitude + "&title=" + self.shopname + "&content=" + obj.address + "&output=html&src=iKnowApp";
 						//						document.getElementById("address").href = maplink;
 												document.getElementById("shortdesc").innerHTML = obj.massagist_info.intro;
-												document.getElementById("openhour").innerHTML = "营业时间:" + obj.shop_info.opentime.slice(0, 5) + "-" + obj.shop_info.closetime.slice(0, 5);
+												document.getElementById("openhour").innerHTML = "到店服务:" + obj.shop_info.opentime.slice(0, 5) + "-" + obj.shop_info.closetime.slice(0, 5);
 						//						document.getElementById("phone").href = "tel:" + obj.phone;
 												document.getElementById("profilepic").style.backgroundImage = "url("+obj.massagist_info.pic+")";
 												document.getElementById("distance").innerHTML = distance + "km";
@@ -210,7 +210,7 @@
 		</header>
 		<div id="servicedetail_wrap">
 			<div style="width:100%;height:200px;position:relative;background-image:url(img/detailbg.jpg);background-size: cover">
-					<div style="padding-top: 72px;text-align: center;"><div id="profilepic" class="mui-media-object-round " style="background-position: center;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover;background-position-y:0px;background-repeat: no-repeat; "></div></div>
+					<div style="padding-top: 72px;text-align: center;"><div id="profilepic" class="mui-media-object-round " style="margin:0 auto;background-image: url(img/defaultprofilepic.png);width:72px;height:72px;background-size: cover;background-position-y:0px;background-repeat: no-repeat; "></div></div>
 				<p id="shopname" style="position:absolute;margin-left:15px;bottom: 20px;color: #ffffff; font-size:16px"></p>
 				<p style="position:absolute;margin-left:15px;bottom: 0px;color: #CCCCCC; font-size:14px" id="openhour"></p>
 				<p style="position:absolute;margin-right:15px;bottom:0px;right: 0px;color: #CCCCCC; font-size:14px" id="distance">定位中</p>
@@ -221,7 +221,7 @@
 			</div>
 			<ul class="mui-table-view" style="margin:0px 10px 0px 10px;top:6px;line-height: 40px;">
 				<li class="mui-table-view-cell">
-					<a id='massagistlistbtn' class="mui-navigate-right" style="color:#56abe4;font-size: 20px;">
+					<a id='massagistlistbtn' style="color:#56abe4;font-size: 20px;">
 						服务列表
 					</a>
 				</li>

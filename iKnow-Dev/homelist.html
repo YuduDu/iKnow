@@ -36,43 +36,131 @@
 									list: obj
 								});
 								document.getElementById('Services').innerHTML = html;
+								mui.ajax(url.list, {
+									data: {
+										action: 'get_recommand_news'
+									},
+									type: 'post', //HTTP请求类型 
+									timeout: 100000, //超时时间设置为10秒；  
+									success: function(data) {
+										console.log(data);
+										var obj = JSON.parse(data);
+										var html = template('slidetemplate', {
+											list: obj
+										});
+										//console.log(obj[0].title)
+										console.log(html)
+										document.getElementById('slideshowul').innerHTML = html;
+									},
+									error: function(xhr, type, errorThrown) {
+										//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+										console.log(type);
+										console.log(JSON.stringify(xhr));
+									}
+								});
+								mui.ajax(url.list, {
+									data: {
+										action: 'get_recommand_massagist'
+									},
+									type: 'post', //HTTP请求类型 
+									timeout: 100000, //超时时间设置为10秒；  
+									success: function(data) {
+										this.obj2 = JSON.parse(data);
+										//plus.geolocation.getCurrentPosition(function(p) {
+										//plus.storage.setItem("point1lat", p.coords.latitude);
+										for (item in obj2) {
+											var point2lat = eval(obj2[item].latitude);
+											var point2long = eval(obj2[item].longtitude);
+											obj2[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+										}
+										var html = template('massagistslist', {
+											list: obj2
+										});
+										document.getElementById('massagist').innerHTML = html;
+										//})
+										//console.log(data);
+									},
+									error: function(xhr, type, errorThrown) {
+										console.log(type);
+										console.log(JSON.stringify(xhr));
+									}
+								});
 							},
 							function(e) {
-								Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
-								Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
-								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
+								//Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
+								//Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
+								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启');
+								
+								for (item in obj) {
+									var point2lat = eval(obj[item].latitude);
+									var point2long = eval(obj[item].longtitude);
+									obj[item].distance = 'null';
+								}
+								var html = template('serviceslist', {
+									list: obj
+								});
+								document.getElementById('Services').innerHTML = html;
+								mui.ajax(url.list, {
+									data: {
+										action: 'get_recommand_news'
+									},
+									type: 'post', //HTTP请求类型 
+									timeout: 100000, //超时时间设置为10秒；  
+									success: function(data) {
+										console.log(data);
+										var obj = JSON.parse(data);
+										var html = template('slidetemplate', {
+											list: obj
+										});
+										//console.log(obj[0].title)
+										console.log(html)
+										document.getElementById('slideshowul').innerHTML = html;
+									},
+									error: function(xhr, type, errorThrown) {
+										//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+										console.log(type);
+										console.log(JSON.stringify(xhr));
+									}
+								});
+								mui.ajax(url.list, {
+									data: {
+										action: 'get_recommand_massagist'
+									},
+									type: 'post', //HTTP请求类型 
+									timeout: 100000, //超时时间设置为10秒；  
+									success: function(data) {
+										this.obj2 = JSON.parse(data);
+										//plus.geolocation.getCurrentPosition(function(p) {
+										//plus.storage.setItem("point1lat", p.coords.latitude);
+										for (item in obj2) {
+											//var point2lat = eval(obj2[item].latitude);
+											//var point2long = eval(obj2[item].longtitude);
+											obj2[item].distance = 'null';										}
+										var html = template('massagistslist', {
+											list: obj2
+										});
+										document.getElementById('massagist').innerHTML = html;
+										//})
+										//console.log(data);
+									},
+									error: function(xhr, type, errorThrown) {
+										console.log(type);
+										console.log(JSON.stringify(xhr));
+									}
+								});
+								
+								
+								
 							})
 					},
 					error: function(xhr, type, errorThrown) {
-						plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+						plus.nativeUI.alert('网络连接失败，请确认设备网络状态');
+						document.getElementById("servicesloading").innerHTML = '加载失败';
+						document.getElementById("massagistsloading").innerHTML = '加载失败';
 						console.log(type);
 						console.log(JSON.stringify(xhr));
 					}
 				});
-				
-				mui.ajax(url.list, {
-					data: {
-						action: 'get_recommand_news'
-					},
-					type: 'post', //HTTP请求类型 
-					timeout: 100000, //超时时间设置为10秒；  
-					success: function(data) {
-						console.log(data);
-						var obj = JSON.parse(data);
-						var html = template('slidetemplate', {
-									list: obj
-							}); 
-							//console.log(obj[0].title)
-							console.log(html)
-						document.getElementById('slideshowul').innerHTML = html;
-					},
-					error: function(xhr, type, errorThrown) {
-						//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
-						console.log(type);
-						console.log(JSON.stringify(xhr));
-					}
-				});
-				
 				mui('#Services').on('tap', 'li', function() {
 						mui.openWindow({
 							url: 'index_service_detail.html',
@@ -122,34 +210,6 @@
 						}
 					})
 				})
-				mui.ajax(url.list, {
-					data: {
-						action: 'get_recommand_massagist'
-					},
-					type: 'post', //HTTP请求类型 
-					timeout: 100000, //超时时间设置为10秒；  
-					success: function(data) {
-						this.obj2 = JSON.parse(data);
-						plus.geolocation.getCurrentPosition(function(p) {
-								plus.storage.setItem("point1lat", p.coords.latitude);
-								for (item in obj2) {
-									var point2lat = eval(obj2[item].latitude);
-									var point2long = eval(obj2[item].longtitude);
-									obj2[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
-								}
-								var html = template('massagistslist', {
-									list: obj2
-								});
-								document.getElementById('massagist').innerHTML = html;
-							})
-							//console.log(data);
-					},
-					error: function(xhr, type, errorThrown) {
-						plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
-						console.log(type);
-						console.log(JSON.stringify(xhr));
-					}
-				});
 				mui('#massagist').on('tap', 'li', function() {
 					mui.openWindow({
 						url: 'massagist_detail.html',
@@ -193,7 +253,6 @@
 						}
 					})
 				})
-
 				openWindowfunc('servicelistbtn', 'serviceslist');
 				openWindowfunc('servicecategorybtn', 'servicecategory');
 				openWindowfunc('massagistlistbtn', 'massagistslist');
@@ -218,18 +277,9 @@
 	<body>
 		<div class="mui-content">
 			<div id="slideshow" class="mui-slider" style="height:160px" ;>
-				<div id="slideshowul"class="mui-slider-group">
-					<div data-id = "1" class="mui-slider-item">
-						<a id="slider-image-1" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide3.jpg" /></a>
-					</div>
-					<div data-id = "2" class="mui-slider-item">
-						<a id="slider-image-2" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide2.jpg" /></a>
-					</div>
-					<div data-id = "3" class="mui-slider-item">
-						<a id="slider-image-3" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide1.jpg" /></a>
-					</div>
-					<div data-id = "4" class="mui-slider-item">
-						<a id="slider-image-4" href="javascript:;"><img src="http://gene.rnet.missouri.edu/iKnow/img/slide/slide4.jpg" /></a>
+				<div id="slideshowul" class="mui-slider-group">
+					<div data-id="1" class="mui-slider-item">
+						<a id="slider-image-1" href="javascript:;"><img src="img/defaultpicbig.png" /></a>
 					</div>
 				</div>
 			</div>
@@ -279,7 +329,7 @@
 				<li class="mui-table-view-cell mui-media">
 					<a>
 						<img class="mui-media-object-large mui-pull-left" style="width:100%;height:100%" src="img/defaultpic.png">
-						<div class="mui-media-body" style="color:#999999">
+						<div id="servicesloading" class="mui-media-body" style="color:#999999">
 							加载中...
 						</div>
 					</a>
@@ -298,7 +348,7 @@
 					<a href="javascript:; ">
 						<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover; ">
 						</div>
-						<div class="mui-media-body mui-media-body-massagistlist" style="color:#999999;">
+						<div id="massagistsloading" class="mui-media-body mui-media-body-massagistlist" style="color:#999999;">
 							加载中
 						</div>
 					</a>
@@ -314,7 +364,7 @@
 					<div class="mui-media-body ">
 						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.servicename}}</p>
 						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>
-						<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>
+						{{if value.distance!='null'}}<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>{{/if}}
 						<span class='mui-price'>￥{{value.price}}</span>
 					</div>
 				</a>
@@ -325,7 +375,7 @@
 		<script id="slidetemplate" type="text/html ">
 			{{each list as value i}}
 			<div data-id="{{value.id}}" class="mui-slider-item">
-				<a id="slider-image-{{value.id}}" href="javascript:;"><img src="{{value.pic}}"/></a>
+				<a id="slider-image-{{value.id}}" href="javascript:;"><img src="{{value.pic}}" /></a>
 			</div>
 			{{/each}}
 		</script>
@@ -337,7 +387,7 @@
 					</div>
 					<div class="mui-media-body mui-media-body-massagistlist ">
 						<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
-						<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>
+						{{if value.distance!='null'}}<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>{{/if}}
 						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 						<p class='mui-ellipsis-2'>{{value.intro}}</p>
 					</div>

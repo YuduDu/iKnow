@@ -3,7 +3,7 @@ var url = {
 		discovernews:"http://gene.rnet.missouri.edu/iKnow/db.php",
 		login:"http://gene.rnet.missouri.edu/iKnow/login2.php",
 		signup:"http://gene.rnet.missouri.edu/iKnow/signup.php",
-		order:"http://gene.rnet.missouri.edu/iKnow/order.php",
+		order:"http://gene.rnet.missouri.edu/iKnow/makeorder.php",
 		serviceslist:"http://gene.rnet.missouri.edu/iKnow/list.php",
 		list:"http://gene.rnet.missouri.edu/iKnow/list.php",
 		therapistslist:"http://gene.rnet.missouri.edu/iKnow/massagistlist.php",
@@ -12,15 +12,15 @@ var url = {
 		slideimage3:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide3.jpg",
 		slideimage4:"http://gene.rnet.missouri.edu/iKnow/img/slide/slide4.jpg",
 		indexservicedetail:"http://gene.rnet.missouri.edu/iKnow/servicedetail.php",
-		appt:"http://gene.rnet.missouri.edu/iKnow/appointment_model.php",
+		appt:"http://gene.rnet.missouri.edu/iKnow/appointment_chkava.php",
 		comment: "http://gene.rnet.missouri.edu/iKnow/comment.php",
 		orderdetail:"http://gene.rnet.missouri.edu/iKnow/orderdetail.php",
 		massagistdetail:"http://gene.rnet.missouri.edu/iKnow/massagistdetail.php",
 		appointment_succ:"http://gene.rnet.missouri.edu/iKnow/appointment_succ.php"
-	}
+}
 
 var constant = {
-	versionid:"1.6.8"
+	versionid:"1.6.9"
 }
 
 var categorypair = {

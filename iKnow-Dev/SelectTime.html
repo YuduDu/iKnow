@@ -67,7 +67,8 @@
 								datecontrolitem[i].addEventListener('tap', function() {
 									var timename = document.getElementsByTagName('td')
 									for (i = 0; i < timename.length; i++) {
-										timename[i].style.display = ''
+										timename[i].style.display = '';
+										//timename[i].style.backgroundColorcolor = '#666666';
 									}
 									console.log(pickeddatetemp);
 									document.getElementById(pickeddatetemp).className = 'mui-control-item';
@@ -75,9 +76,11 @@
 									pickeddatetemp = this.id;
 									finaltime[1] = pickeddate;
 									console.log(pickeddate);
+									console.log('hehe')
 									
 								})
 							}
+							//mui.trigger(datecontrolitem[0], 'tap');
 						} else {
 							this.obj = JSON.parse(data);
 //							for (var i = 0; i < obj.length; i++) {

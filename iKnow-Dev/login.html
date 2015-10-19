@@ -122,14 +122,15 @@
 					plus.screen.lockOrientation("portrait-primary");
 					var settings = app.getSettings();
 					var state = app.getState();
-					var mainPage = $.preload({
-						"id": 'index',
-						"url": 'index.html'
-					});
+//					var mainPage = $.preload({
+//						"id": 'index',
+//						"url": 'index.html'
+//					});
 					var toMain = function() {
-						$.fire(mainPage, 'show', null);
-						setTimeout(function() {
-							$.openWindow({
+//						$.fire(mainPage, 'show', null);
+//						setTimeout(function() {
+							mui.openWindow({
+								url:'index.html',
 								id: 'index',
 								show: {
 									autoShow: true, //页面loaded事件发生后自动显示，默认为true
@@ -144,7 +145,7 @@
 									title: '正在加载...', //等待对话框上显示的提示内容
 								}
 							});
-						}, 0);
+//						}, 0);
 					};
 					if (!mepage) {
 						var mepage = plus.webview.getWebviewById('me.html');
@@ -154,19 +155,11 @@
 					}
 					//触发详情页面的newsId事件
 					//检查 "登录状态/锁屏状态" 开始
-					
-					if (settings.autoLogin && state.token && settings.gestures) {
-						$.openWindow({
-							url: 'unlock.html',
-							id: 'unlock',
-							show: {
-								aniShow: 'pop-in'
-							},
-							waiting: {
-								autoShow: false
-							}
-						});
-					} else if (settings.autoLogin && state.token) {
+					//mui.alert(settings.autoLogin);
+					//mui.alert(state.token);
+					//var account = plus.storage.getItem(useraccount);
+					//mui.alert(plus.storage.getLength());
+					if (settings.autoLogin && plus.storage.getLength()) {
 						toMain();
 					}
 					// close splash

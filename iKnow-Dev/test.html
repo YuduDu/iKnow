@@ -11,6 +11,14 @@
 			mui.init({
 				swipeBack:true
 			});
+			mui.plusReady(function(){
+				if("2015-01-01 08:00:00"<"2015-01-01 10:00:00"){
+					console.log('yes')
+				}
+				else{
+					console.log("no")
+				}
+			})
 		</script>
 	</head>
 
@@ -19,20 +27,7 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">标题</h1>
 			<div class="mui-content mui-content-padded" style="margin:64px">
-				<form action="http://gene.rnet.missouri.edu/iKnow/test/charge.php" method="POST">
-				  <script
-				    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-				    data-key="pk_test_XOAM8G6tnBANFHGUKpqRRvx0"
-				    data-image="http://gene.rnet.missouri.edu/iKnow/img/icon/icon180.png"
-				    data-name="身知道预订支付"
-				    data-description="东方力道中医推拿院-单人全身精油按摩"
-				    data-amount="2000"
-				    data-locale="auto"
-				    data-alipay="true"
-				    data-label="立即支付"
-				  >
- 				 </script>
-			</form>
+				
 			</div>
 
 		</header>
