@@ -85,6 +85,51 @@
 										console.log(JSON.stringify(xhr));
 									}
 								});
+								
+								document.getElementById("servicelistbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'serviceslist.html',
+						id: 'serviceslist',
+						extras: {
+							mylatitude: p.coords.latitude,
+								mylongtitude: p.coords.longitude
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+					document.getElementById("massagistlistbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'massagistslist.html',
+						id: 'massagistslist',
+						extras: {
+							mylatitude: p.coords.latitude,
+								mylongtitude: p.coords.longitude
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
 							},
 							function(e) {
 								//Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
@@ -149,6 +194,50 @@
 									}
 								});
 								
+								document.getElementById("servicelistbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'serviceslist.html',
+						id: 'serviceslist',
+						extras: {
+							mylatitude: 'null',
+								mylongtitude: 'null'
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+					document.getElementById("massagistlistbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'massagistslist.html',
+						id: 'massagistslist',
+						extras: {
+							mylatitude: 'null',
+								mylongtitude: 'null'
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
 								
 								
 							})
@@ -216,7 +305,7 @@
 						id: 'massagist_detail',
 						extras: {
 							massagistid: obj2[this.getAttribute('data-id')].massagistid,
-							distance: obj[this.getAttribute('data-id')].distance
+							distance: obj2[this.getAttribute('data-id')].distance
 						},
 						styles: {
 							popGesture: 'close'
@@ -253,12 +342,13 @@
 						}
 					})
 				})
-				openWindowfunc('servicelistbtn', 'serviceslist');
+				//openWindowfunc('servicelistbtn', 'serviceslist');
 				openWindowfunc('servicecategorybtn', 'servicecategory');
-				openWindowfunc('massagistlistbtn', 'massagistslist');
+				//openWindowfunc('massagistlistbtn', 'massagistslist');
 				plus.webview.currentWebview().setStyle({
 					scrollIndicator: 'none'
 				});
+				
 			})
 		</script>
 		<style>

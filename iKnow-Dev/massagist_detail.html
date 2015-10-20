@@ -45,13 +45,15 @@
 					async: false,
 					success: function(data) {
 						this.obj = JSON.parse(data);
+						
+						
 						console.log(data);
-						plus.geolocation.getCurrentPosition(function(p) {
+//						plus.geolocation.getCurrentPosition(function(p) {
 								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 								
-									var point2lat = eval(obj.shop_info.latitude);
-									var point2long = eval(obj.shop_info.longtitude);
-									obj.shop_info.distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+//									var point2lat = eval(obj.shop_info.latitude);
+//									var point2long = eval(obj.shop_info.longtitude);
+//									obj.shop_info.distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
 								
 								console.log(obj.shop_info.name)
 								document.getElementById("title").innerHTML = obj.massagist_info.name;
@@ -66,7 +68,8 @@
 												document.getElementById("openhour").innerHTML = "到店服务:" + obj.shop_info.opentime.slice(0, 5) + "-" + obj.shop_info.closetime.slice(0, 5);
 						//						document.getElementById("phone").href = "tel:" + obj.phone;
 												document.getElementById("profilepic").style.backgroundImage = "url("+obj.massagist_info.pic+")";
-												document.getElementById("distance").innerHTML = distance + "km";
+												
+												if(self.distance!='null'&&self.distance!='undefined'){document.getElementById("distance").innerHTML = distance + "km";}else{document.getElementById("distance").innerHTML =''}
 												
 												switch (obj.massagist_info.level){
 													case 'H': document.getElementById("matitle").innerHTML = '高级保健师'
@@ -88,12 +91,12 @@
 									list: obj.comment_list
 								});
 								document.getElementById('comments').innerHTML = html2;
-							},
-							function(e) {
-//								Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
-//								Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
-								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
-							})
+//							},
+//							function(e) {
+////								Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
+////								Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
+//								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
+//							})
 						
 						
 												
@@ -118,7 +121,7 @@
 							id: 'index_service_detail',
 							extras: {
 								serviceid: obj.service_list[this.getAttribute('data-id')].serviceid,
-								distance: obj.shop_info.distance,
+								distance: distance,
 								servicename: obj.service_list[this.getAttribute('data-id')].name,
 								shopname: obj.shop_info.name,
 								price: obj.service_list[this.getAttribute('data-id')].price,
@@ -210,7 +213,9 @@
 		</header>
 		<div id="servicedetail_wrap">
 			<div style="width:100%;height:200px;position:relative;background-image:url(img/detailbg.jpg);background-size: cover">
-					<div style="padding-top: 72px;text-align: center;"><div id="profilepic" class="mui-media-object-round " style="margin:0 auto;background-image: url(img/defaultprofilepic.png);width:72px;height:72px;background-size: cover;background-position-y:0px;background-repeat: no-repeat; "></div></div>
+				<div style="padding-top: 72px;text-align: center;">
+					<div id="profilepic" class="mui-media-object-round " style="margin:0 auto;background-image: url(img/defaultprofilepic.png);width:72px;height:72px;background-size: cover;background-position-y:0px;background-repeat: no-repeat; "></div>
+				</div>
 				<p id="shopname" style="position:absolute;margin-left:15px;bottom: 20px;color: #ffffff; font-size:16px"></p>
 				<p style="position:absolute;margin-left:15px;bottom: 0px;color: #CCCCCC; font-size:14px" id="openhour"></p>
 				<p style="position:absolute;margin-right:15px;bottom:0px;right: 0px;color: #CCCCCC; font-size:14px" id="distance">定位中</p>
@@ -228,46 +233,48 @@
 			</ul>
 			<div style="background-color: #ffffff; height:auto;position:relative;top:6px;margin-left:10px;margin-right:10px">
 				<ul id="servicelist" class="mui-table-view">
-				<li class="mui-table-view-cell" style="height:auto">
-					<a class="mui-navigate-right" style="height:auto">
-						<div><p id="servicename" class='mui-ellipsis' style="color:#666666;font-size:17px;margin-bottom:5px">加载中...</p></div>
-					</a>
-				</li>
-			</ul>
+					<li class="mui-table-view-cell" style="height:auto">
+						<a class="mui-navigate-right" style="height:auto">
+							<div>
+								<p id="servicename" class='mui-ellipsis' style="color:#666666;font-size:17px;margin-bottom:5px">加载中...</p>
+							</div>
+						</a>
+					</li>
+				</ul>
 			</div>
-			<div style="background-color: #ffffff; height:auto;position:relative;top:10px;margin-left:10px;margin-right:10px">
+			<div style="background-color: #ffffff; height:auto;position:relative;top:21px;margin-left:10px;margin-right:10px">
 				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">用户评价</p>
 			</div>
-			<div style="background-color: #ffffff; height:auto;position:relative;top:1px;margin-left:10px;margin-right:10px;margin-top: 0px;">
+			<div style="background-color: #ffffff; height:auto;position:relative;top:12px;margin-left:10px;margin-right:10px;margin-top: 0px;">
 				<ul id="comments" class="mui-table-view">
-				<li class="mui-table-view-cell" style="height:70px">
-					<p style="word-wrap: break-word;color: #333333;">加载中...</p>
-				</li>
-			</ul>
+					<li class="mui-table-view-cell" style="height:70px">
+						<p style="word-wrap: break-word;color: #333333;">加载中...</p>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<script id="servicelisttemplate" type="text/html ">
 			{{each list as value i}}
 			<li data-id="{{i}}" class="mui-table-view-cell" style="height:auto">
-					<a class="mui-navigate-right" style="height:auto">
-						<div><p id="servicename" class='mui-ellipsis' style="color:#666666;font-size:17px;margin-bottom:5px">{{value.name}}</p></div>
-						<div class="fa fa-clock-o" style="color: #999999;font-size: 14px;padding-top:0px">  {{value.duration}}小时</div><div class="fa fa-file-text-o" style="margin-left:10px;color: #999999;font-size: 14px;">  {{value.amount}}单</div>
-						<div id="unitprice" class='mui-price' style="margin-top:10px;font-size:24px">￥{{value.price}}</div>
-					</a>
-				</li>
+				<a class="mui-navigate-right" style="height:auto">
+					<div>
+						<p id="servicename" class='mui-ellipsis' style="color:#666666;font-size:17px;margin-bottom:5px">{{value.name}}</p>
+					</div>
+					<div class="fa fa-clock-o" style="color: #999999;font-size: 14px;padding-top:0px"> {{value.duration}}小时</div>
+					<div class="fa fa-file-text-o" style="margin-left:10px;color: #999999;font-size: 14px;"> {{value.amount}}单</div>
+					<div id="unitprice" class='mui-price' style="margin-top:10px;font-size:24px">￥{{value.price}}</div>
+				</a>
+			</li>
 			{{/each}}
 		</script>
 		<script id="commenttemplate" type="text/html ">
 			{{each list as value i}}
 			<li class="mui-table-view-cell" style="height:auto">
-					<div><span style="color: #666666;font-size: 14px;">{{value.customerid}}</span><span class="mui-pull-right" style="color: #666666;font-size: 14px;">{{value.date}}</span></div>
-					{{if value.stars == 5}}<img style="height:16px;" src="img/5stars.png"/>{{/if}}
-					{{if value.stars == 4}}<img style="height:16px;" src="img/4stars.png"/>{{/if}}
-					{{if value.stars == 3}}<img style="height:16px;" src="img/3stars.png"/>{{/if}}
-					{{if value.stars == 2}}<img style="height:16px;" src="img/2stars.png"/>{{/if}}
-					{{if value.stars == 1}}<img style="height:16px;" src="img/1stars.png"/>{{/if}}
-					<p style="word-wrap: break-word;color: #333333;">{{value.content}}</p>
-				</li>
+				<div><span style="color: #666666;font-size: 14px;">{{value.customerid}}</span><span class="mui-pull-right" style="color: #666666;font-size: 14px;">{{value.date}}</span></div>
+				{{if value.stars == 5}}<img style="height:16px;" src="img/5stars.png" />{{/if}} {{if value.stars == 4}}<img style="height:16px;" src="img/4stars.png" />{{/if}} {{if value.stars == 3}}<img style="height:16px;" src="img/3stars.png" />{{/if}} {{if value.stars
+				== 2}}<img style="height:16px;" src="img/2stars.png" />{{/if}} {{if value.stars == 1}}<img style="height:16px;" src="img/1stars.png" />{{/if}}
+				<p style="word-wrap: break-word;color: #333333;">{{value.content}}</p>
+			</li>
 			{{/each}}
 		</script>
 	</body>

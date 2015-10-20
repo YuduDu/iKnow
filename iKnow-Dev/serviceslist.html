@@ -36,20 +36,21 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						this.obj = JSON.parse(data)
-						plus.geolocation.getCurrentPosition(function(p) {
+						//plus.geolocation.getCurrentPosition(function(p) {
 								//this.point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 								for (item in obj) {
 									var point2lat = eval(obj[item].latitude);
 									var point2long = eval(obj[item].longtitude);
-									obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+									if(self.mylatitude!='null'&&self.mylongtitude!='null'){obj[item].distance = distancefunc(self.mylatitude, self.mylongtitude, point2lat, point2long).toFixed(1);}
+									else{obj[item].distance = 'null'}
 								}
 								var html = template('serviceslist', {
 									list: obj
 								});
 								document.getElementById('Services').innerHTML = html;
-							},function(e){
-							Post2Template(url.serviceslist,'get_services_list','serviceslist','Services');
-							})
+//							},function(e){
+//							Post2Template(url.serviceslist,'get_services_list','serviceslist','Services');
+//							})
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
@@ -109,7 +110,7 @@
 					<div class="mui-media-body ">
 						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.servicename}}</p>
 						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>
-						<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>
+						{{if value.distance!='null'}}<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>{{/if}}
 						<span class='mui-price'>￥{{value.price}}</span>
 					</div>
 				</a>

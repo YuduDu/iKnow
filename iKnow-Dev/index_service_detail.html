@@ -105,7 +105,8 @@
 						document.getElementById("intro").innerHTML = obj.intro;
 						document.getElementById("openhour").innerHTML = "营业时间:" + obj.opentime.slice(0, 5) + "-" + obj.closetime.slice(0, 5);
 						document.getElementById("phone").href = "tel:" + obj.phone;
-						document.getElementById("distance").innerHTML = distance + "km";
+						if(distance!='null'&&distance!=undefined){document.getElementById("distance").innerHTML = distance + "km";}
+						else{document.getElementById("distance").innerHTML = ''}
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);

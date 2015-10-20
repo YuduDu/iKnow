@@ -17,6 +17,7 @@
 				swipeBack:true
 			});
 			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_massagist_list'
@@ -24,22 +25,23 @@
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						var obj = JSON.parse(data);
-						plus.geolocation.getCurrentPosition(function(p) {
-							var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+						this.obj = JSON.parse(data);
+						//plus.geolocation.getCurrentPosition(function(p) {
+							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 							for  (item in obj ){
 							var point2lat =	eval(obj[item].latitude);
 							var point2long = eval(obj[item].longtitude);
-							obj[item].distance = distancefunc(p.coords.latitude,p.coords.longitude,point2lat,point2long).toFixed(1);
+							if(self.mylatitude!='null'&&self.mylongtitude!='null'){obj[item].distance = distancefunc(self.mylatitude, self.mylongtitude, point2lat, point2long).toFixed(1);}
+									else{obj[item].distance = 'null'}
 							}
 						var html = template('massagistslist', {
 							list: obj
 						});
 						document.getElementById('massagist').innerHTML = html;
 						
-						},function(e){
-							Post2Template(url.list,'get_massagist_list','massagistslist','massagist');
-						})
+//						},function(e){
+//							Post2Template(url.list,'get_massagist_list','massagistslist','massagist');
+//						})
 						//console.log(data);
 						
 					},
@@ -49,9 +51,10 @@
 					}
 				});
 				mui('#massagist').on('tap','li',function(){
+					//console.log('hehe')
 							mui.openWindow({
-								url:'massagistslist.html',
-								id:'massagistslist',
+								url:'massagist_detail.html',
+								id:'massagist_detail',
 								extras:{
 									massagistid:obj[this.getAttribute('data-id')].massagistid,
 									name:obj[this.getAttribute('data-id')].name,
@@ -84,7 +87,7 @@
 						</div>
 						<div class="mui-media-body mui-media-body-massagistlist ">
 							<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
-							<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>
+							{{if value.distance!='null'}}<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>{{/if}}
 							<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 							<p class='mui-ellipsis-2'>{{value.intro}}</p>
 						</div>
