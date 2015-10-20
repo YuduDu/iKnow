@@ -74,6 +74,11 @@
 				//				plus.maps.openSysMap(dst, "MU", src);
 				//			}
 				//退出操作******************
+				document.getElementById("update").addEventListener('tap', function() {
+				plus.runtime.openURL('itms-services://?action=download-manifest&url=https%3A%2F%2Fwww.pgyer.com%2Fapiv1%2Fapp%2Fplist%3FaId%3D884a85cdebc6e1895d44fa9c87ecc810%26_api_key%3D5398cfcf74d664885ec6c81ed6e1dc21');
+			})
+				
+				
 				document.getElementById('exit').addEventListener('tap', function() {
 					if (mui.os.ios) {
 						var btnArray = [{
@@ -186,7 +191,7 @@
 
 					<li class="mui-table-view-cell">
 						<a class="mui-navigate-right" id="update">
-							<span style="color:#333333;margin-left: 10px;font-size: 16px;">检查更新</span>
+							<span style="color:#333333;margin-left: 10px;font-size: 16px;">安装更新</span>
 							<span class="pull-right" style="padding-right: 20px;color:#666666" id="versionnum"></span>
 						</a>
 					</li>
@@ -207,30 +212,6 @@
 				<button id="ajax">test2</button>-->
 			</div>
 		</div>
-		<script>
-			 			document.getElementById("test").addEventListener('tap', function() {
-			 				mui.openWindow({
-			 					id: 'test',
-			 					url: "test.html",
-			 					styles: {
-			 						popGesture: 'close'
-			 					},
-			 					show: {
-			 						autoShow: true, //页面loaded事件发生后自动显示，默认为true
-			 						aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-			 						duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-			 					},
-			 					waiting: {
-			 						autoShow: true, //自动显示等待框，默认为true
-			 						title: '正在加载...', //等待对话框上显示的提示内容
-			 					}
-			 				});
-			 			});
-			 			
-			document.getElementById("update").addEventListener('tap', function() {
-				plus.runtime.openURL('http://pgyer.com/iknow');
-			})
-		</script>
 	</body>
 	<script>
 	</script>
