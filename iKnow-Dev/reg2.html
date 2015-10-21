@@ -9,6 +9,7 @@
 		<title>注册</title>
 		<link href="css/mui.css" rel="stylesheet" />
 		<script src="js/customize.js"></script>
+		<script src="js/md5.js"></script>
 		<link href="css/style.css" rel="stylesheet" />
 		<style>
 			.area {
@@ -91,7 +92,7 @@
 					var passwordBox = doc.getElementById('password');
 					var passwordConfirmBox = doc.getElementById('password_confirm');
 					regButton.addEventListener('tap', function(event) {
-						var passwordConfirm = passwordConfirmBox.value;
+						var passwordmd5 = md5(passwordConfirmBox.value);
 						if (passwordConfirmBox.value != passwordBox.value) {
 							plus.nativeUI.toast('密码两次输入不一致');
 							return;
@@ -99,7 +100,7 @@
 						mui.ajax(url.signup, {
 							data: {
 								customid: accountBox2.value,
-								custompassword: passwordBox.value
+								custompassword: passwordmd5
 							},
 							type: 'post', //HTTP请求类型 
 							timeout: 100000, //超时时间设置为10秒；   

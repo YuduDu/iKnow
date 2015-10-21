@@ -9,6 +9,7 @@
 		<title></title>
 		<link href="css/mui.css" rel="stylesheet" />
 		<script src="js/customize.js"></script>
+		<script src="js/md5.js"></script>
 		<link href="css/style.css" rel="stylesheet" />
 		<style>
 			.area {
@@ -171,17 +172,20 @@
 					var loginButton = doc.getElementById('login');
 					var accountBox = doc.getElementById('account');
 					var passwordBox = doc.getElementById('password');
+					
 					var autoLoginButton = doc.getElementById("autoLogin");
 					var regButton = doc.getElementById('reg');
 					var forgetButton = doc.getElementById('forgetPassword');
 					loginButton.addEventListener('tap', function(event) {
-						//var form = new Array();
-						//form["phone"] = accountBox.value;
-						//form["password"]=passwordBox.value;
+
+						var passwordmd5 = md5(passwordBox.value)
 						var newform = JSON.stringify({
 							"phone": accountBox.value,
-							"password": passwordBox.value
+							"password": passwordmd5
 						});
+						console.log(passwordBox.value);
+						console.log(passwordmd5);
+						console.log(md5(passwordBox.value));
 						mui.ajax(url.login, {
 							data: {
 								pass: newform
