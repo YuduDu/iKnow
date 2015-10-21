@@ -45,61 +45,39 @@
 					async: false,
 					success: function(data) {
 						this.obj = JSON.parse(data);
-						
-						
-						console.log(data);
-//						plus.geolocation.getCurrentPosition(function(p) {
-								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
-								
-//									var point2lat = eval(obj.shop_info.latitude);
-//									var point2long = eval(obj.shop_info.longtitude);
-//									obj.shop_info.distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
-								
-								console.log(obj.shop_info.name)
-								document.getElementById("title").innerHTML = obj.massagist_info.name;
-												document.getElementById("shopname").innerHTML = obj.shop_info.name;
-						//						document.getElementById("price").innerHTML = "￥" + self.price;
-						//						document.getElementById("funcdes").innerHTML = obj.funcdes;
-//												document.getElementById("matitle").innerHTML = obj.massagist_info.level;
-						//						document.getElementById("address").innerHTML = obj.address;
-						//						var maplink = "http://api.map.baidu.com/marker?location=" + self.latitude + "," + self.longtitude + "&title=" + self.shopname + "&content=" + obj.address + "&output=html&src=iKnowApp";
-						//						document.getElementById("address").href = maplink;
-												document.getElementById("shortdesc").innerHTML = obj.massagist_info.intro;
-												document.getElementById("openhour").innerHTML = "到店服务:" + obj.shop_info.opentime.slice(0, 5) + "-" + obj.shop_info.closetime.slice(0, 5);
-						//						document.getElementById("phone").href = "tel:" + obj.phone;
-												document.getElementById("profilepic").style.backgroundImage = "url("+obj.massagist_info.pic+")";
-												
-												if(self.distance!='null'&&self.distance!='undefined'){document.getElementById("distance").innerHTML = distance + "km";}else{document.getElementById("distance").innerHTML =''}
-												
-												switch (obj.massagist_info.level){
-													case 'H': document.getElementById("matitle").innerHTML = '高级保健师'
-														break;
-													case 'E': document.getElementById("matitle").innerHTML = '专家保健师'
-														break;
-													case 'M': document.getElementById("matitle").innerHTML = '中级保健师'
-														break;
-													default: '呵呵'
-														break;
-												}
-												
-												var html1 = template('servicelisttemplate', {
-									list: obj.service_list
-								});
-								document.getElementById('servicelist').innerHTML = html1;
-								
-								var html2 = template('commenttemplate', {
-									list: obj.comment_list
-								});
-								document.getElementById('comments').innerHTML = html2;
-//							},
-//							function(e) {
-////								Post2Template(url.list, 'get_recommand_service', 'serviceslist', 'Services');
-////								Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
-//								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启')
-//							})
-						
-						
-												
+						console.log(obj.shop_info.name)
+						document.getElementById("title").innerHTML = obj.massagist_info.name;
+						document.getElementById("shopname").innerHTML = obj.shop_info.name;
+						document.getElementById("shortdesc").innerHTML = obj.massagist_info.intro;
+						document.getElementById("openhour").innerHTML = "到店服务:" + obj.shop_info.opentime.slice(0, 5) + "-" + obj.shop_info.closetime.slice(0, 5);
+						document.getElementById("profilepic").style.backgroundImage = "url(" + obj.massagist_info.pic + ")";
+						if (self.distance != 'null' && self.distance != 'undefined') {
+							document.getElementById("distance").innerHTML = distance + "km";
+						} else {
+							document.getElementById("distance").innerHTML = ''
+						}
+						switch (obj.massagist_info.level) {
+							case 'H':
+								document.getElementById("matitle").innerHTML = '高级保健师'
+								break;
+							case 'E':
+								document.getElementById("matitle").innerHTML = '专家保健师'
+								break;
+							case 'M':
+								document.getElementById("matitle").innerHTML = '中级保健师'
+								break;
+							default:
+								'呵呵'
+								break;
+						}
+						var html1 = template('servicelisttemplate', {
+							list: obj.service_list
+						});
+						document.getElementById('servicelist').innerHTML = html1;
+						var html2 = template('commenttemplate', {
+							list: obj.comment_list
+						});
+						document.getElementById('comments').innerHTML = html2;
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
@@ -114,34 +92,73 @@
 						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,0.5)";
 					}
 				});
-				
 				mui('#servicelist').on('tap', 'li', function() {
-						mui.openWindow({
-							url: 'index_service_detail.html',
-							id: 'index_service_detail',
-							extras: {
-								serviceid: obj.service_list[this.getAttribute('data-id')].serviceid,
-								distance: distance,
-								servicename: obj.service_list[this.getAttribute('data-id')].name,
-								shopname: obj.shop_info.name,
-								price: obj.service_list[this.getAttribute('data-id')].price,
-								latitude: obj.shop_info.latitude,
-								longtitude: obj.shop_info.longtitude
-							},
-							styles: {
-								popGesture: 'close'
-							},
-							show: {
-								autoShow: true, //页面loaded事件发生后自动显示，默认为true
-								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-							},
-							waiting: {
-								autoShow: true, //自动显示等待框，默认为true
-								title: '正在加载...', //等待对话框上显示的提示内容
-							}
-						})
+					mui.openWindow({
+						url: 'index_service_detail.html',
+						id: 'index_service_detail',
+						extras: {
+							serviceid: obj.service_list[this.getAttribute('data-id')].serviceid,
+							distance: distance,
+							servicename: obj.service_list[this.getAttribute('data-id')].name,
+							shopname: obj.shop_info.name,
+							price: obj.service_list[this.getAttribute('data-id')].price,
+							latitude: obj.shop_info.latitude,
+							longtitude: obj.shop_info.longtitude
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
 					})
+				})
+				//console.log(Math.ceil(document.getElementById("comments").children.length / 5) + 1)
+				document.getElementById("morecommentbtn").addEventListener('tap',function(){
+					document.getElementById("morecommentbtn").innerHTML = '加载中'
+					var pagenum = Math.ceil(document.getElementById("comments").children.length / 5) + 1
+					loadmorecomment(self.massagistid,pagenum)
+				})
+				function loadmorecomment(massaid,pagenum) {
+					console.log(massaid+'-'+pagenum)
+					mui.ajax(url.morecomment, {
+					data: {
+						massaid: massaid,
+						pagenum:pagenum
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；
+					//async: false,
+					success: function(data) {
+						var obj = JSON.parse(data);
+						var html = template('commenttemplate', {
+							list: obj
+						});
+						console.log(data);
+						if(data!='null'){
+						var commentsul = document.querySelector('#comments');
+						commentsul.innerHTML+=html;
+						document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
+						}
+						else{
+							document.getElementById("morecommentbtn").innerHTML = '已加载完毕'
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+					
+				}
+				
+				
 				
 				document.getElementById("sharebtn").addEventListener('tap', function() {
 					console.log('tapped');
@@ -251,6 +268,7 @@
 						<p style="word-wrap: break-word;color: #333333;">加载中...</p>
 					</li>
 				</ul>
+				<ul class="mui-table-view-cell" style="height:auto;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="morecommentbtn">点击查看更多</ul>
 			</div>
 		</div>
 		<script id="servicelisttemplate" type="text/html ">
