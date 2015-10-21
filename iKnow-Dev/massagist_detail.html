@@ -121,7 +121,7 @@
 				})
 				//console.log(Math.ceil(document.getElementById("comments").children.length / 5) + 1)
 				document.getElementById("morecommentbtn").addEventListener('tap',function(){
-					document.getElementById("morecommentbtn").innerHTML = '加载中'
+					document.getElementById("morecommentbtn").innerHTML = '加载中<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
 					var pagenum = Math.ceil(document.getElementById("comments").children.length / 5) + 1
 					loadmorecomment(self.massagistid,pagenum)
 				})
@@ -144,6 +144,19 @@
 						if(data!='null'){
 						var commentsul = document.querySelector('#comments');
 						commentsul.innerHTML+=html;
+						mui.post(url.morecomment,{
+		massaid: massaid,
+						pagenum:pagenum+1
+	},function(data){
+		console.log(data)
+		if(data!='null'){
+			document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
+		}
+		else{
+			document.getElementById("morecommentbtn").style.display = 'none'
+		}
+	}
+);
 						document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
 						}
 						else{
