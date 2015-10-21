@@ -265,14 +265,14 @@ class iKnowAPITest extends PHPUnit_Framework_TestCase
 
     public function testMassagistdetail(){
         echo "\ntest Get_Massagist_Detail .... \n";
-        $massaid =1;
+        $massaid =2;
         echo "massagist id = ".$massaid."\n";
         $response = $this->client->request('POST',$this->APIlink['massagistdetail'], [
-    'form_params' => ['massagistid'=>'1']]);
+    'form_params' => ['massagistid'=>$massaid]]);
 
         echo "Status: ".$response->getStatusCode()."\n";
         $result =json_decode($response->getBody(true));
-        //var_dump($results);
+        //var_dump($result);
         # code...
         $this->assertObjectHasAttribute('massagist_info', $result);
         $this->assertObjectHasAttribute('shop_info', $result);
@@ -318,7 +318,7 @@ class iKnowAPITest extends PHPUnit_Framework_TestCase
         echo "\tDone, Passed\n";
 
         echo "\n\tChecking Comment_list...\n";
-        $this->assertCount(3,$result->comment_list);
+        $this->assertCount(5,$result->comment_list);
         echo "\tAmount of comments is correct.\n";
         
         foreach ($result->comment_list as $comment){

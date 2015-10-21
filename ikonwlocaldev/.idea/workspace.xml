@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="69ffea94-af9d-4d01-826e-68bd766268ca" name="Default" comment="" />
+    <list default="true" id="69ffea94-af9d-4d01-826e-68bd766268ca" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../后台API文档.xlsx" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../测试/APItest.php" afterPath="$PROJECT_DIR$/../测试/APItest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="ikonwlocaldev.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -21,35 +25,7 @@
     <favorites_list name="ikonwlocaldev" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="appointment_model.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/appointment_model.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.25">
-              <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
-              <folding>
-                <element signature="e#6#87#0#PHP" expanded="true" />
-                <marker date="1444799493000" expanded="true" signature="731:772" placeholder="SELECT * FRO..massagist_appt..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="appointment_succ.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/appointment_succ.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69970846">
-              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
-              <folding>
-                <element signature="e#6#87#0#PHP" expanded="true" />
-                <marker date="1444801980000" expanded="true" signature="1390:1437" placeholder="SELECT durat..Service..." />
-                <marker date="1444801980000" expanded="true" signature="1736:1886" placeholder="INSERT INTO ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -73,13 +49,14 @@
         <option value="$PROJECT_DIR$/signup.php" />
         <option value="$PROJECT_DIR$/orderdetail.php" />
         <option value="$PROJECT_DIR$/comment.php" />
-        <option value="$PROJECT_DIR$/db_func.php" />
         <option value="$PROJECT_DIR$/morecomment.php" />
         <option value="$PROJECT_DIR$/massagistdetail.php" />
         <option value="$PROJECT_DIR$/list.php" />
         <option value="$PROJECT_DIR$/appointment_model.php" />
         <option value="$PROJECT_DIR$/appointment_succ.php" />
         <option value="$PROJECT_DIR$/order.php" />
+        <option value="$PROJECT_DIR$/updateOrderAmount.php" />
+        <option value="$PROJECT_DIR$/db_func.php" />
       </list>
     </option>
   </component>
@@ -95,8 +72,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="138" />
-    <option name="y" value="75" />
+    <option name="x" value="-1278" />
+    <option name="y" value="51" />
     <option name="width" value="1195" />
     <option name="height" value="854" />
   </component>
@@ -124,6 +101,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -144,7 +122,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -214,10 +191,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="138" y="75" width="1195" height="854" extended-state="0" />
-    <editor active="true" />
+    <frame x="-1278" y="51" width="1195" height="854" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23677364" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24891587" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -282,6 +259,18 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/appointment_succ.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <marker date="1444801980000" expanded="true" signature="-1:-1" placeholder="SELECT durat..Service..." />
+            <marker date="1444801980000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/stripe-config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -335,7 +324,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -371,7 +367,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-          <folding />
+          <folding>
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -407,7 +410,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
+          <folding>
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -443,7 +453,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
+          <folding>
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -479,7 +496,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
+          <folding>
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -581,14 +605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_func.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47521865">
-          <caret line="69" column="83" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/comment.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7434402">
@@ -617,25 +633,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/appointment_model.php">
+    <entry file="file://$PROJECT_DIR$/db_func.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25">
-          <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.30612245">
+          <caret line="62" column="6" selection-start-line="62" selection-start-column="6" selection-end-line="62" selection-end-column="6" />
           <folding>
-            <element signature="e#6#87#0#PHP" expanded="true" />
-            <marker date="1444799493000" expanded="true" signature="731:772" placeholder="SELECT * FRO..massagist_appt..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+            <marker date="1445403637000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/updateOrderAmount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.590379">
+          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding>
+            <element signature="e#6#86#0#PHP" expanded="true" />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="select amoun..Has_Service..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="select amoun..Has_Service..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="select amoun..Has_Service..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="update Has_S..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="update Has_S..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="update Has_S..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="update Has_S..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="update Has_S..." />
+            <marker date="1445403544000" expanded="true" signature="-1:-1" placeholder="update Has_S..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/appointment_succ.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69970846">
+        <state vertical-scroll-proportion="0.12536444">
           <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
-            <marker date="1444801980000" expanded="true" signature="1390:1437" placeholder="SELECT durat..Service..." />
-            <marker date="1444801980000" expanded="true" signature="1736:1886" placeholder="INSERT INTO ..." />
+            <marker date="1444801980000" expanded="true" signature="-1:-1" placeholder="SELECT durat..Service..." />
+            <marker date="1444801980000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appointment_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <marker date="1444799493000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..massagist_appt..." />
           </folding>
         </state>
       </provider>
