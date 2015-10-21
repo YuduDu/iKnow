@@ -5,6 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 
+
 class iKnowAPITest extends PHPUnit_Framework_TestCase
 {
     //public $client;   
@@ -20,7 +21,16 @@ class iKnowAPITest extends PHPUnit_Framework_TestCase
          $this->client = new Client();
     }
 
-//-------------------------- 获取列表信息；
+/*-------------------------- Testing : 获取列表信息；
+    1 推荐服务列表
+    2 推荐技师列表
+    3 技师列表
+    4 用户订单列表
+    5 新闻列表
+    6 服务列表 - 全部服务；-单个目录下的全部服务
+    7 推荐新闻列表（首页）
+    8 单个技师下的全部服务
+*/
     
     public function testRecommand_service_API()
     {
@@ -262,7 +272,9 @@ class iKnowAPITest extends PHPUnit_Framework_TestCase
         echo "Response attributes check PASS.\n\n";
     }
     
-
+/*----------------------------Test : 技师详情页
+    
+*/
     public function testMassagistdetail(){
         echo "\ntest Get_Massagist_Detail .... \n";
         $massaid =2;
