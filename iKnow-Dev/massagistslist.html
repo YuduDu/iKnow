@@ -50,6 +50,9 @@
 						console.log(JSON.stringify(xhr));
 					}
 				});
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
 				mui('#massagist').on('tap','li',function(){
 					//console.log('hehe')
 							mui.openWindow({

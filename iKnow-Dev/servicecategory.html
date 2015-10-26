@@ -14,7 +14,11 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-			mui.plusReady(function() {})
+			mui.plusReady(function() {
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+			})
 		</script>
 
 		<script type="text/javascript">
@@ -23,13 +27,15 @@
 				// 设置系统状态栏背景为红色
 				plus.navigator.setStatusBarBackground("#6acccb");
 				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
-				
+				var self = plus.webview.currentWebview();
 				mui('#categoryul').on('tap', 'li', function() {
 						mui.openWindow({
 							url: 'serviceslist.html',
 							id: 'serviceslist',
 							extras: {
-								categoryid: this.getAttribute('data-id')
+								categoryid: this.getAttribute('data-id'),
+								mylatitude: self.mylatitude,
+								mylongtitude: self.mylongtitude
 							},
 							styles: {
 								popGesture: 'close'

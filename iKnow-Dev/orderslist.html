@@ -18,7 +18,7 @@
 				self = plus.webview.currentWebview()
 				window.addEventListener('refreshme', function(event) { //监听自定义事件
 					self.reload(true);
-					console.log('ordersreloaded')
+					//console.log('ordersreloaded')
 				});
 				
 				document.getElementById("orderlist").addEventListener('tap', function(e) {
@@ -41,7 +41,7 @@
 								title: '正在加载...', //等待对话框上显示的提示内容
 							},
 							extras: {
-  							orderid: target.id
+  							orderid: target.id.substring(0,target.id.length-3)
   						}
 						});
 					} else {
@@ -71,7 +71,8 @@
 						});
 					}
 				});
-				console.log('ordershehe')
+				
+				//console.log('ordershehe')
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_order_list',
@@ -82,12 +83,12 @@
 					success: function(data) {
 						var obj = JSON.parse(data);
 						if(data=='[]'){
-							console.log('none')
+							//console.log('none')
 							document.getElementById("noitem").style.display = ''
 							document.getElementById("orderlist").style.display = 'none'
 						}else{
 							
-							console.log(data);
+							//console.log(data);
 						var html = template('orderlisttemplate', {
 							list: obj
 						});
@@ -161,7 +162,7 @@
 					<span id="{{value.orderid}}" class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
 					<div id="{{value.orderid}}" style="margin-top: 5px;">
 						<span id="{{value.orderid}}" style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
-						<span id="{{value.orderid}}" ><button id="{{value.orderid}}" name="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
+						<span id="{{value.orderid}}" ><button id="{{value.orderid}}btn" name="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
 					</div>
 				</div>
 			</a>

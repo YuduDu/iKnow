@@ -85,7 +85,7 @@
 						if(data=='success'){
 							plus.nativeUI.toast('评价成功');
 							var backorderslist = plus.webview.getWebviewById('orderslist.html');
-							backorderslist.evalJS('document.getElementById("'+self.orderid+'").style.display="none";');
+							backorderslist.evalJS('document.getElementById("'+self.orderid+'btn").style.display="none";');
 							mui.back();
 						}
 					},
