@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function(){
+				document.getElementById("myservicesbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'myservices.html',
+						id: 'myservices',
+						extras: {
+							
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+				document.getElementById("myreviewsbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'myreviews.html',
+						id: 'myrevuews',
+						extras: {
+							
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: '正在加载...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+			})
+		</script>
+		<style>
+			.topstatus {
+				width: 100%;
+				height: 80px;
+				background-color: #FFFFFF;
+				margin-top: 0px;
+			}
+			.mui-table-view-cell{
+				padding: 15px 15px 15px 15px
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view topstatus" style="margin-top: 0px;">
+				<li class="mui-table-view-cell mui-media" style="padding: 15px 15px 0px 15px">
+					<div style="float:left">
+					<img class="mui-media-object mui-pull-left" src="img/ordersicon.png" style="width: 48px;margin-top: 5px;">
+					<div class="mui-media-body">
+						<h4>13单</h4>
+						<p>已完成订单</p>
+					</div>
+					</div>
+					<div style="float:left;margin-left: 15px;">
+					<img class="mui-media-object mui-pull-left" src="img/amounticon.png" style="width: 48px;margin-top: 5px;">
+					<div class="mui-media-body">
+						<h4>￥1387</h4>
+						<p>订单总额</p>
+					</div>
+					</div>
+				</li>
+			</ul>
+			
+			<ul class="mui-table-view" style="margin-top: 15px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="myservicesbtn">
+						我的服务项目
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="myreviewsbtn">
+						我的服务评价
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="myschedulebtn">
+						我的服务时间
+					</a>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+
+</html>

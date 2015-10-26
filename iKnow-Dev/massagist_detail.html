@@ -78,6 +78,7 @@
 							list: obj.comment_list
 						});
 						document.getElementById('comments').innerHTML = html2;
+						
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
@@ -93,86 +94,80 @@
 					}
 				});
 				mui('#servicelist').on('tap', 'li', function() {
-					mui.openWindow({
-						url: 'index_service_detail.html',
-						id: 'index_service_detail',
-						extras: {
-							serviceid: obj.service_list[this.getAttribute('data-id')].serviceid,
-							distance: distance,
-							servicename: obj.service_list[this.getAttribute('data-id')].name,
-							shopname: obj.shop_info.name,
-							price: obj.service_list[this.getAttribute('data-id')].price,
-							latitude: obj.shop_info.latitude,
-							longtitude: obj.shop_info.longtitude
-						},
-						styles: {
-							popGesture: 'close'
-						},
-						show: {
-							autoShow: true, //页面loaded事件发生后自动显示，默认为true
-							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-						},
-						waiting: {
-							autoShow: true, //自动显示等待框，默认为true
-							title: '正在加载...', //等待对话框上显示的提示内容
-						}
+						mui.openWindow({
+							url: 'index_service_detail.html',
+							id: 'index_service_detail',
+							extras: {
+								serviceid: obj.service_list[this.getAttribute('data-id')].serviceid,
+								distance: distance,
+								servicename: obj.service_list[this.getAttribute('data-id')].name,
+								shopname: obj.shop_info.name,
+								price: obj.service_list[this.getAttribute('data-id')].price,
+								latitude: obj.shop_info.latitude,
+								longtitude: obj.shop_info.longtitude
+							},
+							styles: {
+								popGesture: 'close'
+							},
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						})
 					})
-				})
-				//console.log(Math.ceil(document.getElementById("comments").children.length / 5) + 1)
-				document.getElementById("morecommentbtn").addEventListener('tap',function(){
-					document.getElementById("morecommentbtn").innerHTML = '加载中<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
+					//console.log(Math.ceil(document.getElementById("comments").children.length / 5) + 1)
+				document.getElementById("morecommentbtn").addEventListener('tap', function() {
+					document.getElementById("morecommentbtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
 					var pagenum = Math.ceil(document.getElementById("comments").children.length / 5) + 1
-					loadmorecomment(self.massagistid,pagenum)
+					loadmorecomment(self.massagistid, pagenum)
 				})
-				function loadmorecomment(massaid,pagenum) {
-					console.log(massaid+'-'+pagenum)
+
+				function loadmorecomment(massaid, pagenum) {
+					console.log(massaid + '-' + pagenum)
 					mui.ajax(url.morecomment, {
-					data: {
-						massaid: massaid,
-						pagenum:pagenum
-					},
-					type: 'post', //HTTP请求类型 
-					timeout: 100000, //超时时间设置为10秒；
-					//async: false,
-					success: function(data) {
-						var obj = JSON.parse(data);
-						var html = template('commenttemplate', {
-							list: obj
-						});
-						console.log(data);
-						if(data!='null'){
-						var commentsul = document.querySelector('#comments');
-						commentsul.innerHTML+=html;
-						mui.post(url.morecomment,{
-		massaid: massaid,
-						pagenum:pagenum+1
-	},function(data){
-		console.log(data)
-		if(data!='null'){
-			document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
-		}
-		else{
-			document.getElementById("morecommentbtn").style.display = 'none'
-		}
-	}
-);
-						document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
+						data: {
+							massaid: massaid,
+							pagenum: pagenum
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；
+						//async: false,
+						success: function(data) {
+							var obj = JSON.parse(data);
+							var html = template('commenttemplate', {
+								list: obj
+							});
+							console.log(data);
+							if (data != 'null') {
+								var commentsul = document.querySelector('#comments');
+								commentsul.innerHTML += html;
+								mui.post(url.morecomment, {
+									massaid: massaid,
+									pagenum: pagenum + 1
+								}, function(data) {
+									console.log(data)
+									if (data != 'null') {
+										document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
+									} else {
+										document.getElementById("morecommentbtn").style.display = 'none'
+									}
+								});
+								document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
+							} else {
+								document.getElementById("morecommentbtn").innerHTML = '已加载完毕'
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(type);
+							console.log(JSON.stringify(xhr));
 						}
-						else{
-							document.getElementById("morecommentbtn").innerHTML = '已加载完毕'
-						}
-					},
-					error: function(xhr, type, errorThrown) {
-						console.log(type);
-						console.log(JSON.stringify(xhr));
-					}
-				});
-					
+					});
 				}
-				
-				
-				
 				document.getElementById("sharebtn").addEventListener('tap', function() {
 					console.log('tapped');
 					var ids = [{
@@ -275,7 +270,7 @@
 			<div style="background-color: #ffffff; height:auto;position:relative;top:21px;margin-left:10px;margin-right:10px">
 				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">用户评价</p>
 			</div>
-			<div style="background-color: #ffffff; height:auto;position:relative;top:12px;margin-left:10px;margin-right:10px;margin-top: 0px;">
+			<div style="background-color: #ffffff; height:auto;position:relative;top:12px;margin:0 10px 25px 10px;">
 				<ul id="comments" class="mui-table-view">
 					<li class="mui-table-view-cell" style="height:70px">
 						<p style="word-wrap: break-word;color: #333333;">加载中...</p>

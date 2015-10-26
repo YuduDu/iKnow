@@ -3,8 +3,8 @@
 	"id": "H526EBBCC",
 	"name": "iKnow",
 	"version": {
-		"name": "1.6.9",
-		"code": "69"
+		"name": "1.7.0",
+		"code": "70"
 	},
 	"description": "",
 	"icons": {
@@ -105,9 +105,9 @@
 	},
 	"plus": {
 		"splashscreen": {
-			"autoclose": false,
+			"autoclose": true,
 			"waiting": true,
-			"delay": "300"
+			"delay": "0"
 		},
 		"runmode": "liberate",
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",
@@ -185,29 +185,29 @@
 				"ios": {
 					"iphone": {
 						"default": "",
-						"retina35": "",
-						"retina40": "img/Default-667h@2x.png",
-						"retina55": "img/Default-736h@3x.png",
-						"retina47": "img/Default-667h@3x.png",
-						"retina55l": "img/Default-Landscape-736h@3x.png"
+						"retina35": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default@2x~iphone_640x960.png",
+						"retina40": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-568h@2x~iphone_640x1136.png",
+						"retina55": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-1242@3x~iphone6s-portrait_1242x2208.png",
+						"retina47": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-750@2x~iphone6-portrait_750x1334.png",
+						"retina55l": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-1242@3x~iphone6s-landscape_2208x1242.png"
 					},
 					"ipad": {
-						"portrait": "",
-						"portrait-retina": "",
-						"landscape": "img/Default-Landscape-736h@3x.png",
-						"landscape-retina": "",
-						"portrait7": "",
-						"portrait-retina7": "",
-						"landscape7": "",
-						"landscape-retina7": ""
+						"portrait": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Portrait~ipad_768x1024.png",
+						"portrait-retina": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Portrait@2x~ipad_1536x2008.png",
+						"landscape": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Landscape~ipad_1024x768.png",
+						"landscape-retina": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Landscape@2x~ipad_2048x1496.png",
+						"portrait7": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Portrait~ipad_768x1024.png",
+						"portrait-retina7": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Portrait@2x~ipad_1536x2048.png",
+						"landscape7": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Landscape~ipad_1024x768.png",
+						"landscape-retina7": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-Landscape@2x~ipad_2048x1536.png"
 					}
 				},
 				"android": {
-					"mdpi": "",
-					"ldpi": "",
-					"hdpi": "",
-					"xhdpi": "",
-					"xxhdpi": ""
+					"mdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-hdpi/screen.png",
+					"ldpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-ldpi/screen.png",
+					"hdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-mdpi/screen.png",
+					"xhdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-xhdpi/screen.png",
+					"xxhdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-xxhdpi/screen.png"
 				}
 			}
 		}
