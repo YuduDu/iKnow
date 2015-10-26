@@ -10,12 +10,22 @@ class iKnowAPITest extends PHPUnit_Framework_TestCase
 {
     //public $client;   
     protected $client; 
-    protected $APIlink = array(
+//   protected $APIlink = array(
+ protected $APIServerlink = array(
         "list" => "http://gene.rnet.missouri.edu/iKnow/list.php",
         'massagistdetail' => "http://gene.rnet.missouri.edu/iKnow/massagistdetail.php",
-        "morecomment" => "http://gene.rnet.missouri.edu/iKnow/morecomment.php",
+        "morecomment" => "http://gene.rnet.missouri.edu/iKnow/morecomment.php"
+    );
+
+    protected $APIlink = array(
+//  protected $APIlocallink = array(
+        "list" => "http://localhost:8888/iKnow/ikonwlocaldev/list.php",
+        'massagistdetail' => "http://localhost:8888/iKnow/ikonwlocaldev/massagistdetail.php",
+        "morecomment" => "http://localhost:8888/iKnow/ikonwlocaldev/morecomment.php"
 
         );
+    
+
     protected function setup(){
         //echo "\nCreate Client...\n";
          $this->client = new Client();
@@ -36,7 +46,7 @@ class iKnowAPITest extends PHPUnit_Framework_TestCase
     {
         echo "\ntest Recommand_service_API .... \n";
 
-        $response = $this->client->request('POST',$this->APIlink['list'], [
+        $response = $this->client->request('POST',/*$this->APIlink['list']*/"http://gene.rnet.missouri.edu/iKnow/list.php", [
     'form_params' => ['action'=> 'get_recommand_service']]);
         echo "Status: ".$response->getStatusCode()."\n";
 

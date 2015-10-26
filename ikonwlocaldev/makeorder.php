@@ -8,6 +8,7 @@
 require_once "db_func.php";
 require_once "appointment_succ.php";
 require_once('stripe-config.php');
+require_once "updateOrderAmount.php";
 \Stripe\Stripe::setApiKey("sk_test_pijvVr7Jl5AjrLIymIx2qETk");
 session_start();
 
@@ -148,6 +149,7 @@ function charge($token,$con){
         if(isset($charge)&&$charge["status"]=="succeeded"){
             //$_SESSION['status']="UNCOMMENT";
             updateorder_status($con,"UNCOMMENT");
+            updateServiceAmount($_SESSION["massaid"],$_SESSION["serviceid"]);
             session_destroy();
         }
     }

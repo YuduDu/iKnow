@@ -33,7 +33,7 @@ function DBfetchall($query,$con){
 
 }
 
-function DBfetchall2($con,$table, $resultlist,$condition_array = null,$morecondition = ""){//将condition——array改成condition_string直接写条件语句
+/*function DBfetchall1($con,$table, $resultlist,$condition_array = null,$morecondition = ""){//将condition——array改成condition_string直接写条件语句
     $key = array_keys($condition_array);
     $value = array_values($condition_array);
     $para = join(",",array_values($resultlist));
@@ -49,7 +49,39 @@ function DBfetchall2($con,$table, $resultlist,$condition_array = null,$morecondi
     }
     if(!empty($rows)){return $rows;}
     else return null;
+}*/
+
+function DBfetchall2($con,$table, $resultlist,$condition_array = null,$conditionoperate = "",$additioncommand=""){//将condition——array改成condition_string直接写条件语句
+    $key = array_keys($condition_array);
+    $value = array_values($condition_array);
+    $para = join(",",array_values($resultlist));
+    if($condition_array!=null) {
+        $query = "select $para from `$table` where ";
+        for($i=0;$i<sizeof($condition_array);$i++)
+        {
+            //echo sizeof($condition_array);
+            $query .= "$key[$i] = $value[$i] ";
+            if($i==sizeof($condition_array)-1){
+                break;
+            }
+            $query .="$conditionoperate ";
+            //return true;
+        }
+        $query .="$additioncommand;";
+        //$query = "select $para from `$table` where $key[0] = $value[0] $additioncommand;";
+    }
+    else $query = "select $para from `$table` $additioncommand;";
+    //echo $query;
+    //echo $query;
+    $result = mysql_query($query,$con) or die("Fetchall Error:".mysql_error());
+    while($row = mysql_fetch_assoc($result)) {
+        $rows[]=$row;
+    }
+    if(!empty($rows)){return $rows;}
+    else return null;
 }
+
+
 
 
 function DBfetchone2($con,$table, $resultlist,$condition_array = null){//

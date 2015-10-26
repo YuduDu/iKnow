@@ -52,7 +52,7 @@ function getShop_Info($con,$Info_array, $keypair_array){
 }
 
 function getserviceslist_Limit($con,$Info_array, $keypair_array,$num){
-    $services = DBfetchall2($con,"Has_Service",array("serviceid","amount"),$keypair_array,"order by amount desc limit ".$num);
+    $services = DBfetchall2($con,"Has_Service",array("serviceid","amount"),$keypair_array,null,"order by amount desc limit ".$num);
     //var_dump($services);
     $servicelist = array();
     foreach ($services as $service){
@@ -66,6 +66,6 @@ function getserviceslist_Limit($con,$Info_array, $keypair_array,$num){
 }
 
 function getCommentlist_Limit($con,$Info_array, $keypair_array,$num){
-    $comments = DBfetchall2($con,"Comment",$Info_array,$keypair_array,"order by date desc limit ".$num);
+    $comments = DBfetchall2($con,"Comment",$Info_array,$keypair_array,null,"order by date desc limit ".$num);
     return $comments;
 }
