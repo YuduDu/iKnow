@@ -20,7 +20,36 @@
 					self.reload(true);
 					//console.log('ordersreloaded')
 				});
-				
+				function loadmoreorder(customid, pagenum) {
+					mui.ajax(url.list, {
+						data: {
+							action: 'get_order_list',
+							pagenum: pagenum,
+							customid: customid
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；
+						//async: false,
+						success: function(data) {
+							var obj = JSON.parse(data);
+							var html = template('orderlisttemplate', {
+								list: obj
+							});
+							console.log(data);
+							if (data != '[]') {
+								var orderlistul = document.querySelector('#orderlist');
+								orderlistul.innerHTML += html;
+								document.getElementById("moreordersbtn").innerHTML = '点击查看更多'
+							} else {
+								document.getElementById("moreordersbtn").innerHTML = '已加载完毕'
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(type);
+							console.log(JSON.stringify(xhr));
+						}
+					});
+				}
 				document.getElementById("orderlist").addEventListener('tap', function(e) {
 					//显示订单详情页 
 					var target = e.target;
@@ -72,11 +101,18 @@
 					}
 				});
 				
+			
+				document.getElementById("moreordersbtn").addEventListener('tap',function(){
+					document.getElementById("moreordersbtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
+					var pagenum = Math.ceil(document.getElementById("orderlist").children.length / 10) + 1
+					loadmoreorder(plus.storage.getItem("useraccount"), pagenum)
+				})
 				//console.log('ordershehe')
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_order_list',
-						customid: plus.storage.getItem("useraccount")
+						customid: plus.storage.getItem("useraccount"),
+						pagenum:'1'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
@@ -128,6 +164,7 @@
 					</a>
 				</li>
 			</ul>
+			<ul class="mui-table-view-cell" style="height:auto;background-color:#ffffff;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="moreordersbtn">点击查看更多</ul>
 			<ul id="noitem" class="mui-table-view" style="display: none;top:15px">
 				<li class="mui-table-view-cell mui-media" style="text-align: center;">
 					<div style="text-align: center;"><img style="width:80px" src="img/sadface.png"/></div>

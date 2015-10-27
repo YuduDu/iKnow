@@ -17,7 +17,8 @@
 			mui.plusReady(function() {
 				mui.ajax(url.list, {
 					data: {
-						action: 'get_news'
+						action: 'get_news',
+						pagenum:'1'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
@@ -61,19 +62,6 @@
 				plus.webview.currentWebview().setStyle({
 					scrollIndicator: 'none'
 				});
-				//			document.getElementById("newsbtn").addEventListener('tap', function() {
-				//				mui.openWindow({
-				//					id: 'disc_detail',
-				//					url: 'disc_detail.html',
-				//					show: {
-				//						aniShow: 'fade-in',
-				//						duration: 300
-				//					},
-				//					waiting: {
-				//						autoShow: false
-				//					},
-				//				});
-				//			});
 				document.getElementById("newslistbtn").addEventListener('tap', function() {
 					//显示科普文章列表页
 					mui.openWindow({
@@ -135,7 +123,7 @@
 
 			<ul class="mui-table-view" style="margin:15px 0px 0px 0px;line-height: 40px;">
 				<li class="mui-table-view-cell">
-					<a id="newslistbtn" class="mui-navigate-right" style="color:#56abe4">
+					<a id="newslistbtn" class="mui-navigate-right" style="color:#CCB359">
 						保健科普
 					</a>
 				</li>

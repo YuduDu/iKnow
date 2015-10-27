@@ -23,56 +23,6 @@
 				anhtml = plus.storage.getItem("useraccount");
 				document.getElementById("accountname").innerHTML = anhtml
 				document.getElementById("versionnum").innerHTML = constant.versionid;
-				//				document.getElementById("ajax").addEventListener('tap', function() {
-				//					mui.openWindow({
-				//						id: 'test2',
-				//						url: 'test2.html',
-				//						styles: {
-				//							popGesture: 'close'
-				//						},
-				//						show: {
-				//							autoShow: true, //页面loaded事件发生后自动显示，默认为true
-				//							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-				//							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-				//						},
-				//						waiting: {
-				//							autoShow: true, //自动显示等待框，默认为true
-				//							title: '正在加载...', //等待对话框上显示的提示内容
-				//						}
-				//					});
-				//				});
-				//				document.getElementById("reg").addEventListener('tap', function() {
-				//					mui.openWindow({
-				//						id: 'reg',
-				//						url: 'reg.html',
-				//						show: {
-				//							aniShow: 'fade-in',
-				//							duration: 300
-				//						},
-				//						waiting: {
-				//							autoShow: false
-				//						},
-				//					});
-				//				});
-				//							document.getElementById("reg2").addEventListener('tap', function() {
-				//								mui.openWindow({
-				//									id: 'reg2',
-				//									url: 'reg2.html',
-				//									show: {
-				//										aniShow: 'fade-in',
-				//										duration: 300
-				//									},
-				//									waiting: {
-				//										autoShow: false
-				//									},
-				//								});
-				//							});
-				//			function navigateWithMap() {
-				//				var dst = new plus.maps.Point(38.911841, -92.31225); // Pointe 
-				//				var src = new plus.maps.Point(38.946777, -92.331480); // EBW
-				//				//调用系统地图显示 
-				//				plus.maps.openSysMap(dst, "MU", src);
-				//			}
 				//退出操作******************
 				document.getElementById("update").addEventListener('tap', function() {
 				plus.runtime.openURL('itms-services://?action=download-manifest&url=https%3A%2F%2Fwww.pgyer.com%2Fapiv1%2Fapp%2Fplist%3FaId%3D884a85cdebc6e1895d44fa9c87ecc810%26_api_key%3D5398cfcf74d664885ec6c81ed6e1dc21');

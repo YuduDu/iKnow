@@ -25,14 +25,15 @@
 					categoryidvalue = self.categoryid;
 				} else {
 					actionvalue = 'get_services_list';
-					categoryidvalue = 'null';
+					categoryidvalue = "null";
 				}
 				console.log('actionvalue' + actionvalue);
 				console.log('categoryid' + categoryidvalue)
-				mui.ajax(url.serviceslist, {
+				mui.ajax(url.list, {
 					data: {
 						action: actionvalue,
-						categoryid: categoryidvalue
+						categoryid: categoryidvalue,
+						pagenum:'1'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
@@ -50,13 +51,12 @@
 							}
 						}
 						console.log(data)
-						if(data!='[]'){
+						if (data != '[]') {
 							var html = template('serviceslist', {
-							list: obj
-						});
-						document.getElementById('Services').innerHTML = html;
-						}
-						else{
+								list: obj
+							});
+							document.getElementById('Services').innerHTML = html;
+						} else {
 							document.getElementById("Services").innerHTML = '<p style="text-align: center;padding-top: 40px;font-size: 18px;">暂无服务项目</p>'
 						}
 					},
@@ -79,6 +79,50 @@
 						document.getElementById("title").innerHTML = categorypair[4]
 						break;
 				}
+				
+				document.getElementById("morebtn").addEventListener('tap',function(){
+					document.getElementById("morebtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
+					var pagenum = Math.ceil(document.getElementById("Services").children.length / 10) + 1
+					loadmore(categoryidvalue, pagenum)
+				})
+				function loadmore(category, pagenum) {
+					mui.ajax(url.list, {
+						data: {
+							action: 'get_services_list',
+							categoryid: category,
+							pagenum: pagenum,
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；
+						//async: false,
+						success: function(data) {
+							this.obj = JSON.parse(data);
+						//plus.geolocation.getCurrentPosition(function(p) {
+							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+							for  (item in obj ){
+							var point2lat =	eval(obj[item].latitude);
+							var point2long = eval(obj[item].longtitude);
+							if(self.mylatitude!='null'&&self.mylongtitude!='null'){obj[item].distance = distancefunc(self.mylatitude, self.mylongtitude, point2lat, point2long).toFixed(1);}
+									else{obj[item].distance = 'null'}
+							}
+						var html = template('serviceslist', {
+							list: obj
+						});
+							if (data != '[]') {
+								var orderlistul = document.querySelector('#Services');
+								orderlistul.innerHTML += html;
+								document.getElementById("morebtn").innerHTML = '点击查看更多'
+							} else {
+								document.getElementById("morebtn").innerHTML = '已加载完毕'
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(type);
+							console.log(JSON.stringify(xhr));
+						}
+					});
+				}
+				
 				mui('#Services').on('tap', 'li', function() {
 					mui.openWindow({
 						url: 'index_service_detail.html',
@@ -152,7 +196,7 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
 		</header>
 		<div class="mui-content">
-			<ul id="Services" style="margin-top:15px;height: 102px;background-color: #ffffff;position: relative;padding-left: 0px;">
+			<ul id="Services" style="margin-top:15px;height: auto;background-color: #ffffff;position: relative;padding-left: 0px;margin-bottom: 1px;">
 				<li class="mui-table-view-cell mui-media">
 					<a>
 						<img class="mui-media-object-large mui-pull-left" style="width:120px;height:80px;margin-right: 10px;" src="img/defaultpic.png">
@@ -162,6 +206,7 @@
 					</a>
 				</li>
 			</ul>
+			<ul class="mui-table-view-cell" style="height:auto;background-color:#ffffff;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="morebtn">点击查看更多</ul>
 		</div>
 		<script>
 			function distancefunc(lat1, lon1, lat2, lon2, unit) {
