@@ -43,7 +43,7 @@
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  
 									success: function(data) {
-										console.log(data);
+										//console.log(data);
 										var obj = JSON.parse(data);
 										var html = template('slidetemplate', {
 											list: obj
@@ -485,15 +485,6 @@
 						</div>
 					</a>
 				</li>
-				<li class="mui-table-view-cell mui-grid-view mui-media ">
-					<div class="pull-left mui-media-object-round" style="margin:10px 10px 0 10px;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover; ">
-					</div>
-					<div class="mui-media-body mui-media-body-massagistlist">
-						<span>王金伟</span><span><img src="img/v3.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
-						<p class='mui-ellipsis mui-massagist-provider'>东方力道中医推拿院</p>
-						<p class='mui-ellipsis-2'>擅长治疗中风、颈椎病、手脚麻木等心血管疾病，各种内科</p>
-					</div>
-				</li>
 			</ul>
 		</div>
 
@@ -528,8 +519,7 @@
 					<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
 					</div>
 					<div class="mui-media-body mui-media-body-massagistlist ">
-						<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span> {{if value.distance!='null'}}
-						<p class='mui-pull-right mui-distance' style="position:relative;top:8px">{{value.distance||0}} km</p>{{/if}}
+						<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>{{if value.distance!='null'}}<span style="float:right;top:5px;position:relative;color:#999999;font-size:14px">{{value.distance||0}} km</span>{{/if}} 
 						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 						<p class='mui-ellipsis-2'>{{value.intro}}</p>
 					</div>
