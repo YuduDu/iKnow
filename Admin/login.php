@@ -1,3 +1,4 @@
+
 <?php
 
 	require_once "db_func.php";
@@ -14,7 +15,8 @@
 	}
 
 	function adminlogin($con,$user,$paswd){
-		$admin_index_url = 'http://localhost:8888/Admin/admin_index.html';
+		echo "Welcom: " .$_POST['user'];
+
 		$sql_paswd = "SELECT password FROM Admin WHERE username = '$user'" ;
 		$result_paswd = mysql_query($sql_paswd,$con);
 
@@ -23,10 +25,21 @@
 		var_dump($password);
 //		var_dump($paswd);
 		if ((string)$paswd==$password['password']){
-			header('Location:www.google.com' );
+			?>
+			<head>
+				<meta charset="UTF-8">
+				<title>Admin_index</title>
+			</head>
+			<body>
+				<center>
+					<a href="http://localhost:8888/Admin/admin_index.html">Admin_index</a>
+				</center>
+			</body>
+<?php
 			//header('Location:' .$admin_index_url);
 			echo "Login Success";
 		}
 		else echo "Invalid password";
 		mysql_close($con);
 	}
+?>

@@ -38,7 +38,7 @@
     </table>
     <table name="Customer" schema="" catalog="iKnow" type="TABLE">
       <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="password" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="signupdate" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
       <column name="Country" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <primary-key name="PRIMARY" columns="phone"/>
@@ -47,7 +47,7 @@
       <exported-key name="customerid_fk" table="massagist_appt" schema="" catalog="iKnow" columns="customerid"/>
     </table>
     <table name="Has_Service" schema="" catalog="iKnow" type="TABLE">
-      <column name="hsid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="Cg=="/>
+      <column name="hsid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="XG4=" autoIncrement="true"/>
       <column name="masaid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
@@ -76,6 +76,8 @@
       <column name="level" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="J00n"/>
       <column name="visiting_start" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
       <column name="visiting_end" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92"/>
+      <column name="city" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="province" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <primary-key name="PRIMARY" columns="phone"/>
       <foreign-key name="mdphone" columns="phone" ref-table="Massagist" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
       <foreign-key name="mdshop" columns="shopid" ref-table="Shop" ref-schema="" ref-catalog="iKnow" ref-columns="shopid" update-rule="0" delete-rule="0" deferrability="2"/>
@@ -180,6 +182,8 @@
       <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
       <column name="opentime" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
       <column name="closetime" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <column name="city" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="province" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <primary-key name="PRIMARY" columns="shopid"/>
       <exported-key name="mdshop" table="MassagistDetail" schema="" catalog="iKnow" columns="shopid"/>
       <exported-key name="sshop" table="Service" schema="" catalog="iKnow" columns="shopid"/>
