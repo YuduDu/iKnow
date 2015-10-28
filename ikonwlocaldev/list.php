@@ -31,7 +31,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 		case 'get_services_list':
 		{
 			//echo "hehe1";
-			if(isset($_POST["categoryid"])&&$_POST["categoryid"]!=null&&'/'<$_POST['categoryid']&&$_POST['categoryid']<':'){
+			if(isset($_POST["categoryid"])&&$_POST["categoryid"]!=null){
 				//echo "hehe2";
 				if($_POST["categoryid"]=="null"){
 					if(isset($_POST['pagenum'])&&$_POST['pagenum']!=null&&'/'<$_POST['pagenum']&&$_POST['pagenum']<':')
@@ -43,6 +43,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				}
 				else {
 					//getservicesbycategory($_POST["categoryid"]);
+
 					if(isset($_POST['pagenum'])&&$_POST['pagenum']!=null&&'/'<$_POST['pagenum']&&$_POST['pagenum']<':')
 					{
 						getserviceslist($_POST["categoryid"],null,$_POST['pagenum']);

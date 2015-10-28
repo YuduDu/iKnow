@@ -11,14 +11,14 @@ class iKnowAPITest extends PHPUnit_Framework_TestCase
     //public $client;   
     protected $client; 
 //   protected $APIlink = array(
- protected $APIServerlink = array(
+ protected $APIlink = array(
         "list" => "http://gene.rnet.missouri.edu/iKnow/list.php",
         'massagistdetail' => "http://gene.rnet.missouri.edu/iKnow/massagistdetail.php",
         "morecomment" => "http://gene.rnet.missouri.edu/iKnow/morecomment.php"
     );
 
-    protected $APIlink = array(
-//  protected $APIlocallink = array(
+//    protected $APIlink = array(
+  protected $APIlocallink = array(
         "list" => "http://localhost:8888/iKnow/ikonwlocaldev/list.php",
         'massagistdetail' => "http://localhost:8888/iKnow/ikonwlocaldev/massagistdetail.php",
         "morecomment" => "http://localhost:8888/iKnow/ikonwlocaldev/morecomment.php"

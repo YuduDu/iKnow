@@ -17,6 +17,38 @@ function DBconnect(){
     return $con;
 }
 
+function DBformquery_select($table, $resultlist,$condition_array = null,$conditionoperate = "",$additioncommand=""){
+    $key = array_keys($condition_array);
+    $value = array_values($condition_array);
+    $para = join(",",array_values($resultlist));
+
+    if($table!=null&&$key!=null&&$value!=null&&$para!=null){
+        if($condition_array!=null) {
+            $query = "select $para from `$table` where ";
+            for($i=0;$i<sizeof($condition_array);$i++)
+            {
+                //echo sizeof($condition_array);
+                $query .= "$key[$i] = $value[$i] ";
+                if($i==sizeof($condition_array)-1){
+                    break;
+                }
+                $query .="$conditionoperate ";
+                //return true;
+            }
+            $query .="$additioncommand;";
+            //$query = "select $para from `$table` where $key[0] = $value[0] $additioncommand;";
+        }
+        else $query = "select $para from `$table` $additioncommand;";
+    }
+    else if ($additioncommand!=null){
+        $query = $additioncommand;
+    }
+    else echo "Error: all parameter is null, please double check.";
+
+    return $query;
+}
+
+
 function DBfetchall($query,$con){
     if(isset($query)&&isset($con)){
         //$return=array();
@@ -51,26 +83,9 @@ function DBfetchall($query,$con){
     else return null;
 }*/
 
-function DBfetchall2($con,$table, $resultlist,$condition_array = null,$conditionoperate = "",$additioncommand=""){//将condition——array改成condition_string直接写条件语句
-    $key = array_keys($condition_array);
-    $value = array_values($condition_array);
-    $para = join(",",array_values($resultlist));
-    if($condition_array!=null) {
-        $query = "select $para from `$table` where ";
-        for($i=0;$i<sizeof($condition_array);$i++)
-        {
-            //echo sizeof($condition_array);
-            $query .= "$key[$i] = $value[$i] ";
-            if($i==sizeof($condition_array)-1){
-                break;
-            }
-            $query .="$conditionoperate ";
-            //return true;
-        }
-        $query .="$additioncommand;";
-        //$query = "select $para from `$table` where $key[0] = $value[0] $additioncommand;";
-    }
-    else $query = "select $para from `$table` $additioncommand;";
+function DBfetchall2($con,$table=null, $resultlist=null,$condition_array = null,$conditionoperate = "",$additioncommand=""){//将condition——array改成condition_string直接写条件语句
+
+    $query = DBformquery_select($table,$resultlist,$condition_array,$conditionoperate,$additioncommand);
     //echo $query;
     //echo $query;
     $result = mysql_query($query,$con) or die("Fetchall Error:".mysql_error());
@@ -108,11 +123,6 @@ function DBfetchone($query,$con){
 
 }
 
-function DBselectonekey($con, $parameterarray = "*",$keypair_string=null,$table = null){
-    $para = join(",",$parameterarray);
-    $query = "select {$para} from {$table} where {$keypair_string} ;";
-
-}
 
 function DBselectsUseonekey($parameterarray="*", $keyarray=null, $keyname=null, $table=null, $con){
     //echo "DBselect:";
