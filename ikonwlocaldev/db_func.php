@@ -21,8 +21,8 @@ function DBformquery_select($table, $resultlist,$condition_array = null,$conditi
     $key = array_keys($condition_array);
     $value = array_values($condition_array);
     $para = join(",",array_values($resultlist));
-
-    if($table!=null&&$key!=null&&$value!=null&&$para!=null){
+    //echo $key."\n".$value."\n".$para;
+    if($table!=null&&$para!=null){
         if($condition_array!=null) {
             $query = "select $para from `$table` where ";
             for($i=0;$i<sizeof($condition_array);$i++)

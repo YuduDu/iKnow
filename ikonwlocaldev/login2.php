@@ -6,7 +6,7 @@
  * Time: 10:32 PM
  */
 	require_once "db_func.php";
-  	if(isset($_POST)){
+  	if(isset($_POST['pass'])&&$_POST['pass']!=null){
         $form=$_POST['pass'];
         //echo $form;
         //$pd=$_POST['custompassword'];
@@ -15,17 +15,12 @@
 
 	function login($form){
         $con=DBconnect();
-        //echo $form;
         $char=json_decode($form,true);
-        //echo "success";
         //var_dump($char);
-        //echo (string)$char["phone"];
-        $query='select password from Customer where Phone = "'.(string)$char["phone"].'";';
-        //echo $query;
-        $pdw=DBfetchone($query,$con);
-        //echo "db connnect";
-        //var_dump($pdw);
-        //echo (string)$char["password"];
+        //$query='select password from Customer where Phone = "'.(string)$char["phone"].'";';
+        //$pdw=DBfetchone($query,$con);
+        $pdw = DBfetchone2($con,"Customer",array("password"),array("phone"=>$char["phone"]));
+       // echo $pdw["password"];
         if ((string)$char["password"]==$pdw["password"]){
             echo "success";
         }

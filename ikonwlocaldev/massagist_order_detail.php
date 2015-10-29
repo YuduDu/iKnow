@@ -1,0 +1,40 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: yudu
+ * Date: 10/28/15
+ * Time: 10:04 PM
+ */
+
+require_once "db_func.php";
+
+if(isset($_POST["information"])&&$_POST["information"]!=null){
+    $info = (array)json_decode($_POST["information"]);
+    $con = DBconnect();
+    //var_dump($info);
+    $order = DBfetchone2($con,"Order",array("servicename","unitprice","orderid","status","time","promotion","amount","customerid","massaid"),array("orderid"=>$info["orderid"]));
+    //var_dump($order);
+    if($order["massaid"]==$info["massaid"]){
+        //$pic = DBfetchone2($con, "Shop", array("pic"), array("shopid" => $order['shopid']));
+        $time = DBfetchone2($con,"massagist_appt",array("start","end"),array("orderid"=>$info["orderid"]));
+        if($time){
+            $starttime = strtotime($time["start"]);
+            $endtime = strtotime($time["end"]);
+            $startdate = date('m/d/y',$starttime);
+            $enddate = date('m/d/y',$endtime);
+            if($startdate==$enddate)
+            {
+                $date=$startdate;
+                $start=date('H:i:s',$starttime);
+                $end=date('H:i:s',$endtime);
+            }
+            else echo "Order ".$info["orderid"]." have different appointment start date and end date, please check the datebase, and appointment function.";
+            $order["servicetime"] = $date." ".$start." - ".$end;
+            unset($order["time"]);
+            echo json_encode($order);
+        }
+        else echo "Error: No appointment is found. Please Check the Database and appointment function.";
+    }
+    else echo "orderdetail Error: wrong massaid";
+}
+

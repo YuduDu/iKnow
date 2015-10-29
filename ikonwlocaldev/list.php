@@ -227,12 +227,16 @@ function getmassagistlist($pagenum=null){
 	foreach ($result as $row){
 		//echo $row;
 		//$getshopname = mysql_query("select name from Shop where shopid=".$row[0].";" , $con);
-		$row2=DBfetchall2($con,"Shop",array("name","latitude","longtitude"),array("shopid"=>$row["shopid"]));
+		$row2=DBfetchone2($con,"Shop",array("name","latitude","longtitude"),array("shopid"=>$row["shopid"]));
+		//var_dump($row2);
 		//echo $row[0],$row[1];
+		//echo $row2["latitude"];
 		$a=array("massagistid"=>$row["phone"],"shopname"=>$row2["name"],"name"=>$row["name"],"stars"=>$row["stars"],"intro"=>$row["intro"],"pic"=>$row["pic"],"latitude"=>$row2["latitude"],"longtitude"=>$row2["longtitude"]);
 		//echo $a;
+		//var_dump($a);
 		array_push($Arr,$a);
 	}
+	//var_dump($Arr);
 	echo json_encode($Arr);
 }
 
