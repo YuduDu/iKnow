@@ -29,6 +29,7 @@ $select_all_m_name = "SELECT phone FROM Customer ";
         ?>
     </select>
 
+
     <input type="submit"/>
     <input type="reset"/>
 

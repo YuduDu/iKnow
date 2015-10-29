@@ -1,14 +1,20 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>查询结果</title>
+</head>
 <?php
-/**
- * Created by PhpStorm.
- * User: huangsiman
- * Date: 10/20/15
- * Time: 00:40
- */
 	require_once 'configs.php';
 	require_once 'db_func.php';
 	$con = DBconnect();
+
+session_start();
+$_SESSION['massa_name']=$_POST['ad_select_massa'];
+$_SESSION['customer_phone'] = $_POST['ad_select_massa'];
+$_SESSION['shop_name'] = $_POST['select_massagist_shop'];
+
 
 if(isset($_POST['ad_select_massa'])&&$_POST['ad_select_massa']!=null){
 	get_massagist_by_name($con,$_POST['ad_select_massa']);
@@ -26,16 +32,22 @@ if(isset($_POST['select_massagist_shop'])&&$_POST['select_massagist_shop']!=null
 function get_massagist_by_name($con, $name){
 	$sql_massagist = "SELECT * FROM MassagistDetail WHERE name = '$name'";
 	$result = mysql_query($sql_massagist,$con) or die("Fetch massaid Error:".mysql_error());
-	echo '<table class="table table-striped table-bordered table-hover">';
-	echo "<TR><TD>NAME</TD><TD>STARS:</TD><TD>SHOP</TD></TR>";
+	echo "<center>";
+	echo "<table border='1'>";
+	echo "<TR><TD>NAME</TD><TD>STARS</TD><TD>SHOP</TD><TD>ACTION</TD></TR>";
 	while($row = mysql_fetch_assoc($result)) {
 		echo "<tr><td>";
 		echo $row['name'];
+		$_SESSION['massa_name'] = $row['name'];
 		echo "</td><td>";
 		echo $row['stars'];
 		echo "</td><td>";
 		echo $row['shopid'];
 		echo "</td><td>";
+		?>
+		<a href="delete.php"> 删除 </a>
+<?php
+
 	}
 }
 
@@ -125,7 +137,6 @@ function get_shop_by_name($con,$name){
 	$sql_shop_name = "SELECT * FROM Shop WHERE name = '$name'";
 	$result = mysql_query($sql_shop_name,$con) or die("Fetch massaid Error:".mysql_error());
 	while($row = mysql_fetch_assoc($result)) {
-
 		echo "NAME: " . $row['name'];
 		echo "<br/>";
 		echo "SHOPID: " . $row['shopid'];
