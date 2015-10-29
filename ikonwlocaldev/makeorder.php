@@ -8,10 +8,11 @@
 require_once "db_func.php";
 require_once "appointment_succ.php";
 require_once('stripe-config.php');
-require_once "updateOrderAmount.php";
+require_once "update.php";
 \Stripe\Stripe::setApiKey("sk_test_pijvVr7Jl5AjrLIymIx2qETk");
 session_start();
 
+date_default_timezone_set('America/Chicago');
 if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
 {
 
@@ -32,10 +33,11 @@ if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
         $_SESSION[$key]=$val;
     }
     $con=DBconnect();
-
+    //var_dump($_SESSION);
+    //echo "hehe";
     //需要重构,将DBFetchall切换成DBfetchall2,将获取技师信息封装,或使用massagistDetail里面的现成函数
 
-    $massagistlist_query = "select masaid from Has_Service where serviceid = ".(int)$_SESSION['serviceid'];
+    $massagistlist_query = "select masaid from Has_Service where serviceid = ".$_SESSION['serviceid'].";";
     $massagistlist = DBfetchall($massagistlist_query,$con);
 
     if($massagistlist!=null){
@@ -80,6 +82,7 @@ if(isset($_POST['submit'])&&$_POST['submit']!=null)
     //place the order into database
     if(placeorder($con)==TRUE) {
         //make appointment
+
         $result = make_appointment($con);
         if ($result  == true) {
             //echo "begin charge: ";

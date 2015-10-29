@@ -30,7 +30,7 @@ if(isset($_POST["information"])&&$_POST["information"]!=null){
             }
             else echo "Order ".$info["orderid"]." have different appointment start date and end date, please check the datebase, and appointment function.";
             $order["servicetime"] = $date." ".$start." - ".$end;
-            unset($order["time"]);
+            //unset($order["time"]);
             echo json_encode($order);
         }
         else echo "Error: No appointment is found. Please Check the Database and appointment function.";

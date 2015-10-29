@@ -6,9 +6,9 @@
  * Time: 2:54 PM
  */
 
-require_once "../db_func.php";
+require_once "../updateOrderAmount.php";
 
-$con = DBconnect();
-$result = DBfetchall2($con,"massagist_appt",array("orderid","start","end","serviceid"),array("massaid"=>"15652519917"),null," and  to_days(start) = to_days(now())");
-//$result = DBfetchall2($con)
-echo json_encode($result);
+//$rest =  DBformquery_update(null,array("number"=>"111","orderid"=>"1111223","hehe"=>"haha"),array("condition1"=>"wer","condition2"=>"sss","condition3"=>"fasdfa"),"and");
+//var_dump($rest =  DBformquery_update("Order",array("number"=>"111","orderid"=>"1111223","hehe"=>"haha"),array("condition1"=>"wer","condition2"=>"sss","condition3"=>"fasdfa"),"and"));
+//var_dump(DBupdate($con,"fd",array("amount"=>"amount+1"),array("massaid"=>"1","serviceid"=>"1"),"and"));
+updateServiceAmount("15136352580",4);
