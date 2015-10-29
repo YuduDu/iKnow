@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="UTF-8">
 	<title>查询结果</title>
@@ -25,7 +25,6 @@ if(isset($_POST['ad_select_customer'])&&$_POST['ad_select_customer']!=null){
 }
 
 if(isset($_POST['select_massagist_shop'])&&$_POST['select_massagist_shop']!=null){
-	echo $_POST['select_massagist_shop'];
 	get_shop_by_name($con,$_POST['select_massagist_shop']);
 }
 
@@ -33,27 +32,84 @@ function get_massagist_by_name($con, $name){
 	$sql_massagist = "SELECT * FROM MassagistDetail WHERE name = '$name'";
 	$result = mysql_query($sql_massagist,$con) or die("Fetch massaid Error:".mysql_error());
 	echo "<center>";
+	echo "<TR>技师详情</TR>";
 	echo "<table border='1'>";
 	echo "<TR><TD>NAME</TD><TD>STARS</TD><TD>SHOP</TD><TD>ACTION</TD></TR>";
 	while($row = mysql_fetch_assoc($result)) {
 		echo "<tr><td>";
 		echo $row['name'];
-		$_SESSION['massa_name'] = $row['name'];
 		echo "</td><td>";
 		echo $row['stars'];
 		echo "</td><td>";
 		echo $row['shopid'];
+		echo "</td><td>"; ?>
+		<a href="delete.php"> 删除 </a>
+		<a href="edit.php">   修改 </a>
+		<?php
+	}
+	echo "</table>";
+}
+
+function get_shop_by_name($con,$name){
+	$sql_shop_name = "SELECT * FROM Shop WHERE name = '$name'";
+	$result = mysql_query($sql_shop_name,$con) or die("Fetch massaid Error:".mysql_error());
+	echo "<center>";
+	echo "<TR>商家详情</TR>";
+	echo "<table border='1'>";
+	echo "<TR><TD>NAME</TD><TD>SHOPID</TD><TD>PHONE</TD><TD>OPEN</TD><TD>CLOSE</TD><TD>CITY</TD><TD>PROVINCE</TD><TD>ACTION</TD></TR>";
+	while($row = mysql_fetch_assoc($result)) {
+		echo "<tr><td>";
+		echo $row['name'];
+		echo "</td><td>";
+		echo $row['shopid'];
+		echo "</td><td>";
+		echo $row['phone'];
+		echo "</td><td>";
+		echo $row['opentime'];
+		echo "</td><td>";
+		echo $row['closetime'];
+		echo "</td><td>";
+		echo $row['city'];
+		echo "</td><td>";
+		echo $row['province'];
 		echo "</td><td>";
 		?>
 		<a href="delete.php"> 删除 </a>
-<?php
-
+		<a href="edit.php">   修改 </a>
+		<?php
 	}
+	echo "</table>";
 }
+
+function get_customer_by_phone($con,$phone){
+	$sql = "SELECT * FROM Customer WHERE phone = '$phone'";
+	$result = mysql_query($sql,$con);
+	echo "<center>";
+	echo "<TR>客户详情</TR>";
+	echo "<table border='1'>";
+	echo "<TR><TD>PHONE</TD><TD>SIGNUPDATE</TD><TD>COUNTRY</TD><TD>ACTION</TD></TR>";
+	while($row = mysql_fetch_assoc($result)){
+		echo "<tr><td>";
+		echo $row['phone'];
+		echo "</td><td>";
+		echo $row['signupdate'];
+		echo "</td><td>";
+		echo $row['Country'];
+		echo "</td><td>";?>
+	<a href="delete.php"> 删除 </a>
+	<a href="edit.php">   修改 </a>
+<?php
+}
+echo "</table>";
+}
+
 
 function get_massagist_by_mid($con, $mid){
 	$sql_massagist = "SELECT * FROM MassagistDetail WHERE phone = '$mid'";
 	$result = mysql_query($sql_massagist,$con) or die("Fetch massaid Error:".mysql_error());
+	echo "<center>";
+	echo "<table border='1'>";
+	echo "<TR><TD>NAME</TD><TD>STARS</TD><TD>SHOP</TD><TD>ACTION</TD></TR>";
 	while($row = mysql_fetch_assoc($result)){
 		echo "NAME: " .$row['name'] ;
 		echo "<br/>";
@@ -63,6 +119,8 @@ function get_massagist_by_mid($con, $mid){
 		echo "<br/>";
 	}
 }
+
+
 
 function get_appointment_by_massagist($con, $mid){
 	$sql_apoint = "SELECT * FROM massagist_appt WHERE massaid = '$mid'";
@@ -121,35 +179,5 @@ function get_order_by_massagist($con,$mid){
 
 }
 
-function get_customer_by_phone($con,$phone){
-	$sql = "SELECT * FROM Customer WHERE phone = '$phone'";
-	$result = mysql_query($sql,$con);
-	while($row = mysql_fetch_assoc($result)){
-		echo "PHONE:" .$row['phone'];
-		echo "<br/>";
-		echo "NAME:" .$row['signupdate'];
-		echo "<br/>";
-		echo "COUNTRY:" .$row['Country'];
-	}
-}
 
-function get_shop_by_name($con,$name){
-	$sql_shop_name = "SELECT * FROM Shop WHERE name = '$name'";
-	$result = mysql_query($sql_shop_name,$con) or die("Fetch massaid Error:".mysql_error());
-	while($row = mysql_fetch_assoc($result)) {
-		echo "NAME: " . $row['name'];
-		echo "<br/>";
-		echo "SHOPID: " . $row['shopid'];
-		echo "<br/>";
-		echo "PHONE: " . $row['phone'];
-		echo "<br/>";
-		echo "OPENTIME: " . $row['opentime'];
-		echo "<br/>";
-		echo "CLOSETIME: " . $row['closetime'];
-		echo "<br/>";
-		echo "CITY: " . $row['city'];
-		echo "<br/>";
-		echo "PROVINCE: " . $row['province'];
-		echo "<br/>";
-	}
-}
+

@@ -11,12 +11,11 @@ require_once "ad_select.php";
 $con = DBconnect();
 $select_all_m_name = "SELECT phone FROM Customer ";
 ?>
-
+<center>
 <form id="ad_select" action="ad_select.php" method="post">
     客户:
     <select id="select_custom" name="ad_select_customer">
         <?php
-
         $customer_name = array();
         $rs = mysql_query($select_all_m_name);
         $nr = mysql_num_rows($rs);
@@ -28,11 +27,9 @@ $select_all_m_name = "SELECT phone FROM Customer ";
         unset($customer_name);
         ?>
     </select>
-
-
     <input type="submit"/>
     <input type="reset"/>
-
 </form>
+</center>
 </body>
 </html>
