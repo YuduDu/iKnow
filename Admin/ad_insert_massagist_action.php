@@ -6,7 +6,6 @@
 	<title>插入技师</title>
 </head>
 <?php
-
 require_once "db_func.php";
 $con = DBconnect();
 $name = $_POST['name'];

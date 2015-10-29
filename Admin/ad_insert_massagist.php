@@ -11,6 +11,8 @@ require_once "db_func.php";
 $con = DBconnect();
 $get=mysql_query("SELECT name FROM Shop");
 ?>
+<center>
+	技师信息输入：
 <form action="ad_insert_massagist_action.php" method="post">
 
 	Name:     <input type = "text" name = "name"><br>
@@ -32,6 +34,7 @@ $get=mysql_query("SELECT name FROM Shop");
 
 	<input type="submit">
 </form>
+</center>
 
 </body>
 </html>
