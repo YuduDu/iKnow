@@ -17,6 +17,15 @@ function DBconnect(){
     return $con;
 }
 
+function DBformquery_join($resultlist, $join_left, $join_operate, $join_right, $on_command, $additioncommand = ""){
+    $para = join(",",array_values($resultlist));
+    $query="";
+    if($join_left!=null&&$join_operate!=null&&$join_right!=null){
+        $query = "select $para from $join_left $join_operate $join_right on $on_command $additioncommand;";
+    }
+    return $query;
+}
+
 function DBformquery_select($table, $resultlist,$condition_array = null,$conditionoperate = "",$additioncommand=""){
     $key = array_keys($condition_array);
     $value = array_values($condition_array);
@@ -28,7 +37,7 @@ function DBformquery_select($table, $resultlist,$condition_array = null,$conditi
             for($i=0;$i<sizeof($condition_array);$i++)
             {
                 //echo sizeof($condition_array);
-                $query .= "$key[$i] = $value[$i] ";
+                $query .= "$key[$i] = '$value[$i]' ";
                 if($i==sizeof($condition_array)-1){
                     break;
                 }
@@ -44,7 +53,7 @@ function DBformquery_select($table, $resultlist,$condition_array = null,$conditi
         $query = $additioncommand;
     }
     else echo "Error: all parameter is null, please double check.";
-
+    //echo $query;
     return $query;
 }
 
@@ -54,7 +63,7 @@ function DBformquery_update($table=null, $updatearray = null,$condition_array = 
         //$update_value = array_values($updatearray);
         $condition_key = array_keys($condition_array);
         $condition_value = array_values($condition_array);
-        $query = "update $table set ";
+        $query = "update `$table` set ";
         foreach($updatearray as $key=>$value){
             $query .= " $key = $value,";
         }
@@ -119,7 +128,7 @@ function DBfetchall($query,$con)
 
         $query = DBformquery_select($table, $resultlist, $condition_array, $conditionoperate, $additioncommand);
         //echo $query;
-        //echo $query;
+
         $result = mysql_query($query, $con) or die("Fetchall Error:" . mysql_error());
         while ($row = mysql_fetch_assoc($result)) {
             $rows[] = $row;
@@ -130,14 +139,9 @@ function DBfetchall($query,$con)
     }
 
 
-    function DBfetchone2($con, $table, $resultlist, $condition_array = null)
+    function DBfetchone2($con, $table, $resultlist, $condition_array = null,$conditionoperate = "", $additioncommand = "")
     {//
-        $key = array_keys($condition_array);
-        $value = array_values($condition_array);
-        $para = join(",", array_values($resultlist));
-        if ($condition_array != null) {
-            $query = "select $para from `$table` where $key[0] = $value[0] ;";
-        } else $query = "select $para from `$table`;";
+        $query = DBformquery_select($table, $resultlist, $condition_array, $conditionoperate, $additioncommand);
         //echo $query;
         $result = mysql_query($query, $con) or die("Fetchone Error:" . mysql_error());
         return mysql_fetch_assoc($result);

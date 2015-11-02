@@ -1,0 +1,12 @@
+Backend:
+	Server Develop： PHP
+	Database: Mysql
+	Web Server: Apache
+	Server Log framework: SeasLog
+	Payment: Stripe
+	SMS: 云之讯ucpaas
+Frontend:
+	Frontend Develop: Html5
+	Frontend Develop Tools: Hbuilder
+Testing:
+	API test: PHPUnit, Guzzle

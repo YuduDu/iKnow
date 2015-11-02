@@ -56,7 +56,7 @@ function getserviceslist_Limit($con,$Info_array, $keypair_array,$num){
     //var_dump($services);
     $servicelist = array();
     foreach ($services as $service){
-        $service_info = DBfetchone2($con,"Service",$Info_array,$service);
+        $service_info = DBfetchone2($con,"Service",$Info_array,array("serviceid"=>$service["serviceid"]));
         $service_info["amount"]=$service["amount"];
         array_push($servicelist,$service_info);
     }
