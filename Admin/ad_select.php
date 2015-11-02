@@ -10,19 +10,16 @@
 	require_once 'db_func.php';
 	$con = DBconnect();
 
-session_start();
-$_SESSION['massa_name']=$_POST['ad_select_massa'];
-$_SESSION['customer_phone'] = $_POST['ad_select_massa'];
-$_SESSION['shop_name'] = $_POST['select_massagist_shop'];
-
+//session_start();
+//$_SESSION['massa_name']=$_POST['ad_select_massa'];
+//
+//$_SESSION['shop_name'] = $_POST['select_massagist_shop'];
+//
 
 if(isset($_POST['ad_select_massa'])&&$_POST['ad_select_massa']!=null){
 	get_massagist_by_name($con,$_POST['ad_select_massa']);
 }
 
-if(isset($_POST['ad_select_customer'])&&$_POST['ad_select_customer']!=null){
-	get_customer_by_phone($con,$_POST['ad_select_customer']);
-}
 
 if(isset($_POST['select_massagist_shop'])&&$_POST['select_massagist_shop']!=null){
 	get_shop_by_name($con,$_POST['select_massagist_shop']);
@@ -81,27 +78,6 @@ function get_shop_by_name($con,$name){
 	echo "</table>";
 }
 
-function get_customer_by_phone($con,$phone){
-	$sql = "SELECT * FROM Customer WHERE phone = '$phone'";
-	$result = mysql_query($sql,$con);
-	echo "<center>";
-	echo "<TR>客户详情</TR>";
-	echo "<table border='1'>";
-	echo "<TR><TD>PHONE</TD><TD>SIGNUPDATE</TD><TD>COUNTRY</TD><TD>ACTION</TD></TR>";
-	while($row = mysql_fetch_assoc($result)){
-		echo "<tr><td>";
-		echo $row['phone'];
-		echo "</td><td>";
-		echo $row['signupdate'];
-		echo "</td><td>";
-		echo $row['Country'];
-		echo "</td><td>";?>
-	<a href="delete.php"> 删除 </a>
-	<a href="edit.php">   修改 </a>
-<?php
-}
-echo "</table>";
-}
 
 
 function get_massagist_by_mid($con, $mid){

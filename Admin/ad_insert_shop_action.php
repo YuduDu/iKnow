@@ -17,10 +17,13 @@ $opentime = $_POST['opentime'];
 $closetime = $_POST['closetime'];
 $pic = $_FILES['pic']['name'];
 
-$target = "http://gene.rnet.missouri.edu/iKnow/img/";
-$target = $target . basename( $_FILES['pic']['name']);
 
-insert_shop($con,$name,$shopid,$phone,$province,$city,$address,$pic,$opentime,$closetime);
+define('ROOT',dirname(__FILE__).'/');
+//$target = "/Applications/MAMP/htdocs/Admin";
+$target =  ROOT.'/Applications/MAMP/htdocs/Admin/'.basename($_FILES['pic']['name']);
+//$target = $target . basename( $_FILES['pic']['name']);
+
+//insert_shop($con,$name,$shopid,$phone,$province,$city,$address,$pic,$opentime,$closetime);
 function insert_shop($con,$name,$shopid,$phone,$province,$city,$address,$pic,$opentime,$closetime){
 	$sql_insert_shop = "INSERT INTO Shop (name,shopid,phone,address,pic,opentime,closetime,city,province) VALUES ('".$name ."',".$shopid .",'". $phone ."','" ."$address" ."','" .$pic."','" .$opentime."','".$closetime."','" .$city ."','" .$province ."');";
 	if (mysql_query($sql_insert_shop,$con)) {
@@ -32,8 +35,8 @@ function insert_shop($con,$name,$shopid,$phone,$province,$city,$address,$pic,$op
 
 if(move_uploaded_file($_FILES['pic']['name'], $target))
 {
-	echo "The file ". basename( $_FILES['pic']['name']). " has been uploaded, and your information has been added to the directory";
+	echo "The file ". basename( $_FILES['pic']['name']). "uploaded";
 }
 else {
-	echo "Sorry, there was a problem uploading your file.";
+	echo "Error：".$_FILES['pic']['error']."<br>";
 }

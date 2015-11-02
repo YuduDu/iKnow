@@ -18,7 +18,7 @@ $get=mysql_query("SELECT name FROM Shop");
 		省 份:     <input type = "text" name = "province" > <br>
 		城 市:     <input type = "text" name = "city" > <br>
 		地 址:     <input type = "text" name = "address" > <br>
-		图 片:     <input type="file"  name="pic"  accept="image/gif, image/jpeg" > <br>
+		图 片:     <input type= "file"  name="pic"  accept="image/gif, image/jpeg" > <br>
 		开始营业时间: <input type = "text" name = "opentime" > <br>
 		结束营业时间: <input type = "text" name = "closetime" > <br>
 

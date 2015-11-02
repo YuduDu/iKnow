@@ -51,6 +51,8 @@
       <column name="masaid" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="comment_sum" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="money" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
       <primary-key name="PRIMARY" columns="hsid"/>
       <foreign-key name="HSmassagist" columns="masaid" ref-table="Massagist" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
       <foreign-key name="HSservice" columns="serviceid" ref-table="Service" ref-schema="" ref-catalog="iKnow" ref-columns="serviceid" update-rule="3" delete-rule="3" deferrability="2"/>

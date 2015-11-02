@@ -8,11 +8,13 @@
 <?php
 require_once "configs.php";
 require_once "ad_select.php";
+session_start();
+$_SESSION['customer_phone'] = null;
 $con = DBconnect();
 $select_all_m_name = "SELECT phone FROM Customer ";
 ?>
 <center>
-<form id="ad_select" action="ad_select.php" method="post">
+<form id="ad_select" action="ad_select_custom_action.php" method="post">
     客户:
     <select id="select_custom" name="ad_select_customer">
         <?php
@@ -22,11 +24,12 @@ $select_all_m_name = "SELECT phone FROM Customer ";
         for ($i=0; $i<$nr; $i++){
             $r = mysql_fetch_array($rs);
             $customer_name[$i] = $r['name'];
-            echo "<option".(($year==$r["phone"])? ' selected="selected"' : '').">".$r["phone"]."</option>";
+            echo "<option>".$r["phone"]."</option>";
         }
-        unset($customer_name);
+
         ?>
     </select>
+    </br>
     <input type="submit"/>
     <input type="reset"/>
 </form>

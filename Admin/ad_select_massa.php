@@ -12,7 +12,6 @@
     $select_all_m_name = "SELECT name FROM MassagistDetail ";
 ?>
 <center>
-
 <form id="ad_select" action="ad_select.php" method="post">
     <p>
         技师姓名:

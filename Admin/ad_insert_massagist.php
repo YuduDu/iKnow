@@ -15,9 +15,9 @@ $get=mysql_query("SELECT name FROM Shop");
 	技师信息输入：
 <form action="ad_insert_massagist_action.php" method="post">
 
-	Name:     <input type = "text" name = "name"><br>
-	Phone:    <input type = "text" name = "phone"><br>
-	Password: <input type = "text" name = "password"><br>
+	Name:     <input type = "text" name = "name"> <br>
+	Phone:    <input type = "text" name = "phone"> <br>
+	Password: <input type = "text" name = "password"> <br>
 	Shop:     <select name = "shop">
 		<option value="0">Please Select</option>
 		<?php
