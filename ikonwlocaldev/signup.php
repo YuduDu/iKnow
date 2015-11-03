@@ -2,28 +2,32 @@
 <?php
 //echo "this is a test"
 require_once 'db_func.php';
+session_start();
+
 if(isset($_POST['customid'])&&isset($_POST['custompassword'])){
   $id=$_POST['customid'];
   $pd=$_POST['custompassword'];
-  signup($id,$pd);
+    if($_SESSION["auth"]=="success")
+        signup($id,$pd);
     //signup($_POST[form]);
 }
 
 function signup($id,$pd)//working fine
 {
 
-  $con = DBconnect();
-  $checkid = 'select phone from Customer where Phone = "' . $id . '";';
-  $result = DBfetchone($checkid, $con);
-  if (!empty($result)) {
-    echo "exist";
-  } 
-  else {
-    $sql = 'insert Customer (phone, password,signupdate) values ("' . $id . '","' . $pd .'",current_date());';
-    $tmp = DBfetchall($sql, $con);
-    echo 1;
-  }
-  mysql_close($con);
+      $con = DBconnect();
+      $checkid = 'select phone from Customer where Phone = "' . $id . '";';
+      $result = DBfetchone($checkid, $con);
+      if (!empty($result)) {
+        echo "exist";
+      }
+      else {
+        $sql = 'insert Customer (phone, password,signupdate) values ("' . $id . '","' . $pd .'",current_date());';
+        $tmp = DBfetchall($sql, $con);
+        echo 1;
+      }
+        mysql_close($con);
+        session_destroy();
 }
 
 /*function signup1($form)//NOT FINISH
