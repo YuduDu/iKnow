@@ -131,6 +131,8 @@
       <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
       <column name="longtitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="city" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="province" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="massagistid"/>
       <foreign-key name="Remassagist" columns="massagistid" ref-table="Massagist" ref-schema="" ref-catalog="iKnow" ref-columns="phone" update-rule="0" delete-rule="0" deferrability="2"/>
     </table>
@@ -139,6 +141,8 @@
       <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="content" sqlType="VARCHAR" precision="2000" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="city" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="province" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="Recommand_service" schema="" catalog="iKnow" type="TABLE">
@@ -149,11 +153,13 @@
       <column name="pic" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="latitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
       <column name="longtitude" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="city" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="province" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="serviceid"/>
       <foreign-key name="R-serviced" columns="serviceid" ref-table="Service" ref-schema="" ref-catalog="iKnow" ref-columns="serviceid" update-rule="0" delete-rule="0" deferrability="2"/>
     </table>
     <table name="Service" schema="" catalog="iKnow" type="TABLE">
-      <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="serviceid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="shopid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="shortdesc" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" def="Jyc="/>

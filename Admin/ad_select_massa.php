@@ -1,3 +1,9 @@
+<?php
+if (!session_id())
+{
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +12,13 @@
 </head>
 <body>
 <?php
-    require_once "configs.php";
-    require_once "ad_select.php";
+    require_once "db_func.php";
     $con = DBconnect();
-    $select_all_m_name = "SELECT name FROM MassagistDetail ";
+    $_SESSION['masaid'] = null;
+    $select_all_m_name = "SELECT phone FROM MassagistDetail ";
 ?>
 <center>
-<form id="ad_select" action="ad_select.php" method="post">
+<form id="ad_select" action="ad_select_massa_action.php" method="post">
     <p>
         技师姓名:
         <select id="selec_massagist" name="ad_select_massa">
@@ -20,13 +26,12 @@
             $massa_name = array();
             $rs = mysql_query($select_all_m_name);
             $nr = mysql_num_rows($rs);
+            echo "<option disabled selected> -- select an option -- </option>";
             for ($i=0; $i<$nr; $i++){
                 $r = mysql_fetch_array($rs);
                 $massa_name[$i] = $r['name'];
-                echo "<option disabled selected> -- select an option -- </option>";
-                echo "<option".(($year==$r["name"])?  : '').">".$r["name"]."</option>";
+                echo "<option>".$r["phone"]."</option>";
             }
-            unset($massa_name);
             ?>
         </select>
         <input type="submit"/>

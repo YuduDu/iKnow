@@ -1,3 +1,9 @@
+<?php
+if (!session_id())
+{
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +12,7 @@
 </head>
 <body>
 <?php
-require_once "configs.php";
-require_once "ad_select.php";
-session_start();
+require_once "db_func.php";
 $_SESSION['customer_phone'] = null;
 $con = DBconnect();
 $select_all_m_name = "SELECT phone FROM Customer ";
@@ -21,12 +25,12 @@ $select_all_m_name = "SELECT phone FROM Customer ";
         $customer_name = array();
         $rs = mysql_query($select_all_m_name);
         $nr = mysql_num_rows($rs);
+        echo "<option disabled selected> -- select an option -- </option>";
         for ($i=0; $i<$nr; $i++){
             $r = mysql_fetch_array($rs);
             $customer_name[$i] = $r['name'];
             echo "<option>".$r["phone"]."</option>";
         }
-
         ?>
     </select>
     </br>
