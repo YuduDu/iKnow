@@ -30,6 +30,7 @@
 						});
 						document.getElementById('content').innerHTML = html;
 						mui('#content').on('tap', 'li', function() {
+							console.log(this.getAttribute('data-id'));
 							mui.openWindow({
 								url: 'disc_detail.html',
 								id: 'disc_detail',

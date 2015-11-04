@@ -65,7 +65,7 @@
 			<h1 id="title" class="mui-title" style="color: #ffffff;font-weight: 800;font-size: 20px;">我的服务</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
-			<a id="defaultTab" class="mui-tab-item mui-active" href="homelist.html">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="services.html">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">我的服务</span>
 			</a>
@@ -97,11 +97,8 @@
 				}
 				//更换标题
 				
-					title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
 				
-				document.querySelector('header').addEventListener('doubletap', function() {
-					main.children()[0].evalJS('mui.scrollTo(0, 100)');
-				});
 				//显示目标选项卡
 				if (mui.os.ios || aniShow[targetTab]) {
 					plus.webview.show(targetTab);

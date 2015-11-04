@@ -200,6 +200,7 @@
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；   
 					success: function(data) {
+						console.log(data)
 						this.malist = JSON.parse(data)
 					},
 					error: function(xhr, type, errorThrown) {
@@ -312,8 +313,8 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
 		</header>
 		<div style="height:60px;position: relative;top:60px;background-color: #ffffff;">
-			<span style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;" id="servicename"></span>
-			<span class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price"></span>
+			<div class="mui-pull-left mui-ellipsis" style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;max-width: 240px;" id="servicename"></div>
+			<div class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price"></div>
 		</div>
 		<div style="height:50px;position: relative;top:80px;background-color: #ffffff;">
 			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">人数<span class="mui-pull-right" style="padding-left:60px;padding-right:40px;color:#ff9900" id="membersspan"><select id="qtyselect" style="padding:10px 0 10px 0;height:40px;margin:5px 0 5px 40px"><option value="1">1</option>

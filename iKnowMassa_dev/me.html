@@ -6,13 +6,36 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/template.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
+			mui.plusReady(function(){
+				mui.ajax(url.basic_info, {
+					data: {
+						massaid: '15652519917',
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data);
+						var html = template('profiletemplate', obj);
+						document.getElementById('basicinfo').innerHTML = html;
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+			})
 		</script>
 		<style type="text/css">
 			.mui-media-object-round {
 				border-radius: 200px;
+			}
+			.menu{
+				line-height:30px
 			}
 		</style>
 	</head>
@@ -20,34 +43,41 @@
 	<body>
 		<div class="mui-content">
 			<ul id="massagist" class="mui-table-view" style="margin-top: 0px;">
-				<li class="mui-table-view-cell mui-grid-view mui-media ">
+				<li id="basicinfo" class="mui-table-view-cell mui-grid-view mui-media ">
 					<div class="mui-pull-left mui-media-object-round" style="margin:18px 10px 0 10px;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover; ">
 					</div>
 					<div class="mui-media-body mui-media-body-massagistlist">
-						<span>王金伟</span><span><img src="img/v3.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
-						<p class='mui-ellipsis mui-massagist-provider'>东方力道中医推拿院</p>
-						<p class='mui-ellipsis-2'>擅长治疗中风、颈椎病、手脚麻木等心血管疾病，各种内科等</p>
+						<span>载入中...</span>
 					</div>
 				</li>
 			</ul>
 			<ul class="mui-table-view" style="margin-top: 15px;">
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right menu">
 						修改密码
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right menu">
 						客服热线
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right menu">
 						关于我们
 					</a>
 				</li>
 			</ul>
 		</div>
 	</body>
+	<script id="profiletemplate" type="text/html ">
+		<div class="mui-pull-left mui-media-object-round" style="margin:18px 10px 0 10px;background-image: url({{pic}});width:64px;height:64px;background-size: cover; ">
+					</div>
+					<div class="mui-media-body mui-media-body-massagistlist">
+						<span>{{name}}</span><span><img src="img/v{{stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
+						<p class='mui-ellipsis mui-massagist-provider'>{{shopname}}</p>
+						<p class='mui-ellipsis-2'>{{intro}}</p>
+					</div>
+	</script>
 
 </html>

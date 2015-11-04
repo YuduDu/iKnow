@@ -1,15 +1,65 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title></title>
-    <script src="js/mui.js"></script>
-    <link href="css/mui.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
-    <style>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				mui.ajax('http://gene.rnet.missouri.edu/iKnow/massagist_list.php', {
+					data: {
+						action: 'get_order_list',
+						pagenum: '1',
+						massaid: '13233997914',
+						timearray: 'today'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data);
+						var html = template('todaytemplate', {
+							list: obj
+						});
+						console.log(html);
+						document.getElementById('item2mobileul').innerHTML = html;
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				
+				mui('#item2mobileul').on('tap','li',function(){
+					console.log(this.getAttribute('data-id'))
+							mui.openWindow({
+								url:'orderdetail.html',
+								id:'orderdetail',
+								extras:{
+									orderid:this.dataset.id,
+								},
+								styles: {
+								popGesture: 'close'
+								},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: '正在加载...', //等待对话框上显示的提示内容
+								}
+							})
+						})
+			})
+		</script>
+		<style>
 			.mui-control-content {
 				background-color: white;
 				min-height: 215px;
@@ -19,7 +69,7 @@
 			}
 			#sliderSegmentedControl {
 				background: #ffffff;
-				height:40px;
+				height: 40px;
 			}
 			#sliderProgressBar {
 				background-color: #61cccb;
@@ -27,14 +77,15 @@
 			.date {
 				background-color: #f2f2f2;
 				height: 40px;
-				padding:15px 0 0 15px
+				padding: 15px 0 0 15px
 			}
-			.controlitemname{
+			.controlitemname {
 				font-size: 16px;
 				padding-top: 5px
 			}
-			.time{
-				float: left;margin-right: 15px;
+			.time {
+				float: left;
+				margin-right: 15px;
 			}
 			p {
 				font-size: 16px;
@@ -43,10 +94,11 @@
 				padding-top: 18px;
 			}
 		</style>
-</head>
-<body>
-	<div class="mui-content">
-		<div id="slider" class="mui-slider">
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
 				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item controlitemname" href="#item1mobile">
 				未来订单
@@ -61,93 +113,200 @@
 				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 				<div class="mui-slider-group">
 					<div id="item1mobile" class="mui-slider-item mui-control-content">
-								<div class="date">10月19日 周一</div>
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-								</ul>
+						<div class="date">10月19日 周一</div>
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+						</ul>
 					</div>
 					<div id="item2mobile" class="mui-slider-item mui-control-content mui-active">
-								<ul class="mui-table-view">
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-								</ul>
+						<ul id="item2mobileul" class="mui-table-view">
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+								
+							</li>
+						</ul>
 					</div>
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
-								<ul class="mui-table-view">
-									<div class="date">10月19日 周一</div>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-									<li class="mui-table-view-cell" style="font-size: 16px;">
-										<a class="mui-navigate-right" style="padding-top: 18px;">
-										<div class="time">11:00AM<br><p>12:00AM</p></div>
-										<div>单人全省精油按摩<br><p>到店</p></div>
-										</a>
-									</li>
-								</ul>
+						<ul id="item3mobileul" class="mui-table-view">
+							<div class="date">10月19日 周一</div>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a class="mui-navigate-right" style="padding-top: 18px;">
+									<div class="time">11:00AM
+										<br>
+										<p>12:00AM</p>
+									</div>
+									<div>单人全省精油按摩
+										<br>
+										<p>到店</p>
+									</div>
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
-	</div>
-</body>
+		</div>
+	</body>
+	<script id="todaytemplate" type="text/html ">
+		{{each list as value i}}
+		<li data-id="{{value.orderid}}" class="mui-table-view-cell" style="font-size: 16px;">
+			<a class="mui-navigate-right" style="padding-top: 18px;">
+				<div class="time">{{value.start.substring(0,5)}}
+					<br>
+					<p>{{value.end.substring(0,5)}}</p>
+				</div>
+				<div style="margin-left:70px">{{value.servicename}}
+					<br>
+					<p>上门、到店</p>
+				</div>
+			</a>
+		</li>
+		{{/each}}
+	</script>
+	<script id="historytemplate" type="text/html ">
+		{{each list as value i}}
+		<li class="mui-table-view-cell" style="font-size: 16px;">
+			<a class="mui-navigate-right" style="padding-top: 18px;">
+				<div class="time">{{value.start.substring(0,5)}}
+					<br>
+					<p>{{value.end.substring(0,5)}}</p>
+				</div>
+				<div style="margin-left:70px">{{value.servicename}}
+					<br>
+					<p>上门、到店</p>
+				</div>
+
+			</a>
+		</li>
+		{{/each}}
+	</script>
+
 </html>

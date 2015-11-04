@@ -70,6 +70,12 @@
 								'呵呵'
 								break;
 						}
+						if(obj.service_list.length == 0){
+							document.getElementById("moreservicebtn").style.display = 'none'
+						}
+						if(!obj.comment_list){
+							document.getElementById("morecommentbtn").style.display = 'none'
+						}
 						var html1 = template('servicelisttemplate', {
 							list: obj.service_list
 						});

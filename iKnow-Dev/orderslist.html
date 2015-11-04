@@ -122,8 +122,11 @@
 							//console.log('none')
 							document.getElementById("noitem").style.display = ''
 							document.getElementById("orderlist").style.display = 'none'
+							document.getElementById("moreordersbtn").style.display = 'none'
 						}else{
-							
+							if(obj.length<5){
+								document.getElementById("moreordersbtn").style.display = 'none'
+							}
 							//console.log(data);
 						var html = template('orderlisttemplate', {
 							list: obj
