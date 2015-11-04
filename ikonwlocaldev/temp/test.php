@@ -8,4 +8,7 @@
 
 //require_once "../updateOrderAmount.php";
 require_once "../db_func.php";
-echo rand(1000,9999);
+$test = '{"resp":{"respCode":"000000","templateSMS":{"createDate":"20151103134941","smsId":"96331056621dc1ffb65099ee14c2f38e"}}}';
+$result = json_decode($test);
+$t1 = $result->resp->respCode;
+var_dump($t1);

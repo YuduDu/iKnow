@@ -4,11 +4,14 @@
 require_once 'db_func.php';
 session_start();
 
-if(isset($_POST['customid'])&&isset($_POST['custompassword'])){
-  $id=$_POST['customid'];
+if(isset($_POST['custompassword'])&&$_POST['custompassword']!=null){
+  //$id=$_POST['customid'];
   $pd=$_POST['custompassword'];
-    if($_SESSION["auth"]=="success")
+    if($_SESSION["auth"]=="success") {
+        $id = $_SESSION["phone"];
         signup($id,$pd);
+    }
+    else echo "signup denied";
     //signup($_POST[form]);
 }
 
