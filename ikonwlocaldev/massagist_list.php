@@ -19,7 +19,7 @@ if(isset($_POST["action"])&&$_POST["action"]!=null&&isset($_POST["massaid"])&&$_
         }
 
         case 'get_service_list':
-            getmassagistservicelist($_POST['massaid']);
+            getmassagistservicelist($_POST['massaid'],$_POST['pagenum']);
             break;
         case 'get_comment_list':
             getmassagistcommentlist($_POST['massaid'],$_POST["pagenum"]);
@@ -67,11 +67,12 @@ function getmassagistorderlist($massaid,$timearray,$pagenum=null){
         //seperate the datetime to date and time
         $starttime = strtotime($row["start"]);
         $endtime = strtotime($row["end"]);
-        $startdate = date('m/d/y',$starttime);
-        $enddate = date('m/d/y',$endtime);
+        $startdate = date('20y年m月d日',$starttime);
+        $enddate = date('20y年m月d日',$endtime);
         if($startdate==$enddate)
         {
-            $row['date']=$startdate;
+            //$row['date']=$startdate;
+            $date=$startdate;
             $row['start']=date('H:i:s',$starttime);
             $row['end']=date('H:i:s',$endtime);
         }
@@ -81,15 +82,30 @@ function getmassagistorderlist($massaid,$timearray,$pagenum=null){
         $service = DBfetchone2($con,"Service",array("name"),array("serviceid"=>$row["serviceid"]));
         $row["servicename"] = $service['name'];
         unset($row['serviceid']);
-
+        if(!isset($return[$date])){
+            $return[$date]=array();
+        }
+        //var_dump($return[$date]);
+        array_push($return[$date],$row);
         //push into "return" list
-        array_push($return, $row);
+        //array_push($return, $row);
     }
     echo json_encode($return);
 }
 
 function getmassagistservicelist($massaid, $pagenum=null){
-
+    $con = DBconnect();
+    if($pagenum!=null){
+        $perpagenum_service=10;
+        $startpos = ($pagenum-1)*$perpagenum_service;
+        $servicelistquery = DBformquery_select("Has_Service",array("serviceid","amount","comment_sum"),array("masaid"=>$massaid),null,"order by amount desc limit $startpos , $perpagenum_service");
+    }
+    else
+        $servicelistquery = DBformquery_select("Has_Service",array("serviceid","amount","comment_sum"),array("masaid"=>$massaid));
+    $servicelistquery = rtrim($servicelistquery,';');
+    $query = DBformquery_join(array("a. amount as order_sum","a.comment_sum as comment_sum","b.name as servicename","b.price as price","b.duration as duration"),"($servicelistquery) as a","left  join","Service as b","a.serviceid = b.serviceid");
+    $result = DBfetchall($query,$con);
+    echo json_encode($result);
 
 }
 

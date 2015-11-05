@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ffea94-af9d-4d01-826e-68bd766268ca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SMS.php" afterPath="$PROJECT_DIR$/SMS.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signup.php" afterPath="$PROJECT_DIR$/signup.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/list.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/massagist_list.php" afterPath="$PROJECT_DIR$/massagist_list.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/test.php" afterPath="$PROJECT_DIR$/temp/test.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -27,82 +27,65 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="login2.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/login2.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.5">
-              <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/login.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.875">
-              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-              <folding>
-                <marker date="1443888659000" expanded="true" signature="198:242" placeholder="select passw..Customer..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="test.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/temp/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.625">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state vertical-scroll-proportion="-13.75">
+              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/list.php">
+      <file leaf-file-name="massagist_login.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/massagist_login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-153.125">
-              <caret line="245" column="28" selection-start-line="245" selection-start-column="28" selection-end-line="245" selection-end-column="28" />
-              <folding>
-                <marker date="1446506881000" expanded="true" signature="9124:9220" placeholder="SELECT servi..Recommand_service..." />
-                <marker date="1446506881000" expanded="true" signature="9516:9609" placeholder="SELECT massa..Recommand_massagist..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="signup.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/signup.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.75">
-              <caret line="6" column="31" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="31" />
-              <folding>
-                <marker date="1446659895000" expanded="true" signature="458:512" placeholder="select phone..Customer..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SMS.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SMS.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.625">
-              <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="servicedetail.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="list2.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/list2.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="52" column="37" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="servicedetail.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/servicedetail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31914893">
+            <state vertical-scroll-proportion="0.0">
               <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
               <folding>
                 <marker date="1443888659000" expanded="true" signature="302:383" placeholder="SELECT shopi..Service..." />
                 <marker date="1443888659000" expanded="true" signature="470:562" placeholder="select name,..Shop..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="massagist_list.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/massagist_list.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.67639256">
+              <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="massagist_order_detail.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/massagist_order_detail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,22 +100,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="morecomment.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/morecomment.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="35" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="massagistdetail.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/massagistdetail.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="49" column="21" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="21" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="massagist_basic_info.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/massagist_basic_info.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="massagist_statistic.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/massagist_statistic.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+              <folding>
+                <element signature="e#6#85#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -168,7 +163,6 @@
         <option value="$PROJECT_DIR$/develop_temp/test.php" />
         <option value="$PROJECT_DIR$/tools.php" />
         <option value="$PROJECT_DIR$/login2.php" />
-        <option value="$PROJECT_DIR$/massagist_list.php" />
         <option value="$PROJECT_DIR$/massagist_login.php" />
         <option value="$PROJECT_DIR$/massagist_basic_info.php" />
         <option value="$PROJECT_DIR$/massagist_order_detail.php" />
@@ -180,11 +174,13 @@
         <option value="$PROJECT_DIR$/temp/update_order_comment_amount.php" />
         <option value="$PROJECT_DIR$/massagistdetail.php" />
         <option value="$PROJECT_DIR$/db_func.php" />
-        <option value="$PROJECT_DIR$/list.php" />
         <option value="$PROJECT_DIR$/SMS_test.php" />
-        <option value="$PROJECT_DIR$/temp/test.php" />
         <option value="$PROJECT_DIR$/SMS.php" />
         <option value="$PROJECT_DIR$/signup.php" />
+        <option value="$PROJECT_DIR$/massagist_statistic.php" />
+        <option value="$PROJECT_DIR$/list.php" />
+        <option value="$PROJECT_DIR$/temp/test.php" />
+        <option value="$PROJECT_DIR$/massagist_list.php" />
       </list>
     </option>
   </component>
@@ -226,6 +222,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -260,8 +258,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -339,7 +335,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13733906" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13876967" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -382,28 +378,11 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db_func.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -439,17 +418,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -485,17 +454,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -531,17 +490,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -577,17 +526,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -661,49 +600,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/massagist_login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-          <folding>
-            <element signature="e#6#86#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/massagist_basic_info.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/massagist_order_detail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/massagist_list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/update.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="28" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -711,7 +611,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -719,7 +618,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -734,17 +632,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="14" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -752,15 +640,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="35" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/orderdetail.php">
+    <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding />
+        <state vertical-scroll-proportion="-6.875">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.5">
+          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/signup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.75">
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SMS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.625">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -772,69 +679,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
+    <entry file="file://$PROJECT_DIR$/massagist_basic_info.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.875">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding>
-            <marker date="1443888659000" expanded="true" signature="198:242" placeholder="select passw..Customer..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.5">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/temp/test.php">
+    <entry file="file://$PROJECT_DIR$/massagist_statistic.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.625">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-153.125">
-          <caret line="245" column="28" selection-start-line="245" selection-start-column="28" selection-end-line="245" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding>
-            <marker date="1446506881000" expanded="true" signature="9124:9220" placeholder="SELECT servi..Recommand_service..." />
-            <marker date="1446506881000" expanded="true" signature="9516:9609" placeholder="SELECT massa..Recommand_massagist..." />
+            <element signature="e#6#85#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/signup.php">
+    <entry file="file://$PROJECT_DIR$/massagist_order_detail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.75">
-          <caret line="6" column="31" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="31" />
-          <folding>
-            <marker date="1446659895000" expanded="true" signature="458:512" placeholder="select phone..Customer..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SMS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.625">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/servicedetail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31914893">
+        <state vertical-scroll-proportion="0.0">
           <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
           <folding>
             <marker date="1443888659000" expanded="true" signature="302:383" placeholder="SELECT shopi..Service..." />
             <marker date="1443888659000" expanded="true" signature="470:562" placeholder="select name,..Shop..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/orderdetail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/massagist_login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/list2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="52" column="37" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.75">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/massagist_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67639256">
+          <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

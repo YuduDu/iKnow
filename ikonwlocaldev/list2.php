@@ -22,6 +22,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				//var_dump($location);
 				recommand_service($location);
 			}
+			else echo "Error: no location";
 			break;
 		}
 		case 'get_recommand_massagist':
@@ -31,7 +32,9 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				//var_dump($_POST['location']);
 				$location = json_decode($_POST['location']);
 				recommand_massagesit($location);
-			}break;
+			}
+			else echo "Error: no location";
+			break;
 
 		}
 		case 'get_recommand_news':
@@ -40,9 +43,8 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				$location = json_decode($_POST['location']);
 				if (!isset($_POST['id'])) {
 					recommand_news($location);
-				}
-			}
-			else recommand_news($location, $_POST['id']);
+				} else recommand_news($location, $_POST['id']);
+			}else echo "Error: no location";
 			//recommand_news();
 			break;
 		}
@@ -54,6 +56,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 					getmassagistlist($location,$_POST['pagenum']);
 				} else getmassagistlist($location);
 			}
+			else echo "Error: no location";
 			break;
 		}
 		case 'get_services_list':
@@ -78,6 +81,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 					}
 				} else echo "Error: categoryid wrong";
 			}
+			else echo "Error: no location";
 			break;
 		}
 		case 'get_order_list':{
