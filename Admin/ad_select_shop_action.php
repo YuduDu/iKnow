@@ -14,7 +14,6 @@
 		get_shop_by_name( $con, $_POST['select_shop_s'] );
 	}
 
-
 	function get_shop_by_name( $con, $shopid ){
 	$sql_shop_name = "SELECT * FROM Shop WHERE shopid = '$shopid'";
 	$result = mysql_query( $sql_shop_name, $con ) or die( "Fetch shop Error:" . mysql_error() );
@@ -40,7 +39,7 @@
 	echo "</td><td>";
 	?>
 	<a href="ad_select_shop_delete.php"> 删除 </a>
-	<a href="edit.php"> 修改 </a>
+
 <?php
 }
 echo "</table>";
