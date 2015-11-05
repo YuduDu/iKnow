@@ -1,5 +1,5 @@
 <?php
-require_once "db_func.php";
+require_once "lib/db_func.php";
 
 
 if(isset($_POST['action'])&&$_POST['action']!=""){

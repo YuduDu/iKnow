@@ -6,7 +6,7 @@
  * Time: 1:47 PM
  */
 
-require_once "db_func.php";
+require_once "lib/db_func.php";
 if(isset($_POST["massaid"])&&$_POST["massaid"]!=null){
     basic_statistic($_POST["massaid"]);
 

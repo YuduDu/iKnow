@@ -6,7 +6,7 @@
  * Time: 11:07 PM
  */
 
-require_once "db_func.php";
+require_once "lib/db_func.php";
 
 if(isset($_POST["action"])&&$_POST["action"]!=null&&isset($_POST["massaid"])&&$_POST["massaid"]!=null){
     switch ($_POST["action"]){

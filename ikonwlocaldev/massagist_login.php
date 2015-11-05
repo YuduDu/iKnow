@@ -6,7 +6,7 @@
  * Time: 9:55 PM
  */
 
-require_once "db_func.php";
+require_once "lib/db_func.php";
 if(isset($_POST['pass'])&&$_POST['pass']!=null){
     $form=$_POST['pass'];
     //echo $form;

@@ -6,7 +6,7 @@
  * Time: 5:33 PM
  */
 
-require_once "db_func.php";
+require_once "lib/db_func.php";
 
 if(isset($_POST["information"])&&$_POST["information"]!=null){
     $info = (array)json_decode($_POST["information"]);

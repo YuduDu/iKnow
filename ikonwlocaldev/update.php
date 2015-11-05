@@ -6,7 +6,7 @@
  * Time: 5:23 PM
  */
 
-require_once "db_func.php";
+require_once "lib/db_func.php";
 
 //$massaid = $_POST['massaid'];
 //$serviceid = $_POST['serviceid'];

@@ -5,7 +5,7 @@
  * Date: 9/15/15
  * Time: 4:58 PM
  */
-require_once "db_func.php";
+require_once "lib/db_func.php";
 require_once "appointment_succ.php";
 require_once('stripe-config.php');
 require_once "update.php";
