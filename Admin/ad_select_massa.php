@@ -15,7 +15,7 @@ if (!session_id())
     require_once "db_func.php";
     $con = DBconnect();
     $_SESSION['masaid'] = null;
-    $select_all_m_name = "SELECT phone FROM MassagistDetail ";
+    $select_all_m_name = "SELECT * FROM MassagistDetail ";
 ?>
 <center>
 <form id="ad_select" action="ad_select_massa_action.php" method="post">
@@ -30,7 +30,7 @@ if (!session_id())
             for ($i=0; $i<$nr; $i++){
                 $r = mysql_fetch_array($rs);
                 $massa_name[$i] = $r['name'];
-                echo "<option>".$r["phone"]."</option>";
+                echo "<option value= " .$r["phone"] .">".$r["name"]."</option>";
             }
             ?>
         </select>

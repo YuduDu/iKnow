@@ -34,7 +34,7 @@ echo $row['shopid'];
 echo "</td><td>";
 
 ?>
-<a href="delete.php"> 删除 </a>
+<a href="ad_select_massa_delete.php"> 删除 </a>
 <a href="edit.php"> 修改 </a>
 <td>
 	<a href="ad_select_massa_order.php">订单详情</a>

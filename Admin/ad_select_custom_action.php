@@ -33,7 +33,7 @@ function get_customer_by_phone( $con, $phone ){
 	echo $row['Country'];
 	echo "</td><td>";
 	?>
-		<a href="delete.php">删除 </a>
+		<a href="ad_select_custom_delete.php">删除 </a>
 		<a href="edit.php">修改 </a>
 		<td>
 			<a href="ad_select_custom_order.php">订单详情</a>
