@@ -123,13 +123,7 @@
 					plus.screen.lockOrientation("portrait-primary");
 					var settings = app.getSettings();
 					var state = app.getState();
-//					var mainPage = $.preload({
-//						"id": 'index',
-//						"url": 'index.html'
-//					});
 					var toMain = function() {
-//						$.fire(mainPage, 'show', null);
-//						setTimeout(function() {
 							mui.openWindow({
 								url:'index.html',
 								id: 'index',
@@ -138,7 +132,6 @@
 									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
 									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 								},
-								
 								waiting: {
 									autoShow: true, //自动显示等待框，默认为true
 									title: '正在加载...', //等待对话框上显示的提示内容
@@ -146,12 +139,6 @@
 							});
 //						}, 0);
 					};
-					//触发详情页面的newsId事件
-					//检查 "登录状态/锁屏状态" 开始
-					//mui.alert(settings.autoLogin);
-					//mui.alert(state.token);
-					//var account = plus.storage.getItem(useraccount);
-					//mui.alert(plus.storage.getLength());
 					if (settings.autoLogin && plus.storage.getLength()) {
 						toMain();
 					}
@@ -186,8 +173,10 @@
 								console.log(data);
 								if (data == 'success') {
 									//localStorage.setItem("useraccount", accountBox.value);
-									plus.storage.setItem("useraccount", accountBox.value);
+									plus.storage.setItem("massaid", accountBox.value);
 									plus.nativeUI.toast('登陆成功');
+									var mepage = plus.webview.getWebviewById('me.html');
+									mui.fire(mepage,'refreshme',{})
 									toMain();
 								} else {
 									plus.nativeUI.toast('手机号或密码错误')
@@ -198,17 +187,6 @@
 								console.log(JSON.stringify(xhr));
 							}
 						});
-						//						var loginInfo = {
-						//							account: accountBox.value,
-						//							password: passwordBox.value
-						//						};
-						//						app.login(loginInfo, function(err) {
-						//							if (err) {
-						//								plus.nativeUI.toast(err);
-						//								return;
-						//							}
-						//							toMain();
-						//						});
 					});
 					autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
 					autoLoginButton.addEventListener('toggle', function(event) {
@@ -236,26 +214,6 @@
 							}
 						});
 					}, false);
-					//					forgetButton.addEventListener('tap', function(event) {
-					//						$.openWindow({
-					//							url: 'forget_password.html',
-					//							id: 'forget_password',
-					//							show: {
-					//								autoShow: true, //页面loaded事件发生后自动显示，默认为true
-					//									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-					//									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-					//							},
-					//							styles: {
-					//								popGesture: 'close'
-					//							},
-					//							waiting: {
-					//								autoShow: true, //自动显示等待框，默认为true
-					//									title: '正在加载...', //等待对话框上显示的提示内容
-					//							}
-					//						});
-					//					}, false);
-					//
-					//
 					var backButtonPress = 0;
 					$.back = function(event) {
 						backButtonPress++;

@@ -30,7 +30,9 @@
 					}
 					self.append(sub);
 				}
-				
+				plus.webview.currentWebview().setStyle({
+                    'popGesture': 'none'
+                });
 				var backButtonPress = 0;
 					mui.back = function(event) {
 						backButtonPress++;

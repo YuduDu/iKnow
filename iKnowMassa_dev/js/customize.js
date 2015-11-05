@@ -2,7 +2,8 @@ var url = {
 		list: "http://gene.rnet.missouri.edu/iKnow/massagist_list.php",
 		basic_info: "http://gene.rnet.missouri.edu/iKnow/massagist_basic_info.php",
 		order_detail:"http://gene.rnet.missouri.edu/iKnow/massagist_order_detail.php",
-		login:"http://gene.rnet.missouri.edu/iKnow/massagist_login.php"
+		login:"http://gene.rnet.missouri.edu/iKnow/massagist_login.php",
+		statistic:"http://gene.rnet.missouri.edu/iKnow/massagist_statistic.php"
 }
 
 var id = {
@@ -10,7 +11,6 @@ var id = {
 }
 
 var constant = {
-	versionid:"1.7.1"
 }
 
 var timeset1 = {

@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
@@ -52,6 +53,24 @@
 						}
 					})
 				})
+				
+				mui.ajax(url.statistic, {
+					data: {
+						massaid: '13233997914',
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						obj = JSON.parse(data);
+						console.log(data);
+						document.getElementById("ordernum").innerHTML = obj[0].ordernum
+						document.getElementById("money").innerHTML = obj[0].money
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
 			
 			})
 		</script>
@@ -76,14 +95,14 @@
 		                <div class="mui-table-cell mui-col-xs-6">
 		                	<img class="mui-media-object mui-pull-left" src="img/ordersicon.png" style="width: 48px;margin-top: 5px;margin-right:0px">
 		               <div class="mui-media-body">
-						<h4>13单</h4>
+						<h4 id="ordernum"></h4>
 						<p>已完成订单</p>
 					</div>
 		                </div>
 		                <div class="mui-table-cell mui-col-xs-6">
 		                	<img class="mui-media-object mui-pull-left" src="img/amounticon.png" style="width: 48px;margin-top: 5px;margin-right:0px">
 		                <div class="mui-media-body">
-						<h4>￥1387</h4>
+						<h4 id="money"></h4>
 						<p>订单总金额</p>
 					</div>
 		                </div>

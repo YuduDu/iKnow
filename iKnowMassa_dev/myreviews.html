@@ -6,10 +6,36 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="js/mui.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/font-awesome.css" rel="stylesheet" />
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				var massaid = plus.storage.getItem('massaid')
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_comment_list',
+						massaid: '13233997914',
+						pagenum: '1'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						obj = JSON.parse(data);
+						var html = template('commentstemplate', {
+							list: obj
+						});
+					document.getElementById('comments').innerHTML = html;
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+			})
 		</script>
 	</head>
 
@@ -22,15 +48,24 @@
 			<div style="background-color: #ffffff; height:auto;position:relative;">
 				<ul id="comments" class="mui-table-view">
 					<li class="mui-table-view-cell" style="height:auto">
-						<div><span style="color: #666666;font-size: 14px;">130000000000</span><span class="mui-pull-right" style="color: #666666;font-size: 14px;">2015-10-05 17:58:51</span></div>
-						<img style="height:16px;" src="img/5stars.png" />
-						<p style="word-wrap: break-word;color: #333333;">hhhhh</p>
-						<p>服务项目：担任经络保健</p>
+						<div><span style="color: #666666;font-size: 14px;"></span><span class="mui-pull-right" style="color: #666666;font-size: 14px;"></span></div>
+						<img style="height:16px;" src="" />
+						<p style="word-wrap: break-word;color: #333333;">载入中...</p>
+						<p></p>
 					</li>
 				</ul>
 				<ul class="mui-table-view-cell" style="height:auto;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="morecommentbtn">点击查看更多</ul>
 			</div>
 		</div>
 	</body>
-
+<script id="commentstemplate" type="text/html ">
+		{{each list as value i}}
+		<li class="mui-table-view-cell" style="height:auto">
+						<div><span style="color: #666666;font-size: 14px;">{{value.customerid}}</span><span class="mui-pull-right" style="color: #666666;font-size: 14px;">{{value.date}}</span></div>
+						<img style="height:16px;" src="img/{{value.stars}}stars.png" />
+						<p style="word-wrap: break-word;color: #333333;">{{value.content}}</p>
+						<p>{{value.servicename}}</p>
+					</li>
+		{{/each}}
+	</script>
 </html>

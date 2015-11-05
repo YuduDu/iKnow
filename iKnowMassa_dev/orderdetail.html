@@ -15,10 +15,10 @@
 				var self = plus.webview.currentWebview();
 				var orderid = self.orderid;
 				var form = JSON.stringify({
-					"massaid": id.massaid,
+					"massaid": plus.storage.getItem('massaid'),
 					"orderid": orderid
 				});
-				console.log(orderid);
+				console.log(form);
 				mui.ajax(url.order_detail, {
 					data: {
 						information: form
@@ -26,6 +26,7 @@
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
+						console.log(data);
 						obj = JSON.parse(data);
 						document.getElementById("servicename").innerHTML = obj.servicename
 						document.getElementById("servicetime").innerHTML = obj.servicetime
