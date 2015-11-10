@@ -5,6 +5,7 @@
  * Date: 9/18/15
  * Time: 2:15 PM
  */
+//----------------DELETE--------------------------
 	require_once('JsonRpcClient.php');
     //echo "begin:";
 	$loginClient = new JsonRpcClient('http://user-api.simplybook.me'.'/login/');

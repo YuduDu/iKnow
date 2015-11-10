@@ -15,6 +15,7 @@ if(isset($_POST["action"])&&$_POST["action"]!=null&&isset($_POST["massaid"])&&$_
                 getmassagistorderlist($_POST['massaid'],$_POST["timearray"],$_POST["pagenum"]);
             else
                 echo "Error: didn't give timearray attribute!";
+            // echo json_encode(array("RespCode"=>"000003");
             break;
         }
 
@@ -27,6 +28,7 @@ if(isset($_POST["action"])&&$_POST["action"]!=null&&isset($_POST["massaid"])&&$_
     }
 }
 else echo "Error: action or massaid is not set!";
+//else echo json_encode(array("RespCode"=>"000003");
 
 function getmassagistorderlist($massaid,$timearray,$pagenum=null){
     $con = DBconnect();
@@ -76,7 +78,11 @@ function getmassagistorderlist($massaid,$timearray,$pagenum=null){
             $row['start']=date('H:i:s',$starttime);
             $row['end']=date('H:i:s',$endtime);
         }
-        else echo "Order ".$row['orderid']." have different appointment start date and end date, please check the datebase, and appointment function.";
+        else {
+            echo "Order ".$row['orderid']." have different appointment start date and end date, please check the datebase, and appointment function.";
+            //else echo json_encode(array("RespCode"=>"000003","Resp"=>"Order ".$row['orderid']." have different appointment start date and end date");
+            break;
+        }
 
         //get service name
         $service = DBfetchone2($con,"Service",array("name"),array("serviceid"=>$row["serviceid"]));

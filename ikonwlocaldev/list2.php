@@ -23,6 +23,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				recommand_service($location);
 			}
 			else echo "Error: no location";
+			//else echo json_encode(array("RespCode"=>"000002"));
 			break;
 		}
 		case 'get_recommand_massagist':
@@ -34,6 +35,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				recommand_massagesit($location);
 			}
 			else echo "Error: no location";
+			//else echo json_encode(array("RespCode"=>"000002"));
 			break;
 
 		}
@@ -45,7 +47,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 					recommand_news($location);
 				} else recommand_news($location, $_POST['id']);
 			}else echo "Error: no location";
-			//recommand_news();
+			//else echo json_encode(array("RespCode"=>"000002"));
 			break;
 		}
 		case 'get_massagist_list':
@@ -57,6 +59,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				} else getmassagistlist($location);
 			}
 			else echo "Error: no location";
+			//else echo json_encode(array("RespCode"=>"000002"));
 			break;
 		}
 		case 'get_services_list':
@@ -80,8 +83,10 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 							getserviceslist($location,$_POST["categoryid"]);
 					}
 				} else echo "Error: categoryid wrong";
+				//else echo json_encode(array("RespCode"=>"000003"));
 			}
 			else echo "Error: no location";
+			//else echo json_encode(array("RespCode"=>"000002"));
 			break;
 		}
 		case 'get_order_list':{
@@ -93,6 +98,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				getorderlist($_POST['customid']);
 			}
 			else echo "Error: no customerid";
+			//else echo json_encode(array("RespCode"=>"000003"));
 			break;}
 		case 'massagist_get_services_list':
 		{
@@ -104,6 +110,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				else
 				getserviceslist(null,null,$_POST["massaid"]);
 			}
+			else echo json_encode(array("RespCode"=>"000003"));
 		}
 		default:
 	}
@@ -173,6 +180,8 @@ function getserviceslist($location, $categoryid =null, $massaid = null, $pagenum
 
 	$con =DBconnect();
 
+	$Arr=null;
+
 	if ($categoryid!=null&&$massaid==null){
 		$query1 = DBformquery_select("Shop",array("shopid","name","pic","latitude","longtitude"),(array)$location,"and");
 		$query1=rtrim($query1,';');
@@ -225,7 +234,10 @@ function getserviceslist($location, $categoryid =null, $massaid = null, $pagenum
 		}
 	}
 	else{
-		$Arr = "Get Service List Error: BackEnd Please Check your input! ";
+		//$Arr = "Get Service List Error: BackEnd Please Check your input! ";
+		 echo json_encode(array("RespCode"=>"000003"));
+
+		return;
 	}
 
 	echo json_encode($Arr);

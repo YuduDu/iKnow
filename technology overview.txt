@@ -2,7 +2,7 @@ Backend:
 	Server Develop： PHP
 	Database: Mysql
 	Web Server: Apache
-	Server Log framework: SeasLog
+	Server Log framework: monolog
 	Payment: Stripe
 	SMS: 云之讯ucpaas
 Frontend:

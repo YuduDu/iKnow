@@ -24,7 +24,9 @@ function login($form){
     //echo $pdw["password"];
     if ((string)$char["password"]==$pdw["password"]){
         echo "success";
+        //echo "111111";
     }
     else echo "fail";
+    //else echo "000000";
     mysql_close($con);
 }

@@ -23,8 +23,10 @@
        // echo $pdw["password"];
         if ((string)$char["password"]==$pdw["password"]){
             echo "success";
+            //echo "111111";
         }
         else echo "Fail";
+        //else echo "000000";
         mysql_close($con);
     }
 ?>

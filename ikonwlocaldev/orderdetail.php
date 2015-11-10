@@ -20,4 +20,5 @@ if(isset($_POST["information"])&&$_POST["information"]!=null){
         echo json_encode($order);
     }
     else echo "orderdetail Error: wrong customerid";
+    //else echo json_encode(array("RespCode"=>"000003","Resp"=>"orderdetail Error: wrong customerid"));
 }
