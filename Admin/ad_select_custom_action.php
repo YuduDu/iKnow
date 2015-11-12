@@ -9,12 +9,10 @@
 require_once 'db_func.php';
 session_start();
 $_SESSION['customer_phone'] = $_POST['ad_select_customer'];
-var_dump($_SESSION);
 $con = DBconnect();
 
 if ( isset( $_POST['ad_select_customer'] ) && $_POST['ad_select_customer'] != null ) {
-	$_SESSION['customer_phone'] = get_customer_by_phone( $con, $_POST['ad_select_customer'] );
-
+	get_customer_by_phone( $con, $_POST['ad_select_customer'] );
 }
 
 function get_customer_by_phone( $con, $phone ){
@@ -33,12 +31,12 @@ function get_customer_by_phone( $con, $phone ){
 	echo $row['Country'];
 	echo "</td><td>";
 	?>
-		<a href="delete.php">删除 </a>
-		<a href="edit.php">修改 </a>
+		<a href="ad_select_custom_delete.php">删除 </a>
+
 		<td>
 			<a href="ad_select_custom_order.php">订单详情</a>
 		</td>
 <?php
-		return $row['phone'];}
+		}
 echo "</table>";
 }

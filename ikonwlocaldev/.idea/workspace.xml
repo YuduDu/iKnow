@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69ffea94-af9d-4d01-826e-68bd766268ca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SMS.php" afterPath="$PROJECT_DIR$/SMS.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signup.php" afterPath="$PROJECT_DIR$/signup.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp/test.php" afterPath="$PROJECT_DIR$/temp/test.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DBbackup.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DBbackup/iKnow-”02-11-2015--14:15:41”.sql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/temp/test.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/calender.php" afterPath="$PROJECT_DIR$/calender.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/charge.php" afterPath="$PROJECT_DIR$/charge.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/list2.php" afterPath="$PROJECT_DIR$/list2.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.php" afterPath="$PROJECT_DIR$/login.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login2.php" afterPath="$PROJECT_DIR$/login2.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/makeorder.php" afterPath="$PROJECT_DIR$/makeorder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/massagist_list.php" afterPath="$PROJECT_DIR$/massagist_list.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/massagist_login.php" afterPath="$PROJECT_DIR$/massagist_login.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/massagist_order_detail.php" afterPath="$PROJECT_DIR$/massagist_order_detail.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/orderdetail.php" afterPath="$PROJECT_DIR$/orderdetail.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ikonwlocaldev.iws" />
@@ -27,11 +38,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="login2.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/login2.php">
+      <file leaf-file-name="massagist_list.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/massagist_list.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.5">
-              <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+            <state vertical-scroll-proportion="-48.75">
+              <caret line="83" column="18" selection-start-line="82" selection-start-column="11" selection-end-line="83" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -40,45 +51,23 @@
       <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.875">
-              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+            <state vertical-scroll-proportion="-11.25">
+              <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
               <folding>
-                <marker date="1443888659000" expanded="true" signature="198:242" placeholder="select passw..Customer..." />
+                <marker date="1446752601000" expanded="true" signature="202:246" placeholder="select passw..Customer..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/temp/test.php">
+      <file leaf-file-name="servicedetail.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/servicedetail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.625">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/list.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-153.125">
-              <caret line="245" column="28" selection-start-line="245" selection-start-column="28" selection-end-line="245" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
               <folding>
-                <marker date="1446506881000" expanded="true" signature="9124:9220" placeholder="SELECT servi..Recommand_service..." />
-                <marker date="1446506881000" expanded="true" signature="9516:9609" placeholder="SELECT massa..Recommand_massagist..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="signup.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/signup.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.75">
-              <caret line="6" column="31" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="31" />
-              <folding>
-                <marker date="1446659895000" expanded="true" signature="458:512" placeholder="select phone..Customer..." />
+                <marker date="1446750990000" expanded="true" signature="306:387" placeholder="SELECT shopi..Service..." />
+                <marker date="1446750990000" expanded="true" signature="474:566" placeholder="select name,..Shop..." />
               </folding>
             </state>
           </provider>
@@ -87,41 +76,40 @@
       <file leaf-file-name="SMS.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SMS.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.625">
+            <state vertical-scroll-proportion="0.0">
               <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="servicedetail.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/servicedetail.php">
+      <file leaf-file-name="signup.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/signup.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31914893">
-              <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+            <state vertical-scroll-proportion="-1.875">
+              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
               <folding>
-                <marker date="1443888659000" expanded="true" signature="302:383" placeholder="SELECT shopi..Service..." />
-                <marker date="1443888659000" expanded="true" signature="470:562" placeholder="select name,..Shop..." />
+                <marker date="1446750990000" expanded="true" signature="462:516" placeholder="select phone..Customer..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="orderdetail.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/orderdetail.php">
+      <file leaf-file-name="test.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.1392573">
+              <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="morecomment.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/morecomment.php">
+      <file leaf-file-name="massagist_basic_info.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/massagist_basic_info.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="35" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="35" />
+            <state vertical-scroll-proportion="-4.375">
+              <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -131,7 +119,27 @@
         <entry file="file://$PROJECT_DIR$/massagistdetail.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="49" column="21" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="21" />
+              <caret line="42" column="8" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orderdetail.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/orderdetail.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="99" selection-start-line="22" selection-start-column="99" selection-end-line="22" selection-end-column="99" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="morecomment.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/morecomment.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -148,43 +156,46 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/login.php" />
-        <option value="$PROJECT_DIR$/calender.php" />
         <option value="$PROJECT_DIR$/oder.php" />
-        <option value="$PROJECT_DIR$/charge.php" />
         <option value="$PROJECT_DIR$/massagistlist.php" />
         <option value="$PROJECT_DIR$/recommand.php" />
-        <option value="$PROJECT_DIR$/servicedetail.php" />
         <option value="$PROJECT_DIR$/servicelist.php" />
         <option value="$PROJECT_DIR$/db.php" />
         <option value="$PROJECT_DIR$/category.php" />
         <option value="$PROJECT_DIR$/stripe-config.php" />
-        <option value="$PROJECT_DIR$/orderdetail.php" />
-        <option value="$PROJECT_DIR$/morecomment.php" />
         <option value="$PROJECT_DIR$/appointment_model.php" />
-        <option value="$PROJECT_DIR$/appointment_succ.php" />
         <option value="$PROJECT_DIR$/order.php" />
-        <option value="$PROJECT_DIR$/test.php" />
         <option value="$PROJECT_DIR$/develop_temp/test.php" />
         <option value="$PROJECT_DIR$/tools.php" />
-        <option value="$PROJECT_DIR$/login2.php" />
-        <option value="$PROJECT_DIR$/massagist_list.php" />
-        <option value="$PROJECT_DIR$/massagist_login.php" />
-        <option value="$PROJECT_DIR$/massagist_basic_info.php" />
-        <option value="$PROJECT_DIR$/massagist_order_detail.php" />
         <option value="$PROJECT_DIR$/updateOrderAmount.php" />
-        <option value="$PROJECT_DIR$/update.php" />
-        <option value="$PROJECT_DIR$/makeorder.php" />
-        <option value="$PROJECT_DIR$/comment.php" />
         <option value="$PROJECT_DIR$/temp/update_order_comment_amount" />
         <option value="$PROJECT_DIR$/temp/update_order_comment_amount.php" />
-        <option value="$PROJECT_DIR$/massagistdetail.php" />
         <option value="$PROJECT_DIR$/db_func.php" />
-        <option value="$PROJECT_DIR$/list.php" />
         <option value="$PROJECT_DIR$/SMS_test.php" />
-        <option value="$PROJECT_DIR$/temp/test.php" />
         <option value="$PROJECT_DIR$/SMS.php" />
+        <option value="$PROJECT_DIR$/list.php" />
+        <option value="$PROJECT_DIR$/appointment_succ.php" />
+        <option value="$PROJECT_DIR$/massagist_basic_info.php" />
+        <option value="$PROJECT_DIR$/massagist_statistic.php" />
+        <option value="$PROJECT_DIR$/massagistdetail.php" />
+        <option value="$PROJECT_DIR$/morecomment.php" />
         <option value="$PROJECT_DIR$/signup.php" />
+        <option value="$PROJECT_DIR$/servicedetail.php" />
+        <option value="$PROJECT_DIR$/update.php" />
+        <option value="$PROJECT_DIR$/appoint_succ.php" />
+        <option value="$PROJECT_DIR$/calender.php" />
+        <option value="$PROJECT_DIR$/charge.php" />
+        <option value="$PROJECT_DIR$/login.php" />
+        <option value="$PROJECT_DIR$/login2.php" />
+        <option value="$PROJECT_DIR$/temp/test.php" />
+        <option value="$PROJECT_DIR$/makeorder.php" />
+        <option value="$PROJECT_DIR$/massagist_list.php" />
+        <option value="$PROJECT_DIR$/massagist_login.php" />
+        <option value="$PROJECT_DIR$/massagist_order_detail.php" />
+        <option value="$PROJECT_DIR$/orderdetail.php" />
+        <option value="$PROJECT_DIR$/comment.php" />
+        <option value="$PROJECT_DIR$/list2.php" />
+        <option value="$PROJECT_DIR$/test.php" />
       </list>
     </option>
   </component>
@@ -258,6 +269,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ikonwlocaldev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ikonwlocaldev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -275,6 +300,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/develop_temp" />
     </key>
   </component>
@@ -339,7 +366,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13733906" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14020029" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -389,38 +416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_func.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/massagistdetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/massagistdetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -435,21 +430,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_func.php">
+    <entry file="file://$PROJECT_DIR$/lib/db_func.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -481,21 +466,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_func.php">
+    <entry file="file://$PROJECT_DIR$/lib/db_func.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -527,21 +502,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_func.php">
+    <entry file="file://$PROJECT_DIR$/lib/db_func.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -573,21 +538,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_func.php">
+    <entry file="file://$PROJECT_DIR$/lib/db_func.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -605,17 +560,95 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/temp/update_order_comment_amount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="112" selection-start-line="8" selection-start-column="112" selection-end-line="8" selection-end-column="112" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/db_func.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625">
+          <caret line="21" column="14" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appointment_chkava.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.25">
+          <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stripe-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.75">
+          <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/appointment_succ.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12536444">
-          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+        <state vertical-scroll-proportion="7.3333335">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/appointment_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-3.6666667">
           <caret line="15" column="44" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/appoint_succ.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JsonRpcClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.75">
+          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/calender.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.375">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/charge.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.5">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-24.375">
+          <caret line="44" column="23" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -626,55 +659,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/charge.php">
+    <entry file="file://$PROJECT_DIR$/login2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+        <state vertical-scroll-proportion="-7.5">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stripe-config.php">
+    <entry file="file://$PROJECT_DIR$/list2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27925533">
-          <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
+        <state vertical-scroll-proportion="32.397434">
+          <caret line="112" column="59" selection-start-line="112" selection-start-column="59" selection-end-line="112" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tools.php">
+    <entry file="file://$PROJECT_DIR$/makeorder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07978723">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JsonRpcClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10239362">
-          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/calender.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33909574">
-          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        <state vertical-scroll-proportion="-121.083336">
+          <caret line="217" column="15" selection-start-line="217" selection-start-column="11" selection-end-line="217" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/massagist_login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-          <folding>
-            <element signature="e#6#86#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/massagist_basic_info.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -682,84 +691,15 @@
     <entry file="file://$PROJECT_DIR$/massagist_order_detail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/massagist_list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/update.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="28" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="28" />
+          <caret line="43" column="100" selection-start-line="43" selection-start-column="3" selection-end-line="43" selection-end-column="100" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/makeorder.php">
+    <entry file="file://$PROJECT_DIR$/massagist_statistic.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/comment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/temp/update_order_comment_amount.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="112" selection-start-line="8" selection-start-column="112" selection-end-line="8" selection-end-column="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db_func.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="14" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${$pa..." />
-            <marker date="1446506881000" expanded="true" signature="-1:-1" placeholder="select ${{$p..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/morecomment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="35" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/orderdetail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -767,74 +707,87 @@
     <entry file="file://$PROJECT_DIR$/massagistdetail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="21" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="21" />
+          <caret line="42" column="8" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
+    <entry file="file://$PROJECT_DIR$/morecomment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.875">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding>
-            <marker date="1443888659000" expanded="true" signature="198:242" placeholder="select passw..Customer..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.5">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/temp/test.php">
+    <entry file="file://$PROJECT_DIR$/orderdetail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.625">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-153.125">
-          <caret line="245" column="28" selection-start-line="245" selection-start-column="28" selection-end-line="245" selection-end-column="28" />
-          <folding>
-            <marker date="1446506881000" expanded="true" signature="9124:9220" placeholder="SELECT servi..Recommand_service..." />
-            <marker date="1446506881000" expanded="true" signature="9516:9609" placeholder="SELECT massa..Recommand_massagist..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/signup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.75">
-          <caret line="6" column="31" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="31" />
-          <folding>
-            <marker date="1446659895000" expanded="true" signature="458:512" placeholder="select phone..Customer..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SMS.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.625">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="99" selection-start-line="22" selection-start-column="99" selection-end-line="22" selection-end-column="99" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/servicedetail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31914893">
-          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
           <folding>
-            <marker date="1443888659000" expanded="true" signature="302:383" placeholder="SELECT shopi..Service..." />
-            <marker date="1443888659000" expanded="true" signature="470:562" placeholder="select name,..Shop..." />
+            <marker date="1446750990000" expanded="true" signature="306:387" placeholder="SELECT shopi..Service..." />
+            <marker date="1446750990000" expanded="true" signature="474:566" placeholder="select name,..Shop..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SMS.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/massagist_basic_info.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.375">
+          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/massagist_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-48.75">
+          <caret line="83" column="18" selection-start-line="82" selection-start-column="11" selection-end-line="83" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.25">
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding>
+            <marker date="1446752601000" expanded="true" signature="202:246" placeholder="select passw..Customer..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/signup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.875">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+          <folding>
+            <marker date="1446750990000" expanded="true" signature="462:516" placeholder="select phone..Customer..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1392573">
+          <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

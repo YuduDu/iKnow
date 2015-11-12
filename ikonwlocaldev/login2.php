@@ -5,7 +5,7 @@
  * Date: 9/20/15
  * Time: 10:32 PM
  */
-	require_once "db_func.php";
+	require_once "lib/db_func.php";
   	if(isset($_POST['pass'])&&$_POST['pass']!=null){
         $form=$_POST['pass'];
         //echo $form;
@@ -23,8 +23,10 @@
        // echo $pdw["password"];
         if ((string)$char["password"]==$pdw["password"]){
             echo "success";
+            //echo "111111";
         }
         else echo "Fail";
+        //else echo "000000";
         mysql_close($con);
     }
 ?>

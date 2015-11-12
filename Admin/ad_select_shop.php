@@ -1,3 +1,9 @@
+<?php
+if (!session_id())
+{
+	session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,25 +12,25 @@
 </head>
 <body>
 <?php
-require_once "configs.php";
-require_once "ad_select.php";
-$con               = DBconnect();
-$select_all_m_shop = "SELECT name FROM Shop ";
+	require_once 'db_func.php';
+	$con = DBconnect();
+	$_SESSION['shopid'] = null;
+	$select_all_m_shop = "SELECT * FROM Shop ";
 ?>
 <center>
-	<form id="ad_select" action="ad_select_shop_action.php" method="post">
+	<form id="select_shop_form" action="ad_select_shop_action.php" method="post">
 		<p>
 			商家查询:
-			<select name="select_massagist_shop">
+			<select id="select_shop" name="select_shop_s">
 				<?php
 				$shop_name = array();
 				$rs        = mysql_query( $select_all_m_shop );
 				$nr        = mysql_num_rows( $rs );
+				echo "<option disabled selected> -- select an option -- </option>";
 				for ( $i = 0; $i < $nr; $i ++ ) {
-					$r               = mysql_fetch_array( $rs );
+					$r = mysql_fetch_array( $rs );
 					$shop_name[ $i ] = $r['name'];
-					echo "<option disabled selected> -- select an option -- </option>";
-					echo "<option" . ( ( $year == $r["name"] ) ? ' selected="selected"' : '' ) . ">" . $r["name"] . "</option>";
+					echo "<option value= " .$r["shopid"] .">".$r["name"]."</option>";
 				}
 				unset( $shop_name );
 				?>

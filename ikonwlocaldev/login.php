@@ -1,5 +1,5 @@
 <?php
-	require_once "db_func.php";
+	require_once "lib/db_func.php";
   	if($_POST){
 		$id=$_POST['customid'];
 		$pd=$_POST['custompassword'];
@@ -12,8 +12,10 @@
 		//echo $pdw;
   		if ($pd==$pdw[0]){
   			echo "success";
+			//echo "111111";
   		}
   		else echo "Fail";
+		//else echo "000000";
     	mysql_close($con);
   	}
 ?>

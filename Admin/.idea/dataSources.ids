@@ -61,7 +61,7 @@
     </table>
     <table name="Massagist" schema="" catalog="iKnow" type="TABLE">
       <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="password" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <primary-key name="PRIMARY" columns="phone"/>
       <exported-key name="HSmassagist" table="Has_Service" schema="" catalog="iKnow" columns="masaid"/>
       <exported-key name="mdphone" table="MassagistDetail" schema="" catalog="iKnow" columns="phone"/>

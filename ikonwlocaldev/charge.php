@@ -1,4 +1,6 @@
 
+//----------------DELETE--------------------------
+
 <?php
   require_once('stripe-config.php');
 

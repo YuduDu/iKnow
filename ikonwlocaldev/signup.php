@@ -1,7 +1,7 @@
 
 <?php
 //echo "this is a test"
-require_once 'db_func.php';
+require_once 'lib/db_func.php';
 session_start();
 
 if(isset($_POST['custompassword'])&&$_POST['custompassword']!=null){

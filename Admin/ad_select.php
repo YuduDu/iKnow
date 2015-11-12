@@ -10,8 +10,6 @@
 	require_once 'db_func.php';
 	$con = DBconnect();
 
-
-
 function get_massagist_by_mid($con, $mid){
 	$sql_massagist = "SELECT * FROM MassagistDetail WHERE phone = '$mid'";
 	$result = mysql_query($sql_massagist,$con) or die("Fetch massaid Error:".mysql_error());
@@ -27,8 +25,6 @@ function get_massagist_by_mid($con, $mid){
 		echo "<br/>";
 	}
 }
-
-
 
 function get_appointment_by_massagist($con, $mid){
 	$sql_apoint = "SELECT * FROM massagist_appt WHERE massaid = '$mid'";

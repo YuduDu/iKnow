@@ -6,7 +6,7 @@
  * Time: 10:46 AM
  */
 
-require_once "db_func.php";
+require_once "lib/db_func.php";
 if(isset($_POST['serviceid'])&&$_POST['serviceid']!=""){
     getservicedetail($_POST['serviceid']);
 }

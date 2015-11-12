@@ -15,7 +15,7 @@
 //----------------------------NOT FINISHED-------------------
 
 //require_once "db_func.php";
-require_once "db_func.php";
+require_once "lib/db_func.php";
 
 
 if(isset($_POST['massagistid'])&&$_POST['massagistid']!=""){

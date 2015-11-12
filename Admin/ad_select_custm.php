@@ -15,7 +15,7 @@ if (!session_id())
 require_once "db_func.php";
 $_SESSION['customer_phone'] = null;
 $con = DBconnect();
-$select_all_m_name = "SELECT phone FROM Customer ";
+$select_all_m_name = "SELECT * FROM Customer ";
 ?>
 <center>
 <form id="ad_select" action="ad_select_custom_action.php" method="post">
@@ -28,7 +28,7 @@ $select_all_m_name = "SELECT phone FROM Customer ";
         echo "<option disabled selected> -- select an option -- </option>";
         for ($i=0; $i<$nr; $i++){
             $r = mysql_fetch_array($rs);
-            $customer_name[$i] = $r['name'];
+//            $customer_name[$i] = $r['name'];
             echo "<option>".$r["phone"]."</option>";
         }
         ?>

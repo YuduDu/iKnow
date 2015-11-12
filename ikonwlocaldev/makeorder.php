@@ -5,7 +5,7 @@
  * Date: 9/15/15
  * Time: 4:58 PM
  */
-require_once "db_func.php";
+require_once "lib/db_func.php";
 require_once "appointment_succ.php";
 require_once('stripe-config.php');
 require_once "update.php";
@@ -91,6 +91,8 @@ if(isset($_POST['submit'])&&$_POST['submit']!=null)
         else echo $result;
     }
     else echo "Place order wrong!";
+    //else echo "000000";
+
 
 
 }
@@ -128,7 +130,8 @@ function calculateamount($con){
 
 //make payment with stripe
 function charge($token,$con){
-    //echo "start:";
+    //
+    //"start:";
     $phone = $_SESSION["customerid"];
     //echo "In charge function now!!  ";
     $customer = \Stripe\Customer::create(array(
@@ -164,8 +167,10 @@ function updateorder_status($con,$status){
     if(mysql_query($query,$con))
     {
         echo "success";
+        //echo "111111";
     }else{
         echo "OrderUpdateFail: ".mysql_error();
+        //echo "000000";
     }
 
 }

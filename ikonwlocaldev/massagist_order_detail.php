@@ -6,7 +6,7 @@
  * Time: 10:04 PM
  */
 
-require_once "db_func.php";
+require_once "lib/db_func.php";
 
 if(isset($_POST["information"])&&$_POST["information"]!=null){
     $info = (array)json_decode($_POST["information"]);
@@ -28,13 +28,19 @@ if(isset($_POST["information"])&&$_POST["information"]!=null){
                 $start=date('H:i:s',$starttime);
                 $end=date('H:i:s',$endtime);
             }
-            else echo "Order ".$info["orderid"]." have different appointment start date and end date, please check the datebase, and appointment function.";
+            else {
+                echo "Order ".$info["orderid"]." have different appointment start date and end date, please check the datebase, and appointment function.";
+                //else echo json_encode(array("RespCode"=>"000003","Resp"=>"Order ".$info["orderid"]." have different appointment start date and end date"));
+                return;
+            }
             $order["servicetime"] = $date." ".$start." - ".$end;
             //unset($order["time"]);
             echo json_encode($order);
         }
         else echo "Error: No appointment is found. Please Check the Database and appointment function.";
+        //else echo json_encode(array("RespCode"=>"000001","Resp"=>"No appointment is found"));
     }
     else echo "orderdetail Error: wrong massaid";
+    //else echo json_encode(array("RespCode"=>"000003","Resp"=>"orderdetail Error: wrong massaid"));
 }
 

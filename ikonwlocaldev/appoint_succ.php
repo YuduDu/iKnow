@@ -7,7 +7,7 @@
  */
 
 require_once "configs.php";
-require_once "db_func.php";
+require_once "lib/db_func.php";
 session_start();
 
 $_SESSION['starttime'] = null;

@@ -4,14 +4,19 @@
 	<meta charset="UTF-8">
 	<title>商家查询结果</title>
 	<?php
-	if ( isset( $_POST['select_massagist_shop'] ) && $_POST['select_massagist_shop'] != null ) {
-		get_shop_by_name( $con, $_POST['select_massagist_shop'] );
+	require_once 'db_func.php';
+	session_start();
+	$_SESSION['shopid'] = $_POST['select_shop_s'];
+	var_dump( $_SESSION );
+	$con = DBconnect();
+
+	if ( isset( $_POST['select_shop_s'] ) && $_POST['select_shop_s'] != null ) {
+		get_shop_by_name( $con, $_POST['select_shop_s'] );
 	}
 
-
-	function get_shop_by_name( $con, $name ){
-	$sql_shop_name = "SELECT * FROM Shop WHERE name = '$name'";
-	$result = mysql_query( $sql_shop_name, $con ) or die( "Fetch massaid Error:" . mysql_error() );
+	function get_shop_by_name( $con, $shopid ){
+	$sql_shop_name = "SELECT * FROM Shop WHERE shopid = '$shopid'";
+	$result = mysql_query( $sql_shop_name, $con ) or die( "Fetch shop Error:" . mysql_error() );
 	echo "<center>";
 	echo "<TR>商家详情</TR>";
 	echo "<table border='1'>";
@@ -33,8 +38,8 @@
 	echo $row['province'];
 	echo "</td><td>";
 	?>
-	<a href="delete.php"> 删除 </a>
-	<a href="edit.php"> 修改 </a>
+	<a href="ad_select_shop_delete.php"> 删除 </a>
+
 <?php
 }
 echo "</table>";
