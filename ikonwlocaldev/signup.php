@@ -6,12 +6,17 @@ session_start();
 
 if(isset($_POST['custompassword'])&&$_POST['custompassword']!=null){
   //$id=$_POST['customid'];
-  $pd=$_POST['custompassword'];
-    if($_SESSION["auth"]=="success") {
-        $id = $_SESSION["phone"];
-        signup($id,$pd);
+    if($_SESSION["client"]=="customer")
+    {
+        $pd=$_POST['custompassword'];
+        if($_SESSION["auth"]=="success") {
+            $id = $_SESSION["phone"];
+            signup($id,$pd);
+        }
+        else echo "signup denied";
+
     }
-    else echo "signup denied";
+
     //signup($_POST[form]);
 }
 

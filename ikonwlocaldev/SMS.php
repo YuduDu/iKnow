@@ -5,7 +5,19 @@ session_start();
 
 
 $t=0;
-if(isset($_POST["phone"])&&$_POST["phone"]!="null"){
+if(isset($_POST["phone"])&&$_POST["phone"]!="null"&&isset($_POST["client"])){
+    switch($_POST["client"]){
+        case "customer":
+            $_SESSION["client"]="Customer";
+            break;
+        case "massagist":
+            $_SESSION["client"]="Massagist";
+            break;
+        default:
+            echo "Wrong client parameter.";
+
+
+    }
     $_SESSION["phone"]=$_POST["phone"];
     $options['accountsid']='8362ed001e1ffef7bf5a09e19f8ed652';
     $options['token']='ba7311b0e0b7c03c839021bd1e0a724b';

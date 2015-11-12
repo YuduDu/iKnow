@@ -130,6 +130,7 @@ function getmassagistcommentlist($massaid,$pagenum=null){
     foreach($comments as $comment){
         $servicename = DBfetchone2($con,"Order",array("servicename"),array("orderid"=>$comment["orderid"]));
         $comment["servicename"] = $servicename["servicename"];
+        $comment["customerid"] = substr_replace($comment["customerid"],"****",3,4);
         unset($comment["orderid"]);
         array_push($result,$comment);
     }
