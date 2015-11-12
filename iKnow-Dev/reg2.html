@@ -43,6 +43,7 @@
 				// 设置系统状态栏背景
 //				plus.navigator.setStatusBarBackground("#ffffff");
 //				plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+				
 			}
 			if (window.plus) {
 				plusReady();
@@ -110,7 +111,10 @@
 									plus.nativeUI.toast('注册成功');
 									$.openWindow({
 										url: 'login.html',
-										aniShow: 'pop-in'
+										aniShow: 'pop-in',
+										extras:{
+											presetphone:accountBox2.value
+										}
 									});
 								}
 								else{

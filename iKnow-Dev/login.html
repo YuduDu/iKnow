@@ -85,7 +85,7 @@
 			<form id='login-form' class="mui-input-group">
 				<div class="mui-input-row">
 					<label>手机</label>
-					<input id='account' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号">
+					<input id='account' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号" value"">
 				</div>
 				<div class="mui-input-row">
 					<label>密码</label>
@@ -127,6 +127,12 @@
 //						"id": 'index',
 //						"url": 'index.html'
 //					});
+					var self = plus.webview.currentWebview();
+					if(self.presetphone){
+						console.log("hehe");
+						document.getElementById("account").value = self.presetphone;
+						document.getElementById("account").readOnly = 'readonly';
+					};
 					var toMain = function() {
 //						$.fire(mainPage, 'show', null);
 //						setTimeout(function() {

@@ -54,7 +54,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" style="background-color: #6acccb;">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #ffffff;"></a>
-			<h1 class="mui-title"style="color: #ffffff;">注册</h1>
+			<h1 class="mui-title" style="color: #ffffff;">注册</h1>
 		</header>
 		<div class="mui-content">
 			<form class="mui-input-group">
@@ -87,55 +87,75 @@
 					var reg2Button = doc.getElementById('reg2')
 					var accountBox = doc.getElementById('account');
 					regButton.addEventListener('tap', function(event) {
-						
-						url = "https://api.nexmo.com/verify/json?api_key="+api.nexmo_api_key+"&api_secret="+api.nexmo_api_secret+"&brand=NexmoVerifyTest&number=1";
-						url += accountBox.value;
 						//发送短信
-						mui.get(url, {}, function(data) {
-							//var obj = JSON.parse(data);
-							console.log(data.status);
-							plus.storage.setItem("phonenum", accountBox.value);
-									
-							if (data.status == 0) {
-								//手机号符合规则，进入验证手机号归属，等待电话
-						document.getElementById("phoneverifydiv").style.display = "";
-						document.getElementById("regdiv").style.display = "none";
-						document.getElementById("reg2div").style.display = "";
-						plus.nativeUI.toast('请等待验证短信并将4位验证码输入验证框');
-								//已成功发送短信，等待用户输入验证码提交
-								reg2Button.addEventListener('tap', function(event) {
-									var phoneverifyBox = doc.getElementById('phoneverify');
-									url = "https://api.nexmo.com/verify/check/json?api_key="+api.nexmo_api_key+"&api_secret="+api.nexmo_api_secret+"&request_id="
-									url += data.request_id;
-									url += "&code=";
-									url += phoneverifyBox.value;
-									//验证手机验证码
-									console.log(url);
-									mui.get(url, {}, function(data) {
-											//var obj = JSON.parse(data);
-										if (data.status == '0') {
-											//如果验证码正确，则进入主页
-											sessionStorage.setItem('phonenum',phoneverifyBox.value)
-											$.openWindow({
-												url: 'reg2.html',
-												id: 'reg2',
-												show: {
-													aniShow: 'pop-in'
+						mui.ajax(url.sms, {
+							data: {
+								phone: accountBox.value
+							},
+							type: 'post', //HTTP请求类型
+							timeout: 100000, //超时时间设置为10秒；
+							success: function(data) {
+								//服务器返回响应，根据响应结果，分析是否登录成功；
+								console.log("3");
+								console.log(data);
+								if (data == 'success') {
+									//手机号符合规则，进入验证手机号归属，等待电话
+									document.getElementById("phoneverifydiv").style.display = "";
+									document.getElementById("regdiv").style.display = "none";
+									document.getElementById("reg2div").style.display = "";
+									plus.nativeUI.toast('请等待验证短信并将4位验证码输入验证框');
+									//已成功发送短信，等待用户输入验证码提交
+									reg2Button.addEventListener('tap', function(event) {
+										var phoneverifyBox = doc.getElementById('phoneverify');
+										//验证手机验证码
+										console.log(phoneverifyBox.value);
+										mui.ajax(url.sms, {
+											data: {
+												authnum: phoneverifyBox.value
+											},
+											type: 'post', //HTTP请求类型
+											timeout: 100000, //超时时间设置为10秒；
+											success: function(data) {
+												//服务器返回响应，根据响应结果，分析是否登录成功；
+												if (data == 'success') {
+													//如果验证码正确，则进入主页
+													plus.storage.setItem("phonenum", accountBox.value);
+													$.openWindow({
+														url: 'reg2.html',
+														id: 'reg2',
+														show: {
+															autoShow: true, //页面loaded事件发生后自动显示，默认为true
+															aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+															duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+														},
+														extras: {
+															phonenum: phoneverifyBox.value
+														}
+													});
+												} else {
+													plus.nativeUI.toast(data);
+													return;
 												}
-											});
-										}
-										else{
-											plus.nativeUI.toast(data.error_text);
-											return;
-										}
-									}, 'json');
-								})
+											},
+											error: function(xhr, type, errorThrown) {
+												//异常处理；
+												console.log("error1");
+												console.log(type);
+											}
+										});
+									})
+								} else {
+									console.log("4");
+									plus.nativeUI.toast(data);
+									return;
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								//异常处理；
+								console.log("error2");
+								console.log(type);
 							}
-							else{
-								plus.nativeUI.toast(data.error_text);
-								return;
-							}
-						}, 'json');
+						});
 					});
 				});
 				//plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");

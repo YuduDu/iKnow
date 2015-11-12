@@ -17,11 +17,12 @@ var url = {
 		orderdetail:"http://gene.rnet.missouri.edu/iKnow/orderdetail.php",
 		massagistdetail:"http://gene.rnet.missouri.edu/iKnow/massagistdetail.php",
 		appointment_succ:"http://gene.rnet.missouri.edu/iKnow/appointment_succ.php",
-		morecomment:"http://gene.rnet.missouri.edu/iKnow/morecomment.php"
+		morecomment:"http://gene.rnet.missouri.edu/iKnow/morecomment.php",
+		sms:"http://gene.rnet.missouri.edu/iKnow/SMS.php"
 }
 
 var constant = {
-	versionid:"1.7.2"
+	versionid:"1.7.3"
 }
 
 var categorypair = {
