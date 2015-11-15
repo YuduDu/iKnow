@@ -18,7 +18,7 @@
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_comment_list',
-						massaid: '13233997914',
+						massaid: massaid,
 						pagenum: '1'
 					},
 					type: 'post', //HTTP请求类型 
@@ -29,12 +29,48 @@
 							list: obj
 						});
 					document.getElementById('comments').innerHTML = html;
+					if(obj.length<5){
+								document.getElementById("morecommentbtn").style.display = 'none'
+							}
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
 						console.log(JSON.stringify(xhr));
 					}
 				});
+				document.getElementById("morecommentbtn").addEventListener('tap',function(){
+					document.getElementById("morecommentbtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
+					var pagenum = Math.ceil(document.getElementById("comments").children.length / 10) + 1
+					loadmoreorder(plus.storage.getItem("massaid"), pagenum)
+				})
+				function loadmoreorder(massaid, pagenum) {
+					mui.ajax(url.list, {
+					data: {
+						action: 'get_comment_list',
+						massaid: massaid,
+						pagenum: pagenum
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						obj = JSON.parse(data);
+						var html = template('commentstemplate', {
+							list: obj
+						});
+					if (data != '[]') {
+								var comments = document.querySelector('#comments');
+								comments.innerHTML += html;
+								document.getElementById("morecommentbtn").innerHTML = '点击查看更多'
+							} else {
+								document.getElementById("morecommentbtn").innerHTML = '已加载完毕'
+							}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				}
 			})
 		</script>
 	</head>
