@@ -17,12 +17,12 @@ function updateServiceAmount($massaid, $serviceid){
     $con = DBconnect();
     if($result = DBupdate($con,"Has_Service",array("amount"=>"amount+1"),array("masaid"=>$massaid,"serviceid"=>$serviceid),"and"))
         return true;
-    else return false;;
+    else return false;
 }
 
 function updateCommentAmount($massaid, $serviceid){
     $con = DBconnect();
     if($result = DBupdate($con,"Has_Service",array("comment_sum"=>"comment_sum+1"),array("masaid"=>$massaid,"serviceid"=>$serviceid),"and"))
         return true;
-    else return false;;
+    else return false;
 }
