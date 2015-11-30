@@ -26,7 +26,8 @@
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						this.obj = JSON.parse(data);
+						console.log(data);
+						//this.obj = JSON.parse(data);
 						//plus.geolocation.getCurrentPosition(function(p) {
 							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 							for  (item in obj ){

@@ -18,12 +18,13 @@
 			mui.plusReady(function() {
 				mui.ajax(url.list, {
 					data: {
-						action: 'get_recommand_service'
+						action: 'get_recommand_service',
+						location:'{"city":"北京","province":"北京"}'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						//console.log(data);
+						console.log(data);
 						this.obj = JSON.parse(data)
 						plus.geolocation.getCurrentPosition(function(p) {
 								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
@@ -38,7 +39,9 @@
 								document.getElementById('Services').innerHTML = html;
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_news'
+										action: 'get_recommand_news',
+										location: '{"city":"北京","province":"北京"}'
+										
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  
@@ -60,7 +63,8 @@
 								});
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_massagist'
+										action: 'get_recommand_massagist',
+										location:'{"city":"北京","province":"北京"}'
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  

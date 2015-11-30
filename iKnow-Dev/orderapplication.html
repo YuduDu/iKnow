@@ -80,6 +80,7 @@
 							error: function(xhr, type, errorThrown) {
 								//异常处理；
 								console.log(errorThrown);
+								console.log("error2");
 								plus.nativeUI.toast('支付请求失败，请返回重试');
 									mui.back();
 							}
@@ -204,6 +205,7 @@
 						this.malist = JSON.parse(data)
 					},
 					error: function(xhr, type, errorThrown) {
+						console.log("error3");
 						console.log(type);
 						console.log(JSON.stringify(xhr));
 					}
@@ -277,6 +279,7 @@
 							document.getElementById("totalspan").innerHTML = "￥" + this.maorder;
 						},
 						error: function(xhr, type, errorThrown) {
+							console.log("error1");
 							console.log(type);
 							console.log(JSON.stringify(xhr));
 						}

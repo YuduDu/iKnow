@@ -87,10 +87,12 @@
 					var reg2Button = doc.getElementById('reg2')
 					var accountBox = doc.getElementById('account');
 					regButton.addEventListener('tap', function(event) {
+						console.log('press1')
 						//发送短信
 						mui.ajax(url.sms, {
 							data: {
-								phone: accountBox.value
+								phone: accountBox.value,
+								client:'customer'
 							},
 							type: 'post', //HTTP请求类型
 							timeout: 100000, //超时时间设置为10秒；
