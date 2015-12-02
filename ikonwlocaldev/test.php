@@ -11,10 +11,9 @@ $logger->pushHandler(new StreamHandler('./test.log', Logger::WARNING));
 // add records to the log
 $logger->addWarning('Foo');
 $logger->addError('Bar');*/
+//var_dump($_SERVER['REMOTE_ADDR']);
+//$con = DBconnect();
 
-
-$phone = "12345678901";
-$phone =  substr_replace($phone,"****",3,4);
-echo $phone;
+//$result = DBfetchall2($con,)
 
 ?>

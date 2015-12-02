@@ -6,17 +6,12 @@
  * Time: 13:53
  */
 
-require_once "lib/configs.php";
-require_once "lib/db_func.php";
+require_once "configs.php";
+require_once "db_func.php";
 session_start();
 
 $_SESSION['starttime'] = null;
 $_SESSION['endtime'] = null;
-$_SESSION['serviceid'] = 1;
-$_SESSION['massaid'] = 1;
-$_SESSION['orderid'] =23450;
-$_SESSION['customerid'] = 1;
-
 
 if(isset($_POST["starttime"])&&$_POST["starttime"]!=null){
     $time1 = $_POST["starttime"];
@@ -121,15 +116,15 @@ function check_ava($con, $starttime, $duration)
 
         foreach($rows_sta as $key => $values){
             if(strcmp($starttime,$values)<0){
-                echo "start time" .$starttime ."</br>";
-                echo "start value is " .$values ."</br>";
-                echo "start time OK </br>";
+                 echo "start time" .$starttime ."</br>";
+                 echo "start value is " .$values ."</br>";
+                 echo "start time OK </br>";
                 foreach($rows_end as $key => $valuee){
                     if(strcmp($end,$valuee)<0)
                     {
-                        echo "end time is " .$end ."</br>";
-                        echo "end value is " .$valuee ."</br>";
-                        echo "Selected start and service avaliable </br>" ;
+                         echo "end time is " .$end ."</br>";
+                         echo "end value is " .$valuee ."</br>";
+                         echo "Selected start and service avaliable </br>" ;
                     }
                 }
             }

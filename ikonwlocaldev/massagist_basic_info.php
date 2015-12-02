@@ -6,7 +6,10 @@
  * Time: 11:21 PM
  */
 require_once "lib/db_func.php";
+
+
 if(isset($_POST["massaid"])&&$_POST["massaid"]!=null){
+
     basic_information($_POST["massaid"]);
 }
 
