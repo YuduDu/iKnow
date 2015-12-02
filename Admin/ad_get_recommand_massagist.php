@@ -32,8 +32,8 @@ function get_recommand_massagist($con){
 		echo $row['stars'];
 		echo "</td>" ."<td>";
 		?>
-		<a href="delete.php">删除</a>
-		<a href="edit.php">修改</a>
+		<a href="ad_rcmand_ma_delete.php">删除</a>
+
 		<?php
 	}
 	echo "</table>";

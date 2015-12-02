@@ -31,8 +31,8 @@ function get_recommand_news($con){
 		echo $row['pic'];
 		echo "</td><td>";
 		?>
-		<a href="delete.php">删除</a>
-		<a href="edit.php">修改</a>
+
+		<a href="ad_rcmand_news_delete.php">修改</a>
 		<?php
 	}
 }

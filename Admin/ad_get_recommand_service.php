@@ -30,8 +30,8 @@ function get_recommand_service($con){
 		echo $row['price'];
 		echo "</td><td>";
 		?>
-		<a href="delete.php">删除</a>
-		<a href="edit.php">修改</a>
+
+		<a href="ad_rcmand_service_delete.php">修改</a>
 		<?php
 	}
 }
