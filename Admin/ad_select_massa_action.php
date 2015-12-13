@@ -39,5 +39,8 @@ function get_massagist_by_phone( $con, $phone ){
 <?php
 }
 echo "</table>";
-
 }
+?>
+
+<center><a href="ad_select_massa.php">返回</a></center>
+

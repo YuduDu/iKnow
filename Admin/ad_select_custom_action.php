@@ -40,3 +40,6 @@ function get_customer_by_phone( $con, $phone ){
 		}
 echo "</table>";
 }
+?>
+
+<center><a href="ad_select_custm.php">返回</a> </center>

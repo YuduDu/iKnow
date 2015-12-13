@@ -7,7 +7,7 @@
 	require_once 'db_func.php';
 	session_start();
 	$_SESSION['shopid'] = $_POST['select_shop_s'];
-	var_dump( $_SESSION );
+
 	$con = DBconnect();
 
 	if ( isset( $_POST['select_shop_s'] ) && $_POST['select_shop_s'] != null ) {
@@ -43,4 +43,5 @@
 <?php
 }
 echo "</table>";
-}
+}?>
+	<center><a href="ad_select_shop.php" >返回 </a> </center>

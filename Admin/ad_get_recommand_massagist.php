@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>客户查询</title>
+	<title>推荐技师</title>
 </head>
 
-<body>
-<center>
-<table border="1" width=80%>
 <?php
 
 require_once "configs.php";
@@ -33,12 +30,10 @@ function get_recommand_massagist($con){
 		echo "</td>" ."<td>";
 		?>
 		<a href="ad_rcmand_ma_delete.php">删除</a>
-
 		<?php
 	}
 	echo "</table>";
 }
 ?>
-	</table>
-</center>
-</body>
+	<a href="javascript:history.go(-1);">返回</a>
+

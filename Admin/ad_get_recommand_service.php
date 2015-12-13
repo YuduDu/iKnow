@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>客户查询</title>
+	<title>推荐服务</title>
 </head>
 <center>
-<body>
+
 <?php
 
 require_once "configs.php";
@@ -28,13 +28,15 @@ function get_recommand_service($con){
 		echo $row['servicename'];
 		echo "</td><td>";
 		echo $row['price'];
-		echo "</td><td>";
+		echo "</td>" ."<td>";
 		?>
-
-		<a href="ad_rcmand_service_delete.php">修改</a>
+		<a href="ad_rcmand_service_delete.php">删除</a>
 		<?php
 	}
+	echo "</table>";
 }
 ?>
-</body>
-</center>
+	<a href="javascript:history.go(-1);">返回</a>
+
+
+

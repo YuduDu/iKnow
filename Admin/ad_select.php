@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>查询结果</title>
 </head>
+
 <?php
 	require_once 'configs.php';
 	require_once 'db_func.php';
