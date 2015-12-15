@@ -8,6 +8,8 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow</title>
 		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/template.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<script type="text/javascript">
@@ -44,6 +46,14 @@
 						}, 1000);
 						return false;
 					};
+					
+				var citiesoption = template('cityoptions', citylist);
+				document.getElementById('city').innerHTML = citiesoption;
+				
+				document.getElementById("city").addEventListener('change',function(){
+					console.log(this.value)
+				})
+				
 			}
 			if (window.plus) {
 				plusReady();
@@ -64,12 +74,7 @@
 		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6acccb;">
 			<h1 id="title" class="mui-title" style="color: #ffffff;font-weight: 800;font-size: 20px;">身知道</h1>
 			<a id="search" class="fa fa-search fa-lg fa-pull-right" style="color: #ffffff;padding-top:10px;margin-left:20px"></a>
-			<span><select id=city class="mui-btn" style="width:auto;background-color: transparent;font-size:17px;top:4px;color:#ffffff;padding-left:0px;padding-right: 5px;">
-				<option value="item-1">北京市</option>
-				<option value="item-2">上海市</option>
-				<option value="item-3">成都市</option>
-				<option value="item-4">深圳市</option>
-				<option value="item-5">广州市</option>
+			<span><select id='city' class="mui-btn" style="width:auto;background-color: transparent;font-size:17px;top:4px;color:#ffffff;padding-left:0px;padding-right: 5px;">
 			</select></span><span id='dropdowncity' class="fa fa-angle-down" style="margin-top:12px;color:#ffffff"></span>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
@@ -185,6 +190,10 @@
 					}
 				});
 			});
+		</script>
+		<script id="cityoptions" type="text/html">
+				{{each city as value i}}
+				<option value="{{value}}" >{{value}}</option>{{/each}}
 		</script>
 
 	</body>

@@ -26,6 +26,7 @@
 					key: 'pk_test_XOAM8G6tnBANFHGUKpqRRvx0',
 					image: '/img/documentation/checkout/marketplace.png',
 					locale: 'auto',
+					allowRememberMe: 'false',
 					token: function(token) {
 						console.log(token.id)
 						// Use the token to create the charge with a server-side script.
@@ -249,7 +250,6 @@
 					//console.log(plus.storage.getItem('apptdate') +'-'+ plus.storage.getItem('appttime'));
 					//console.log(('2015'+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString());
 					if (plus.storage.getItem('apptdate')) {
-						console.log('hehe')
 						document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
 					}
 					else{
@@ -266,7 +266,7 @@
 						"massaid": plus.storage.getItem("order_massaid"),
 						"qty": plus.storage.getItem("order_qty"),
 					});
-					//console.log("massaid:" + plus.storage.getItem("order_massaid") + "qty:" + plus.storage.getItem("order_qty"));
+					console.log("massaid:" + plus.storage.getItem("order_massaid") + "qty:" + plus.storage.getItem("order_qty"));
 					mui.ajax(url.order, {
 						data: {
 							order: newform

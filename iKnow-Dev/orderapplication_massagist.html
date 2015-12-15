@@ -41,8 +41,10 @@
 				}
 				console.log(ch[0].id)
 				console.log(ch[0].value)
+				ch[0].checked = 1;
 				for (var i = ch.length; i--;) {
 					ch[i].onclick = function() {
+						console.log(this.id);
 						plus.storage.setItem("order_massaid", this.value);
 						plus.storage.setItem("order_massaname", this.id);
 					}
@@ -159,8 +161,8 @@
 		</header>
 		<div class="mui-content">
 			<div style="height:60px;top:0px;background-color: #ffffff;">
-				<span style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;" id="servicename">小儿保健套餐</span>
-				<span class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price">$98</span>
+				<span style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;text-overflow:ellipsis;width: 70%;display:inline-block;overflow: hidden;white-space:nowrap;" id="servicename">载入中...</span>
+				<span class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price">$</span>
 			</div>
 			<form style="height:auto;" name="maform" ; id="maform">
 				<div id="mdiv" style="background-color: #ffffff; height:60px;position:relative;top:15px;margin-left:10px;margin-right:10px">

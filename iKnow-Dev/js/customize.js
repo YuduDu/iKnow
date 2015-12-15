@@ -1,5 +1,5 @@
 var url = {
-		newslist: "http://gene.rnet.missouri.edu/iKnow/Product/db.php",
+		newslist:"http://gene.rnet.missouri.edu/iKnow/Product/db.php",
 		discovernews:"http://gene.rnet.missouri.edu/iKnow/Product/db.php",
 		login:"http://gene.rnet.missouri.edu/iKnow/Product/login2.php",
 		signup:"http://gene.rnet.missouri.edu/iKnow/Product/signup.php",
@@ -13,14 +13,17 @@ var url = {
 		slideimage4:"http://gene.rnet.missouri.edu/iKnow/Product/img/slide/slide4.jpg",
 		indexservicedetail:"http://gene.rnet.missouri.edu/iKnow/Product/servicedetail.php",
 		appt:"http://gene.rnet.missouri.edu/iKnow/Product/appointment_chkava.php",
-		comment: "http://gene.rnet.missouri.edu/iKnow/Product/comment.php",
+		comment:"http://gene.rnet.missouri.edu/iKnow/Product/comment.php",
 		orderdetail:"http://gene.rnet.missouri.edu/iKnow/Product/orderdetail.php",
 		massagistdetail:"http://gene.rnet.missouri.edu/iKnow/Product/massagistdetail.php",
 		appointment_succ:"http://gene.rnet.missouri.edu/iKnow/Product/appointment_succ.php",
 		morecomment:"http://gene.rnet.missouri.edu/iKnow/Product/morecomment.php",
-		sms:"http://gene.rnet.missouri.edu/iKnow/Product/SMS.php"
+		sms:"http://gene.rnet.missouri.edu/iKnow/Product/SMS.php",
 }
 
+var citylist = {
+	city:['北京市','洛阳市','秦皇岛市']
+}
 var constant = {
 	versionid:"1.7.3"
 }
@@ -31,10 +34,7 @@ var categorypair = {
 	3:'汗蒸浴场',
 	4:'足疗养生'
 }
-var api = {
-		nexmo_api_key:"27883592",
-		nexmo_api_secret:"c2516ec5"
-}
+
 var timeset1 = {
 	list1:['08:00','09:00','10:00','11:00','12:00','13:00','14:00'],
 	list2:['15:00','16:00','17:00','18:00','19:00','20:00','21:00']

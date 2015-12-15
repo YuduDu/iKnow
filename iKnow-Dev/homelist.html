@@ -19,7 +19,7 @@
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_recommand_service',
-						location:'{"city":"北京","province":"北京"}'
+						location:'{"city":"北京市","province":"北京市"}'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
@@ -40,7 +40,7 @@
 								mui.ajax(url.list, {
 									data: {
 										action: 'get_recommand_news',
-										location: '{"city":"北京","province":"北京"}'
+										location: '{"city":"北京市","province":"北京市"}'
 										
 									},
 									type: 'post', //HTTP请求类型 
@@ -52,7 +52,6 @@
 											list: obj
 										});
 										//console.log(obj[0].title)
-										console.log(html)
 										document.getElementById('slideshowul').innerHTML = html;
 									},
 									error: function(xhr, type, errorThrown) {
@@ -64,7 +63,7 @@
 								mui.ajax(url.list, {
 									data: {
 										action: 'get_recommand_massagist',
-										location:'{"city":"北京","province":"北京"}'
+										location:'{"city":"北京市","province":"北京市"}'
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  

@@ -44,6 +44,7 @@
 					timeout: 100000, //超时时间设置为10秒；
 					async: false,
 					success: function(data) {
+						console.log(data);
 						this.obj = JSON.parse(data);
 						console.log(obj.shop_info.name)
 						document.getElementById("title").innerHTML = obj.massagist_info.name;
