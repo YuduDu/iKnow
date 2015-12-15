@@ -6,7 +6,7 @@
  * Time: 13:53
  */
 
-require_once "configs.php";
+require_once "lib/configs.php";
 require_once "lib/db_func.php";
 session_start();
 

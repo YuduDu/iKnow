@@ -8,30 +8,21 @@
 
 //READ DATA FROM order.php
 require_once "configs.php";
-require_once "lib/db_func.php";
+require_once "db_func.php";
 session_start();
-$_SESSION['starttime']=null;
-$_SESSION['duration'] = null;
-$_SESSION['endtime'] = null;
-
-/*-------------test only----------------------
-$_SESSION["customerid"]=1;
-$_SESSION["massaid"]=1;
-$_SESSION["serviceid"]=1;
-$_SESSION['orderid']=23449;
-//------------------------------------*/
 
 if(isset($_POST["starttime"])&&$_POST["starttime"]!=null){
     $time1 = $_POST["starttime"];
     //$time = date($time1);
     $_SESSION["starttime"] = $time1;
-    make_appointment();
+    //echo "post data: ".$_SESSION["starttime"];
+    //make_appointment();
 }
 
 
 function make_appointment(){
     $con=DBconnect();
-
+    //echo "make_appointment function : ".$_SESSION["starttime"];
     $duration_1 = get_duration($con,$_SESSION['serviceid']);
     $duration = (int)$duration_1;
     $_SESSION['duration'] = $duration;
@@ -39,9 +30,9 @@ function make_appointment(){
     $hour = (int)substr($_SESSION["starttime"],11,2);//time interval of hour,begining time
     $add_hour = $hour + $duration;//time interval of hour,end of time
     $end = substr_replace($_SESSION["starttime"],$add_hour,11,2);
-    echo "end time is :" .$end;
+    //echo "end time is :" .$end;
     $_SESSION["endtime"]=$end;
-    var_dump($_SESSION);
+    //var_dump($_SESSION);
     return insert_service_appt($con,$_SESSION['massaid'],$_SESSION['customerid'],$_SESSION["starttime"],$_SESSION["endtime"],$_SESSION['serviceid'],$_SESSION['orderid']);
 }
 

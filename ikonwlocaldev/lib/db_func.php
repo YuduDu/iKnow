@@ -185,9 +185,12 @@ function DBfetchall($query,$con)
         //echo $sql;
         if (!mysql_query($sql, $con)) {
             die("Error:" . mysql_error());
-            return null;
+            return false;
         } //else return true;
-        else return mysql_insert_id();
+        else
+        {
+            return mysql_insert_id();
+        }
         //$result = mysql_query($sql,$con) or die("Insert Error: ".mysqli_error());
         //echo 'hehe'.$result;
     }

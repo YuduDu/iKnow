@@ -2,7 +2,7 @@
 <?php
 //echo "this is a test"
 require_once 'lib/db_func.php';
-session_start();
+
 
 date_default_timezone_set('America/Chicago');
 
@@ -11,12 +11,15 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 //use Monolog\Handler\FirePHPHandler;
 
+session_start();
+
 if(isset($_POST['custompassword'])&&$_POST['custompassword']!=null){
-  //$id=$_POST['customid'];
+    //$id=$_POST['customid'];
     //set-up logger
     $logger=new Logger('signup');
 
-    if($_SESSION["client"]=="customer")
+
+    if($_SESSION["client"]=="Customer")
     {
         $logger->pushHandler(new StreamHandler("Log/customer/signup/".date("Y-m-d",time()).".log",Logger::INFO));
 
@@ -32,6 +35,7 @@ if(isset($_POST['custompassword'])&&$_POST['custompassword']!=null){
 
     }
     else{
+        //echo "";
         $logger->pushHandler(new StreamHandler("Log/customer/signup/critical.log",Logger::CRITICAL));
         $logger->addCritical("Uncustomer client trying signup!",array("phone"=>$_SESSION["phone"],"phone auth"=>$_SESSION["auth"]));
     }
@@ -42,30 +46,34 @@ if(isset($_POST['custompassword'])&&$_POST['custompassword']!=null){
 function signup($logger,$id,$pd)//working fine
 {
 
-      $con = DBconnect();
-      //$checkid = 'select phone from Customer where Phone = "' . $id . '";';
-      //$result = DBfetchone($checkid, $con);
-        $result = DBfetchone2($con,Customer,array("phone"),array("Phone"=>$id));
-      if (!empty($result)) {
+    $con = DBconnect();
+    //$checkid = 'select phone from Customer where Phone = "' . $id . '";';
+    //$result = DBfetchone($checkid, $con);
+    $result = DBfetchone2($con,Customer,array("phone"),array("Phone"=>$id));
+    if (!empty($result)) {
         echo "exist";
-          $logger->addNotice("Customer phone try duplicate signing up.",array("customer phone"=>$id));
-      }
-      else {
-          $time = date("Y-m-d H:i:s", time());
+        $logger->addNotice("Customer phone ".$id." try duplicate signing up.");
+    }
+    else {
+        $time = date("Y-m-d H:i:s", time());
         //$sql = 'insert Customer (phone, password,signupdate) values ("' . $id . '","' . $pd .'","'.$time.'");';
         //$tmp = DBfetchall($sql, $con);
-          if(!empty(DBinsert("Customer",array("phone"=>$id,"password"=>$pd,"signupdate"=>$time),$con)))
-          {
-              echo 1;
-              $logger->addInfo("Success",array("Customer phone"=>$id));
-          }
-          else{
-              echo 0;
-              $logger->addNotice("Fail_insert database fail",array("Customer phone"=>$id));
-          }
-      }
-        mysql_close($con);
-        session_destroy();
+        $return=DBinsert("Customer",array("phone"=>$id,"password"=>$pd,"signupdate"=>$time),$con);
+        //var_dump($return);
+        if((string)$return=="false")
+        {
+
+            echo 0;
+            $logger->addNotice("Fail_insert database fail. Customer phone: ".$id);
+        }
+        else{
+            echo 1;
+            $logger->addInfo("Sign up successfully. Customer phone: ".$id);
+
+        }
+    }
+    mysql_close($con);
+    session_destroy();
 }
 
 /*function signup1($form)//NOT FINISH
@@ -79,22 +87,22 @@ function signup($logger,$id,$pd)//working fine
     echo $tmp;
   }*/
 
- /* $con = DBconnect();
-  $checkid = 'select phone from Customer where Phone = ' . $id . ';';
+/* $con = DBconnect();
+ $checkid = 'select phone from Customer where Phone = ' . $id . ';';
 
-  if (!empty(
-  DBquery($checkid, $con))
-  ) {
-    echo "exist";
-  } else {
+ if (!empty(
+ DBquery($checkid, $con))
+ ) {
+   echo "exist";
+ } else {
 
-    $sql = 'insert Customer (phone, password) values (' . $id . ',"' . $pd . '");';
-    //echo $sql;
-    DBquery($sql, $con);
-    //echo "1 record added";
-    mysql_close($con);
+   $sql = 'insert Customer (phone, password) values (' . $id . ',"' . $pd . '");';
+   //echo $sql;
+   DBquery($sql, $con);
+   //echo "1 record added";
+   mysql_close($con);
 
-  }*/
+ }*/
 //}
 
 

@@ -1,4 +1,5 @@
 var url = {
+<<<<<<< HEAD
 		newslist:"http://gene.rnet.missouri.edu/iKnow/Product/db.php",
 		discovernews:"http://gene.rnet.missouri.edu/iKnow/Product/db.php",
 		login:"http://gene.rnet.missouri.edu/iKnow/Product/login2.php",
@@ -19,6 +20,28 @@ var url = {
 		appointment_succ:"http://gene.rnet.missouri.edu/iKnow/Product/appointment_succ.php",
 		morecomment:"http://gene.rnet.missouri.edu/iKnow/Product/morecomment.php",
 		sms:"http://gene.rnet.missouri.edu/iKnow/Product/SMS.php",
+=======
+		newslist: "http://gene.rnet.missouri.edu/iKnow/Testing/db.php",
+		discovernews:"http://gene.rnet.missouri.edu/iKnow/Testing/db.php",
+		login:"http://gene.rnet.missouri.edu/iKnow/Testing/login2.php",
+		signup:"http://gene.rnet.missouri.edu/iKnow/Testing/signup.php",
+		order:"http://gene.rnet.missouri.edu/iKnow/Testing/makeorder.php",
+		serviceslist:"http://gene.rnet.missouri.edu/iKnow/Testing/list.php",
+		list:"http://gene.rnet.missouri.edu/iKnow/Testing/list2.php",
+		therapistslist:"http://gene.rnet.missouri.edu/iKnow/Testing/massagistlist.php",
+		slideimage1:"http://gene.rnet.missouri.edu/iKnow/Testing/img/slide/slide1.jpg",
+		slideimage2:"http://gene.rnet.missouri.edu/iKnow/Testing/img/slide/slide2.jpg",
+		slideimage3:"http://gene.rnet.missouri.edu/iKnow/Testing/img/slide/slide3.jpg",
+		slideimage4:"http://gene.rnet.missouri.edu/iKnow/Testing/img/slide/slide4.jpg",
+		indexservicedetail:"http://gene.rnet.missouri.edu/iKnow/Testing/servicedetail.php",
+		appt:"http://gene.rnet.missouri.edu/iKnow/Testing/appointment_chkava.php",
+		comment: "http://gene.rnet.missouri.edu/iKnow/Testing/comment.php",
+		orderdetail:"http://gene.rnet.missouri.edu/iKnow/Testing/orderdetail.php",
+		massagistdetail:"http://gene.rnet.missouri.edu/iKnow/Testing/massagistdetail.php",
+		appointment_succ:"http://gene.rnet.missouri.edu/iKnow/Testing/appointment_succ.php",
+		morecomment:"http://gene.rnet.missouri.edu/iKnow/Testing/morecomment.php",
+		sms:"http://gene.rnet.missouri.edu/iKnow/Testing/SMS.php"
+>>>>>>> origin/master
 }
 
 var citylist = {
