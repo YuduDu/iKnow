@@ -19,18 +19,18 @@
 		$sql_massagist = "INSERT INTO Massagist (phone, password) VALUES ('".$phone ."','".$password ."')";
 
 		if (mysql_query($sql_massagist,$con)) {
-			echo "New record created successfully in sql_massagist";
+			echo "<script type='text/javascript'> alert('插入成功');</script>";
 		} else {
-			echo "Error: " . $sql_massagist . "<br>" . mysqli_error($con);
+			echo "<script type='text/javascript'> alert('无法插入，请检查输入信息');</script>";
 		}
 	}
 
 	function insert_massagist_detail($con,$phone,$name,$shop_id){
 		$sql_massagist_detail = "INSERT INTO MassagistDetail (phone,name,shopid) VALUES ('".$phone ."','".$name ."',". $shop_id .")";
 		if (mysql_query($sql_massagist_detail,$con)) {
-			echo "New record created successfully in sql_massagist";
+			echo "<script type='text/javascript'> alert('插入成功');</script>";
 		} else {
-			echo "Error: " . $sql_massagist_detail . "<br>" . mysql_error($con);
+			echo "<script type='text/javascript'> alert('无法插入，请检查输入信息');</script>";
 		}
 	}
 

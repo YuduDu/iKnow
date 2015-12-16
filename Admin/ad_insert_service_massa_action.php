@@ -37,9 +37,9 @@ function insert_serveice_massa($con,$massa_id,$catid_id){
 	$sql_service_shop = "INSERT INTO Has_Service (masaid,serviceid) VALUES ($massa_id,$catid_id);";
 	//$result = mysql_query($sql_service_shop,$con);
 	if (mysql_query( $sql_service_shop,$con)) {
-		echo "New record created successfully";
+		echo "<script type='text/javascript'> alert('插入成功');</script>";
 	} else {
-		echo "Error: " .mysql_error($con);
+		echo "<script type='text/javascript'> alert('无法插入，请检查输入信息');</script>";
 	}
 
 }

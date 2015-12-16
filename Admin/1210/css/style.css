@@ -321,7 +321,7 @@ h2{font-weight:normal;}
 .classlist li .lright{float:left;width:150px;}
 .classlist li .lright h2{font-size:12px; font-weight:bold;line-height:30px;}
 .classlist li .lright p{line-height:20px;}
-.enter{display:block;margin-top:5px;width:94px;height:30px;color:#fff;background:#F48113;font-weight:bold; border-radius:2px; text-align:center;line-height:30px; cursor:pointer;}
+.enter{display:block;margin-top:5px;width:125px;height:30px;color:#fff;background:#F48113;font-weight:bold; border-radius:2px; text-align:center;line-height:30px; cursor:pointer;}
 .enter:hover{color:#fff; background:#EB5409;}
 .clear{clear:both;}
 
