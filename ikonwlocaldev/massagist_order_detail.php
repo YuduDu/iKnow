@@ -29,8 +29,9 @@ if(isset($_POST["information"])&&$_POST["information"]!=null){
                 $end=date('H:i:s',$endtime);
             }
             else {
-                echo "Order ".$info["orderid"]." have different appointment start date and end date, please check the datebase, and appointment function.";
+                //echo "Order ".$info["orderid"]." have different appointment start date and end date, please check the datebase, and appointment function.";
                 //else echo json_encode(array("RespCode"=>"000003","Resp"=>"Order ".$info["orderid"]." have different appointment start date and end date"));
+
                 return;
             }
             $order["servicetime"] = $date." ".$start." - ".$end;

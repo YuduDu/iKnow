@@ -34,11 +34,13 @@ function login($log,$form){
     //echo $pdw["password"];
     if ((string)$char["password"]==$pdw["password"]){
         $log->addInfo("User with ip ".$_SERVER["REMOTE_ADDR"]."login to massagist account: ".$char["phone"].".");
-        echo "success";
+        //echo "success";
         //echo "111111";
+        echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>['Phone'=>$char['phone']]]]);
     }
     else {
-        echo "fail";
+        //echo "fail";
+        echo json_encode(['RespCode'=>'000000','RespContent'=>['Status'=>'Failed','Content'=>['Phone'=>$char['phone']]]]);
     }
     //else echo "000000";
     mysql_close($con);

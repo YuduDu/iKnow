@@ -20,5 +20,6 @@ function basic_information($massaid){
     $result["shopname"]=$shopname["name"];
     unset($result["shopid"]);
 
-    echo json_encode($result);
+    //echo json_encode($result);
+    echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$result]]);
 }

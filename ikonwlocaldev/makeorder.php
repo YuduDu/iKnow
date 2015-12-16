@@ -68,10 +68,12 @@ if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
         else{
             array_push($detail_log_info,array("type"=>"Warn","Info"=>"Failed! User with ip ".$_SERVER["REMOTE_ADDR"]." tried to get massagist list of service ".$_SESSION['serviceid']."."));
         }
-        echo json_encode($result);
+        //echo json_encode($result);
+        echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$result]]);
         //echo $para;
     }
-    else echo "NULL";
+    //else echo "NULL";
+    else echo json_encode(['RespCode'=>'000000','RespContent'=>['Status'=>'Failed','Content'=>'Null Massagist list']]);
 }
 
 
@@ -84,7 +86,8 @@ if(isset($_POST['order'])&&$_POST['order']!=NULL)
     }
     $_SESSION['amount']=calculateamount($con);
     //var_dump($_SESSION);
-    echo $_SESSION['amount'];
+    //echo $_SESSION['amount'];
+    echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$_SESSION['amount']]]);
     //echo "after order info: ".var_dump($_SESSION);
     //test place order function here
     //placeorder();
@@ -111,9 +114,11 @@ if(isset($_POST['submit'])&&$_POST['submit']!=null)
             //echo "begin charge: ";
             charge($log,$token, $con);
         }
-        else echo $result;
+        //else echo $result;
+        else echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$result]]);
     }
-    else echo "Place order wrong!";
+    //else echo "Place order wrong!";
+    else echo json_encode(['RespCode'=>'000000','RespContent'=>['Status'=>'Failed','Content'=>"Place Order Wrong!"]]);
     //else echo "000000";
 
 
@@ -203,14 +208,16 @@ function updateorder_status($con,$status){
     if(mysql_query($query,$con))
     {
         array_push($GLOBALS["detail_log_info"],array("type"=>"Info","Info"=>"Set Order status to ".$status." in Order table succeeded. "));
-        echo "success";
+        //echo "success";
+        echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success']]);
         //echo "111111";
 
         //$log->addInfo("")
     }else{
         array_push($GLOBALS["detail_log_info"],array("type"=>"Error","Info"=>"Failed to set Order status to ".$status." in Order table. "));
-        echo "OrderUpdateFail: ".mysql_error();
+        //echo "OrderUpdateFail: ".mysql_error();
         //echo "000000";
+        echo json_encode(['RespCode'=>'000000','RespContent'=>['Status'=>'Failed','Content'=>'OrderUpdateFail: '.mysql_error()]]);
     }
 
 }
@@ -369,7 +376,7 @@ function logging(){
             }
                 break;
             default:
-                echo "wrong";
+                //echo "wrong";
                 break;
         }
     }

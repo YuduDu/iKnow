@@ -38,8 +38,8 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				//var_dump($location);
 				recommand_service($log,$location);
 			}
-			else echo "Error: no location";
-			//else echo json_encode(array("RespCode"=>"000002"));
+			//else echo "Error: no location";
+			else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No location!']]);
 			break;
 		}
 		case 'get_recommand_massagist':
@@ -55,8 +55,8 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				$location = (array)json_decode($_POST['location']);
 				recommand_massagesit($log,$location);
 			}
-			else echo "Error: no location";
-			//else echo json_encode(array("RespCode"=>"000002"));
+			//else echo "Error: no location";
+			else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No location!']]);
 			break;
 
 		}
@@ -72,8 +72,8 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				if (!isset($_POST['id'])) {
 					recommand_news($log, $location);
 				} else recommand_news($log, $location, $_POST['id']);
-			}else echo "Error: no location";
-			//else echo json_encode(array("RespCode"=>"000002"));
+			}//else echo "Error: no location";
+			else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No location!']]);
 			break;
 		}
 		case 'get_massagist_list':
@@ -87,8 +87,8 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 					getmassagistlist($log,$location,$_POST['pagenum']);
 				} else getmassagistlist($log, $location);
 			}
-			else echo "Error: no location";
-			//else echo json_encode(array("RespCode"=>"000002"));
+			//else echo "Error: no location";
+			else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No location!']]);
 			break;
 		}
 		case 'get_services_list':
@@ -116,11 +116,11 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 						} else
 							getserviceslist($log, $location,$_POST["categoryid"]);
 					}
-				} else echo "Error: categoryid wrong";
-				//else echo json_encode(array("RespCode"=>"000003"));
+				} //else echo "Error: categoryid wrong";
+				else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No CategoryId!']]);
 			}
-			else echo "Error: no location";
-			//else echo json_encode(array("RespCode"=>"000002"));
+			//else echo "Error: no location";
+			else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No location!']]);
 			break;
 		}
 		case 'get_order_list':{
@@ -136,8 +136,8 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				else
 				getorderlist($log,$_POST['customid']);
 			}
-			else echo "Error: no customerid";
-			//else echo json_encode(array("RespCode"=>"000003"));
+			//else echo "Error: no customerid";
+			else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No Customer Id!']]);
 			break;}
 
 		case 'massagist_get_services_list':
@@ -153,7 +153,7 @@ if(isset($_POST['action'])&&$_POST['action']!=""){
 				else
 				getserviceslist($log,null,null,$_POST["massaid"]);
 			}
-			else echo json_encode(array("RespCode"=>"000003"));
+			else echo json_encode(["RespCode"=>"000002",'RespContent'=>['Status'=>'Error','Content'=>'No Massagist Id!']]);
 		}
 		default:
 	}
@@ -193,7 +193,8 @@ function getorderlist($log,$customid = null,$pagenum = null){
 		unset($item['shopid']);
 		$list[]=$item;
 	}
-	echo json_encode($list);
+	//echo json_encode($list);
+	echo json_encode(["RespCode"=>"111111",'RespContent'=>['Status'=>'Success','Content'=>$list]]);
 
 }
 function recommand_news($log, $location, $id=null){
@@ -209,7 +210,8 @@ function recommand_news($log, $location, $id=null){
         {
             $log->addInfo("User with ip ".$_SERVER['REMOTE_ADDR']." get recommanded new with id ".$id.".");
         }
-		echo json_encode($result);
+		//echo json_encode($result);
+		echo json_encode(["RespCode"=>"111111",'RespContent'=>['Status'=>'Success','Content'=>$result]]);
 	}
 	else{
 		//$query = "SELECT id, title, pic FROM Recommand_news";
@@ -220,7 +222,8 @@ function recommand_news($log, $location, $id=null){
         else{
             $log->addInfo("User with ip ".$_SERVER['REMOTE_ADDR']." get recommanded news list.");
         }
-		echo json_encode($result);
+		//echo json_encode($result);
+		echo json_encode(["RespCode"=>"111111",'RespContent'=>['Status'=>'Success','Content'=>$result]]);
 
 	}
 
@@ -332,12 +335,14 @@ function getserviceslist($log,$location, $categoryid =null, $massaid = null, $pa
 	}
 	else{
 		//$Arr = "Get Service List Error: BackEnd Please Check your input! ";
-		 echo json_encode(array("RespCode"=>"000003"));
+		 //echo json_encode(array("RespCode"=>"000003"));
+		echo json_encode(["RespCode"=>"000003",'RespContent'=>['Status'=>'Failed','Content'=>'Get Service List Error: BackEnd Please Check your input!']]);
         $log->addError("Fail! Inputs wrong.");
 		return;
 	}
 
-	echo json_encode($Arr);
+	//echo json_encode($Arr);
+	echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$Arr]]);
 }
 
 
@@ -374,7 +379,8 @@ function getnews($log,$pagenum=null){
 		$a=array("newsid"=>$row["id"],"newstitle"=>$row["title"],"newscontent"=>$row["content"],"pic"=>$row["pic"]);
 		array_push($Arr,$a);
 	}
-	echo json_encode($Arr);
+	//echo json_encode($Arr);
+	echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$Arr]]);
 }
 
 function recommand_service($log,$location){
@@ -388,7 +394,8 @@ function recommand_service($log,$location){
     else {
         $log->addInfo("User with ip ".$_SERVER['REMOTE_ADDR']."get recommanded services list at ".$location["city"].".");
     }
-    echo json_encode($getservice);
+    //echo json_encode($getservice);
+	echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$getservice]]);
 }
 
 function recommand_massagesit($log,$location){
@@ -401,7 +408,8 @@ function recommand_massagesit($log,$location){
     else {
         $log->addInfo("User with ip ".$_SERVER['REMOTE_ADDR']."get recommanded Massagists list at ".$location["city"].".");
     }
-    echo json_encode($result);
+    //echo json_encode($result);
+	echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$result]]);
 
 
 }
@@ -449,7 +457,8 @@ function getmassagistlist($log,$location, $pagenum=null){
 		array_push($Arr,$a);
 	}
 	//var_dump($Arr);
-	echo json_encode($Arr);
+	//echo json_encode($Arr);
+	echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$Arr]]);
 }
 
 

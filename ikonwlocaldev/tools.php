@@ -8,9 +8,6 @@
 
 
 //将一个数组添加到另一个数组里面
-function addtoarray($target,$tmp){
-    foreach(array_keys($tmp) as $t){
-        $target[$t] = $tmp[$t];
-    }
-    return $target;
-}
+$tp='{"city":"1","province":"2"}';
+
+var_dump(json_decode($tp));

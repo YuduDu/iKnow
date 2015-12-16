@@ -40,16 +40,19 @@
        // echo $pdw["password"];
         if ($pdw!=null&&(string)$char["password"]==$pdw["password"]){
             $logger->addInfo("User ".$char["phone"]." login successfully.");
-            echo "success";
+            //echo "success";
             //echo "111111";
+            echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>['CustomerId'=>$char["phone"]]]]);
         }
         else if($pdw==null){
-            echo "Fail";
+            //echo "Fail";
+            echo json_encode(['RespCode'=>'000000','RespContent'=>['Status'=>'Failed','Content'=>['CustomerId'=>$char["phone"],'text'=>'Phone Number not exist!']]]);
             $logger->addInfo("Fail. Phone Number ".$char["phone"]."not exist");
         }
         else
         {
-            echo "Fail";
+            //echo "Fail";
+            echo json_encode(['RespCode'=>'000000','RespContent'=>['Status'=>'Failed','Content'=>'Password wrong!']]);
             $logger->addInfo("Fail. Phone ".$char["phone"]."'s password Wrong");
         }
         //echo date("Y-m-d H:i:s", time());

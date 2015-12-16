@@ -16,4 +16,8 @@ $logger->addError('Bar');*/
 
 //$result = DBfetchall2($con,)
 
+$response['RespCode']=111111;
+$response['RespContent']=['Status'=>'Success','OrderId'=>12345];
+echo json_encode($response);
+
 ?>

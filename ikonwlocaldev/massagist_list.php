@@ -14,8 +14,9 @@ if(isset($_POST["action"])&&$_POST["action"]!=null&&isset($_POST["massaid"])&&$_
             if (isset($_POST["timearray"]))
                 getmassagistorderlist($_POST['massaid'],$_POST["timearray"],$_POST["pagenum"]);
             else
-                echo "Error: didn't give timearray attribute!";
+                //echo "Error: didn't give timearray attribute!";
             // echo json_encode(array("RespCode"=>"000003");
+                echo json_encode(['RespCode'=>'000002','RespContent'=>['Status'=>'Error','Content'=>'Timearray Attribute missed!']]);
             break;
         }
 
@@ -27,8 +28,10 @@ if(isset($_POST["action"])&&$_POST["action"]!=null&&isset($_POST["massaid"])&&$_
             break;
     }
 }
-else echo "Error: action or massaid is not set!";
+//else echo "Error: action or massaid is not set!";
 //else echo json_encode(array("RespCode"=>"000003");
+else echo json_encode(['RespCode'=>'000002','RespContent'=>['Status'=>'Error','Content'=>'Action or Massaid Missed!']]);
+
 
 function getmassagistorderlist($massaid,$timearray,$pagenum=null){
     $con = DBconnect();
@@ -79,8 +82,9 @@ function getmassagistorderlist($massaid,$timearray,$pagenum=null){
             $row['end']=date('H:i:s',$endtime);
         }
         else {
-            echo "Order ".$row['orderid']." have different appointment start date and end date, please check the datebase, and appointment function.";
+            //echo "Order ".$row['orderid']." have different appointment start date and end date, please check the datebase, and appointment function.";
             //else echo json_encode(array("RespCode"=>"000003","Resp"=>"Order ".$row['orderid']." have different appointment start date and end date");
+            echo json_encode(['RespCode'=>'000003','RespContent'=>['Status'=>'Error','Content'=>"Order ".$row['orderid']." have different appointment start date and end date"]]);
             break;
         }
 
@@ -96,7 +100,9 @@ function getmassagistorderlist($massaid,$timearray,$pagenum=null){
         //push into "return" list
         //array_push($return, $row);
     }
-    echo json_encode($return);
+    //echo json_encode($return);
+    echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$return]]);
+
 }
 
 function getmassagistservicelist($massaid, $pagenum=null){
@@ -111,7 +117,8 @@ function getmassagistservicelist($massaid, $pagenum=null){
     $servicelistquery = rtrim($servicelistquery,';');
     $query = DBformquery_join(array("a. amount as order_sum","a.comment_sum as comment_sum","b.name as servicename","b.price as price","b.duration as duration"),"($servicelistquery) as a","left  join","Service as b","a.serviceid = b.serviceid");
     $result = DBfetchall($query,$con);
-    echo json_encode($result);
+    //echo json_encode($result);
+    echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$result]]);
 
 }
 
@@ -135,6 +142,7 @@ function getmassagistcommentlist($massaid,$pagenum=null){
         array_push($result,$comment);
     }
 
-    echo json_encode($result);
+    //echo json_encode($result);
+    echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$result]]);
 
 }
