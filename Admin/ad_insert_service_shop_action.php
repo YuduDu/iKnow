@@ -38,8 +38,8 @@ $con = DBconnect();
 		$sql_service_shop = "INSERT INTO Service (shopid,catid) VALUES ($shopid,$catid);";
 		//$result = mysql_query($sql_service_shop,$con);
 		if (mysql_query( $sql_service_shop,$con)) {
-			echo "New record created successfully";
+			echo "<script type='text/javascript'> alert('插入成功');</script>";
 		} else {
-			echo "Error: " .mysql_error($con);
+			echo "<script type='text/javascript'> alert('无法插入，请检查输入信息');</script>";
 		}
 	}

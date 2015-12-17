@@ -5,6 +5,7 @@
 	<title>新增技师</title>
 	<link href="./1210/css/style.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
 <?php
 	require_once "db_func.php";

@@ -27,9 +27,9 @@ $target =  ROOT.'/Applications/MAMP/htdocs/Admin/'.basename($_FILES['pic']['name
 function insert_shop($con,$name,$shopid,$phone,$province,$city,$address,$pic,$opentime,$closetime){
 	$sql_insert_shop = "INSERT INTO Shop (name,shopid,phone,address,pic,opentime,closetime,city,province) VALUES ('".$name ."',".$shopid .",'". $phone ."','" ."$address" ."','" .$pic."','" .$opentime."','".$closetime."','" .$city ."','" .$province ."');";
 	if (mysql_query($sql_insert_shop,$con)) {
-		echo "New record created successfully in sql_massagist" ."<br>";
+		echo "<script type='text/javascript'> alert('插入成功');</script>";
 	} else {
-		echo "Error: " . $sql_insert_shop . "<br>" . mysql_error($con);
+		echo "<script type='text/javascript'> alert('无法插入，请检查输入信息');</script>";
 	}
 }
 

@@ -28,8 +28,6 @@
 
 	function adminlogin($con,$user,$paswd){
 
-
-
 		$sql_paswd = "SELECT password FROM Admin WHERE username = '$user'" ;
 		$result_paswd = mysql_query($sql_paswd,$con);
 
