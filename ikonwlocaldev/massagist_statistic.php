@@ -16,5 +16,12 @@ function basic_statistic($massaid){
 
     $con =DBconnect();
     $result = DBfetchall2($con,"Has_Service",array("sum(amount) as ordernum","sum(money) as money"),array("masaid"=>$massaid));
-    echo json_encode($result);
+    //echo json_encode($result);
+    echo json_encode([
+        'RespCode'=>111111,
+        'RespContent'=>[
+            'Status'=>'Success',
+            'Content'=>$result
+        ]
+    ]);
 }

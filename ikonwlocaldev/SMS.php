@@ -14,7 +14,14 @@ if(isset($_POST["phone"])&&$_POST["phone"]!="null"&&isset($_POST["client"])){
             $_SESSION["client"]="Massagist";
             break;
         default:
-            echo "Wrong client parameter.";
+            //echo "Wrong client parameter.";
+            echo json_encode([
+                'RespCode'=>000003,
+                'RespContent'=>[
+                    'Status'=>'Failed',
+                    'Content'=>'Wrong Client Parameter.'
+                ]
+            ]);
 
 
     }
@@ -37,22 +44,57 @@ if(isset($_POST["phone"])&&$_POST["phone"]!="null"&&isset($_POST["client"])){
     //echo $ucpass->templateSMS($appId,$to,$templateId,$param);
     $result = json_decode($ucpass->templateSMS($appId,$to,$templateId,$param));
     if($result->resp->respCode=="000000"){
-        echo "success";
+        //echo "success";
+        echo json_encode([
+            'RespCode'=>111111,
+            'RespContent'=>[
+                'Status'=>'Success',
+                'Content'=>'Message send to '.$to.' successfully.'
+            ]
+        ]);
     }
-    else echo $result->resp->respCode;
+    else //echo $result->resp->respCode;
+    echo json_encode([
+        'RespCode'=>000005,
+        'RespContent'=>[
+            'Status'=>'Failed',
+            'Content'=>$result->resp->respCode
+        ]
+    ]);
     //var_dump($result);
 }
 
 if(isset($_POST["authnum"])&&$_POST["authnum"]!=""){
     if((int)$_POST["authnum"]==$_SESSION["auth"]){
-        echo "success";
+        //echo "success";
+        echo json_encode([
+            'RespCode'=>111111,
+            'RespContent'=>[
+                'Status'=>'Success',
+                'Content'=>'Auth succeed.'
+            ]
+        ]);
         $_SESSION["auth"]="success";
     }
     else {
-        echo "fail";
+        //echo "fail";
+        echo json_encode([
+            'RespCode'=>000000,
+            'RespContent'=>[
+                'Status'=>'Failed',
+                'Content'=>'Auth Failed'
+            ]
+        ]);
         $t+=1;
         if($t>=3){
-            echo "expired";
+            //echo "expired";
+            echo json_encode([
+                'RespCode'=>000005,
+                'RespContent'=>[
+                    'Status'=>'Failed',
+                    'Content'=>'Code Expired!'
+                ]
+            ]);
             session_destroy();
         }
     }

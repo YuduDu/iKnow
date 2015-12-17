@@ -36,12 +36,27 @@ if(isset($_POST["information"])&&$_POST["information"]!=null){
             }
             $order["servicetime"] = $date." ".$start." - ".$end;
             //unset($order["time"]);
-            echo json_encode($order);
+            //echo json_encode($order);
+            echo json_encode(['RespCode'=>111111,'RespContent'=>['Status'=>'Success','Content'=>$order]]);
         }
-        else echo "Error: No appointment is found. Please Check the Database and appointment function.";
+        //else echo "";
+        else echo json_encode([
+            'RespCode'=>000004,
+            'RespContent'=>[
+                'Status'=>'Failed',
+                'Content'=>'Error: No appointment is found. Please Check the Database and appointment function.'
+            ]
+        ]);
         //else echo json_encode(array("RespCode"=>"000001","Resp"=>"No appointment is found"));
     }
-    else echo "orderdetail Error: wrong massaid";
+    //else echo "orderdetail Error: wrong massaid";
     //else echo json_encode(array("RespCode"=>"000003","Resp"=>"orderdetail Error: wrong massaid"));
+    else echo json_encode([
+        'RespCode'=>000003,
+        'RespContent'=>[
+            'Status'=>'Failed',
+            'Content'=>'orderdetail Error: wrong massaid'
+        ]
+    ]);
 }
 

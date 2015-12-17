@@ -6,7 +6,7 @@
  * Time: 4:58 PM
  */
 require_once "lib/db_func.php";
-require_once "appointment_succ.php";
+require_once "make_appointments.php";
 require_once('stripe-config.php');
 require_once "update.php";
 \Stripe\Stripe::setApiKey("sk_test_pijvVr7Jl5AjrLIymIx2qETk");
@@ -36,6 +36,7 @@ if(isset($_POST['basic_order'])&&$_POST['basic_order']!=NULL)
     $_SESSION['qty'] = 1;
     $_SESSION["level"] = "M";
     $_SESSION['status'] = "UNPAID";
+    $_SESSION['type']=null;
     //$_SESSION['starttime']=null;
 
 
@@ -246,7 +247,7 @@ function placeorder($con){
     $info["massagistname"]=$info["name"];
     unset($info["name"]);
     $test = array_merge($test,$info);
-
+    $_SESSION['shopid']=$test['shopid'];
     //get shopname from "Shop" using Shopid
     $info = DBfetchone2($con,"Shop", array('name'),array("shopid"=>$test['shopid']));
     if($info!=null)

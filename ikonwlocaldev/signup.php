@@ -29,7 +29,14 @@ if(isset($_POST['custompassword'])&&$_POST['custompassword']!=null){
             signup($logger,$id,$pd);
         }
         else {
-            echo "signup denied";
+           // echo "signup denied";
+            echo json_encode([
+                'RespCode'=>000005,
+                'RespContent'=>[
+                    'Status'=>'Failed',
+                    'Content'=>'Sign up Denied, Auth not pass!'
+                ]
+            ]);
             $logger->addError("Signup denied_Phone auth fail",array("phone"=>$_SESSION["phone"]));
         }
 
@@ -51,7 +58,14 @@ function signup($logger,$id,$pd)//working fine
     //$result = DBfetchone($checkid, $con);
     $result = DBfetchone2($con,Customer,array("phone"),array("Phone"=>$id));
     if (!empty($result)) {
-        echo "exist";
+       // echo "exist";
+        echo json_encode([
+            'RespCode'=>000005,
+            'RespContent'=>[
+                'Status'=>'Failed',
+                'Content'=>'Phone number already been signed up.'
+            ]
+        ]);
         $logger->addNotice("Customer phone ".$id." try duplicate signing up.");
     }
     else {
@@ -63,11 +77,25 @@ function signup($logger,$id,$pd)//working fine
         if((string)$return=="false")
         {
 
-            echo 0;
+            //echo 0;
+            echo json_encode([
+                'RespCode'=>000000,
+                'RespContent'=>[
+                    'Status'=>'Failed',
+                    'Content'=>'Sign up Failed, please try again.'
+                ]
+            ]);
             $logger->addNotice("Fail_insert database fail. Customer phone: ".$id);
         }
         else{
-            echo 1;
+            //echo 1;
+            echo json_encode([
+                'RespCode'=>111111,
+                'RespContent'=>[
+                    'Status'=>'Success',
+                    'Content'=>'Sign up succeed!'
+                ]
+            ]);
             $logger->addInfo("Sign up successfully. Customer phone: ".$id);
 
         }

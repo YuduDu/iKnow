@@ -40,7 +40,14 @@ function getMassagistDetail($id){
     unset($Massagist_Info["shopid"]);
     $result =array("massagist_info"=>$Massagist_Info,"shop_info"=>$Shop_Info,"service_list"=>$Service_list_short,"comment_list"=>$Comment_list_short);
 
-    echo json_encode($result);
+    //echo json_encode($result);
+    echo json_encode([
+        'RespCode'=>111111,
+        'RespContent'=>[
+            'Status'=>'Success',
+            'Content'=>$result
+        ]
+    ]);
 }
 
 function getMassagist_info($con,$Info_array,$keypair_array){

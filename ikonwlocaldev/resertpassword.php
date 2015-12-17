@@ -28,10 +28,24 @@ if(isset($_POST['password'])&&$_POST['password']!=null){
             $id = $_SESSION["phone"];
             reset($log,$id,$pd);
         }
-        else echo "reset denied";
+        //else echo "reset denied";
+        echo json_encode([
+            'RespCode'=>000005,
+            'RespContent'=>[
+                'Status'=>'Failed',
+                'Content'=>"Reset Denied, Auth Failed!"
+            ]
+        ]);
 
     }
-    else echo "Error";
+    else //echo "Error";
+        echo json_encode([
+            'RespCode'=>000005,
+            'RespContent'=>[
+                'Status'=>'Failed',
+                'Content'=>"Session Error"
+            ]
+        ]);
     //$id=$_POST['customid'];
 
     //signup($_POST[form]);
@@ -47,11 +61,25 @@ function reset($log,$id,$pd)//working fine
     if(DBupdate($con,$_SESSION["client"],array("password"=>$pd),array("phone"=>$id)))
     {
         $log->addInfo("User with ip ".$_SERVER["REMOTE_ADDR"]." reset the password of massagist ".$id.".");
-        echo 111111;
+        //echo 111111;
+        echo json_encode([
+            'RespCode'=>111111,
+            'RespContent'=>[
+                'Status'=>'Success',
+                'Content'=>'Password reset succeed.'
+            ]
+        ]);
     }
     else {
         $log->addWarn("Fail! User with ip ".$_SERVER["REMOTE_ADDR"]." failed to reset the password of massagist ".$id.".");
-        echo 000000;
+        //echo 000000;
+        echo json_encode([
+            'RespCode'=>000000,
+            'RespContent'=>[
+                'Status'=>'Failed',
+                'Content'=>"Password reset Failed."
+            ]
+        ]);
     }
 
     mysql_close($con);
