@@ -15,39 +15,49 @@
 			.area {
 				margin: 20px auto 0px auto;
 			}
+			
 			.mui-input-group {
 				margin-top: 10px;
 			}
+			
 			.mui-input-group:first-child {
 				margin-top: 20px;
 			}
+			
 			.mui-input-group label {
 				width: 22%;
 			}
+			
 			.mui-input-row label~input,
 			.mui-input-row label~select,
 			.mui-input-row label~textarea {
 				width: 78%;
 			}
+			
 			.mui-checkbox input[type=checkbox],
 			.mui-radio input[type=radio] {
 				top: 6px;
 			}
+			
 			.mui-content-padded {
 				margin-top: 25px;
 			}
+			
 			.mui-btn {
 				padding: 10px;
 			}
+			
 			.link-area {
 				display: block;
 				margin-top: 25px;
 				text-align: center;
 			}
+			
 			.spliter {
 				color: #bbb;
 				padding: 0px 8px;
 			}
+			
 			.oauth-area {
 				position: absolute;
 				bottom: 20px;
@@ -57,6 +67,7 @@
 				padding: 0px;
 				margin: 0px;
 			}
+			
 			.oauth-area .oauth-btn {
 				display: inline-block;
 				width: 50px;
@@ -66,10 +77,10 @@
 				background-repeat: no-repeat;
 				margin: 0px 20px;
 				/*-webkit-filter: grayscale(100%);  */
-				
 				border: solid 1px #ddd;
 				border-radius: 25px;
 			}
+			
 			.oauth-area .oauth-btn:active {
 				border: solid 1px #aaa;
 			}
@@ -85,7 +96,7 @@
 			<form id='login-form' class="mui-input-group">
 				<div class="mui-input-row">
 					<label>手机</label>
-					<input id='account' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号" value"">
+					<input id='account' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号" value "">
 				</div>
 				<div class="mui-input-row">
 					<label>密码</label>
@@ -103,7 +114,7 @@
 				</ul>
 			</form>
 			<div class="mui-content-padded">
-				<button id='login' class="mui-btn mui-btn-block mui-btn-green">登录</button>
+				<button id='login' class="mui-btn mui-btn-block mui-btn-green">登陆</button>
 				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
 				</div>
 			</div>
@@ -123,34 +134,33 @@
 					plus.screen.lockOrientation("portrait-primary");
 					var settings = app.getSettings();
 					var state = app.getState();
-//					var mainPage = $.preload({
-//						"id": 'index',
-//						"url": 'index.html'
-//					});
+					//					var mainPage = $.preload({
+					//						"id": 'index',
+					//						"url": 'index.html'
+					//					});
 					var self = plus.webview.currentWebview();
-					if(self.presetphone){
+					if (self.presetphone) {
 						console.log("hehe");
 						document.getElementById("account").value = self.presetphone;
 						document.getElementById("account").readOnly = 'readonly';
 					};
 					var toMain = function() {
-//						$.fire(mainPage, 'show', null);
-//						setTimeout(function() {
-							mui.openWindow({
-								url:'index.html',
-								id: 'index',
-								show: {
-									autoShow: true, //页面loaded事件发生后自动显示，默认为true
-									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-								},
-								
-								waiting: {
-									autoShow: true, //自动显示等待框，默认为true
-									title: '正在加载...', //等待对话框上显示的提示内容
-								}
-							});
-//						}, 0);
+						//						$.fire(mainPage, 'show', null);
+						//						setTimeout(function() {
+						mui.openWindow({
+							url: 'index.html',
+							id: 'index',
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						});
+						//						}, 0);
 					};
 					if (!mepage) {
 						var mepage = plus.webview.getWebviewById('me.html');
@@ -164,7 +174,7 @@
 					//mui.alert(state.token);
 					//var account = plus.storage.getItem(useraccount);
 					//mui.alert(plus.storage.getLength());
-					if (settings.autoLogin && plus.storage.getLength()) {
+					if (settings.autoLogin && plus.storage.getItem('useraccount')) {
 						toMain();
 					}
 					// close splash
@@ -176,12 +186,12 @@
 					var loginButton = doc.getElementById('login');
 					var accountBox = doc.getElementById('account');
 					var passwordBox = doc.getElementById('password');
-					
 					var autoLoginButton = doc.getElementById("autoLogin");
 					var regButton = doc.getElementById('reg');
 					var forgetButton = doc.getElementById('forgetPassword');
 					loginButton.addEventListener('tap', function(event) {
-
+						document.getElementById("login").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
+						document.getElementById("login").disabled = 'true'
 						var passwordmd5 = md5(passwordBox.value)
 						var newform = JSON.stringify({
 							"phone": accountBox.value,
@@ -197,6 +207,8 @@
 							type: 'post', //HTTP请求类型 
 							timeout: 100000, //超时时间设置为10秒；   
 							success: function(data) {
+								document.getElementById("login").innerHTML = '登陆';
+								document.getElementById("login").removeAttribute('disabled')
 								console.log(data);
 								if (data == 'success') {
 									//localStorage.setItem("useraccount", accountBox.value);
@@ -255,26 +267,24 @@
 							}
 						});
 					}, false);
-					//					forgetButton.addEventListener('tap', function(event) {
-					//						$.openWindow({
-					//							url: 'forget_password.html',
-					//							id: 'forget_password',
-					//							show: {
-					//								autoShow: true, //页面loaded事件发生后自动显示，默认为true
-					//									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-					//									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-					//							},
-					//							styles: {
-					//								popGesture: 'close'
-					//							},
-					//							waiting: {
-					//								autoShow: true, //自动显示等待框，默认为true
-					//									title: '正在加载...', //等待对话框上显示的提示内容
-					//							}
-					//						});
-					//					}, false);
-					//
-					//
+					forgetButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'resetpw.html',
+							id: 'resetpw',
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							styles: {
+								popGesture: 'close'
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						});
+					}, false);
 					var backButtonPress = 0;
 					$.back = function(event) {
 						backButtonPress++;

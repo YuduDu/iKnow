@@ -31,17 +31,8 @@
 						console.log(token.id)
 						// Use the token to create the charge with a server-side script.
 						// You can access the token ID with `token.id`
-						var starttimestring = (plus.storage.getItem("apptyear")+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString();
-						console.log(starttimestring);
-						mui.ajax(url.appointment_succ,{
-							data:{
-								starttime:starttimestring.toString()
-							},
-							type:'post',
-							timeout:10000,
-							success: function(data){
-								console.log(data);
-								mui.ajax(url.order, {
+						
+						mui.ajax(url.order, {
 							data: {
 								submit: token.id,
 							},
@@ -52,7 +43,7 @@
 								console.log(data)
 								if (data != 'success') {
 									plus.nativeUI.toast('支付请求失败，请返回重试');
-									mui.back();
+									//mui.back();
 									return;
 								}
 								if (!orderlistpage) {
@@ -85,54 +76,8 @@
 								plus.nativeUI.toast('支付请求失败，请返回重试');
 									mui.back();
 							}
-						});
-							}
-						})
-						
-//						mui.ajax(url.order, {
-//							data: {
-//								submit: token.id,
-//							},
-//							//dataType: 'json', //服务器返回json格式数据
-//							type: 'post', //HTTP请求类型
-//							timeout: 10000, //超时时间设置为10秒；
-//							success: function(data) {
-//								console.log(data)
-//								if (data != 'success') {
-//									plus.nativeUI.toast('支付请求失败，请返回重试');
-//									mui.back();
-//									return;
-//								}
-//								if (!orderlistpage) {
-//									var orderlistpage = plus.webview.getWebviewById('orderslist.html');
-//								}
-//								mui.fire(orderlistpage, 'refreshme', {});
-//								console.log('refreshed')
-//									//服务器返回响应，根据响应结果，分析是否登录成功；
-//								mui.openWindow({
-//									id: 'paymentsuccess',
-//									url: "PaymentSuccess.html",
-//									styles: {
-//										popGesture: 'close'
-//									},
-//									show: {
-//										autoShow: true, //页面loaded事件发生后自动显示，默认为true
-//										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-//										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-//									},
-//									waiting: {
-//										autoShow: true, //自动显示等待框，默认为true
-//										title: '正在加载...', //等待对话框上显示的提示内容
-//									}
-//								});
-//							},
-//							error: function(xhr, type, errorThrown) {
-//								//异常处理；
-//								console.log(errorThrown);
-//								plus.nativeUI.toast('支付请求失败，请返回重试');
-//									mui.back();
-//							}
-//						});
+						});//
+
 					}
 				});
 				document.getElementById("orderbtn").addEventListener('tap', function(e) {
@@ -232,6 +177,9 @@
 						waiting: {
 							autoShow: true, //自动显示等待框，默认为true
 							title: '正在加载...', //等待对话框上显示的提示内容
+						},
+						extras:{
+							serviceid: self.serviceid
 						}
 					});
 				});
@@ -261,12 +209,17 @@
 					}
 //										document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
 
-					massanametemp = plus.storage.getItem("order_massaname")
+					massanametemp = plus.storage.getItem("order_massaname");
+					var starttimestring = (plus.storage.getItem("apptyear")+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString();
+						console.log(starttimestring);
 					var newform = JSON.stringify({
 						"massaid": plus.storage.getItem("order_massaid"),
 						"qty": plus.storage.getItem("order_qty"),
+						"type": "visiting",
+						"address": plus.storage.getItem("address"),
+						"time":starttimestring
 					});
-					console.log("massaid:" + plus.storage.getItem("order_massaid") + "qty:" + plus.storage.getItem("order_qty"));
+					console.log(JSON.stringify(newform));
 					mui.ajax(url.order, {
 						data: {
 							order: newform

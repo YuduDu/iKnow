@@ -18,16 +18,19 @@
 			});
 			mui.plusReady(function(){
 				var self = plus.webview.currentWebview();
+				var currentcity = plus.storage.getItem('currentcity');
+				var location = '{"city":"'+currentcity+'"}';
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_massagist_list',
-						pagenum:'1'
+						pagenum:'1',
+						location: location
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						console.log(data);
-						//this.obj = JSON.parse(data);
+						this.obj = JSON.parse(data);
 						//plus.geolocation.getCurrentPosition(function(p) {
 							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 							for  (item in obj ){
@@ -66,6 +69,7 @@
 						data: {
 							action: 'get_massagist_list',
 							pagenum: pagenum,
+							location: location
 						},
 						type: 'post', //HTTP请求类型 
 						timeout: 100000, //超时时间设置为10秒；

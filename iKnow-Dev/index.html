@@ -32,7 +32,6 @@
 					}
 					self.append(sub);
 				}
-				
 				var backButtonPress = 0;
 					mui.back = function(event) {
 						backButtonPress++;
@@ -49,9 +48,12 @@
 					
 				var citiesoption = template('cityoptions', citylist);
 				document.getElementById('city').innerHTML = citiesoption;
-				
+				plus.storage.setItem('currentcity','北京市');
+				var homelist = plus.webview.getWebviewById('homelist.html');
 				document.getElementById("city").addEventListener('change',function(){
-					console.log(this.value)
+					console.log(this.value);
+					plus.storage.setItem('currentcity',this.value);
+					homelist.reload()
 				})
 				
 			}

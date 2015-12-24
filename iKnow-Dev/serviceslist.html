@@ -28,10 +28,13 @@
 					categoryidvalue = "null";
 				}
 				console.log('actionvalue' + actionvalue);
-				console.log('categoryid' + categoryidvalue)
+				console.log('categoryid' + categoryidvalue);
+				var currentcity = plus.storage.getItem('currentcity');
+				var location = '{"city":"'+currentcity+'"}';
 				mui.ajax(url.list, {
 					data: {
 						action: actionvalue,
+						location: location,
 						categoryid: categoryidvalue,
 						pagenum:'1'
 					},
@@ -90,6 +93,7 @@
 						data: {
 							action: 'get_services_list',
 							categoryid: category,
+							location: location,
 							pagenum: pagenum,
 						},
 						type: 'post', //HTTP请求类型 

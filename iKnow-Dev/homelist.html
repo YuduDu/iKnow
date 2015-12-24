@@ -16,10 +16,12 @@
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
+				var currentcity = plus.storage.getItem('currentcity');
+				var location = '{"city":"'+currentcity+'"}';
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_recommand_service',
-						location:'{"city":"北京市","province":"北京市"}'
+						location: location
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
@@ -40,7 +42,7 @@
 								mui.ajax(url.list, {
 									data: {
 										action: 'get_recommand_news',
-										location: '{"city":"北京市","province":"北京市"}'
+										location: location
 										
 									},
 									type: 'post', //HTTP请求类型 
@@ -56,6 +58,7 @@
 									},
 									error: function(xhr, type, errorThrown) {
 										//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+										console.log("hhh");
 										console.log(type);
 										console.log(JSON.stringify(xhr));
 									}
@@ -63,7 +66,7 @@
 								mui.ajax(url.list, {
 									data: {
 										action: 'get_recommand_massagist',
-										location:'{"city":"北京市","province":"北京市"}'
+										location:location
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  
@@ -183,8 +186,6 @@
 								//Post2Template(url.list, 'get_recommand_massagist', 'massagistslist', 'massagist');
 								plus.nativeUI.alert('定位失败，请确认身知道的定位权限开启');
 								for (item in obj) {
-									var point2lat = eval(obj[item].latitude);
-									var point2long = eval(obj[item].longtitude);
 									obj[item].distance = 'null';
 								}
 								var html = template('serviceslist', {
@@ -193,11 +194,13 @@
 								document.getElementById('Services').innerHTML = html;
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_news'
+										action: 'get_recommand_news',
+										location: location
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  
 									success: function(data) {
+										console.log("news");
 										console.log(data);
 										var obj = JSON.parse(data);
 										var html = template('slidetemplate', {
@@ -213,6 +216,29 @@
 										console.log(JSON.stringify(xhr));
 									}
 								});
+								
+								document.getElementById("servicecategorybtn").addEventListener('tap', function() {
+									mui.openWindow({
+										url: 'servicecategory.html',
+										id: 'servicecategory',
+										extras: {
+											mylatitude: 'null',
+											mylongtitude: 'null'
+										},
+										styles: {
+											popGesture: 'close'
+										},
+										show: {
+											autoShow: true, //页面loaded事件发生后自动显示，默认为true
+											aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+											duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+										},
+										waiting: {
+											autoShow: true, //自动显示等待框，默认为true
+											title: '正在加载...', //等待对话框上显示的提示内容
+										}
+									})
+								})
 								mui('#homecategory').on('tap', 'li', function() {
 									mui.openWindow({
 										url: 'serviceslist.html',
@@ -238,7 +264,8 @@
 								})
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_massagist'
+										action: 'get_recommand_massagist',
+										location: location
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  

@@ -93,6 +93,8 @@
 					var passwordBox = doc.getElementById('password');
 					var passwordConfirmBox = doc.getElementById('password_confirm');
 					regButton.addEventListener('tap', function(event) {
+						regButton.innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
+						regButton.disabled = 'true'
 						var passwordmd5 = md5(passwordConfirmBox.value);
 						if (passwordConfirmBox.value != passwordBox.value) {
 							plus.nativeUI.toast('密码两次输入不一致');
@@ -105,6 +107,8 @@
 							type: 'post', //HTTP请求类型 
 							timeout: 100000, //超时时间设置为10秒；   
 							success: function(data) {
+								regButton.innerHTML = '确认';
+								regButton.removeAttribute('disabled')
 								console.log(data);
 								if (data == 1) {
 									plus.nativeUI.toast('注册成功');

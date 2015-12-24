@@ -87,6 +87,8 @@
 					var reg2Button = doc.getElementById('reg2')
 					var accountBox = doc.getElementById('account');
 					regButton.addEventListener('tap', function(event) {
+						regButton.innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
+						regButton.disabled = 'true'
 						console.log('press1')
 						//发送短信
 						mui.ajax(url.sms, {
@@ -98,6 +100,8 @@
 							timeout: 100000, //超时时间设置为10秒；
 							success: function(data) {
 								//服务器返回响应，根据响应结果，分析是否登录成功；
+								regButton.innerHTML = '验证手机号';
+								regButton.removeAttribute('disabled')
 								console.log("3");
 								console.log(data);
 								if (data == 'success') {
@@ -108,6 +112,8 @@
 									plus.nativeUI.toast('请等待验证短信并将4位验证码输入验证框');
 									//已成功发送短信，等待用户输入验证码提交
 									reg2Button.addEventListener('tap', function(event) {
+										reg2Button.innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
+										reg2Button.disabled = 'true'
 										var phoneverifyBox = doc.getElementById('phoneverify');
 										//验证手机验证码
 										console.log(phoneverifyBox.value);
@@ -118,6 +124,8 @@
 											type: 'post', //HTTP请求类型
 											timeout: 100000, //超时时间设置为10秒；
 											success: function(data) {
+												reg2Button.innerHTML = '提交';
+												reg2Button.removeAttribute('disabled')
 												//服务器返回响应，根据响应结果，分析是否登录成功；
 												if (data == 'success') {
 													//如果验证码正确，则进入主页
