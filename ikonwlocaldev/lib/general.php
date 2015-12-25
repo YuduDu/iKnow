@@ -6,30 +6,30 @@
  * Time: 2:59 PM
  */
 
-function check_attribute($attributes,$location){
-    switch($location){
-        case "post":{
-            foreach($attributes as $attribute){
-                if(isset($_POST[$attribute])&&$_POST[$attribute]!=null){
+function check_attribute($attributes, $location)
+{
+    switch ($location) {
+        case "post": {
+            foreach ($attributes as $attribute) {
+                if (isset($_POST[$attribute]) && $_POST[$attribute] != null) {
                     continue;
-                }
-                else return false;
+                } else return false;
             }
             return true;
             break;
         }
-        case "session":{
-            foreach($attributes as $attribute){
-                if(isset($_SESSION[$attribute])&&$_SESSION[$attribute]!=null){
+        case "session": {
+            foreach ($attributes as $attribute) {
+                if (isset($_SESSION[$attribute]) && $_SESSION[$attribute] != null) {
                     continue;
-                }
-                else return false;
+                } else return false;
             }
             return true;
             break;
         }
-        default: return false;
-        break;
+        default:
+            return false;
+            break;
 
 
     }

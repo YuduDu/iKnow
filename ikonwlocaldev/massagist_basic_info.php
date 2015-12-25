@@ -8,18 +8,19 @@
 require_once "lib/db_func.php";
 
 
-if(isset($_POST["massaid"])&&$_POST["massaid"]!=null){
+if (isset($_POST["massaid"]) && $_POST["massaid"] != null) {
 
     basic_information($_POST["massaid"]);
 }
 
-function basic_information($massaid){
+function basic_information($massaid)
+{
     $con = DBconnect();
-    $result = DBfetchone2($con,"MassagistDetail",array("pic","name","shopid","intro","stars"),array("phone"=>$massaid));
-    $shopname = DBfetchone2($con,"Shop",array("name"),array("shopid"=>$result["shopid"]));
-    $result["shopname"]=$shopname["name"];
+    $result = DBfetchone2($con, "MassagistDetail", array("pic", "name", "shopid", "intro", "stars"), array("phone" => $massaid));
+    $shopname = DBfetchone2($con, "Shop", array("name"), array("shopid" => $result["shopid"]));
+    $result["shopname"] = $shopname["name"];
     unset($result["shopid"]);
 
     //echo json_encode($result);
-    echo json_encode(['RespCode'=>'111111','RespContent'=>['Status'=>'Success','Content'=>$result]]);
+    echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $result]]);
 }

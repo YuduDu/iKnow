@@ -20,33 +20,31 @@ use Monolog\Handler\StreamHandler;
 //$new_amount = 0;
 //updateServiceAmount($massaid,$serviceid);
 
-function updateServiceAmount($massaid, $serviceid){
+function updateServiceAmount($massaid, $serviceid)
+{
     $con = DBconnect();
 
-    $log=new Logger("Database_info");
-    $log->pushHandler(new StreamHandler("Log/Database/".date("Y-m-d",time())."/Alert.log",Logger::INFO));
+    $log = new Logger("Database_info");
+    $log->pushHandler(new StreamHandler("Log/Database/" . date("Y-m-d", time()) . "/Alert.log", Logger::INFO));
 
-    if($result = DBupdate($con,"Has_Service",array("amount"=>"amount+1"),array("masaid"=>$massaid,"serviceid"=>$serviceid),"and"))
-    {
+    if ($result = DBupdate($con, "Has_Service", array("amount" => "amount+1"), array("masaid" => $massaid, "serviceid" => $serviceid), "and")) {
         return true;
-    }
-    else {
-        $log->addAlert("User with ip ".$_SERVER["REMOTE_ADDR"]."ordered service :".$serviceid.", update massagist :".$massaid." 's service amount failed");
+    } else {
+        $log->addAlert("User with ip " . $_SERVER["REMOTE_ADDR"] . "ordered service :" . $serviceid . ", update massagist :" . $massaid . " 's service amount failed");
         return false;
     }
 }
 
-function updateCommentAmount($massaid, $serviceid){
+function updateCommentAmount($massaid, $serviceid)
+{
     $con = DBconnect();
-    $log=new Logger("Database_info");
-    $log->pushHandler(new StreamHandler("Log/Database/".date("Y-m-d",time())."/Alert.log",Logger::INFO));
+    $log = new Logger("Database_info");
+    $log->pushHandler(new StreamHandler("Log/Database/" . date("Y-m-d", time()) . "/Alert.log", Logger::INFO));
 
-    if($result = DBupdate($con,"Has_Service",array("comment_sum"=>"comment_sum+1"),array("masaid"=>$massaid,"serviceid"=>$serviceid),"and"))
-    {
+    if ($result = DBupdate($con, "Has_Service", array("comment_sum" => "comment_sum+1"), array("masaid" => $massaid, "serviceid" => $serviceid), "and")) {
         return true;
-    }
-    else {
-        $log->addAlert("User with ip ".$_SERVER["REMOTE_ADDR"]." failed to make comment for  service :".$serviceid.", with massagist :".$massaid." !");
+    } else {
+        $log->addAlert("User with ip " . $_SERVER["REMOTE_ADDR"] . " failed to make comment for  service :" . $serviceid . ", with massagist :" . $massaid . " !");
         return false;
     }
 }
