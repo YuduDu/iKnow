@@ -94,6 +94,7 @@
 					success: function(data) {
 						this.obj = JSON.parse(data);
 						console.log(data);
+						document.getElementById("orderbtn").className = 'mui-btn mui-btn-negative mui-pull-right'
 						document.getElementById("servicename").innerHTML = self.servicename;
 						document.getElementById("shortdesc").innerHTML = obj.shortdesc;
 						document.getElementById("price").innerHTML = "￥" + obj.price;
@@ -220,7 +221,7 @@
 			</div>
 			<div style="background-color: #ffffff; height:60px;position:relative;top:20px">
 				<span style="line-height:60px;font-size:28px;color:#ff9900;margin-left:15px" id="price">￥</span>
-				<a id="orderbtn" class="mui-btn mui-btn-negative mui-pull-right" style="margin:14px 0 14px 0;right:15px">立即预定</a>
+				<a id="orderbtn" class="mui-btn mui-btn-negative mui-pull-right mui-disabled" style="margin:14px 0 14px 0;right:15px">立即预定</a>
 			</div>
 			<div style="background-color: #ffffff; height:60px;position:relative;top:35px;margin-left:10px;margin-right:10px">
 				<p style="font-size:20px;color:#56abe4;line-height: 60px;padding-left: 15px;">服务功效</p>

@@ -148,7 +148,8 @@
 					timeout: 100000, //超时时间设置为10秒；   
 					success: function(data) {
 						console.log(data)
-						this.malist = JSON.parse(data)
+						this.malist = JSON.parse(data);
+						document.getElementById("stripebtn").className = 'mui-btn mui-btn-negative'
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log("error3");
@@ -296,7 +297,7 @@
 			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="phonespan"></span>
 		</div>
 
-		<div id="orderbtn" style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:135px;height:40px;line-height: 25px;background-color: #3498db;border-color:#3498db;"><span style="font-weight:bold;font-size:18px;">stripe</span> 安全支付</a></div>
+		<div id="orderbtn" style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a id="stripebtn" class="mui-btn mui-btn-negative mui-disabled" style="width:135px;height:40px;line-height: 25px;background-color: #3498db;border-color:#3498db;"><span style="font-weight:bold;font-size:18px;">stripe</span> 安全支付</a></div>
 
 		<script>
 			//更换标题
