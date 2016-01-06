@@ -21,7 +21,7 @@ if (isset($_POST['action']) && $_POST['action'] != "") {
             } else getnews($log);
             break;
         }
-        case 'get_recommand_service': {
+        case 'get_recommend_service': {
 
             $log = new Logger("services_info");
             $log->pushHandler(new StreamHandler("Log/customer/Info/services/" . date("Y-m-d", time()) . ".log", Logger::INFO));
@@ -31,12 +31,12 @@ if (isset($_POST['action']) && $_POST['action'] != "") {
                 //var_dump($_POST['location']);
                 $location = (array)json_decode($_POST['location']);
                 //var_dump($location);
-                recommand_service($log, $location);
+                recommend_service($log, $location);
             } //else echo "Error: no location";
             else echo json_encode(["RespCode" => "000002", 'RespContent' => ['Status' => 'Error', 'Content' => 'No location!']]);
             break;
         }
-        case 'get_recommand_massagist': {
+        case 'get_recommend_massagist': {
 
             $log = new Logger("massagist_info");
             $log->pushHandler(new StreamHandler("Log/customer/Info/massagist/" . date("Y-m-d", time()) . ".log", Logger::INFO));
@@ -45,13 +45,13 @@ if (isset($_POST['action']) && $_POST['action'] != "") {
             if (isset($_POST["location"]) && $_POST['location'] != null) {
                 //var_dump($_POST['location']);
                 $location = (array)json_decode($_POST['location']);
-                recommand_massagesit($log, $location);
+                recommend_massagesit($log, $location);
             } //else echo "Error: no location";
             else echo json_encode(["RespCode" => "000002", 'RespContent' => ['Status' => 'Error', 'Content' => 'No location!']]);
             break;
 
         }
-        case 'get_recommand_news': {
+        case 'get_recommend_news': {
 
             $log = new Logger("news_info");
             $log->pushHandler(new StreamHandler("Log/customer/Info/news/" . date("Y-m-d", time()) . ".log", Logger::INFO));
@@ -60,8 +60,8 @@ if (isset($_POST['action']) && $_POST['action'] != "") {
             if (isset($_POST["location"]) && $_POST['location'] != null) {
                 $location = (array)json_decode($_POST['location']);
                 if (!isset($_POST['id'])) {
-                    recommand_news($log, $location);
-                } else recommand_news($log, $location, $_POST['id']);
+                    recommend_news($log, $location);
+                } else recommend_news($log, $location, $_POST['id']);
             }//else echo "Error: no location";
             else echo json_encode(["RespCode" => "000002", 'RespContent' => ['Status' => 'Error', 'Content' => 'No location!']]);
             break;
@@ -153,20 +153,20 @@ function getorderlist($log, $customid = null, $pagenum = null)
         if ($listinfo != null) {
             $log->addInfo("User with ip " . $_SERVER["REMOTE_ADDR"] . "get orders list of customer " . $customid . " on page " . $pagenum . ".");
         } else {
-            $log->addWarnning("Failed! User with ip " . $_SERVER["REMOTE_ADDR"] . "tried to get orders list of customer " . $customid . " on page " . $pagenum . ".");
+            $log->addWarning("Failed! User with ip " . $_SERVER["REMOTE_ADDR"] . "tried to get orders list of customer " . $customid . " on page " . $pagenum . ".");
         }
     } else $listinfo = DBfetchall2($con, "Order", array('orderid', 'servicename', 'shopid', 'shopname', 'status', 'unitprice'), array("customerid" => $customid));
     //var_dump($listinfo);
     if ($listinfo != null) {
         $log->addInfo("User with ip " . $_SERVER["REMOTE_ADDR"] . "get orders list of customer " . $customid . ".");
     } else {
-        $log->addWarnning("Failed! User with ip " . $_SERVER["REMOTE_ADDR"] . "tried to get orders list of customer " . $customid . ".");
+        $log->addWarning("Failed! User with ip " . $_SERVER["REMOTE_ADDR"] . "tried to get orders list of customer " . $customid . ".");
     }
     $list = array();
     foreach ($listinfo as $item) {
         $pic = DBfetchone2($con, "Shop", array("pic"), array("shopid" => $item['shopid']));
         if ($pic == null) {
-            $log->addWarnning("Failed! User with ip " . $_SERVER["REMOTE_ADDR"] . "tried to get pic of shop " . $item['shopid'] . ".");
+            $log->addWarning("Failed! User with ip " . $_SERVER["REMOTE_ADDR"] . "tried to get pic of shop " . $item['shopid'] . ".");
         }
         $item = array_merge($item, $pic);
         unset($item['shopid']);
@@ -177,7 +177,7 @@ function getorderlist($log, $customid = null, $pagenum = null)
 
 }
 
-function recommand_news($log, $location, $id = null)
+function recommend_news($log, $location, $id = null)
 {
     //var_dump(is_int($id));
     $con = DBconnect();
@@ -185,9 +185,9 @@ function recommand_news($log, $location, $id = null)
         //$query = "SELECT * FROM Recommand_news WHERE id = ".$id.";";
         $result = DBfetchone2($con, 'Recommand_news', array('*'), array('id' => $id));
         if ($result == null) {
-            $log->addWarnning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommanded new with id " . $id . ".");
+            $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommended new with id " . $id . ".");
         } else {
-            $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get recommanded new with id " . $id . ".");
+            $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get recommended new with id " . $id . ".");
         }
         //echo json_encode($result);
         echo json_encode(["RespCode" => "111111", 'RespContent' => ['Status' => 'Success', 'Content' => $result]]);
@@ -195,9 +195,9 @@ function recommand_news($log, $location, $id = null)
         //$query = "SELECT id, title, pic FROM Recommand_news";
         $result = DBfetchall2($con, 'Recommand_news', array('id', 'title', 'pic'), $location);
         if ($result == null) {
-            $log->addWarnning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommanded news list.");
+            $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommended news list.");
         } else {
-            $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get recommanded news list.");
+            $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get recommended news list.");
         }
         //echo json_encode($result);
         echo json_encode(["RespCode" => "111111", 'RespContent' => ['Status' => 'Success', 'Content' => $result]]);
@@ -255,7 +255,7 @@ function getserviceslist($log, $location, $categoryid = null, $massaid = null, $
         }
         $Arr = DBfetchall($joinquery, $con);//$Arr = getserviceslistinfo_by_basicinfo($result,$con);
         if ($Arr == null) {
-            $log->addWarnning($warn);
+            $log->addWarning($warn);
         } else {
             $log->addInfo($info);
         }
@@ -274,7 +274,7 @@ function getserviceslist($log, $location, $categoryid = null, $massaid = null, $
         //$Arr =getserviceslistinfo_by_basicinfo($getservice,$con);
         $Arr = DBfetchall($joinquery, $con);
         if ($Arr == null) {
-            $log->addWarnning("Fail! User with ip " . $_SERVER['REMOTE_ADDR'] . "tried to get services list of all at location " . $location["city"] . ".");
+            $log->addWarning("Fail! User with ip " . $_SERVER['REMOTE_ADDR'] . "tried to get services list of all at location " . $location["city"] . ".");
         } else {
             $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . "get services list of all at location " . $location["city"] . ".");
         }
@@ -298,7 +298,7 @@ function getserviceslist($log, $location, $categoryid = null, $massaid = null, $
         }
 
         if ($Arr == null) {
-            $log->addWarnning("Fail! User with ip " . $_SERVER['REMOTE_ADDR'] . "tried to get services list of massagist " . $massaid . " at location " . $location["city"] . ".");
+            $log->addWarning("Fail! User with ip " . $_SERVER['REMOTE_ADDR'] . "tried to get services list of massagist " . $massaid . " at location " . $location["city"] . ".");
         } else {
             $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . "get services list of massagist " . $massaid . " at location " . $location["city"] . ".");
         }
@@ -324,14 +324,14 @@ function getnews($log, $pagenum = null)
     if ($pagenum != null) {
         $result = DBfetchall2($con, "news", array("*"), null, null, "order by id desc limit " . $start . "," . $perpagenum_news);
         if ($result == null) {
-            $log->addWarnning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get news list of page " . $pagenum . ".");
+            $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get news list of page " . $pagenum . ".");
         } else {
             $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get news list of page " . $pagenum . ".");
         }
     } else {
         $result = DBfetchall2($con, "news", array("*"));
         if ($result == null) {
-            $log->addWarnning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get news list of all. ");
+            $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get news list of all. ");
         } else {
             $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get news list of all. ");
         }
@@ -348,30 +348,30 @@ function getnews($log, $pagenum = null)
     echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $Arr]]);
 }
 
-function recommand_service($log, $location)
+function recommend_service($log, $location)
 {
     $con = DBconnect();
     //var_dump($location);
     //$getservice = DBfetchall("SELECT serviceid, shopname, servicename, price, pic, latitude, longtitude FROM Recommand_service",$con);
     $getservice = DBfetchall2($con, 'Recommand_service', array("serviceid", "shopname", "servicename", "price", "pic", "latitude", "longtitude"), (array)$location);
     if ($getservice == null) {
-        $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommanded services list at " . $location["city"] . ".");
+        $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommended services list at " . $location["city"] . ".");
     } else {
-        $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . "get recommanded services list at " . $location["city"] . ".");
+        $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . "get recommended services list at " . $location["city"] . ".");
     }
     //echo json_encode($getservice);
     echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $getservice]]);
 }
 
-function recommand_massagesit($log, $location)
+function recommend_massagesit($log, $location)
 {
     $con = DBconnect();
     //$result = DBfetchall("SELECT massagistid,shopname,name,stars,intro,pic,latitude,longtitude FROM Recommand_massagist",$con);
     $result = DBfetchall2($con, "Recommand_massagist", array("massagistid", "shopname", "name", "stars", "intro", "pic", "latitude", "longtitude"), (array)$location);
     if ($result == null) {
-        $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommanded Massagists list at " . $location["city"] . ".");
+        $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get recommended Massagists list at " . $location["city"] . ".");
     } else {
-        $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . "get recommanded Massagists list at " . $location["city"] . ".");
+        $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . "get recommended Massagists list at " . $location["city"] . ".");
     }
     //echo json_encode($result);
     echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $result]]);
@@ -389,14 +389,14 @@ function getmassagistlist($log, $location, $pagenum = null)
     if ($pagenum != null) {
         $result = DBfetchall2($con, "MassagistDetail", array("shopid", "phone", "name", "stars", "intro", "pic"), (array)$location,"","limit " . $start . "," . $perpagenum_massagist);
         if ($result == null) {
-            $log->addWarnning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get Massagists list of page " . $pagenum . " at location " . $location["city"] . ".");
+            $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get Massagists list of page " . $pagenum . " at location " . $location["city"] . ".");
         } else {
             $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get Massagists list of page " . $pagenum . " at location " . $location["city"] . ".");
         }
     } else {
         $result = DBfetchall2($con, "MassagistDetail", array("shopid", "phone", "name", "stars", "intro", "pic"), (array)$location);
         if ($result == null) {
-            $log->addWarnning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get massagists list of all at location " . $location["city"] . ".");
+            $log->addWarning("Failed! User with ip " . $_SERVER['REMOTE_ADDR'] . " tried to get massagists list of all at location " . $location["city"] . ".");
         } else {
             $log->addInfo("User with ip " . $_SERVER['REMOTE_ADDR'] . " get massagists list of all at location " . $location["city"] . ".");
         }

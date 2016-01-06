@@ -35,7 +35,7 @@ if (isset($_POST["information"]) && $_POST["information"] != null) {
         $order = array_merge($order, $pic);
         // echo json_encode($order);
         echo json_encode([
-            'RespCode' => 111111,
+            'RespCode' => '111111',
             'RespContent' => [
                 'Status' => 'Success',
                 'Content' => $order
@@ -45,9 +45,9 @@ if (isset($_POST["information"]) && $_POST["information"] != null) {
     } else {
         // echo "orderdetail Error: wrong customerid";
         echo json_encode([
-            'RespCode' => 000002,
+            'RespCode' => '000002',
             'RespContent' => [
-                'Status' => 'Success',
+                'Status' => 'Error',
                 'Content' => "orderdetail Error: Wrong Customerid!"
             ]
         ]);

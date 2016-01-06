@@ -35,8 +35,9 @@ if (isset($_POST['basic_order']) && $_POST['basic_order'] != NULL) {
     $_SESSION["level"] = "M";
     $_SESSION['status'] = "UNPAID";
     $_SESSION['type'] = null;
+    $_SESSION['orderid'] = null;
+    $_SESSION['shopid'] = null;
     //$_SESSION['starttime']=null;
-
 
     $basic_order_parameter = json_decode($_POST['basic_order']);
     foreach ($basic_order_parameter as $key => $val) {
@@ -108,7 +109,7 @@ if (isset($_POST['submit']) && $_POST['submit'] != null) {
             //echo "begin charge: ";
             charge($log, $token, $con);
         } //else echo $result;
-        else echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $result]]);
+        else echo json_encode(['RespCode' => '000000', 'RespContent' => ['Status' => 'Failed', 'Content' => $result]]);
     } //else echo "Place order wrong!";
     else echo json_encode(['RespCode' => '000000', 'RespContent' => ['Status' => 'Failed', 'Content' => "Place Order Wrong!"]]);
     //else echo "000000";
@@ -230,14 +231,12 @@ function placeorder($con)
     unset($test["time"]);
     unset($test["type"]);
     unset($test["address"]);
+    unset($test["orderid"]);
+    unset($test["shopid"]);
     //get order time
     $time = date("Y-m-d H:i:s", time());
     //echo $time;
     $test["time"] = $time;
-    //unset starttime setted in appointment function
-    unset($test["starttime"]);
-    unset($test["duration"]);
-    unset($test["endtime"]);
     //get shopid and massagistname from MassagistDetail using massaid
     $info = DBfetchone2($con, "MassagistDetail", array('shopid', 'name'), array("phone" => $test['massaid']));
     if ($info != null) {
@@ -309,7 +308,7 @@ function logging()
     $tmp = $GLOBALS["detail_log_info"];
 
     foreach ($tmp as $log) {
-        var_dump($log);
+        //var_dump($log);
         //$tmp1 = $log["type"];
         //var_dump($tmp1);
         switch ($log["type"]) {

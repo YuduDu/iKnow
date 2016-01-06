@@ -18,11 +18,17 @@ function basic_statistic($massaid)
     $con = DBconnect();
     $result = DBfetchall2($con, "Has_Service", array("sum(amount) as ordernum", "sum(money) as money"), array("masaid" => $massaid));
     //echo json_encode($result);
-    echo json_encode([
-        'RespCode' => 111111,
-        'RespContent' => [
-            'Status' => 'Success',
-            'Content' => $result
-        ]
-    ]);
+    if($result != null)
+    {
+        echo json_encode([
+            'RespCode' => 111111,
+            'RespContent' => [
+                'Status' => 'Success',
+                'Content' => $result
+            ]
+        ]);
+    }
+    else{
+        echo json_encode(['RespCode' => '000004', 'RespContent' => ['Status' => 'Error', 'Content' => "Make sure the massaid is right. Something Wrong when get information from MassagistDetail table. no data return."]]);
+    }
 }

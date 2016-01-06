@@ -17,10 +17,21 @@ function basic_information($massaid)
 {
     $con = DBconnect();
     $result = DBfetchone2($con, "MassagistDetail", array("pic", "name", "shopid", "intro", "stars"), array("phone" => $massaid));
-    $shopname = DBfetchone2($con, "Shop", array("name"), array("shopid" => $result["shopid"]));
-    $result["shopname"] = $shopname["name"];
-    unset($result["shopid"]);
+    if($result!=null)
+    {
+        $shopname = DBfetchone2($con, "Shop", array("name"), array("shopid" => $result["shopid"]));
+        if($shopname!=nul)
+        {
+            $result["shopname"] = $shopname["name"];
+            unset($result["shopid"]);
+            echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $result]]);
+        }
+        else{
+            echo json_encode(['RespCode' => '000004', 'RespContent' => ['Status' => 'Error', 'Content' => "Something Wrong when get shop name from Shop table. no data return."]]);
+        }
+    }
+    else{
+        echo json_encode(['RespCode' => '000004', 'RespContent' => ['Status' => 'Error', 'Content' => "Something Wrong when get information from MassagistDetail table. no data return.Make sure the massaid is right."]]);
+    }
 
-    //echo json_encode($result);
-    echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $result]]);
 }

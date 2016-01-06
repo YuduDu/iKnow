@@ -16,7 +16,7 @@ if (isset($_POST["phone"]) && $_POST["phone"] != "null" && isset($_POST["client"
         default:
             //echo "Wrong client parameter.";
             echo json_encode([
-                'RespCode' => 000003,
+                'RespCode' => '000003',
                 'RespContent' => [
                     'Status' => 'Failed',
                     'Content' => 'Wrong Client Parameter.'
@@ -54,7 +54,7 @@ if (isset($_POST["phone"]) && $_POST["phone"] != "null" && isset($_POST["client"
         ]);
     } else //echo $result->resp->respCode;
         echo json_encode([
-            'RespCode' => 000005,
+            'RespCode' => '000005',
             'RespContent' => [
                 'Status' => 'Failed',
                 'Content' => $result->resp->respCode
@@ -67,7 +67,7 @@ if (isset($_POST["authnum"]) && $_POST["authnum"] != "") {
     if ((int)$_POST["authnum"] == $_SESSION["auth"]) {
         //echo "success";
         echo json_encode([
-            'RespCode' => 111111,
+            'RespCode' => '111111',
             'RespContent' => [
                 'Status' => 'Success',
                 'Content' => 'Auth succeed.'
@@ -77,7 +77,7 @@ if (isset($_POST["authnum"]) && $_POST["authnum"] != "") {
     } else {
         //echo "fail";
         echo json_encode([
-            'RespCode' => 000000,
+            'RespCode' => '000000',
             'RespContent' => [
                 'Status' => 'Failed',
                 'Content' => 'Auth Failed'
@@ -87,7 +87,7 @@ if (isset($_POST["authnum"]) && $_POST["authnum"] != "") {
         if ($t >= 3) {
             //echo "expired";
             echo json_encode([
-                'RespCode' => 000005,
+                'RespCode' => '000005',
                 'RespContent' => [
                     'Status' => 'Failed',
                     'Content' => 'Code Expired!'

@@ -16,10 +16,10 @@ if (isset($_POST["information"]) && $_POST["information"] != null) {
     //var_dump($order);
     if ($order["massaid"] == $info["massaid"]) {
         //$pic = DBfetchone2($con, "Shop", array("pic"), array("shopid" => $order['shopid']));
-        $time = DBfetchone2($con, "massagist_appt", array("start", "end"), array("orderid" => $info["orderid"]));
+        $time = DBfetchone2($con, "massagist_appt", array("service_start", "service_end"), array("orderid" => $info["orderid"]));
         if ($time) {
-            $starttime = strtotime($time["start"]);
-            $endtime = strtotime($time["end"]);
+            $starttime = strtotime($time["service_start"]);
+            $endtime = strtotime($time["service_end"]);
             $startdate = date('m/d/y', $starttime);
             $enddate = date('m/d/y', $endtime);
             if ($startdate == $enddate) {
@@ -35,10 +35,10 @@ if (isset($_POST["information"]) && $_POST["information"] != null) {
             $order["servicetime"] = $date . " " . $start . " - " . $end;
             //unset($order["time"]);
             //echo json_encode($order);
-            echo json_encode(['RespCode' => 111111, 'RespContent' => ['Status' => 'Success', 'Content' => $order]]);
+            echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $order]]);
         } //else echo "";
         else echo json_encode([
-            'RespCode' => 000004,
+            'RespCode' => '000004',
             'RespContent' => [
                 'Status' => 'Failed',
                 'Content' => 'Error: No appointment is found. Please Check the Database and appointment function.'
@@ -49,7 +49,7 @@ if (isset($_POST["information"]) && $_POST["information"] != null) {
     //else echo "orderdetail Error: wrong massaid";
     //else echo json_encode(array("RespCode"=>"000003","Resp"=>"orderdetail Error: wrong massaid"));
     else echo json_encode([
-        'RespCode' => 000003,
+        'RespCode' => '000003',
         'RespContent' => [
             'Status' => 'Failed',
             'Content' => 'orderdetail Error: wrong massaid'

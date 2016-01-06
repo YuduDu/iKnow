@@ -28,7 +28,7 @@ function make_appointment($con)
         $service_time = form_service_time($con, $service_start, $serviceid);
 
         switch ($_SESSION['type']) {
-            case "VISITING": {
+            case "visiting": {
                 //echo "visiting";
                 if (isset($_SESSION['address']) && $_SESSION['address'] != null) {
                     $time_block = get_time_block($con, $shopid);
@@ -38,7 +38,7 @@ function make_appointment($con)
                         'orderid' => $orderid,
                         'massaid' => $_SESSION['massaid'],
                         'service_start' => $service_time[0],
-                        'service_end' => $service_time[0],
+                        'service_end' => $service_time[1],
                         'serviceid' => $serviceid,
                         'customerid' => $_SESSION['customerid'],
                         'block_start' => $blocked_time[0],
@@ -53,13 +53,13 @@ function make_appointment($con)
                 }
                 break;
             }
-            case "SHOP": {
+            case "shop": {
                 //echo "shop";
                 $appointment = [
                     'orderid' => $orderid,
                     'massaid' => $_SESSION['massaid'],
                     'service_start' => $service_time[0],
-                    'service_end' => $service_time[0],
+                    'service_end' => $service_time[1],
                     'serviceid' => $serviceid,
                     'customerid' => $_SESSION['customerid'],
                     'block_start' => $service_time[0],
@@ -88,6 +88,7 @@ function make_appointment($con)
 
     } else {
         //echo "parameter missed";
+        echo json_encode(['RespCode' => 000002, 'RespContent' => ['Status' => 'Failed', 'Content' => 'Missing Parameter in Session.']]);
         return false;
     }
 

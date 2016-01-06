@@ -44,25 +44,25 @@ function getmassagistorderlist($massaid, $timearray, $pagenum = null)
 
     switch ($timearray) {
         case 'today': {
-            $result = DBfetchall2($con, "massagist_appt", array("orderid", "start", "end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(start) = to_days(now())");
+            $result = DBfetchall2($con, "massagist_appt", array("orderid", "service_start", "service_end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(service_start) = to_days(now())");
             break;
         }
         case 'future': {
             if ($pagenum != null) {
                 //每页10条
                 $startpos = ($pagenum - 1) * $perpagenum_orders;
-                $result = DBfetchall2($con, "massagist_appt", array("orderid", "start", "end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(start) > to_days(now()) order by start desc limit $startpos , $perpagenum_orders ");
+                $result = DBfetchall2($con, "massagist_appt", array("orderid", "service_start", "service_end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(service_start) > to_days(now()) order by service_start desc limit $startpos , $perpagenum_orders ");
             } else
-                $result = DBfetchall2($con, "massagist_appt", array("orderid", "start", "end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(start) > to_days(now())");
+                $result = DBfetchall2($con, "massagist_appt", array("orderid", "service_start", "service_end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(service_start) > to_days(now())");
             break;
         }
         case 'history': {
             if ($pagenum != null) {
                 //每页10条
                 $startpos = ($pagenum - 1) * $perpagenum_orders;
-                $result = DBfetchall2($con, "massagist_appt", array("orderid", "start", "end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(start) < to_days(now()) order by start asc limit $startpos , $perpagenum_orders ");
+                $result = DBfetchall2($con, "massagist_appt", array("orderid", "service_start", "service_end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(service_start) < to_days(now()) order by service_start asc limit $startpos , $perpagenum_orders ");
             } else
-                $result = DBfetchall2($con, "massagist_appt", array("orderid", "start", "end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(start) < to_days(now())");
+                $result = DBfetchall2($con, "massagist_appt", array("orderid", "service_start", "service_end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(service_start) < to_days(now())");
             break;
         }
     }

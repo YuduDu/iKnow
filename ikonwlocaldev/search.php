@@ -10,7 +10,10 @@ require_once "lib/general.php";
 if(check_attribute(['keyword','location','pagenum'],"post")){
     $location =(array) json_decode($_POST['location']);
     $service_result=search_services($_POST["keyword"],$location,$_POST['pagenum']);
-    echo json_encode($service_result);
+    if($service_result){
+        echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success', 'Content' => $service_result]]);
+    }
+    else echo json_encode(['RespCode' => '000004', 'RespContent' => ['Status' => 'Failed', 'Content' => "No Data Found!"]]);
 }
 
 
@@ -40,5 +43,9 @@ function search_services($keyword, $location,$pagenum){
     );
     //echo $join;
     $result = DBfetchall($join,$con);
-    return $result;
+    if($result!=null)
+    {
+        return $result;
+    }
+    else return FALSE;
 }
