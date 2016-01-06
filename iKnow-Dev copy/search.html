@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-Search</title>
+		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/template.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+
+		<script type="text/javascript">
+			// H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景
+				plus.navigator.setStatusBarBackground("#ffffff");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+				var self = plus.webview.currentWebview();
+				plus.geolocation.getCurrentPosition(function(p) {
+					document.getElementById("sbar").addEventListener('keydown', function(e) {
+						if (e.keyCode == 13) {
+							var keyword = document.getElementById("sbar").value;
+							console.log(keyword);
+							var currentcity = plus.storage.getItem('currentcity');
+							var location = '{"city":"' + currentcity + '"}';
+							mui.ajax(url.search, {
+								data: {
+									keyword: keyword,
+									location: location,
+									pagenum: '1'
+								},
+								type: 'post', //HTTP请求类型 
+								timeout: 100000, //超时时间设置为10秒；  
+								success: function(data) {
+									this.obj = JSON.parse(data)
+									for (item in obj) {
+										var point2lat = eval(obj[item].latitude);
+										var point2long = eval(obj[item].longtitude);
+										obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+									}
+									console.log(JSON.stringify(obj))
+									if (data != '[]') {
+										var html = template('serviceslist', {
+											list: obj
+										});
+										document.getElementById('Services').innerHTML = html;
+										document.getElementById("body").style.display = ''
+									} else {
+										document.getElementById("Services").innerHTML = '<p style="text-align: center;padding-top: 40px;font-size: 18px;">暂无服务项目</p>'
+									}
+									//plus.geolocation.getCurrentPosition(function(p) {
+									//this.point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+								},
+								error: function(xhr, type, errorThrown) {
+									console.log(type);
+									console.log(JSON.stringify(xhr));
+								}
+							});
+							document.getElementById("morebtn").addEventListener('tap', function() {
+								document.getElementById("morebtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
+								var pagenum = Math.ceil(document.getElementById("Services").children.length / 10) + 1
+								loadmore(pagenum)
+							})
+
+							function loadmore(pagenum) {
+								console.log(keyword + location);
+								mui.ajax(url.search, {
+									data: {
+										keyword: keyword,
+										location: location,
+										pagenum: pagenum,
+									},
+									type: 'post', //HTTP请求类型 
+									timeout: 100000, //超时时间设置为10秒；
+									//async: false,
+									success: function(data) {
+										this.obj = JSON.parse(data);
+										//plus.geolocation.getCurrentPosition(function(p) {
+										//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+										for (item in obj) {
+											var point2lat = eval(obj[item].latitude);
+											var point2long = eval(obj[item].longtitude);
+											obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
+										}
+										var html = template('serviceslist', {
+											list: obj
+										});
+										if (data != '[]') {
+											var orderlistul = document.querySelector('#Services');
+											orderlistul.innerHTML += html;
+											document.getElementById("morebtn").innerHTML = '点击查看更多'
+										} else {
+											document.getElementById("morebtn").innerHTML = '已加载完毕'
+										}
+									},
+									error: function(xhr, type, errorThrown) {
+										console.log(type);
+										console.log(JSON.stringify(xhr));
+									}
+								});
+							}
+							mui('#Services').on('tap', 'li', function() {
+								mui.openWindow({
+									url: 'index_service_detail.html',
+									id: 'index_service_detail',
+									extras: {
+										serviceid: obj[this.getAttribute('data-id')].serviceid,
+										distance: obj[this.getAttribute('data-id')].distance,
+										servicename: obj[this.getAttribute('data-id')].service_name,
+										shopname: obj[this.getAttribute('data-id')].shop_name,
+										price: obj[this.getAttribute('data-id')].price,
+										latitude: obj[this.getAttribute('data-id')].latitude,
+										longtitude: obj[this.getAttribute('data-id')].longtitude
+									},
+									styles: {
+										popGesture: 'close'
+									},
+									show: {
+										autoShow: true, //页面loaded事件发生后自动显示，默认为true
+										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+									},
+									waiting: {
+										autoShow: true, //自动显示等待框，默认为true
+										title: '正在加载...', //等待对话框上显示的提示内容
+									}
+								})
+							})
+						}
+					})
+					///
+				}, function(e) {
+					document.getElementById("sbar").addEventListener('keydown', function(e) {
+						if (e.keyCode == 13) {
+							var keyword = document.getElementById("sbar").value;
+							console.log(keyword);
+							var currentcity = plus.storage.getItem('currentcity');
+							var location = '{"city":"' + currentcity + '"}';
+							mui.ajax(url.search, {
+								data: {
+									keyword: keyword,
+									location: location,
+									pagenum: '1'
+								},
+								type: 'post', //HTTP请求类型 
+								timeout: 100000, //超时时间设置为10秒；  
+								success: function(data) {
+									this.obj = JSON.parse(data)
+									for (item in obj) {
+										var point2lat = eval(obj[item].latitude);
+										var point2long = eval(obj[item].longtitude);
+										obj[item].distance = 'null';
+									}
+									console.log(JSON.stringify(obj))
+									if (data != '[]') {
+										var html = template('serviceslist', {
+											list: obj
+										});
+										document.getElementById('Services').innerHTML = html;
+										document.getElementById("body").style.display = ''
+									} else {
+										document.getElementById("Services").innerHTML = '<p style="text-align: center;padding-top: 40px;font-size: 18px;">暂无服务项目</p>'
+									}
+									//plus.geolocation.getCurrentPosition(function(p) {
+									//this.point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+								},
+								error: function(xhr, type, errorThrown) {
+									console.log(type);
+									console.log(JSON.stringify(xhr));
+								}
+							});
+							document.getElementById("morebtn").addEventListener('tap', function() {
+								document.getElementById("morebtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
+								var pagenum = Math.ceil(document.getElementById("Services").children.length / 10) + 1
+								loadmore(pagenum)
+							})
+
+							function loadmore(pagenum) {
+								console.log(keyword + location);
+								mui.ajax(url.search, {
+									data: {
+										keyword: keyword,
+										location: location,
+										pagenum: pagenum,
+									},
+									type: 'post', //HTTP请求类型 
+									timeout: 100000, //超时时间设置为10秒；
+									//async: false,
+									success: function(data) {
+										this.obj = JSON.parse(data);
+										//plus.geolocation.getCurrentPosition(function(p) {
+										//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+										for (item in obj) {
+											var point2lat = eval(obj[item].latitude);
+											var point2long = eval(obj[item].longtitude);
+											obj[item].distance = 'null'
+										}
+										var html = template('serviceslist', {
+											list: obj
+										});
+										if (data != '[]') {
+											var orderlistul = document.querySelector('#Services');
+											orderlistul.innerHTML += html;
+											document.getElementById("morebtn").innerHTML = '点击查看更多'
+										} else {
+											document.getElementById("morebtn").innerHTML = '已加载完毕'
+										}
+									},
+									error: function(xhr, type, errorThrown) {
+										console.log(type);
+										console.log(JSON.stringify(xhr));
+									}
+								});
+							}
+							mui('#Services').on('tap', 'li', function() {
+								mui.openWindow({
+									url: 'index_service_detail.html',
+									id: 'index_service_detail',
+									extras: {
+										serviceid: obj[this.getAttribute('data-id')].serviceid,
+										distance: obj[this.getAttribute('data-id')].distance,
+										servicename: obj[this.getAttribute('data-id')].service_name,
+										shopname: obj[this.getAttribute('data-id')].shop_name,
+										price: obj[this.getAttribute('data-id')].price,
+										latitude: obj[this.getAttribute('data-id')].latitude,
+										longtitude: obj[this.getAttribute('data-id')].longtitude
+									},
+									styles: {
+										popGesture: 'close'
+									},
+									show: {
+										autoShow: true, //页面loaded事件发生后自动显示，默认为true
+										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+									},
+									waiting: {
+										autoShow: true, //自动显示等待框，默认为true
+										title: '正在加载...', //等待对话框上显示的提示内容
+									}
+								})
+							})
+						}
+					})
+				});
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #ffffff;">
+			<div>
+				<div class="mui-input-row mui-search" style="margin-right:40px">
+					<input id="sbar" type="search" class="mui-input-clear" placeholder="Search">
+				</div>
+				<a id="backbtn" class="mui-action-back mui-pull-right" style="position:absolute;top:30px;right:8px;color: #666666;margin-left:20px">返回</a>
+			</div>
+
+		</header>
+		<div id="body" class="mui-content" style="display:none">
+			<ul id="Services" style="margin-top:15px;height: auto;background-color: #ffffff;position: relative;padding-left: 0px;margin-bottom: 1px;">
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object-large mui-pull-left" style="width:120px;height:80px;margin-right: 10px;" src="img/defaultpic.png">
+						<div class="mui-media-body" style="color:#999999">
+							加载中...
+						</div>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view-cell" style="height:auto;background-color:#ffffff;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="morebtn">点击查看更多</ul>
+		</div>
+		<script>
+			document.getElementById("backbtn").addEventListener('tap', function(e) {
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			});
+		</script>
+		<script id="serviceslist" type="text/html ">
+			{{each list as value i}}
+			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
+				<a>
+					<img class="mui-media mui-pull-left " style="min-width:120px;min-height:80px;width120px;height:80px;margin-right:10px" src="{{value.pic}}">
+					<div class="mui-media-body ">
+						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.service_name}}</p>
+						<p class='mui-ellipsis mui-services-provider'>{{value.shop_name}}</p>
+						{{if value.distance!='null'}}
+						<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>{{/if}}
+						<span class='mui-price'>￥{{value.price}}</span>
+					</div>
+				</a>
+			</li>
+			{{/each}}
+		</script>
+
+	</body>
+
+</html>

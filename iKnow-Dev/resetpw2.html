@@ -109,10 +109,11 @@
 							type: 'post', //HTTP请求类型 
 							timeout: 100000, //超时时间设置为10秒；   
 							success: function(data) {
+								var obj = JSON.parse(data)
 								regButton.innerHTML = '确认';
 								regButton.removeAttribute('disabled')
 								console.log(data);
-								if (data == 111111) {
+								if (obj.RespCode == '111111') {
 									plus.nativeUI.toast('重置成功');
 									$.openWindow({
 										url: 'login.html',

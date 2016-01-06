@@ -39,7 +39,9 @@
 								type: 'post', //HTTP请求类型 
 								timeout: 100000, //超时时间设置为10秒；  
 								success: function(data) {
-									this.obj = JSON.parse(data)
+									this.obj = JSON.parse(data);
+									console.log(data);
+									obj = obj.RespContent.Content
 									for (item in obj) {
 										var point2lat = eval(obj[item].latitude);
 										var point2long = eval(obj[item].longtitude);
@@ -82,6 +84,7 @@
 									//async: false,
 									success: function(data) {
 										this.obj = JSON.parse(data);
+										obj = obj.RespContent.Content
 										//plus.geolocation.getCurrentPosition(function(p) {
 										//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 										for (item in obj) {
@@ -152,7 +155,8 @@
 								type: 'post', //HTTP请求类型 
 								timeout: 100000, //超时时间设置为10秒；  
 								success: function(data) {
-									this.obj = JSON.parse(data)
+									this.obj = JSON.parse(data);
+									obj = obj.RespContent.Content
 									for (item in obj) {
 										var point2lat = eval(obj[item].latitude);
 										var point2long = eval(obj[item].longtitude);
@@ -195,6 +199,7 @@
 									//async: false,
 									success: function(data) {
 										this.obj = JSON.parse(data);
+										obj = obj.RespContent.Content
 										//plus.geolocation.getCurrentPosition(function(p) {
 										//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 										for (item in obj) {

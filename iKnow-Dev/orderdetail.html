@@ -40,6 +40,7 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content
 						console.log(obj.servicename);
 						document.getElementById("time").innerHTML = obj.time;
 						document.getElementById("orderid").innerHTML = obj.orderid;

@@ -49,8 +49,9 @@
 				var citiesoption = template('cityoptions', citylist);
 				document.getElementById('city').innerHTML = citiesoption;
 				plus.storage.setItem('currentcity','北京市');
-				var homelist = plus.webview.getWebviewById('homelist.html');
+				
 				document.getElementById("city").addEventListener('change',function(){
+					var homelist = plus.webview.getWebviewById('homelist.html');
 					console.log(this.value);
 					plus.storage.setItem('currentcity',this.value);
 					homelist.reload()

@@ -20,7 +20,7 @@
 				var location = '{"city":"'+currentcity+'"}';
 				mui.ajax(url.list, {
 					data: {
-						action: 'get_recommand_service',
+						action: 'get_recommend_service',
 						location: location
 					},
 					type: 'post', //HTTP请求类型 
@@ -28,6 +28,7 @@
 					success: function(data) {
 						console.log(data);
 						this.obj = JSON.parse(data)
+						obj = obj.RespContent.Content
 						plus.geolocation.getCurrentPosition(function(p) {
 								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 								for (item in obj) {
@@ -41,7 +42,7 @@
 								document.getElementById('Services').innerHTML = html;
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_news',
+										action: 'get_recommend_news',
 										location: location
 										
 									},
@@ -50,6 +51,7 @@
 									success: function(data) {
 										//console.log(data);
 										var obj = JSON.parse(data);
+										obj = obj.RespContent.Content
 										var html = template('slidetemplate', {
 											list: obj
 										});
@@ -65,13 +67,14 @@
 								});
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_massagist',
+										action: 'get_recommend_massagist',
 										location:location
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  
 									success: function(data) {
 										this.obj2 = JSON.parse(data);
+										obj2 = obj2.RespContent.Content
 										//plus.geolocation.getCurrentPosition(function(p) {
 										//plus.storage.setItem("point1lat", p.coords.latitude);
 										for (item in obj2) {
@@ -194,7 +197,7 @@
 								document.getElementById('Services').innerHTML = html;
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_news',
+										action: 'get_recommend_news',
 										location: location
 									},
 									type: 'post', //HTTP请求类型 
@@ -203,6 +206,7 @@
 										console.log("news");
 										console.log(data);
 										var obj = JSON.parse(data);
+										obj = obj.RespContent.Content
 										var html = template('slidetemplate', {
 											list: obj
 										});
@@ -264,13 +268,14 @@
 								})
 								mui.ajax(url.list, {
 									data: {
-										action: 'get_recommand_massagist',
+										action: 'get_recommend_massagist',
 										location: location
 									},
 									type: 'post', //HTTP请求类型 
 									timeout: 100000, //超时时间设置为10秒；  
 									success: function(data) {
 										this.obj2 = JSON.parse(data);
+										obj2 = obj2.RespContent.Content
 										//plus.geolocation.getCurrentPosition(function(p) {
 										//plus.storage.setItem("point1lat", p.coords.latitude);
 										for (item in obj2) {

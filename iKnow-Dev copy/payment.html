@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-Payment</title>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+		</script>
+
+		<script type="text/javascript">
+			// H5 plus事件处理
+			function plusReady(){
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground( "#6acccb" );
+				plus.navigator.setStatusBarStyle( "UIStatusBarStyleBlackOpaque" );
+			}
+			if(window.plus){
+				plusReady();
+			}else{
+				document.addEventListener("plusready",plusReady,false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">Payment</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div style="height:50px;position: relative;top:80px;background-color: #ffffff;margin-left: 10px;margin-right:10px">
+			<p style="font-size:14px;color: #56abe4;line-height: 50px;padding-left: 15px;">订单信息</p>
+		</div>
+		<div style="height:50px;position: relative;top:81px;background-color: #ffffff;margin-left:10px;margin-right:10px">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">订单编号</span>
+			<span class="mui-pull-right" style="line-height:50px;padding-right: 15px;color:#666666;font-size: 14px;">1987918723987199</span>
+		</div>
+		
+		<div style="height:50px;position: relative;top:82px;background-color: #ffffff;margin-left:10px;margin-right:10px">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">总价</span>
+			<span class="mui-pull-right" style="line-height:50px;padding-right: 15px;color:#FF9900;font-size: 14px;">$98</span>
+		</div>
+		
+		<div class="mui-card" style="position:relative;top:102px;margin:0px 10px;border-color: #ffffff;border-radius: 0px;">
+	<form class="mui-input-group">
+		<div class="mui-input-row mui-radio">
+			<label style="font-size:14px;color:#333333">支付宝支付</label>
+			<input name="radio1" type="radio" checked style="right:10px">
+		</div>
+		<div class="mui-input-row mui-radio">
+			<label style="font-size:14px;color: #333333;">微信支付</label>
+			<input name="radio1" type="radio" style="right:10px">
+		</div>
+	</form>
+</div>
+		
+		<div style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a class="mui-btn mui-btn-negative" style="width:120px;height:40px;line-height: 25px;" href="payment.html">Pay Now</a></div>
+		
+		
+				<script>
+			//更换标题
+				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+				
+		</script>
+
+	</body>
+
+</html>

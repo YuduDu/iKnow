@@ -19,7 +19,7 @@
 				var location = '{"city":"'+currentcity+'"}';
 				mui.ajax(url.list, {
 					data: {
-						action: 'get_recommand_news',
+						action: 'get_recommend_news',
 						id: newsid,
 						location: location
 					},
@@ -27,8 +27,7 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						this.obj = JSON.parse(data)
-						console.log(data);
-						console.log(obj.id);
+						obj = obj.RespContent.Content
 						document.getElementById("title").innerHTML = obj.title;
 						document.getElementById("content").innerHTML = obj.content;
 					},

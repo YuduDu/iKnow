@@ -93,6 +93,7 @@
 					async: false,
 					success: function(data) {
 						this.obj = JSON.parse(data);
+						obj = obj.RespContent.Content
 						console.log(data);
 						document.getElementById("orderbtn").className = 'mui-btn mui-btn-negative mui-pull-right'
 						document.getElementById("servicename").innerHTML = self.servicename;

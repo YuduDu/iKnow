@@ -42,6 +42,7 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						this.obj = JSON.parse(data)
+						obj = obj.RespContent.Content
 							//plus.geolocation.getCurrentPosition(function(p) {
 							//this.point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 						for (item in obj) {
@@ -53,8 +54,7 @@
 								obj[item].distance = 'null'
 							}
 						}
-						console.log(data)
-						if (data != '[]') {
+						if (obj != '[]') {
 							var html = template('serviceslist', {
 								list: obj
 							});
@@ -101,6 +101,7 @@
 						//async: false,
 						success: function(data) {
 							this.obj = JSON.parse(data);
+							obj = obj.RespContent.Content
 						//plus.geolocation.getCurrentPosition(function(p) {
 							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 							for  (item in obj ){

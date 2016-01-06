@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/template.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var nowdate = new Date();
+				var finaltime = new Array;
+				finaltime[1] = nowdate.getMonth() + '-' + nowdate.getDate();
+				finaltime[2] = '';
+				finaltime[0] = nowdate.getFullYear();
+				var thismonth = nowdate.getMonth();
+				//console.log(nowdate.getDay())
+				var timehtml = template('timerow1template', timeset1);
+				document.getElementById('timebody').innerHTML = timehtml;
+				var selected,
+					selectCell = function(e) {
+						var cell = e.target,
+							range, selection;
+						if (cell.tagName.toLowerCase() !== 'td') {
+							while (cell = cell.parentElement) {
+								if (cell.tagName.toLowerCase() === 'td') {
+									break;
+								}
+							}
+						}
+						if (!cell || cell.tagName.toLowerCase() !== 'td') {
+							return;
+						}
+						if (selected) {
+							selected.style.backgroundColor = '';
+							selected.style.color = '#666666';
+						}
+						cell.style.color = '#ffffff'
+						cell.style.backgroundColor = '#6ACCCB';
+						selected = cell;
+						finaltime[2] = selected.id;
+						//console.log(finaltime);
+					},
+					table = document.getElementById('table');
+				table.addEventListener('tap', selectCell);
+				mui.ajax(url.appt, {
+					data: {
+						massagistid: plus.storage.getItem('order_massaid'),
+						serviceid: self.serviceid,
+						type:'visiting'
+					},
+					//dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						var pickeddatetemp = datearray[0][0];
+						console.log(data);
+						if (data == '[]') {
+							console.log('empty');
+							var datecontrolitem = document.getElementsByName("datecontrolitem")
+								//console.log(datecontrolitem.length)
+							for (i = 0; i < 28; i++) {
+								datecontrolitem[i].addEventListener('tap', function() {
+									var timename = document.getElementsByTagName('td')
+									for (i = 0; i < timename.length; i++) {
+										timename[i].style.display = '';
+										//timename[i].style.backgroundColorcolor = '#666666';
+									}
+									console.log(pickeddatetemp);
+									document.getElementById(pickeddatetemp).className = 'mui-control-item';
+									var pickeddate = this.id;
+									pickeddatetemp = this.id;
+									finaltime[1] = pickeddate;
+									console.log(pickeddate);
+									console.log('hehe')
+								})
+							}
+							//mui.trigger(datecontrolitem[0], 'tap');
+						} else {
+							this.obj = JSON.parse(data);
+							
+							console.log(addMinutes(obj[0][0].slice(11,16),'30'));
+														for (var i = 0; i < obj.length; i++) {
+															objdatetemp = obj[i][0].slice(5, 10);
+															objtimestarttemp = obj[i][0].slice(11, 16);
+															objtimeendtemp = obj[i][1].slice(11,16)
+															//console.log(objdatetemp)
+															//console.log(objtimetemp)
+															if (objdatetemp == datearray[0][0]) {
+																for(k = objtimestarttemp;k!=objtimeendtemp;k+=addMinutes(k,'30'))
+																{document.getElementById(objtimestarttemp).style.display = 'none'}
+															}
+														}
+							var datecontrolitem = document.getElementsByName("datecontrolitem")
+								//console.log(datecontrolitem.length)
+							for (i = 0; i < 28; i++) {
+								datecontrolitem[i].addEventListener('tap', function() {
+									var timename = document.getElementsByTagName('td')
+									for (i = 0; i < timename.length; i++) {
+										timename[i].style.display = ''
+									}
+									document.getElementById(pickeddatetemp).className = 'mui-control-item';
+									var pickeddate = this.id;
+									pickeddatetemp = this.id;
+									finaltime[1] = pickeddate;
+									//console.log(pickeddate);
+									for (i = 0; i < obj.length; i++) {
+										objdatetemp = obj[i][0].slice(5, 10);
+										objtimestarttemp = obj[i][0].slice(11, 16);
+										objtimeendtemp = obj[i][1].slice(11,16)
+										if (objdatetemp == pickeddate) {
+											console.log("aaa");
+											for(k = objtimestarttemp;k!=objtimeendtemp;k=addMinutes(k,'30'))
+											{
+												console.log(k);
+												if(document.getElementById(k)){
+													console.log("yes");
+													document.getElementById(k).style.display = 'none'
+												}
+												
+												}
+										}
+									}
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(errorThrown);
+					}
+				});
+				var datearray = new Array();
+				datearray[0] = new Array();
+				datearray[1] = new Array();
+				for (var i = 0; i < 28; i++) {
+					datearray[i] = new Array();
+					datearray[i][2] = i;
+					var tempdate = new Date();
+					tempdate.setDate(tempdate.getDate() + i)
+					var dd = ("0" + (tempdate.getDate())).slice(-2);
+					//console.log(dd)
+					var mm = tempdate.getMonth() + 1;
+					datearray[i][0] = mm + '-' + dd;
+					//console.log(datearray[i][0]);
+					var tempday = tempdate.getDay()
+					switch (tempday) {
+						case 0:
+							datearray[i][1] = '周日';
+							break;
+						case 1:
+							datearray[i][1] = '周一';
+							break;
+						case 2:
+							datearray[i][1] = '周二';
+							break;
+						case 3:
+							datearray[i][1] = '周三';
+							break;
+						case 4:
+							datearray[i][1] = '周四';
+							break;
+						case 5:
+							datearray[i][1] = '周五';
+							break;
+						case 6:
+							datearray[i][1] = '周六';
+							break;
+						case 7:
+							datearray[i][1] = '周七';
+							break;
+					}
+					//console.log(datearray[i][1]);
+				}
+				finaltime[1] = datearray[0][0];
+				var datepanelhtml = template('datepaneltemplate', {
+					list: datearray
+				});
+				//console.log(datepanelhtml);
+				document.getElementById('datepanel').innerHTML = datepanelhtml;
+				var opener = plus.webview.currentWebview().opener();
+				//console.log(finaltime[0]);
+				document.getElementById("confirmbtn").addEventListener('tap', function() {
+					if (finaltime[1] < thismonth) {
+						plus.storage.setItem('apptyear', finaltime[0])
+					} else {
+						plus.storage.setItem('apptyear', finaltime[0] + 1)
+					}
+					if (finaltime[2] == '') {
+						plus.nativeUI.toast('请选择时间')
+							//console.log(finaltime[2])
+						return;
+					}
+					var addinput = document.getElementById("add").value;
+					console.log("addinput"+addinput);
+					if (addinput == ''){
+						plus.nativeUI.toast('请填写地址')
+						return;
+					}
+					mui.fire(plus.webview.getWebviewById(opener.id), 'updateorder', {});
+					plus.storage.setItem('apptdate', finaltime[1]);
+					plus.storage.setItem('appttime', finaltime[2]);
+					plus.storage.setItem('address', addinput);
+					mui.back();
+				})
+			})
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;top:0px">
+			<a id="backbtn" class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back" style="color:#ffffff"></a>
+			<h1 class="mui-title" style="color:#ffffff">服务时间</h1>
+			<a id="confirmbtn" class="mui-pull-right" style="color: #ffffff;padding: 12px 0px 12px 30px">确认</a>
+		</header>
+		<div class="mui-content" style="padding-right:0px">
+			<div style="width:100%;height:245px;background-color: #ffffff;padding-right:0px">
+				<div style="width:100%;height:60px;border-bottom-style: solid;border-bottom-width: 2px;border-bottom-color: #F2F2F2;">
+					<div id="placecontrol" class="mui-segmented-control" style="width:70%;margin-left:15%;top:13px">
+						<a class="mui-control-item mui-active" id="todoor" style="font-size:16px">
+				上门服务
+			</a>
+						<a class="mui-control-item" id="toshop" style="font-size:16px">
+				到店消费
+			</a>
+					</div>
+				</div>
+				<div style="width:100%;height:60px;border-bottom-style: solid;padding: 0 10px 0 10px;border-bottom-width: 2px;border-bottom-color: #F2F2F2;">
+					<div id="Gallery" class="mui-slider" style="margin-top:15px;">
+						<div id="datepanel" class="mui-slider-group">
+							<div class="mui-slider-item">
+							</div>
+						</div>
+					</div>
+				</div>
+				<table id="table" border="0" cellspacing="" cellpadding="" style="padding: 0 10px 0 10px;width:100%;font-size: 14px;text-align: center;color:#666666">
+					<tbody id="timebody">
+					</tbody>
+				</table>
+				
+			</div>
+		<div style="height:50px;position: relative;top:10px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="namespan">上门地址</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 0px;color: #ff9900;font-size: 12px;"><input id="add" type="text" style="border: hidden;font-size: 16px;" class="mui-input-clear" placeholder="请输入地址"></span>
+		</div>
+
+		</div>
+		<script id="timerow1template" type="text/html">
+			<tr id="timerow1" style="height:45px">
+				{{each list1 as value i}}
+				<td id="{{value}}">{{value}}</td>{{/each}}
+			</tr>
+			<tr id="timerow2" style="height:45px">
+				{{each list2 as value i}}
+				<td id="{{value}}">{{value}}</td>{{/each}}
+			</tr>
+		</script>
+
+		<script id="datepaneltemplate" type="text/html">
+			<div class="mui-slider-item">
+				<div id="datecontrol1" class="mui-segmented-control" style="width:100%;margin-left:0%;top:0px;border:none">
+					{{each list as value i}} {{if i==0}}
+					<a id="{{value[0]}}" name="datecontrolitem" class="mui-control-item mui-active" href="#item1" style="line-height:20px;border-left:none;">
+				{{value[1]}}<br>{{value[0]}}</a>{{/if}} {{if 0
+					<i}} {{if i<7}} <a id="{{value[0]}}" name="datecontrolitem" class="mui-control-item" href="#item1" style="line-height:20px;border-left:none">
+						{{value[1]}}
+						<br>{{value[0]}}</a>{{/if}}{{/if}} {{/each}}
+				</div>
+			</div>
+			<div class="mui-slider-item">
+				<div id="datecontrol2" class="mui-segmented-control" style="width:100%;margin-left:0%;top:0px;border:none">
+					{{each list as value i}} {{if i >6}}{{if i
+					<14}} <a id="{{value[0]}}" name="datecontrolitem" class="mui-control-item" href="#item1" style="line-height:20px;border-left:none;">
+						{{value[1]}}
+						<br>{{value[0]}}
+						</a>{{/if}}{{/if}}{{/each}}
+				</div>
+			</div>
+			<div class="mui-slider-item">
+				<div id="datecontrol3" class="mui-segmented-control" style="width:100%;margin-left:0%;top:0px;border:none">
+					{{each list as value i}} {{if i >13}}{{if i
+					<21}} <a id="{{value[0]}}" name="datecontrolitem" class="mui-control-item" href="#item1" style="line-height:20px;border-left:none;">
+						{{value[1]}}
+						<br>{{value[0]}}
+						</a>{{/if}}{{/if}}{{/each}}
+				</div>
+			</div>
+			<div class="mui-slider-item">
+				<div id="datecontrol4" class="mui-segmented-control" style="width:100%;margin-left:0%;top:0px;border:none">
+					{{each list as value i}} {{if i >20}}{{if i
+					<28}} <a id="{{value[0]}}" name="datecontrolitem" class="mui-control-item" href="#item1" style="line-height:20px;border-left:none;">
+						{{value[1]}}
+						<br>{{value[0]}}
+						</a>{{/if}}{{/if}}{{/each}}
+				</div>
+			</div>
+		</script>
+
+	</body>
+
+</html>

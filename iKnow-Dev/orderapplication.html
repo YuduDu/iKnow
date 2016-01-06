@@ -22,6 +22,10 @@
 				document.getElementById("servicename").innerHTML = self.servicename;
 				document.getElementById("price").innerHTML = "￥" + self.price;
 				document.getElementById("totalspan").innerHTML = "￥" + self.price;
+				plus.storage.setItem("order_qty", 1);
+				plus.storage.setItem("apptdate", '');
+				plus.storage.setItem('apptyear', '2016');
+				plus.storage.setItem("appttime", '');
 				var handler = StripeCheckout.configure({
 					key: 'pk_test_XOAM8G6tnBANFHGUKpqRRvx0',
 					image: '/img/documentation/checkout/marketplace.png',
@@ -31,7 +35,8 @@
 						console.log(token.id)
 						// Use the token to create the charge with a server-side script.
 						// You can access the token ID with `token.id`
-						
+						document.getElementById("orderbtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
+					document.getElementById("orderbtn").disabled = 'true'
 						mui.ajax(url.order, {
 							data: {
 								submit: token.id,
@@ -40,8 +45,10 @@
 							type: 'post', //HTTP请求类型
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
-								console.log(data)
-								if (data != 'success') {
+								
+								console.log(data);
+								var obj = JSON.parse(data)
+								if (obj.RespCode != '111111') {
 									plus.nativeUI.toast('支付请求失败，请返回重试');
 									//mui.back();
 									return;
@@ -90,6 +97,7 @@
 						mui.toast('请先选择时间');
 						return;
 					}
+					
 					handler.open({
 						name: '身知道预订支付',
 						description: self.servicename,
@@ -100,10 +108,7 @@
 					});
 					e.preventDefault();
 				})
-				plus.storage.setItem("order_qty", 1);
-				plus.storage.setItem("apptdate", '');
-				plus.storage.setItem('apptyear', '2015');
-				plus.storage.setItem("appttime", '');
+				
 				document.getElementById("qtyselect").onchange = function() {
 					plus.storage.setItem("order_qty", this.value);
 					mui.fire(orderpage, 'updateorder', {});
@@ -149,6 +154,7 @@
 					success: function(data) {
 						console.log(data)
 						this.malist = JSON.parse(data);
+						malist = malist.RespContent.Content
 						document.getElementById("stripebtn").className = 'mui-btn mui-btn-negative'
 					},
 					error: function(xhr, type, errorThrown) {
@@ -212,7 +218,7 @@
 
 					massanametemp = plus.storage.getItem("order_massaname");
 					var starttimestring = (plus.storage.getItem("apptyear")+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString();
-						console.log(starttimestring);
+					console.log('starttime'+starttimestring);
 					var newform = JSON.stringify({
 						"massaid": plus.storage.getItem("order_massaid"),
 						"qty": plus.storage.getItem("order_qty"),
@@ -220,7 +226,7 @@
 						"address": plus.storage.getItem("address"),
 						"time":starttimestring
 					});
-					console.log(JSON.stringify(newform));
+					console.log('提交数据'+JSON.stringify(newform));
 					mui.ajax(url.order, {
 						data: {
 							order: newform
@@ -228,7 +234,8 @@
 						type: 'post', //HTTP请求类型 
 						timeout: 100000, //超时时间设置为10秒；   
 						success: function(data) {
-							this.maorder = JSON.parse(data)
+							this.maorder = JSON.parse(data);
+							maorder = maorder.RespContent.Content
 							console.log(this.maorder);
 							document.getElementById("totalspan").innerHTML = "￥" + this.maorder;
 						},

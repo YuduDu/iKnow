@@ -32,6 +32,7 @@
 						//async: false,
 						success: function(data) {
 							var obj = JSON.parse(data);
+							obj = obj.RespContent.Content
 							var html = template('orderlisttemplate', {
 								list: obj
 							});
@@ -118,7 +119,9 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
-						if(data=='[]'){
+						obj = obj.RespContent.Content
+						console.log(obj);
+						if(obj==''){
 							//console.log('none')
 							document.getElementById("noitem").style.display = ''
 							document.getElementById("orderlist").style.display = 'none'

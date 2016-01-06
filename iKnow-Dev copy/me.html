@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>me</title>
+		<script src="js/mui.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				self = plus.webview.currentWebview()
+				window.addEventListener('refreshme', function(event) { //监听自定义事件
+					self.reload(true);
+					console.log('reloaded')
+				});
+				anhtml = plus.storage.getItem("useraccount");
+				document.getElementById("accountname").innerHTML = anhtml
+				document.getElementById("versionnum").innerHTML = constant.versionid;
+				//退出操作******************
+				document.getElementById("update").addEventListener('tap', function() {
+				plus.runtime.openURL('itms-services://?action=download-manifest&url=https%3A%2F%2Fwww.pgyer.com%2Fapiv1%2Fapp%2Fplist%3FaId%3D884a85cdebc6e1895d44fa9c87ecc810%26_api_key%3D5398cfcf74d664885ec6c81ed6e1dc21');
+			})
+				
+				
+				document.getElementById('exit').addEventListener('tap', function() {
+					if (mui.os.ios) {
+						var btnArray = [{
+							title: "注销当前账号"
+						}];
+						plus.nativeUI.actionSheet({
+							cancel: "取消",
+							buttons: btnArray
+						}, function(event) {
+							var index = event.index;
+							switch (index) {
+								case 1:
+									//app.setState({});
+									plus.storage.clear();
+									mui.openWindow({
+										url: 'login.html',
+										id: 'login',
+										show: {
+											aniShow: 'pop-in'
+										},
+										waiting: {
+											autoShow: false
+										}
+									});
+									break;
+							}
+						});
+						return;
+					}
+					var btnArray = [{
+						title: "注销当前账号"
+					}, {
+						title: "直接关闭应用"
+					}];
+					plus.nativeUI.actionSheet({
+						cancel: "取消",
+						buttons: btnArray
+					}, function(event) {
+						var index = event.index;
+						switch (index) {
+							case 1:
+								plus.storage.clear();
+								mui.openWindow({
+									url: 'login.html',
+									id: 'login',
+									show: {
+										aniShow: 'pop-in'
+									},
+									waiting: {
+										autoShow: false
+									}
+								});
+								break;
+							case 2:
+								plus.runtime.quit();
+								break;
+						}
+					});
+				}, false);
+			})
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-block" style="width:100%;height:120px;background-color: #6ACCCB;text-align: center;">
+				<a class="mui-media" href="me.html">
+					<a class="mui-icon mui-icon-contact" style="color:#FFFFFF;font-size:72px;margin-top: 0px;"></a>
+					<p id='accountname' class="mui-tab-label" style="color: #FFFFFF;margin-top: 10px;font-size: 18px;"></p>
+				</a>
+			</div>
+		</div>
+		<div class="mui-content mui-scroll-wrapper" style="margin-top: 120px;">
+			<div class="mui-scroll">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-hidden">cared
+						<div id="M_Toggle" class="mui-switch mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<!--<li class="mui-table-view-cell">
+						<span style="color:#333333;margin-left: 10px;font-size: 16px;">账户余额</span>
+						<span class="pull-right" style="font-size: 16px;line-height: 20px;color:#FF9900 ;">$35.05</span>
+					</li>-->
+
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<span style="color:#333333;margin-left: 10px;font-size: 16px;">优惠券</span>
+						</a>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<span style="color:#333333;margin-left: 10px;font-size: 16px;">关于我们</span>
+						</a>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<span style="color:#333333;margin-left: 10px;font-size: 16px;">评分鼓励</span>
+						</a>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="update">
+							<span style="color:#333333;margin-left: 10px;font-size: 16px;">安装更新</span>
+							<span class="pull-right" style="padding-right: 20px;color:#666666" id="versionnum"></span>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="mui-table-view" style="margin-top:15px">
+					<li class="mui-table-view-cell">
+						<a id="exit" class="mui-navigate" style="color:#FF9900;text-align: center;">注销</a>
+					</li>
+				</ul>
+				<!--<button id="test">test</button>
+			<!--<button id="login">login</button>
+			<button id="reg">reg</button>
+			<button id="setting">setting</button>
+				<button id="navigate" onclick="navigateWithMap();">navigate</button>
+				<button id="disc">disc</button>-->
+				<!--<button id="test">test</button>
+				<button id="ajax">test2</button>-->
+			</div>
+		</div>
+	</body>
+	<script>
+	</script>
+
+</html>

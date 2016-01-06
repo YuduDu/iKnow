@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-MassagistsReview</title>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var starelement = document.getElementsByName("star");
+				var starrate = 0;
+				console.log(self.orderid);
+				console.log(starelement.length)
+				document.getElementById('star1').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_off.png";
+						document.getElementById("star3").src="img/star_off.png";
+						document.getElementById("star4").src="img/star_off.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 1;
+						
+				});
+				document.getElementById('star2').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_off.png";
+						document.getElementById("star4").src="img/star_off.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 2;
+				});
+				document.getElementById('star3').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_on.png";
+						document.getElementById("star4").src="img/star_off.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 3;
+				});
+				document.getElementById('star4').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_on.png";
+						document.getElementById("star4").src="img/star_on.png";
+						document.getElementById("star5").src="img/star_off.png";
+						starrate = 4;
+				});
+				document.getElementById('star5').addEventListener('tap',function(){
+						document.getElementById("star1").src="img/star_on.png";
+						document.getElementById("star2").src="img/star_on.png";
+						document.getElementById("star3").src="img/star_on.png";
+						document.getElementById("star4").src="img/star_on.png";
+						document.getElementById("star5").src="img/star_on.png";
+						starrate = 5;
+					})
+				
+				
+				document.getElementById("confirmbtn").addEventListener('tap',function(){
+					textvalue = document.getElementById("textarea").value
+					if(textvalue!=''&&starrate!=0){
+						var newform = JSON.stringify({
+					"orderid": self.orderid,
+					"content": textvalue,
+					"stars": starrate
+				});
+					console.log(newform);
+					mui.ajax(url.comment, {
+					data: {
+						comment: newform
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log(data);
+						if(data=='success'){
+							plus.nativeUI.toast('评价成功');
+							var backorderslist = plus.webview.getWebviewById('orderslist.html');
+							backorderslist.evalJS('document.getElementById("'+self.orderid+'btn").style.display="none";');
+							mui.back();
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+					}
+					else {
+						plus.nativeUI.toast('请输入星级及评价内容')
+					}
+				})
+			})
+		</script>
+		<script type="text/javascript">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground("#6acccb");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+			img {
+				width: 36px;
+				margin-right: 6px;
+			}
+			.starrate {
+				font-size: 16px; 
+				color: #ff6600;
+				padding-right: 18px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;top:0px">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">订单评价</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+			<a id="confirmbtn" class="mui-pull-right" style="color: #ffffff;padding: 12px 0px 12px 30px">发布</a>
+		</header>
+		<div class="mui-content" style="position:relative;top:15px">
+			<div style="height:100px;background-color: #ffffff;text-align: center;padding-top:15px;position: relative;">
+				<span style="margin-left: 5px;"><img id="star1" name="star" src="img/star_off.png"/></span>
+				<span><img id="star2" name="star" src="img/star_off.png"/></span>
+				<span><img id="star3" name="star" src="img/star_off.png"/></span>
+				<span><img id="star4" name="star" src="img/star_off.png"/></span>
+				<span><img id="star5" name="star" src="img/star_off.png"/></span>
+				<div style="text-align: center;padding-top:10px;position: relative;">
+					<span class="starrate">1星</span>
+					<span class="starrate">2星</span>
+					<span class="starrate">3星</span>
+					<span class="starrate">4星</span>
+					<span class="starrate" style="padding-right: 0px;">5星</span>
+				</div>
+			</div>
+			<div style="position: relative;height:auto;background-color: #ffffff;top:15px">
+				<div style="border-bottom: solid;border-bottom-width:1px;border-bottom-color:#f2f2f2;height:50px;">
+					<a class="fa fa-envelope" style="padding: 10px 0 0 15px;font-size: 24px;color:#999999"></a>
+					<span style="font-size: 16px;color: #999999;">评价</span>
+				</div>
+				<textarea id="textarea" rows="5" placeholder="您的评价" style="border: none;color: #333333;"></textarea>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

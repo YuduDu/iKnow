@@ -46,6 +46,7 @@
 					success: function(data) {
 						console.log(data);
 						this.obj = JSON.parse(data);
+						obj = obj.RespContent.Content
 						console.log(obj.shop_info.name)
 						document.getElementById("title").innerHTML = obj.massagist_info.name;
 						document.getElementById("shopname").innerHTML = obj.shop_info.name;
@@ -144,6 +145,7 @@
 						//async: false,
 						success: function(data) {
 							var obj = JSON.parse(data);
+							obj = obj.RespContent.Content
 							var html = template('servicelisttemplate', {
 								list: obj
 							});
@@ -169,6 +171,7 @@
 						//async: false,
 						success: function(data) {
 							var obj = JSON.parse(data);
+							obj = obj.RespContent.Content
 							var html = template('commenttemplate', {
 								list: obj
 							});

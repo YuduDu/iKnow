@@ -207,10 +207,11 @@
 							type: 'post', //HTTP请求类型 
 							timeout: 100000, //超时时间设置为10秒；   
 							success: function(data) {
+								this.respdata = JSON.parse(data)
 								document.getElementById("login").innerHTML = '登陆';
 								document.getElementById("login").removeAttribute('disabled')
 								console.log(data);
-								if (data == 'success') {
+								if (respdata.RespContent.Status == 'Success') {
 									//localStorage.setItem("useraccount", accountBox.value);
 									plus.storage.setItem("useraccount", accountBox.value);
 									plus.nativeUI.toast('登陆成功');

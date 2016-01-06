@@ -82,10 +82,15 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						console.log(data);
-						if(data=='success'){
+						var obj = JSON.parse(data)
+						if(obj.RespCode =='111111'){
 							plus.nativeUI.toast('评价成功');
 							var backorderslist = plus.webview.getWebviewById('orderslist.html');
 							backorderslist.evalJS('document.getElementById("'+self.orderid+'btn").style.display="none";');
+							mui.back();
+						}
+						else{
+							plus.nativeUI.toast('评价失败');
 							mui.back();
 						}
 					},

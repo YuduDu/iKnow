@@ -99,11 +99,12 @@
 							type: 'post', //HTTP请求类型
 							timeout: 100000, //超时时间设置为10秒；
 							success: function(data) {
+								var obj = JSON.parse(data)
 								regButton.innerHTML = '验证手机号';
 								regButton.removeAttribute('disabled')
 								//服务器返回响应，根据响应结果，分析是否登录成功；
 								console.log('error'+data);
-								if (data == 'success') {
+								if (obj.RespCode == '111111') {
 									//手机号符合规则，进入验证手机号归属，等待电话
 									document.getElementById("phoneverifydiv").style.display = "";
 									document.getElementById("regdiv").style.display = "none";
@@ -123,10 +124,11 @@
 											type: 'post', //HTTP请求类型
 											timeout: 100000, //超时时间设置为10秒；
 											success: function(data) {
+												var obj = JSON.parse(data)
 												reg2Button.innerHTML = '提交';
 												reg2Button.removeAttribute('disabled')
 												//服务器返回响应，根据响应结果，分析是否登录成功；
-												if (data == 'success') {
+												if (obj.RespCode == '111111') {
 													//如果验证码正确，则进入主页
 													plus.storage.setItem("phonenum", accountBox.value);
 													$.openWindow({

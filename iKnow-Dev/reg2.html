@@ -110,7 +110,8 @@
 								regButton.innerHTML = '确认';
 								regButton.removeAttribute('disabled')
 								console.log(data);
-								if (data == 1) {
+								var obj = JSON.parse(data)
+								if (obj.RespCode == '111111') {
 									plus.nativeUI.toast('注册成功');
 									$.openWindow({
 										url: 'login.html',
