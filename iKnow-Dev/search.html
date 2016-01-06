@@ -39,23 +39,26 @@
 								type: 'post', //HTTP请求类型 
 								timeout: 100000, //超时时间设置为10秒；  
 								success: function(data) {
-									this.obj = JSON.parse(data);
+									this.objraw = JSON.parse(data);
 									console.log(data);
-									obj = obj.RespContent.Content
+									this.obj = objraw.RespContent.Content
 									for (item in obj) {
 										var point2lat = eval(obj[item].latitude);
 										var point2long = eval(obj[item].longtitude);
 										obj[item].distance = distancefunc(p.coords.latitude, p.coords.longitude, point2lat, point2long).toFixed(1);
 									}
-									console.log(JSON.stringify(obj))
-									if (data != '[]') {
+									console.log(objraw.RespCode)
+									if (objraw.RespCode == '111111') {
 										var html = template('serviceslist', {
 											list: obj
 										});
 										document.getElementById('Services').innerHTML = html;
 										document.getElementById("body").style.display = ''
 									} else {
-										document.getElementById("Services").innerHTML = '<p style="text-align: center;padding-top: 40px;font-size: 18px;">暂无服务项目</p>'
+										console.log("no item");
+										document.getElementById("body").style.display = '';
+										document.getElementById("morebtn").style.display='none'
+										document.getElementById("Services").innerHTML = '<p style="text-align: center;padding: 15px 0 15px 0;font-size: 18px;">暂无服务项目</p>'
 									}
 									//plus.geolocation.getCurrentPosition(function(p) {
 									//this.point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
@@ -83,8 +86,8 @@
 									timeout: 100000, //超时时间设置为10秒；
 									//async: false,
 									success: function(data) {
-										this.obj = JSON.parse(data);
-										obj = obj.RespContent.Content
+										this.objraw = JSON.parse(data);
+										this.obj = objraw.RespContent.Content
 										//plus.geolocation.getCurrentPosition(function(p) {
 										//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
 										for (item in obj) {
@@ -95,7 +98,7 @@
 										var html = template('serviceslist', {
 											list: obj
 										});
-										if (data != '[]') {
+										if (objraw.RespCode == '111111') {
 											var orderlistul = document.querySelector('#Services');
 											orderlistul.innerHTML += html;
 											document.getElementById("morebtn").innerHTML = '点击查看更多'
@@ -155,15 +158,15 @@
 								type: 'post', //HTTP请求类型 
 								timeout: 100000, //超时时间设置为10秒；  
 								success: function(data) {
-									this.obj = JSON.parse(data);
-									obj = obj.RespContent.Content
+									this.objraw = JSON.parse(data);
+									this.obj = objraw.RespContent.Content
 									for (item in obj) {
 										var point2lat = eval(obj[item].latitude);
 										var point2long = eval(obj[item].longtitude);
 										obj[item].distance = 'null';
 									}
-									console.log(JSON.stringify(obj))
-									if (data != '[]') {
+									console.log(objraw.RespCode)
+									if (objraw.RespCode == '111111') {
 										var html = template('serviceslist', {
 											list: obj
 										});
