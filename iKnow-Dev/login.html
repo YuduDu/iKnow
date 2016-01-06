@@ -142,7 +142,6 @@
 					if (self.presetphone) {
 						console.log("hehe");
 						document.getElementById("account").value = self.presetphone;
-						document.getElementById("account").readOnly = 'readonly';
 					};
 					var toMain = function() {
 						//						$.fire(mainPage, 'show', null);
@@ -208,7 +207,7 @@
 							timeout: 100000, //超时时间设置为10秒；   
 							success: function(data) {
 								this.respdata = JSON.parse(data)
-								document.getElementById("login").innerHTML = '登陆';
+								document.getElementById("login").innerHTML = '登录';
 								document.getElementById("login").removeAttribute('disabled')
 								console.log(data);
 								if (respdata.RespContent.Status == 'Success') {
