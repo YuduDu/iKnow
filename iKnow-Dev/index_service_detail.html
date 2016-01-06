@@ -102,6 +102,7 @@
 						document.getElementById("funcdes").innerHTML = obj.funcdes;
 						document.getElementById("shopname").innerHTML = obj.shopname;
 						document.getElementById("address").innerHTML = obj.address;
+						document.getElementById("duration").innerHTML = "服务时长:"+obj.duration+"分钟";
 						var maplink = "http://api.map.baidu.com/marker?location=" + obj.latitude + "," + obj.longtitude + "&title=" + obj.shopname + "&content=" + obj.address + "&output=html&src=iKnowApp";
 						document.getElementById("address").href = maplink;
 						document.getElementById("intro").innerHTML = obj.intro;
@@ -200,7 +201,8 @@
 			</div>
 			<div style="background-color: #ffffff; height:auto;position:relative;">
 				<p style="font-size: 16px;color: #333333; padding-left:10px;padding-top: 15px;line-height: 10px;" id="servicename">加载中...</p>
-				<p style="height: auto; font-size: 14px;color: #666666; padding: 0 0 10px 10px;line-height: 20px;" id="shortdesc">加载中...</p>
+				<p style="height: auto; font-size: 14px;color: #666666; padding: 0 0 00px 10px;line-height: 10px;" id="duration">加载中...</p>
+				<p style="height: auto; font-size: 14px;color: #666666; padding: 0 0 10px 10px;line-height: 10px;" id="shortdesc">加载中...</p>
 			</div>
 			<div style="background-color: #ffffff; height:60px;position:relative;top:1px">
 				<div id="locationdiv" style="width:40px;height:100%;vertical-align:middle;padding-left:5px;position:absolute;line-height:60px">
