@@ -210,7 +210,7 @@
 					else{
 						document.getElementById("timeslotspan").innerHTML = '选择时间'
 					}
-					if (plus.storage.getItem("order_massaname") != massaname) {
+					if (plus.storage.getItem("order_massaname")) {
 						massaname = plus.storage.getItem("order_massaname");
 						document.getElementById('massagistspan').innerHTML = massaname;
 					}
@@ -300,7 +300,7 @@
 		</div>
 
 		<div style="height:50px;position: relative;top:123px;background-color: #ffffff;">
-			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="namespan">联系方式</span>
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="namespan">我的手机号</span>
 			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="phonespan"></span>
 		</div>
 
