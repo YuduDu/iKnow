@@ -50,6 +50,7 @@
 						document.getElementById("shopname").innerHTML = obj.shopname;
 						document.getElementById("massagistname").innerHTML = obj.massagistname;
 						document.getElementById("servicename").innerHTML = obj.servicename;
+						document.getElementById("servicetime").innerHTML = obj.service_start.slice(0,16)+"-"+obj.service_end.slice(11,16)
 						document.getElementById("pic").src = obj.pic;
 						document.getElementById("customerid").innerHTML = obj.customerid;
 						
@@ -126,7 +127,7 @@
 		</div>
 		<div style="height:50px;position: relative;top:93px;background-color: #ffffff;">
 			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">服务时间</span>
-			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;"></span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="servicetime"></span>
 		</div>
 		<div style="height:50px;position: relative;top:94px;background-color: #ffffff;">
 			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">现金券/代金券/优惠码</span>
