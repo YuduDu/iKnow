@@ -63,7 +63,7 @@ if (isset($_POST["phone"]) && $_POST["phone"] != "null" && isset($_POST["client"
     //var_dump($result);
 }
 
-if (isset($_POST["authnum"]) && $_POST["authnum"] != "") {
+elseif (isset($_POST["authnum"]) && $_POST["authnum"] != "") {
     if ((int)$_POST["authnum"] == $_SESSION["auth"]) {
         //echo "success";
         echo json_encode([
@@ -97,6 +97,15 @@ if (isset($_POST["authnum"]) && $_POST["authnum"] != "") {
         }
     }
 
+}
+else {
+    echo json_encode([
+        'RespCode' => '000002',
+        'RespContent' => [
+            'Status' => 'Failed',
+            'Content' => 'Parameter missing!'
+        ]
+    ]);
 }
 
 

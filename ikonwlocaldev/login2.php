@@ -29,6 +29,9 @@ if (isset($_POST['pass']) && $_POST['pass'] != null) {
     $logger->pushHandler(new FirePHPHandler());
     login($form, $logger);
 }
+else {
+    echo json_encode(['RespCode' => '000002', 'RespContent' => ['Status' => 'Failed', 'Content' => 'Parameter "Pass" is missing! ']]);
+};
 
 function login($form, $logger)
 {
@@ -57,5 +60,3 @@ function login($form, $logger)
     //else echo "000000";
     mysql_close($con);
 }
-
-?>
