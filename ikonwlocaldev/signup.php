@@ -44,6 +44,15 @@ if (isset($_POST['custompassword']) && $_POST['custompassword'] != null) {
 
     //signup($_POST[form]);
 }
+else{
+    echo json_encode([
+        'RespCode' => 000002,
+        'RespContent' => [
+            'Status' => 'Failed',
+            'Content' => 'Parameter missing'
+        ]
+    ]);
+}
 
 function signup($logger, $id, $pd)//working fine
 {
