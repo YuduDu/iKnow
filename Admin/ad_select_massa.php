@@ -52,19 +52,6 @@ if (!session_id())
             <label></label><input name = "" type = "reset" class="btn" value="重置"/> </li>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--<center>-->
 <!--<form id="ad_select" action="ad_select_massa_action.php" method="post">-->
 <!--    <p>-->
