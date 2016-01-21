@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>客户查询结果</title>
-	<link href="./1210/css/style.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="./1210/js/jquery.js"></script>
+	<link href="../1210/css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../1210/js/jquery.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -28,7 +28,7 @@
 	<div class="place">
 		<span>位置：</span>
 		<ul class="placeul">
-			<li><a href="./1210/index.html">首页</a></li>
+			<li><a href="../1210/index.html">首页</a></li>
 			<li><a href="javascript:history.back()">返回</a></li>
 			<li><a href="#">客户查询结果</a> </li>
 		</ul>
@@ -42,15 +42,13 @@
 				<th>注册ID</th>
 				<th>注册日期</th>
 				<th>国籍</th>
-<!--				<th>星&nbsp &nbsp级</th>-->
-				<th>操&nbsp &nbsp作</th>
 				<th>历史订单</th>
 			</tr>
 			</thead>
 
 			<tbody>
 			<?php
-			require_once 'db_func.php';
+			require_once '../db_func.php';
 			session_start();
 			$_SESSION['customer_phone'] = $_POST['ad_select_customer'];
 			$con = DBconnect();
@@ -66,11 +64,8 @@
 				echo $row['Country'];
 //				echo "</td>" ."<td>";
 //				echo $row['stars'];
-				echo "</td>" ."<td>";
-				?>
-				<a href="ad_rcmand_ma_delete.php">删除</a>
-				<?php
-				echo "</td>" ."<td>";
+				echo "</td>" ;
+				echo "<td>";
 				?>
 				<a href="ad_select_custom_order.php">订单详情</a>
 			<?php

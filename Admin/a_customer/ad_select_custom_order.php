@@ -9,8 +9,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>客户订单详情</title>
-		<link href="./1210/css/style.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="./1210/js/jquery.js"></script>
+		<link href="../1210/css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="../1210/js/jquery.js"></script>
 
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -30,10 +30,10 @@
 		</script>
 	</head>
 <?php
-	require_once 'db_func.php';
+	require_once '../db_func.php';
 	$customid = $_SESSION['customer_phone'];
 	$con = DBconnect();
-	$sql= "SELECT * FROM `Order` WHERE customerid = $customid";
+	$sql= "SELECT * FROM `Order` WHERE customerid = $customid and status != 'UNPAID' ; ";
 	$result = mysql_query( $sql,$con );
 ?>
 
@@ -41,7 +41,7 @@
 	<div class="place">
 		<span>位置：</span>
 		<ul class="placeul">
-			<li><a href="./1210/index.html">首页</a></li>
+			<li><a href="../1210/index.html">首页</a></li>
 			<li><a href="ad_select_custm.php">选择客户</a></li>
 			<li><a href="javascript:history.back()">返回</a></li>
 			<li><a href="#">客户查询结果</a> </li>
@@ -93,17 +93,6 @@
 		</table>
 
 	</div>
-
-
-
-
-
-
-
-
-
-
-
 
 <?php
 //require_once 'db_func.php';

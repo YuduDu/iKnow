@@ -9,9 +9,9 @@
 
 <body>
 <?php
-require_once "../db_func.php";
-$con = DBconnect();
-$get=mysql_query("SELECT name FROM Shop");
+	require_once "../db_func.php";
+	$con = DBconnect();
+	$get=mysql_query("SELECT name FROM Shop");
 ?>
 
 
@@ -24,13 +24,12 @@ $get=mysql_query("SELECT name FROM Shop");
 </div>
 
 <div class="formbody">
-	<form action="ad_insert_shop_action.php" method="post" enctype="multipart/form-data" >
+	<form action="ad_insert_shop.php" method="post" enctype="multipart/form-data" >
 
 		<div class="formtitle"><span>商家信息</span></div>
 
 		<ul class="forminfo">
 			<li><label>商户名称</label><input type = "text" name = "name" class="dfinput" /></li>
-			<li><label>商户ID</label><input type = "text" name = "shopid" class="dfinput" /></li>
 			<li><label>电 话</label><input type = "text" name = "phone" class="dfinput" /></li>
 			<li><label>省 份</label><input type = "text" name = "province" class="dfinput" /></li>
 			<li><label>城 市</label><input type = "text" name = "city" class="dfinput" /></li>
@@ -39,32 +38,39 @@ $get=mysql_query("SELECT name FROM Shop");
 			<li><label>开始营业时间</label><input type = "text" name = "opentime" class="dfinput" /><i>格式:HH:MM:SS</i></li>
 			<li><label>结束营业时间</label><input type = "text" name = "closetime" class="dfinput"/><i>格式:HH:MM:SS</i></li>
 
-			<li><label>&nbsp;</label><input type="submit"  value="确认保存"/></li>
+			<li><label>&nbsp;</label><input type="submit"  class="btn" value="确认保存"/></li>
 		</ul>
 
 	</div>
-
-
-<!---->
-<!---->
-<!---->
-<!---->
-<!---->
-<!---->
-<!--<center>-->
-<!--	<form action="ad_insert_shop_action.php" method="post" enctype="multipart/form-data" >-->
-<!--		商户名称:  <input type = "text" name = "name"  > <br>-->
-<!--		商户ID:   <input type="text" name = "shopid" > <br>-->
-<!--		电 话:     <input type = "text" name = "phone" > <br>-->
-<!--		省 份:     <input type = "text" name = "province" > <br>-->
-<!--		城 市:     <input type = "text" name = "city" > <br>-->
-<!--		地 址:     <input type = "text" name = "address" > <br>-->
-<!--		图 片:     <input type= "file"  name="pic"  accept="image/gif, image/jpeg" > <br>-->
-<!--		开始营业时间: <input type = "text" name = "opentime" > <br>-->
-<!--		结束营业时间: <input type = "text" name = "closetime" > <br>-->
-<!---->
-<!--		<input type="submit" value="Load">-->
-<!--	</form>-->
-<!--</center>-->
 </body>
 </html>
+<?php
+$result = mysql_query("select * from Shop");
+$num_rows = mysql_num_rows($result);
+
+
+
+	$name=$_POST['name'];
+	$sid=$num_rows+1;
+	$phone=$_POST['phone'];
+	$city=$_POST['city'];
+	$province=$_POST['province'];
+	$addr=$_POST['address'];
+	$pic=$_FILES['pic']['name'];
+	$ot=$_POST['opentime'];
+	$ct=$_POST['closetime'];
+
+$sql = "INSERT INTO Shop(shopid, name, phone, address, opentime, closetime, city, province) VALUES ($sid,$name,$phone,$addr,$ot,$ct,$city,$province);";
+
+if (mysql_query($sql,$con)) {
+	echo "<script type='text/javascript'> alert('添加成功');</script>";
+	?>
+
+	<?php
+} else {
+	echo "<script type='text/javascript'> alert('无法添加，请检查输入信息');</script>";
+	?>
+
+	<?php
+}
+?>

@@ -9,12 +9,12 @@ if (!session_id())
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>客户查询</title>
-    <link href="./1210/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../1210/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="sarchbody">
 <?php
-    require_once "db_func.php";
+    require_once "../db_func.php";
     $_SESSION['customer_phone'] = null;
     $con = DBconnect();
     $select_all_m_name = "SELECT * FROM Customer ";
@@ -24,7 +24,7 @@ if (!session_id())
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
-        <li><a href="./1210/index.html">首页</a></li>
+        <li><a href="../1210/index.html">首页</a></li>
         <li><a href="javascript:history.go(-1);">返回</a></li>
     </ul>
 </div>

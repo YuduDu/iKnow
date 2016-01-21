@@ -32,7 +32,7 @@ require_once '../db_func.php';
 	<form id="select_shop_form" action="ad_select_shop_action.php" method="post">
 		<div class="formtitle"><span>选择商家</span></div>
 		<ul class="forminfo">
-			<li><label>商家名称</label>
+			<label>商家名称</label>
 				<select id="select_shop" name="select_shop_s">
 					<?php
 					$shop_name = array();
@@ -47,5 +47,5 @@ require_once '../db_func.php';
 					unset( $shop_name );
 					?>
 				</select>
-			<li><label></label><input name = "" type="submit" class="btn" value="查询"/>
-				<label></label><input name = "" type = "reset" class="btn" value="重置"/> </li>
+			<label></label><input name = "" type="submit" class="btn" value="查询"/>
+				<label></label><input name = "" type = "reset" class="btn" value="重置"/>

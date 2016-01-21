@@ -38,6 +38,7 @@
 		<ul class="forminfo">
 			<li><label>月份</label>
 				<select name = "month" id = "month">
+					<option value="">月</option>
 					<option value = "01" > 一月 </option>
 					<option value = "02" > 二月 </option>
 					<option value = "03" > 三月 </option>
@@ -55,6 +56,7 @@
 
 			<li><label>年份</label>
 				<select name = "year" id = "year">
+					<option value="">年</option>
 					<option value = "2015" > 2015 </option>
 					<option value = "2016" > 2016 </option>
 					<option value = "2017" > 2017 </option>
