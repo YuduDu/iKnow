@@ -49,6 +49,8 @@ $result = mysql_query("select * from Shop");
 $num_rows = mysql_num_rows($result);
 
 
+if(isset($_POST['submit'])){
+
 
 	$name=$_POST['name'];
 	$sid=$num_rows+1;
@@ -72,5 +74,7 @@ if (mysql_query($sql,$con)) {
 	?>
 
 	<?php
+}
+
 }
 ?>

@@ -36,7 +36,7 @@ if (!session_id())
         <ul class="forminfo">
             <li><label>客户注册ID</label>
                 <select id="select_custom" name="ad_select_customer" class="select3">
-            <option disabled selected> -- select an option -- </option>
+            <option disabled selected> -- 选择客户 -- </option>
             <?php
                 $customer_name = array();
                 $rs = mysql_query($select_all_m_name);
@@ -47,8 +47,10 @@ if (!session_id())
                         echo "<option>".$r["phone"]."</option>";
                     }
             ?>
-            </select></li>
-            <li><label></label><input name="" type="submit" class="btn" value="查询"/></li>
+            </select>
+                <label></label><input name="" type="submit" class="btn" value="查询"/>
+            </li>
+
 
             </ul>
         </form>

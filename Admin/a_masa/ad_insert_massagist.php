@@ -55,6 +55,10 @@ $shop_id = get_shop_id($con,$shop);
 //	insert_massagist($con,$phone,$password);
 //	insert_massagist_detail($con,$phone,$name,$shop_id);
 
+if(isset($_POST['submit'])){
+
+
+
 $sql_massagist = "INSERT INTO Massagist (phone, password) VALUES ('".$phone ."','".$password ."')";
 $sql_massagist_detail = "INSERT INTO MassagistDetail (phone,name,shopid) VALUES ('".$phone ."','".$name ."',". $shop_id .")";
 if(mysql_query($sql_massagist,$con) &&mysql_query($sql_massagist_detail,$con)){
@@ -62,6 +66,7 @@ if(mysql_query($sql_massagist,$con) &&mysql_query($sql_massagist_detail,$con)){
 		} else {
 			echo "<script type='text/javascript'> alert('无法添加，请检查输入信息');</script>";
 		}
+}
 
 function get_shop_id ($con, $shop){
 	$sql_shop_name = "SELECT shopid FROM Shop WHERE name = '" .$shop ."';";
