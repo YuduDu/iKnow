@@ -1,1 +1,0 @@
-<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/html"><head>	<meta charset="UTF-8">	<title>FRAMESET</title></head><frameset rows="10%,90%">	<frame src="top.html" name="top">	<frameset cols="20%,80%">		<frame src="admin_index.html" name="left" >		<frame src="ad_insert.html" name="left">	</frameset></frameset>

@@ -45,6 +45,15 @@ if (isset($_POST['new_password']) && $_POST['new_password'] != null) {
             ]
         ]);
 }
+else{
+    echo json_encode([
+        'RespCode' => 000002,
+        'RespContent' => [
+            'Status' => 'Failed',
+            'Content' => 'Parameter missing'
+        ]
+    ]);
+}
 
 
 

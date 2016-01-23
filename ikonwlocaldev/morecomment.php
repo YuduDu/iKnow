@@ -28,6 +28,6 @@ function get_more_comment($con, $Info_array, $keypair_array, $page, $perpagenum)
 {
     $start = ($page - 1) * $perpagenum;
     //echo $page." ".$perpagenum." ".$start;
-    $comments = DBfetchall2($con, "Comment", $Info_array, $keypair_array, "order by date desc limit " . $start . "," . $perpagenum);
+    $comments = DBfetchall2($con, "Comment", $Info_array, $keypair_array,null, "order by date desc limit " . $start . "," . $perpagenum);
     return $comments;
 }

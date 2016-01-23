@@ -11,9 +11,11 @@ require_once "appointments.php";
 require_once "lib/general.php";
 date_default_timezone_set('America/Chicago');
 
-if (check_attribute(['massagistid', 'type', 'serviceid'], "post")) {
+session_start();
+
+if (check_attribute(['type', 'serviceid'], "post")) {
     $con = DBconnect();
-    $times = get_unavailable_time($con, $_POST['massagistid']);
+    $times = get_unavailable_time($con, $_SESSION['massaid']);
     $service_info = get_service_info($con, $_POST['serviceid']);
     $shopid = $service_info['shopid'];
     //$shopid = get_shopid($con,$_POST["massagistid"]);

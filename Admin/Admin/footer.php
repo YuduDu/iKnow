@@ -1,1 +1,0 @@
-Copyright © 2015 iKnow_Dev
