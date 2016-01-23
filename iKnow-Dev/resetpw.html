@@ -109,6 +109,7 @@
 									document.getElementById("phoneverifydiv").style.display = "";
 									document.getElementById("regdiv").style.display = "none";
 									document.getElementById("reg2div").style.display = "";
+									document.getElementById("account").readOnly = "readonly"
 									plus.nativeUI.toast('请等待验证短信并将4位验证码输入验证框');
 									//已成功发送短信，等待用户输入验证码提交
 									reg2Button.addEventListener('tap', function(event) {

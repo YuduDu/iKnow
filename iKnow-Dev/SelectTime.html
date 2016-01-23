@@ -47,6 +47,7 @@
 					},
 					table = document.getElementById('table');
 				table.addEventListener('tap', selectCell);
+				console.log("order_massaid"+plus.storage.getItem('order_massaid'));
 				mui.ajax(url.appt, {
 					data: {
 						massagistid: plus.storage.getItem('order_massaid'),
@@ -61,8 +62,8 @@
 						console.log('appt:' + data);
 						var tempdata = JSON.parse(data)
 						var obj = JSON.parse(tempdata.RespContent.Content)
-						console.log('obj' + obj)
-						if (obj == '[]') {
+						console.log("Content"+tempdata.RespContent.Content)
+						if (obj == '') {
 							console.log('empty');
 							var datecontrolitem = document.getElementsByName("datecontrolitem")
 								//console.log(datecontrolitem.length)
@@ -82,21 +83,16 @@
 							}
 							//mui.trigger(datecontrolitem[0], 'tap');
 						} else {
-							console.log(addMinutes(obj[0][0].slice(11, 16), '30'));
-							console.log(obj.length);
+							console.log("obj[0][0]"+obj[0][0]);
 							for (var i = 0; i < obj.length; i++) {
 								objdatetemp = obj[i][0].slice(5, 10);
 								objtimestarttemp = obj[i][0].slice(11, 16);
 								objtimeendtemp = obj[i][1].slice(11, 16)
 									//console.log(objdatetemp)
 									//console.log(objtimetemp)
-								console.log("1");
 								if (objdatetemp == pickeddatetemp) {
-									console.log("aaa");
 									for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
-										console.log(k);
 										if (document.getElementById(k)) {
-											console.log("yes");
 											document.getElementById(k).style.display = 'none'
 										}
 									}
@@ -120,11 +116,8 @@
 										objtimestarttemp = obj[i][0].slice(11, 16);
 										objtimeendtemp = obj[i][1].slice(11, 16)
 										if (objdatetemp == pickeddate) {
-											console.log("aaa");
 											for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
-												console.log(k);
 												if (document.getElementById(k)) {
-													console.log("yes");
 													document.getElementById(k).style.display = 'none'
 												}
 											}
@@ -188,9 +181,6 @@
 				//console.log(datepanelhtml);
 				document.getElementById('datepanel').innerHTML = datepanelhtml;
 				var opener = plus.webview.currentWebview().opener();
-				//console.log(finaltime[0]);
-				console.log("finaltime[1]" + finaltime[1] + 'thismonth' + thismonth);
-				console.log(("0" + thismonth + 1).slice(-2));
 				document.getElementById("toshop").addEventListener('tap',function(){
 					plus.nativeUI.toast('到店消费维护中，暂不开放')
 				})

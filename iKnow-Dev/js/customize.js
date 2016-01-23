@@ -25,12 +25,12 @@ var url = {
 }
 
 var citylist = {
-	city: ['北京市', '洛阳市', '秦皇岛市']
+	city: ['北京市', '洛阳市']
 }
 
 
 var constant = {
-	versionid: "1.7.7"
+	versionid: "1.7.9"
 }
 
 var categorypair = {

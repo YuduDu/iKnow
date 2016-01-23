@@ -22,93 +22,112 @@
 				var starrate = 0;
 				console.log(self.orderid);
 				console.log(starelement.length)
-				document.getElementById('star1').addEventListener('tap',function(){
-						document.getElementById("star1").src="img/star_on.png";
-						document.getElementById("star2").src="img/star_off.png";
-						document.getElementById("star3").src="img/star_off.png";
-						document.getElementById("star4").src="img/star_off.png";
-						document.getElementById("star5").src="img/star_off.png";
-						starrate = 1;
-						
-				});
-				document.getElementById('star2').addEventListener('tap',function(){
-						document.getElementById("star1").src="img/star_on.png";
-						document.getElementById("star2").src="img/star_on.png";
-						document.getElementById("star3").src="img/star_off.png";
-						document.getElementById("star4").src="img/star_off.png";
-						document.getElementById("star5").src="img/star_off.png";
-						starrate = 2;
-				});
-				document.getElementById('star3').addEventListener('tap',function(){
-						document.getElementById("star1").src="img/star_on.png";
-						document.getElementById("star2").src="img/star_on.png";
-						document.getElementById("star3").src="img/star_on.png";
-						document.getElementById("star4").src="img/star_off.png";
-						document.getElementById("star5").src="img/star_off.png";
-						starrate = 3;
-				});
-				document.getElementById('star4').addEventListener('tap',function(){
-						document.getElementById("star1").src="img/star_on.png";
-						document.getElementById("star2").src="img/star_on.png";
-						document.getElementById("star3").src="img/star_on.png";
-						document.getElementById("star4").src="img/star_on.png";
-						document.getElementById("star5").src="img/star_off.png";
-						starrate = 4;
-				});
-				document.getElementById('star5').addEventListener('tap',function(){
-						document.getElementById("star1").src="img/star_on.png";
-						document.getElementById("star2").src="img/star_on.png";
-						document.getElementById("star3").src="img/star_on.png";
-						document.getElementById("star4").src="img/star_on.png";
-						document.getElementById("star5").src="img/star_on.png";
-						starrate = 5;
-					})
-				
-				
-				document.getElementById("confirmbtn").addEventListener('tap',function(){
-					textvalue = document.getElementById("textarea").value
-					if(textvalue!=''&&starrate!=0){
-						var newform = JSON.stringify({
-					"orderid": self.orderid,
-					"content": textvalue,
-					"stars": starrate
-				});
-					console.log(newform);
-					mui.ajax(url.comment, {
+				mui.ajax(url.comment, {
 					data: {
-						comment: newform
+						orderid: self.orderid
 					},
-					type: 'post', //HTTP请求类型 
-					timeout: 100000, //超时时间设置为10秒；  
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
 						console.log(data);
-						var obj = JSON.parse(data)
-						if(obj.RespCode =='111111'){
-							plus.nativeUI.toast('评价成功');
-							var backorderslist = plus.webview.getWebviewById('orderslist.html');
-							backorderslist.evalJS('document.getElementById("'+self.orderid+'btn").style.display="none";');
-							mui.back();
-						}
-						else{
-							plus.nativeUI.toast('评价失败');
-							mui.back();
-						}
+						obj = data.RespContent.Content
+						console.log(obj.pic);
+						document.getElementById("pic").style.backgroundImage = "url("+obj.pic+")";
+						document.getElementById("intro").innerHTML = obj.intro;
+						document.getElementById("name").innerHTML = obj.name;
+						document.getElementById("shopname").innerHTML = obj.shopname;
+						document.getElementById("stars").src = "img/v"+obj.stars+".png";
+						
+						
 					},
 					error: function(xhr, type, errorThrown) {
-						//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+						//异常处理；
 						console.log(type);
-						console.log(JSON.stringify(xhr));
 					}
 				});
-					}
-					else {
+				document.getElementById('star1').addEventListener('tap', function() {
+					document.getElementById("star1").src = "img/star_on.png";
+					document.getElementById("star2").src = "img/star_off.png";
+					document.getElementById("star3").src = "img/star_off.png";
+					document.getElementById("star4").src = "img/star_off.png";
+					document.getElementById("star5").src = "img/star_off.png";
+					starrate = 1;
+				});
+				document.getElementById('star2').addEventListener('tap', function() {
+					document.getElementById("star1").src = "img/star_on.png";
+					document.getElementById("star2").src = "img/star_on.png";
+					document.getElementById("star3").src = "img/star_off.png";
+					document.getElementById("star4").src = "img/star_off.png";
+					document.getElementById("star5").src = "img/star_off.png";
+					starrate = 2;
+				});
+				document.getElementById('star3').addEventListener('tap', function() {
+					document.getElementById("star1").src = "img/star_on.png";
+					document.getElementById("star2").src = "img/star_on.png";
+					document.getElementById("star3").src = "img/star_on.png";
+					document.getElementById("star4").src = "img/star_off.png";
+					document.getElementById("star5").src = "img/star_off.png";
+					starrate = 3;
+				});
+				document.getElementById('star4').addEventListener('tap', function() {
+					document.getElementById("star1").src = "img/star_on.png";
+					document.getElementById("star2").src = "img/star_on.png";
+					document.getElementById("star3").src = "img/star_on.png";
+					document.getElementById("star4").src = "img/star_on.png";
+					document.getElementById("star5").src = "img/star_off.png";
+					starrate = 4;
+				});
+				document.getElementById('star5').addEventListener('tap', function() {
+					document.getElementById("star1").src = "img/star_on.png";
+					document.getElementById("star2").src = "img/star_on.png";
+					document.getElementById("star3").src = "img/star_on.png";
+					document.getElementById("star4").src = "img/star_on.png";
+					document.getElementById("star5").src = "img/star_on.png";
+					starrate = 5;
+				})
+				document.getElementById("confirmbtn").addEventListener('tap', function() {
+					textvalue = document.getElementById("textarea").value
+					if (textvalue != '' && starrate != 0) {
+						var newform = JSON.stringify({
+							"orderid": self.orderid,
+							"content": textvalue,
+							"stars": starrate
+						});
+						console.log(newform);
+						mui.ajax(url.comment, {
+							data: {
+								comment: newform
+							},
+							type: 'post', //HTTP请求类型 
+							timeout: 100000, //超时时间设置为10秒；  
+							success: function(data) {
+								console.log(data);
+								var obj = JSON.parse(data)
+								if (obj.RespCode == '111111') {
+									plus.nativeUI.toast('评价成功');
+									var backorderslist = plus.webview.getWebviewById('orderslist.html');
+									backorderslist.evalJS('document.getElementById("' + self.orderid + 'btn").style.display="none";');
+									mui.back();
+								} else {
+									plus.nativeUI.toast('评价失败');
+									mui.back();
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								//plus.nativeUI.alert('网络连接失败，请确认设备网络状态')
+								console.log(type);
+								console.log(JSON.stringify(xhr));
+							}
+						});
+					} else {
 						plus.nativeUI.toast('请输入星级及评价内容')
 					}
 				})
 			})
 		</script>
 		<script type="text/javascript">
-			 // H5 plus事件处理
+			// H5 plus事件处理
 			function plusReady() {
 				// 设置系统状态栏背景为红色
 				plus.navigator.setStatusBarBackground("#6acccb");
@@ -126,12 +145,14 @@
 				min-height: 100%;
 				background-color: #efeff4;
 			}
+			
 			img {
 				width: 36px;
 				margin-right: 6px;
 			}
+			
 			.starrate {
-				font-size: 16px; 
+				font-size: 16px;
 				color: #ff6600;
 				padding-right: 18px;
 			}
@@ -144,7 +165,18 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
 			<a id="confirmbtn" class="mui-pull-right" style="color: #ffffff;padding: 12px 0px 12px 30px">发布</a>
 		</header>
-		<div class="mui-content" style="position:relative;top:15px">
+		<div class="mui-content" style="position:relative;top:0px">
+			<ul class="mui-table-view" style="margin-top:0px">
+				<li class="mui-table-view-cell mui-media ">
+					<div id="pic" class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover; ">
+					</div>
+					<div class="mui-media-body mui-media-body-massagistlist ">
+						<span id="name">载入中...</span><span><img id="stars" src="" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
+						<p id="shopname" class='mui-ellipsis mui-massagist-provider'></p>
+						<p id="intro" class='mui-ellipsis-2'></p>
+					</div>
+				</li>
+			</ul>
 			<div style="height:100px;background-color: #ffffff;text-align: center;padding-top:15px;position: relative;">
 				<span style="margin-left: 5px;"><img id="star1" name="star" src="img/star_off.png"/></span>
 				<span><img id="star2" name="star" src="img/star_off.png"/></span>
