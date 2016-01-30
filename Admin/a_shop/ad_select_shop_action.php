@@ -31,7 +31,7 @@
 	<?php
 	require_once '../db_func.php';
 	session_start();
-	$_SESSION['shopid'] = $_POST['select_shop_s'];
+	$_SESSION['admin'] = $_POST['select_shop_s'];
 	$con = DBconnect();
 	$sql_shop_name = "SELECT * FROM Shop WHERE shopid =".$_POST['select_shop_s'];
 	$result = mysql_query( $sql_shop_name, $con ) or die( "Fetch shop Error:" . mysql_error() );
@@ -84,23 +84,6 @@
 			</th>
 				<input type="hidden" value="<?php echo $row['shopid'];?>" class = "old_id">
 
-<!--//				echo "<tr><td>";-->
-<!--//				echo $row['shopid'];-->
-<!--//				echo "</td><td>";-->
-<!--//				echo $row['name'];-->
-<!--//				echo "</td><td>";-->
-<!--//				echo $row['phone'];-->
-<!--//				echo "</td><td>";-->
-<!--//				echo $row['opentime'];-->
-<!--//				echo "</td><td>";-->
-<!--//				echo $row['closetime'];-->
-<!--//				echo "</td><td>";-->
-<!--//				echo $row['city'];-->
-<!--//				echo "</td><td>";-->
-<!--//				echo $row['province'];-->
-<!--//				echo "</td><td>";-->
-<!--//				?>-->
-<!--				<a href="ad_select_shop_delete.php"> 删除 </a>-->
 		<?php
 		}
 		?>

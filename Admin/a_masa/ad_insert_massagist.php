@@ -41,7 +41,7 @@
 								}
 								?>
 								</select>
-		<li><label>&nbsp;</label><input type="submit"   class="scbtn" value="确认保存"/></li>
+		<li><label>&nbsp;</label><input type="submit"  name="submit" class="scbtn" value="确认保存"/></li>
 	</ul>
 	</form>
 	</div>

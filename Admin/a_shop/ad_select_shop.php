@@ -48,4 +48,7 @@ require_once '../db_func.php';
 					?>
 				</select>
 			<label></label><input name = "" type="submit" class="btn" value="查询"/>
-				<label></label><input name = "" type = "reset" class="btn" value="重置"/>
+			<label></label><input name = "" type = "reset" class="btn" value="重置"/>
+		</ul>
+		</form>
+	</div>
