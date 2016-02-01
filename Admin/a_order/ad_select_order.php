@@ -23,6 +23,19 @@
 		});
 	</script>
 </head>
+<?php
+session_start();
+if($_SESSION['admin']==null){
+	$url = "../1210/login.php";
+	?>
+	<script type="text/javascript">
+		alert("请登录！")
+		window.location.href=location.href='../1210/login.php';
+	</script>
+	<?php
+
+}
+?>
 
 <body>
 <div class="place">

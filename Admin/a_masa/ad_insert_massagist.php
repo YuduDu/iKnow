@@ -8,9 +8,21 @@
 
 <body>
 <?php
+session_start();
+
 	require_once "../db_func.php";
 	$con = DBconnect();
 	$get=mysql_query("SELECT name FROM Shop");
+if($_SESSION['admin']==null){
+	$url = "../1210/login.php";
+	?>
+	<script type="text/javascript">
+		alert("请登录！")
+		window.location.href=location.href='../1210/login.php';
+	</script>
+	<?php
+
+}
 ?>
 <div class="place">
 	<span>位置：</span>

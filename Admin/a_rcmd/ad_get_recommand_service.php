@@ -56,6 +56,17 @@
 		<?php
 		require_once "../configs.php";
 		require_once "../db_func.php";
+		session_start();
+		if($_SESSION['admin']==null){
+			$url = "../1210/login.php";
+			?>
+			<script type="text/javascript">
+				alert("请登录！")
+				window.location.href=location.href='../1210/login.php';
+			</script>
+			<?php
+
+		}
 		$con = DBconnect();
 		$sql = $sql = "SELECT * FROM Recommand_service";
 		$result = mysql_query($sql,$con);

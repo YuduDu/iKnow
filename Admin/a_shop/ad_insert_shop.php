@@ -10,7 +10,20 @@
 <body>
 <?php
 	require_once "../db_func.php";
+
 	$con = DBconnect();
+
+session_start();
+if($_SESSION['admin']==null){
+	$url = "../1210/login.php";
+	?>
+	<script type="text/javascript">
+		alert("请登录！")
+		window.location.href=location.href='../1210/login.php';
+	</script>
+	<?php
+
+}
 	$get=mysql_query("SELECT name FROM Shop");
 ?>
 

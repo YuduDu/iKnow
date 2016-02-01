@@ -16,6 +16,16 @@ if (!session_id())
 <?php
     require_once "../db_func.php";
     $_SESSION['customer_phone'] = null;
+if($_SESSION['admin']==null){
+    $url = "../1210/login.php";
+    ?>
+    <script type="text/javascript">
+        alert("请登录！")
+        window.location.href=location.href='../1210/login.php';
+    </script>
+    <?php
+
+}
     $con = DBconnect();
     $select_all_m_name = "SELECT * FROM Customer ";
 ?>

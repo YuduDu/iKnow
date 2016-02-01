@@ -7,7 +7,7 @@
 <body>
 <?php
 require_once "../configs.php";
-require_once "../ad_select.php";
+
 $con = DBconnect();
 ?>
 <center>

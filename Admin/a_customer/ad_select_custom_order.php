@@ -2,6 +2,16 @@
 //if (!session_id())
 //{
 	session_start();
+if($_SESSION['admin']==null){
+	$url = "../1210/login.php";
+	?>
+	<script type="text/javascript">
+		alert("请登录！")
+		window.location.href=location.href='../1210/login.php';
+	</script>
+<?php
+
+}
 //}
 ?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
