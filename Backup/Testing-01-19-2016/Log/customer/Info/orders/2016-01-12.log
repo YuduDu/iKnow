@@ -1,0 +1,7 @@
+[2016-01-12 11:01:19] order_info.INFO: User with ip 166.148.126.201get orders list of customer 1 on page 1. [] []
+[2016-01-12 11:01:19] order_info.INFO: User with ip 166.148.126.201get orders list of customer 1. [] []
+[2016-01-12 11:02:06] order_info.INFO: User with ip 166.148.126.201 of id 1 get information of order 111158. [] []
+[2016-01-12 11:02:22] order_info.INFO: User with ip 166.148.126.201 of id 1 get information of order 111158. [] []
+[2016-01-12 11:06:16] order_info.INFO: User with ip 166.148.126.201 of id 1 get information of order 111159. [] []
+[2016-01-12 11:43:48] order_info.WARNING: Failed! User with ip 166.148.126.201tried to get orders list of customer 1 on page 2. [] []
+[2016-01-12 11:43:48] order_info.WARNING: Failed! User with ip 166.148.126.201tried to get orders list of customer 1. [] []

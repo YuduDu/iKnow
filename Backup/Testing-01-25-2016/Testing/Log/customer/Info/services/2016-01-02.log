@@ -1,0 +1,8 @@
+[2016-01-02 16:30:09] services_info.WARNING: Failed! User with ip 4.28.92.98 tried to get recommanded services list at 北京. [] []
+[2016-01-02 16:30:20] services_info.INFO: User with ip 4.28.92.98get recommanded services list at 北京市. [] []
+[2016-01-02 16:37:21] services_info.INFO: User with ip 4.28.92.98get recommanded services list at 北京市. [] []
+[2016-01-02 23:33:26] services_info.INFO: User with ip 4.28.92.98get services list of all at location 洛阳市. [] []
+[2016-01-02 23:34:48] services_info.INFO: User with ip 4.28.92.98get services list of all at location 洛阳市. [] []
+[2016-01-02 23:35:00] services_info.INFO: User with ip 4.28.92.98get services list of all at location 洛阳市. [] []
+[2016-01-02 23:38:40] services_info.INFO: User with ip 4.28.92.98get services list of categoryid 1 at location 洛阳市on page 1. [] []
+[2016-01-02 23:41:19] services_info.INFO: User with ip 4.28.92.98get services list of massagist 1 at location . [] []

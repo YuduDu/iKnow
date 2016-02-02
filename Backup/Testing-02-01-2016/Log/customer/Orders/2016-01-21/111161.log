@@ -1,0 +1,6 @@
+[2016-01-21 15:35:35] Order_detail.INFO: User with ip 10.7.27.30. Get shopid and Massagistname from MassagistDetail table. [] []
+[2016-01-21 15:35:35] Order_detail.INFO: User with ip 10.7.27.30. Get shop name from Shop table. [] []
+[2016-01-21 15:35:35] Order_detail.INFO: User with ip 10.7.27.30. Get service name from Service table. [] []
+[2016-01-21 15:35:35] Order_detail.NOTICE: User with ip 10.7.27.30. Order created! {"orederid":111161} []
+[2016-01-21 15:35:35] Order_detail.NOTICE: User with ip 10.7.27.30. Charge Succeeded {"money(*100)":9800} []
+[2016-01-21 15:35:35] Order_detail.INFO: Set Order status to UNCOMMENT in Order table succeeded.  [] []

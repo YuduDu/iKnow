@@ -1,0 +1,4 @@
+[2015-11-16 16:08:58] login.INFO: Success {"customer phone":"11"} []
+[2015-11-16 16:09:02] login.INFO: Fail_Phone Number not exist {"customer phone":"1111"} []
+[2015-11-16 16:09:07] login.INFO: Fail_Password Wrong {"customer phone":"1"} []
+[2015-11-16 16:37:09] login.INFO: Success {"customer phone":"13068776038"} []

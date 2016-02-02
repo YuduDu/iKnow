@@ -1,0 +1,2 @@
+248,29 Apr 2015,23:07:31,1430366851.1,http://finalProjectApp23-499418791.us-east-1.elb.amazonaws.com/GM,0,[Errno 24] Too many open files,0,0.111727,0.111717,default_timer
+251,29 Apr 2015,23:07:31,1430366851.1,http://finalProjectApp23-499418791.us-east-1.elb.amazonaws.com/GM,0,[Errno 8] nodename nor servname provided or not known,0,0.112902,0.112895,default_timer

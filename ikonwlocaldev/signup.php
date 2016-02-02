@@ -38,6 +38,13 @@ if (isset($_POST['custompassword']) && $_POST['custompassword'] != null) {
 
     } else {
         //echo "";
+        echo json_encode([
+                'RespCode' => 000005,
+                'RespContent' => [
+                    'Status' => 'Failed',
+                    'Content' => 'Sign up denied. Masseuse not allowed to sign up by phone.'
+                ]
+        ]);
         $logger->pushHandler(new StreamHandler("Log/customer/signup/critical.log", Logger::CRITICAL));
         $logger->addCritical("Uncustomer client trying signup!", array("phone" => $_SESSION["phone"], "phone auth" => $_SESSION["auth"]));
     }

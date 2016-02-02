@@ -1,0 +1,6 @@
+[2016-01-02 23:26:20] news_info.INFO: User with ip 4.28.92.98 get news list of page 1. [] []
+[2016-01-02 23:26:35] news_info.WARNING: Failed! User with ip 4.28.92.98 tried to get news list of page 2. [] []
+[2016-01-02 23:27:54] news_info.INFO: User with ip 4.28.92.98 get news list of page 1. [] []
+[2016-01-02 23:39:56] news_info.WARNING: Failed! User with ip 4.28.92.98 tried to get recommanded news list. [] []
+[2016-01-02 23:40:08] news_info.INFO: User with ip 4.28.92.98 get recommanded news list. [] []
+[2016-01-02 23:40:23] news_info.INFO: User with ip 4.28.92.98 get recommanded new with id 1. [] []

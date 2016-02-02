@@ -1,0 +1,8 @@
+[2016-01-02 15:25:57] login.INFO: Fail. Phone 1's password Wrong [] []
+[2016-01-02 15:26:06] login.INFO: Fail. Phone 1's password Wrong [] []
+[2016-01-02 15:31:42] login.INFO: User 111 login successfully. [] []
+[2016-01-02 16:13:43] login.INFO: User 111 login successfully. [] []
+[2016-01-02 16:19:28] login.INFO: Fail. Phone Number 111111111not exist [] []
+[2016-01-02 16:19:36] login.INFO: Fail. Phone 111's password Wrong [] []
+[2016-01-02 16:19:52] login.INFO: User 111 login successfully. [] []
+[2016-01-02 16:20:26] login.INFO: Fail. Phone 111's password Wrong [] []

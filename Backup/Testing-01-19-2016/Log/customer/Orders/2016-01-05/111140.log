@@ -1,0 +1,6 @@
+[2016-01-05 11:44:16] Order_detail.INFO: User with ip 50.83.72.128. Get shopid and Massagistname from MassagistDetail table. [] []
+[2016-01-05 11:44:16] Order_detail.INFO: User with ip 50.83.72.128. Get shop name from Shop table. [] []
+[2016-01-05 11:44:16] Order_detail.INFO: User with ip 50.83.72.128. Get service name from Service table. [] []
+[2016-01-05 11:44:16] Order_detail.NOTICE: User with ip 50.83.72.128. Order created! {"orederid":111140} []
+[2016-01-05 11:44:16] Order_detail.NOTICE: User with ip 50.83.72.128. Charge Succeeded {"money(*100)":23800} []
+[2016-01-05 11:44:16] Order_detail.INFO: Set Order status to UNCOMMENT in Order table succeeded.  [] []

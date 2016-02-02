@@ -1,0 +1,4 @@
+[2015-11-30 15:50:53] Order_detail.INFO: User with ip 10.7.125.16. Get shopid and Massagistname from MassagistDetail table. [] []
+[2015-11-30 15:50:53] Order_detail.INFO: User with ip 10.7.125.16. Get shop name from Shop table. [] []
+[2015-11-30 15:50:53] Order_detail.INFO: User with ip 10.7.125.16. Get service name from Service table. [] []
+[2015-11-30 15:50:53] Order_detail.INFO: Set Order status to UNCOMMENT in Order table succeeded.  [] []
