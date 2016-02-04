@@ -41,7 +41,6 @@ function getmassagistorderlist($massaid, $timearray, $pagenum = null)
 
     $perpagenum_orders = 10;
 
-
     switch ($timearray) {
         case 'today': {
             $result = DBfetchall2($con, "massagist_appt", array("orderid", "service_start", "service_end", "serviceid"), array("massaid" => $massaid), null, " and  to_days(service_start) = to_days(now())");
@@ -69,8 +68,11 @@ function getmassagistorderlist($massaid, $timearray, $pagenum = null)
     $return = array();
     foreach ($result as $row) {
         //seperate the datetime to date and time
-        $starttime = strtotime($row["start"]);
-        $endtime = strtotime($row["end"]);
+        $starttime = strtotime($row["service_start"]);
+        $endtime = strtotime($row["service_end"]);
+        unset($row["service_start"]);
+        unset($row["service_end"]);
+        //var_dump($row["service_start"]);
         $startdate = date('20y年m月d日', $starttime);
         $enddate = date('20y年m月d日', $endtime);
         if ($startdate == $enddate) {
