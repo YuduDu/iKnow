@@ -70,15 +70,27 @@
 				min-height: 100%;
 				background-color: #efeff4;
 			}
+			.naviconright {
+				color: #ffffff;
+				padding-top:15px;
+				margin-left:20px;
+				float:right;
+			}
+			#city{
+				width:auto;background-color: transparent;font-size:17px;top:4px;color:#ffffff;padding-left:0px;padding-right: 5px;
+			}
+			#dropdowncity{
+				margin-top:12px;color:#ffffff
+			}
 		</style>
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6acccb;">
-			<h1 id="title" class="mui-title" style="color: #ffffff;font-weight: 800;font-size: 20px;">身知道</h1>
-			<a id="search" class="fa fa-search fa-lg fa-pull-right" style="color: #ffffff;padding-top:10px;margin-left:20px"></a>
-			<span><select id='city' class="mui-btn" style="width:auto;background-color: transparent;font-size:17px;top:4px;color:#ffffff;padding-left:0px;padding-right: 5px;">
-			</select></span><span id='dropdowncity' class="fa fa-angle-down" style="margin-top:12px;color:#ffffff"></span>
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title">身知道</h1>
+			<a id="search" class="fa fa-search fa-lg naviconright"></a>
+			<span><select id='city' class="mui-btn">
+			</select></span><span id='dropdowncity' class="fa fa-angle-down"></span>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
 			<a id="defaultTab" class="mui-tab-item mui-active" href="homelist.html">
@@ -86,7 +98,7 @@
 				<span class="mui-tab-label">预约</span>
 			</a>
 			<a class="mui-tab-item" href="orderslist.html">
-				<span class="mui-icon mui-icon-bars"><!--<span class="mui-badge">3</span>--></span>
+				<span class="mui-icon mui-icon-bars"></span>
 				<span class="mui-tab-label">订单</span>
 			</a>
 			<a class="mui-tab-item" href="discover.html">
@@ -134,10 +146,6 @@
 						city.style.display = 'none';
 						dropdowncity.style.display = 'none';
 						console.log('订单点击')
-//						if (!orderlistpage) {
-//							var orderlistpage = plus.webview.getWebviewById('orderslist.html');
-//						}
-//						mui.fire(orderlistpage, 'refreshme', {});
 						break;
 					case subpages[2]:
 						search.style.display = 'none';

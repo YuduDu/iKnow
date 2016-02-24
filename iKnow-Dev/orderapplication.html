@@ -8,10 +8,10 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-OrderApplication</title>
 		<script src="js/mui.js"></script>
+		<script src="js/beecloud.js"></script>
 		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<script src="https://checkout.stripe.com/checkout.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init({
 				swipeBack: true
@@ -26,89 +26,62 @@
 				plus.storage.setItem("apptdate", '');
 				plus.storage.setItem('apptyear', '2016');
 				plus.storage.setItem("appttime", '');
-				var handler = StripeCheckout.configure({
-					key: 'pk_test_XOAM8G6tnBANFHGUKpqRRvx0',
-					image: '/img/documentation/checkout/marketplace.png',
-					locale: 'auto',
-					allowRememberMe: 'false',
-					token: function(token) {
-						console.log(token.id)
-						// Use the token to create the charge with a server-side script.
-						// You can access the token ID with `token.id`
-						document.getElementById("orderbtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>'
-					document.getElementById("orderbtn").disabled = 'true'
-						mui.ajax(url.order, {
-							data: {
-								submit: token.id,
-							},
-							//dataType: 'json', //服务器返回json格式数据
-							type: 'post', //HTTP请求类型
-							timeout: 10000, //超时时间设置为10秒；
-							success: function(data) {
-								
-								console.log(data);
-								var obj = JSON.parse(data)
-								if (obj.RespCode != '111111') {
-									plus.nativeUI.toast('支付请求失败，请返回重试');
-									//mui.back();
-									return;
-								}
-								if (!orderlistpage) {
-									var orderlistpage = plus.webview.getWebviewById('orderslist.html');
-								}
-								mui.fire(orderlistpage, 'refreshme', {});
-								console.log('refreshed')
-									//服务器返回响应，根据响应结果，分析是否登录成功；
-								mui.openWindow({
-									id: 'paymentsuccess',
-									url: "PaymentSuccess.html",
-									styles: {
-										popGesture: 'close'
-									},
-									show: {
-										autoShow: true, //页面loaded事件发生后自动显示，默认为true
-										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
-										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-									},
-									waiting: {
-										autoShow: true, //自动显示等待框，默认为true
-										title: '正在加载...', //等待对话框上显示的提示内容
-									}
-								});
-							},
-							error: function(xhr, type, errorThrown) {
-								//异常处理；
-								console.log(errorThrown);
-								console.log("error2");
-								plus.nativeUI.toast('支付请求失败，请返回重试');
-									mui.back();
-							}
-						});//
 
-					}
-				});
-				document.getElementById("orderbtn").addEventListener('tap', function(e) {
-					console.log("name:" + plus.storage.getItem("order_massaname"));
-					if (plus.storage.getItem("order_massaname") == null || plus.storage.getItem("order_qty") == null) {
-						mui.toast('请先选择技师');
-						return;
-					}
-					if (plus.storage.getItem("apptdate") == null || plus.storage.getItem("appttime") == null) {
-						mui.toast('请先选择时间');
-						return;
-					}
-					
-					handler.open({
-						name: '身知道预订支付',
-						description: self.servicename,
-						//amount: self.price * 100,
-						image: 'http://gene.rnet.missouri.edu/iKnow/img/icon/icon180.png',
-						alipay: 'true',
-						currency: 'CNY'
+				function beecloudPay(bcChannel) {
+					document.getElementById("WX_APP").disabled = "true";
+					document.getElementById("ALI_APP").disabled = "true";
+					/*
+					 * 构建支付参数
+					 * 
+					 * app_id: BeeCloud控制台上创建的APP的appid，必填 
+					 * title: 订单标题，32个字节，最长支持16个汉字；必填
+					 * total_fee: 支付金额，以分为单位，大于0的整数，必填
+					 * bill_no: 订单号，8~32位数字和/或字母组合,确保在商户系统中唯一，必填
+					 * optional: 扩展参数,可以传入任意数量的key/value对来补充对业务逻辑的需求;此参数会在webhook回调中返回; 选填
+					 * bill_timeout: 订单失效时间,必须为非零正整数，单位为秒，必须大于360。选填 
+					 */
+					var payData = {
+						app_id: "6e747503-f31b-4260-acbe-0b498a175f2b",
+						channel: bcChannel,
+						title: "身知道安全支付-"+self.servicename,
+						total_fee: 0.01 * 100,
+						bill_no: beecloud.genBillNo(),
+						optional: {
+							'uerId': 'iknowtest',
+							'phone': '13068776038'
+						},
+						bill_timeout: 360
+					};
+					/*
+					 *  发起支付
+					 *  payData: 支付参数
+					 *  cbsuccess: 支付成功回调
+					 *  cberror: 支付失败回调
+					 */
+					beecloud.payReq(payData, function(result) {
+						console.log("支付成功"+JSON.stringify(result));
+					}, function(e) {
+						console.log("-------- 支付失败 --------\n" + "错误码：" + e.code + '\n' + e.message);
+						mui.alert('支付失败，请稍后重试');
+						document.getElementById("WX_APP").disabled = "";
+						document.getElementById("ALI_APP").disabled = "";
 					});
-					e.preventDefault();
-				})
+				}
 				
+				document.querySelector("#orderbtn").addEventListener('tap',function(e){
+					console.log("name:" + plus.storage.getItem("order_massaname")+"\ntime:"+plus.storage.getItem("apptdate"));
+//					if (plus.storage.getItem("order_massaname") == 'null' || plus.storage.getItem("order_qty") == null) {
+//						mui.toast('请先选择技师');
+//						return;
+//					}
+//					if (plus.storage.getItem("apptdate") == null || plus.storage.getItem("appttime") == null) {
+//						mui.toast('请先选择时间');
+//						return;
+//					}
+					console.log(e.target.id);
+					beecloudPay(e.target.id)
+					e.preventDefault();
+				});
 				document.getElementById("qtyselect").onchange = function() {
 					plus.storage.setItem("order_qty", this.value);
 					mui.fire(orderpage, 'updateorder', {});
@@ -155,7 +128,8 @@
 						console.log(data)
 						this.malist = JSON.parse(data);
 						malist = malist.RespContent.Content
-						document.getElementById("stripebtn").className = 'mui-btn mui-btn-negative'
+						document.getElementById("WX_APP").disabled = "";
+						document.getElementById("ALI_APP").disabled = "";
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log("error3");
@@ -185,7 +159,7 @@
 							autoShow: true, //自动显示等待框，默认为true
 							title: '正在加载...', //等待对话框上显示的提示内容
 						},
-						extras:{
+						extras: {
 							serviceid: self.serviceid
 						}
 					});
@@ -197,36 +171,34 @@
 				var orderpage = plus.webview.currentWebview();
 				//				mui.fire(orderpage, 'updateorder', {});
 				var massaname = null;
-//				window.addEventListener('updatetime', function() {
-//					//					if(plus.storage.getItem('appptdate')&&plus.storage.getItem('appttime')){
-//					
-//				})
+				//				window.addEventListener('updatetime', function() {
+				//					//					if(plus.storage.getItem('appptdate')&&plus.storage.getItem('appttime')){
+				//					
+				//				})
 				window.addEventListener('updateorder', function(event) { //监听自定义事件
 					//console.log(plus.storage.getItem('apptdate') +'-'+ plus.storage.getItem('appttime'));
 					//console.log(('2015'+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString());
 					if (plus.storage.getItem('apptdate')) {
 						document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
-					}
-					else{
+					} else {
 						document.getElementById("timeslotspan").innerHTML = '选择时间'
 					}
 					if (plus.storage.getItem("order_massaname")) {
 						massaname = plus.storage.getItem("order_massaname");
 						document.getElementById('massagistspan').innerHTML = massaname;
 					}
-//										document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
-
+					//										document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
 					massanametemp = plus.storage.getItem("order_massaname");
-					var starttimestring = (plus.storage.getItem("apptyear")+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString();
-					console.log('starttime'+starttimestring);
+					var starttimestring = (plus.storage.getItem("apptyear") + "-" + plus.storage.getItem("apptdate") + " " + plus.storage.getItem("appttime") + ":00").toString();
+					console.log('starttime' + starttimestring);
 					var newform = JSON.stringify({
 						"massaid": plus.storage.getItem("order_massaid"),
 						"qty": plus.storage.getItem("order_qty"),
 						"type": "visiting",
 						"address": plus.storage.getItem("address"),
-						"time":starttimestring
+						"time": starttimestring
 					});
-					console.log('提交数据'+JSON.stringify(newform));
+					console.log('提交数据' + JSON.stringify(newform));
 					mui.ajax(url.order, {
 						data: {
 							order: newform
@@ -253,7 +225,7 @@
 			// H5 plus事件处理
 			function plusReady() {
 				// 设置系统状态栏背景为红色
-				plus.navigator.setStatusBarBackground("#6acccb");
+				plus.navigator.setStatusBarBackground("#26A614");
 				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
 			}
 			if (window.plus) {
@@ -272,7 +244,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;">
+		<header class="mui-bar mui-bar-nav" style="position: fixed;">
 			<h1 id="title" class="mui-title" style="color: #ffffff;">订单确认</h1>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
 		</header>
@@ -304,7 +276,12 @@
 			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="phonespan"></span>
 		</div>
 
-		<div id="orderbtn" style="text-align:center;position: relative;top:143px;margin-bottom: 20px;"><a id="stripebtn" class="mui-btn mui-btn-negative mui-disabled" style="width:135px;height:40px;line-height: 25px;background-color: #3498db;border-color:#3498db;"><span style="font-weight:bold;font-size:18px;">stripe</span> 安全支付</a></div>
+		<div id="orderbtn" style="text-align:center;position: relative;top:143px;margin-bottom: 20px;">
+<!--			<a id="WX_APP" class="mui-btn mui-btn-negative mui-disabled" style="width:90%;height:40px;line-height: 25px;background-color: #1FAE37;border-color:#1FAE37;">使用微信支付</a>
+-->			<button id="WX_APP" type="button" class="mui-btn mui-btn-success" style="width: 90%;height: 50px;" disabled="true">使用微信支付</button>
+			<button id="ALI_APP" type="button" class="mui-btn mui-btn-primary" style="width: 90%;height: 50px;margin-top: 10px;" disabled="true">使用支付宝支付</button>
+<!--			<a id="ALI_APP" class="mui-btn mui-btn-negative mui-disabled" style="width:90%;height:40px;line-height: 25px;background-color: #3498db;border-color:#3498db;margin-top: 10px;">使用支付宝支付</a>
+-->		</div>
 
 		<script>
 			//更换标题

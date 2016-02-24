@@ -81,6 +81,12 @@
 					case '4':
 						document.getElementById("title").innerHTML = categorypair[4]
 						break;
+					case '5':
+						document.getElementById("title").innerHTML = categorypair[5]
+						break;
+					case '6':
+						document.getElementById("title").innerHTML = categorypair[6]
+						break;
 				}
 				
 				document.getElementById("morebtn").addEventListener('tap',function(){
@@ -104,6 +110,7 @@
 							obj = obj.RespContent.Content
 						//plus.geolocation.getCurrentPosition(function(p) {
 							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+							if (obj != null) {
 							for  (item in obj ){
 							var point2lat =	eval(obj[item].latitude);
 							var point2long = eval(obj[item].longtitude);
@@ -113,7 +120,8 @@
 						var html = template('serviceslist', {
 							list: obj
 						});
-							if (data != '[]') {
+						console.log(obj);
+							
 								var orderlistul = document.querySelector('#Services');
 								orderlistul.innerHTML += html;
 								document.getElementById("morebtn").innerHTML = '点击查看更多'
@@ -129,6 +137,7 @@
 				}
 				
 				mui('#Services').on('tap', 'li', function() {
+					console.log(obj[this.getAttribute('data-id')].serviceid);
 					mui.openWindow({
 						url: 'index_service_detail.html',
 						id: 'index_service_detail',
@@ -177,7 +186,7 @@
 			 // H5 plus事件处理
 			function plusReady() {
 				// 设置系统状态栏背景为红色
-				plus.navigator.setStatusBarBackground("#6acccb");
+				plus.navigator.setStatusBarBackground("#26A614");
 				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
 			}
 			if (window.plus) {
@@ -196,7 +205,7 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="position: fixed; background-color: #6ACCCB;top:0px">
+		<header class="mui-bar mui-bar-nav" style="top:0px">
 			<h1 id="title" class="mui-title" style="color: #ffffff;">热门服务</h1>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
 		</header>

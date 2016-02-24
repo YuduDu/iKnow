@@ -12,7 +12,18 @@
 		<script src="js/template.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" href="css/font-awesome.css">
-
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+			,
+			.nopaddingleft {
+				padding-left: 0px;
+			}
+			
+		</style>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 			mui.plusReady(function() {
@@ -211,7 +222,6 @@
 											list: obj
 										});
 										//console.log(obj[0].title)
-										console.log(html)
 										document.getElementById('slideshowul').innerHTML = html;
 									},
 									error: function(xhr, type, errorThrown) {
@@ -428,22 +438,12 @@
 				});
 			})
 		</script>
-		<style>
-			html,
-			body {
-				min-height: 100%;
-				background-color: #efeff4;
-			}
-			,
-			.nopaddingleft {
-				padding-left: 0px;
-			}
-		</style>
+		
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<div id="slideshow" class="mui-slider" style="height:auto" ;>
+			<div id="slideshow" class="mui-slider";>
 				<div id="slideshowul" class="mui-slider-group">
 					<div data-id="1" class="mui-slider-item">
 						<a id="slider-image-1" href="javascript:;"><img src="img/defaultslide.png" /></a>
@@ -451,43 +451,43 @@
 				</div>
 			</div>
 
-			<ul class="mui-table-view" style="margin:15px 0px 0px 0px;line-height: 40px;">
+			<ul class="mui-table-view panel-title">
 				<li class="mui-table-view-cell">
-					<a id="servicecategorybtn" class="mui-navigate-right" style="color:#56abe4">
+					<a id="servicecategorybtn" class="mui-navigate-right">
 						预约服务
 					</a>
 				</li>
 			</ul>
-			<ul id="homecategory" class="mui-table-view mui-grid-view" style="margin-bottom: 15px;padding-right:0px;padding-top: 10px;">
+			<ul id="homecategory" class="panel-grid mui-table-view mui-grid-view" style="padding-top: 10px;">
 				<li data-id="1" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
-						<span class="mui-icon"><img src="img/massage.png" style="width:36px;height:36px"/></span>
-						<div class="mui-media-body" style="padding-left: 0px;color: #00cd92;margin-top:0px">推拿按摩</div>
+						<span class="mui-icon"><img src="img/massage.png" class="panel-icon-pic"/></span>
+						<div class="mui-media-body panel-icon-text greentext" style="color: #00cd92;padding-left: 5px;">推拿按摩</div>
 					</a>
 				</li>
 				<li data-id="2" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
-						<span class="mui-icon"><img src="img/gas.png" style="width:36px;height:36px"/></span>
-						<div class="mui-media-body" style="padding-left: 0px;color: #ff6600;margin-top:0px">刮痧火罐</div>
+						<span class="mui-icon"><img src="img/gas.png" class="panel-icon-pic"/></span>
+						<div class="mui-media-body panel-icon-text redtext" style="color: #ff6600;padding-left: 5px;">刮痧火罐</div>
 					</a>
 				</li>
 				<li data-id="3" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
-						<span class="mui-icon"><img src="img/wet.png" style="width:36px;height:36px"/></span>
-						<div class="mui-media-body" style="padding-left: 0px;color: #3fbacd;margin-top:0px">汗蒸浴场</div>
+						<span class="mui-icon"><img src="img/wet.png" class="panel-icon-pic"/></span>
+						<div class="mui-media-body panel-icon-text bluetext" style="color: #3fbacd;padding-left: 5px;">汗蒸浴场</div>
 					</a>
 				</li>
 				<li data-id="4" class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
 					<a href="#" style="padding-top:0px">
-						<span class="mui-icon"><img src="img/human_footprints.png" style="width:36px;height:36px"/></span>
-						<div class="mui-media-body" style="padding-left: 0px;color: #FFCC00;margin-top:0px">足疗养生</div>
+						<span class="mui-icon"><img src="img/human_footprints.png" class="panel-icon-pic"/></span>
+						<div class="mui-media-body panel-icon-text yellowtext" style="color: #3fbacd;padding-left: 5px;">足疗养生</div>
 					</a>
 				</li>
 			</ul>
 
-			<ul class="mui-table-view" style="margin:15px 0px 0px 0px;line-height: 40px;">
+			<ul class="mui-table-view panel-title">
 				<li class="mui-table-view-cell">
-					<a id='servicelistbtn' class="mui-navigate-right" style="color:#56abe4">
+					<a id='servicelistbtn' class="mui-navigate-right">
 						热门服务
 					</a>
 				</li>
@@ -503,9 +503,9 @@
 				</li>
 			</ul>
 
-			<ul class="mui-table-view" style="margin:15px 0px 0px 0px;line-height: 40px;">
+			<ul class="mui-table-view panel-title">
 				<li class="mui-table-view-cell">
-					<a id='massagistlistbtn' class="mui-navigate-right" style="color:#56abe4">
+					<a id='massagistlistbtn' class="mui-navigate-right">
 						金牌保健师
 					</a>
 				</li>
@@ -527,9 +527,9 @@
 			{{each list as value i}}
 			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
 				<a>
-					<img class="mui-media-object-large mui-pull-left" style="width:100%;height:100%" src="{{value.pic}}">
+					<img class="mui-media-object-large mui-pull-left serviceimg" src="{{value.pic}}">
 					<div class="mui-media-body ">
-						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.servicename}}</p>
+						<p class='mui-ellipsis servicename'>{{value.servicename}}</p>
 						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>
 						{{if value.distance!='null'}}
 						<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>{{/if}}
@@ -551,10 +551,10 @@
 			{{each list as value i}}
 			<li data-id="{{i}}" class="mui-table-view-cell mui-media ">
 				<a href="javascript:; ">
-					<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+					<div class="pull-left mui-media-object-round profileimg" style="background-image: url({{value.pic}});">
 					</div>
 					<div class="mui-media-body mui-media-body-massagistlist ">
-						<span>{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>{{if value.distance!='null'}}<span style="float:right;top:5px;position:relative;color:#999999;font-size:14px">{{value.distance||0}} km</span>{{/if}} 
+						<span>{{value.name}}</span><span><img class="star" src="img/v{{value.stars}}.png"/></span>{{if value.distance!='null'}}<span class="mgdistance" style="">{{value.distance||0}} km</span>{{/if}} 
 						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 						<p class='mui-ellipsis-2'>{{value.intro}}</p>
 					</div>

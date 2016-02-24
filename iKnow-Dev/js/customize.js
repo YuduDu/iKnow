@@ -30,14 +30,17 @@ var citylist = {
 
 
 var constant = {
-	versionid: "1.7.9"
+	versionid: "1.8.0"
 }
 
 var categorypair = {
 	1: '推拿按摩',
 	2: '刮痧火罐',
 	3: '汗蒸浴场',
-	4: '足疗养生'
+	4: '足疗养生',
+	5: '中医康复',
+	6: '疾病调理',
+	
 }
 
 var timeset1 = {
@@ -131,11 +134,11 @@ function shareMessage(share, ex) {
 			scene: ex
 		}
 	};
-	msg.href = "http://pre.im/3065";
-	msg.title = "身知道App分享：";
-	msg.content = self.servicename;
+	msg.href = "http://gene.rnet.missouri.edu/iKnow/landing/";
+	msg.title = "来自身知道健康管家好友的分享："+obj.servicename;
+	msg.content = "项目内容"+obj.shortdesc;
 	if (~share.id.indexOf('weibo')) {
-		msg.content += "；体验地址：http://pre.im/3065";
+		msg.content += "；体验地址：http://pgyer.com/iknow";
 	}
 	msg.thumbs = ["img/icon120.png"];
 	share.send(msg, function() {
