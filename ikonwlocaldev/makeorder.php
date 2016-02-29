@@ -97,7 +97,8 @@ if (isset($_POST['submit']) && $_POST['submit'] != null) {
 
     //take the hidden token of card information from $_post
     //echo "begin charge: Taking token now";
-    $token = $_POST['submit'];
+    //$token = $_POST['submit'];
+    $_SESSION['orderid'] = $_POST['submit'];
     //make payment with stripe
     $con = DBconnect();
     //place the order into database
@@ -107,7 +108,10 @@ if (isset($_POST['submit']) && $_POST['submit'] != null) {
         $result = make_appointment($con);
         if ($result == true) {
             //echo "begin charge: ";
-            charge($log, $token, $con);
+           // charge($log, $token, $con)；
+            if (updateServiceAmount($_SESSION["massaid"], $_SESSION["serviceid"])&&updateMoneyAmount($_SESSION["massaid"], $_SESSION["serviceid"],$_SESSION['amount'])){
+                echo json_encode(['RespCode' => '111111', 'RespContent' => ['Status' => 'Success','Content'=>'updateOrder_status + Money Amount']]);
+            }
         } //else echo $result;
         else echo json_encode(['RespCode' => '000000', 'RespContent' => ['Status' => 'Failed', 'Content' => $result]]);
     } //else echo "Place order wrong!";
@@ -158,7 +162,7 @@ function calculateamount($con)
 
 
 //make payment with stripe
-function charge($log, $token, $con)
+/*function charge($log, $token, $con)
 {
     //
 
@@ -202,7 +206,7 @@ function charge($log, $token, $con)
         }
     }
 
-}
+}*/
 
 function updateorder_status($con, $status)
 {
@@ -233,7 +237,7 @@ function placeorder($con)
     unset($test["time"]);
     unset($test["type"]);
     unset($test["address"]);
-    unset($test["orderid"]);
+    //unset($test["orderid"]);
     unset($test["shopid"]);
     //get order time
     $time = date("Y-m-d H:i:s", time());
@@ -276,11 +280,11 @@ function placeorder($con)
 
     $orderid = DBinsert('Order', $test, $con);
     //var_dump($orderid);
-    if (is_int($orderid)) {
+    if ($orderid == $_SESSION['orderid']) {
         array_push($GLOBALS["detail_log_info"], array("type" => "Notice", "Info" => "User with ip " . $_SERVER["REMOTE_ADDR"] . ". Order created!", "array" => array("orederid" => $orderid)));
         //$detail_log = new Logger("Order_detail");
         //$detail_log->pushHandler(new StreamHandler("Log/customer/Orders/".date("Y-m-d",time())."/".(string)$orderid.".log",Logger::INFO));
-        $_SESSION["orderid"] = $orderid;
+        //$_SESSION["orderid"] = $orderid;
         return True;
 
     } else {
