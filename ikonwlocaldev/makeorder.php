@@ -7,9 +7,7 @@
  */
 require_once "lib/db_func.php";
 require_once "make_appointments.php";
-require_once('stripe-config.php');
 require_once "update.php";
-\Stripe\Stripe::setApiKey("sk_test_pijvVr7Jl5AjrLIymIx2qETk");
 require_once('lib/Ucpaas.class.php');
 
 
