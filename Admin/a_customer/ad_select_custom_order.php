@@ -2,7 +2,7 @@
 //if (!session_id())
 //{
 	session_start();
-if($_SESSION['admin']==null){
+if((string)$_SESSION['admin']==null){
 	$url = "../1210/login.php";
 	?>
 	<script type="text/javascript">

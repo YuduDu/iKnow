@@ -5,6 +5,11 @@
 	<title>客户订单详情</title>
 	<link href="../1210/css/style.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="../1210/js/jquery.js"></script>
+	<link href="../1210/css/select.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../1210/js/jquery.js"></script>
+	<script type="text/javascript" src="../1210/js/jquery.idTabs.min.js"></script>
+	<script type="text/javascript" src="../1210/js/select-ui.min.js"></script>
+	<script type="text/javascript" src="../1210/editor/kindeditor.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -22,22 +27,37 @@
 			});
 		});
 	</script>
+	<script type="text/javascript">
+		KE.show({
+			id : 'content7',
+			cssPath : './index.css'
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function(e) {
+
+			$(".select3").uedSelect({
+				width : 152
+			});
+		});
+	</script>
 </head>
 <?php
 session_start();
-if($_SESSION['admin']==null){
+if((string)$_SESSION['admin']==null){
 	$url = "../1210/login.php";
 	?>
 	<script type="text/javascript">
 		alert("请登录！")
-		window.location.href=location.href='../1210/login.php';
+		window.location.href=location.href='../index.php';
 	</script>
 	<?php
 
 }
 ?>
 
-<body>
+<body class="sarchbody">
 <div class="place">
 	<span>位置：</span>
 	<ul class="placeul">
@@ -45,12 +65,18 @@ if($_SESSION['admin']==null){
 		<li><a href="javascript:history.go(-1);">返回</a></li>
 	</ul>
 </div>
+
 <div class="formbody">
 	<form id = "select_order" action = "ad_select_order_action.php" method="post">
+		<div id="usual1" class="usual">
 		<div class="formtitle"><span>选择订单</span></div>
-		<ul class="forminfo">
+
+			<ul class="forminfo">
+				<ul class="seachform1">
+
 			<li><label>月份</label>
-				<select name = "month" id = "month">
+				<div class="vocation">
+				<select name = "month" id = "month" class="select3">
 					<option value="">月</option>
 					<option value = "01" > 一月 </option>
 					<option value = "02" > 二月 </option>
@@ -65,10 +91,12 @@ if($_SESSION['admin']==null){
 					<option value = "11" > 十一月 </option>
 					<option value = "12" > 十二月 </option>
 				</select>
+					</div>
 			</li>
 
 			<li><label>年份</label>
-				<select name = "year" id = "year">
+				<div class="vocation">
+				<select name = "year" id = "year" class="select3">
 					<option value="">年</option>
 					<option value = "2015" > 2015 </option>
 					<option value = "2016" > 2016 </option>
@@ -83,9 +111,15 @@ if($_SESSION['admin']==null){
 					<option value = "2025" > 2025 </option>
 					<option value = "2026" > 2026 </option>
 				</select>
+					</div>
 			</li>
-			<li><label></label><input name="" type="submit" class="btn" value="查询"/>
-			<label></label><input name="" type="reset" class="btn" value="重置"/></li>
+
+			<li><label>&nbsp;</label><input name="" type="submit" class="btn" value="查询订单"/></li>
+			</ul>
+			</ul>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
 

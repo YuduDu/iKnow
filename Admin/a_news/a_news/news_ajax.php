@@ -1,1 +1,0 @@
-<?php	require_once "../db_func.php";	$con = DBconnect();	if(isset($_POST['is_delete_user'])){		$id=$_POST['id'];		$query="delete from news WHERE id = '$id'";		mysql_query($query,$con);	}

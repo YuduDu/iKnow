@@ -56,7 +56,7 @@
 		require_once "../configs.php";
 		require_once "../db_func.php";
 		session_start();
-		if($_SESSION['admin']==null){
+		if((string)$_SESSION['admin']==null){
 			$url = "../1210/login.php";
 			?>
 			<script type="text/javascript">

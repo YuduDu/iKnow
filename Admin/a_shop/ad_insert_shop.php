@@ -4,6 +4,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>新增商家</title>
 	<link href="../1210/css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+		function formReset()
+		{
+			document.getElementById("insert_shop").reset();
+			window.onload= formReset;
+		}
+	</script>
 </head>
 
 
@@ -14,12 +21,12 @@
 	$con = DBconnect();
 
 session_start();
-if($_SESSION['admin']==null){
+if((string)$_SESSION['admin']==null){
 	$url = "../1210/login.php";
 	?>
 	<script type="text/javascript">
 		alert("请登录！")
-		window.location.href=location.href='../1210/login.php';
+		window.location.href=location.href='../index.php';
 	</script>
 	<?php
 
@@ -37,12 +44,13 @@ if($_SESSION['admin']==null){
 </div>
 
 <div class="formbody">
-	<form action="ad_insert_shop.php" method="post" enctype="multipart/form-data" >
+	<form action="ad_insert_shop_ac.php" method="post" id="insert_shop">
 
 		<div class="formtitle"><span>商家信息</span></div>
 
 		<ul class="forminfo">
 			<li><label>商户名称</label><input type = "text" name = "name" class="dfinput" /></li>
+			<li><label>登录密码</label><input type="text" name="password" class="dfinput"/></li>
 			<li><label>电 话</label><input type = "text" name = "phone" class="dfinput" /></li>
 			<li><label>省 份</label><input type = "text" name = "province" class="dfinput" /></li>
 			<li><label>城 市</label><input type = "text" name = "city" class="dfinput" /></li>
@@ -51,43 +59,10 @@ if($_SESSION['admin']==null){
 			<li><label>开始营业时间</label><input type = "text" name = "opentime" class="dfinput" /><i>格式:HH:MM:SS</i></li>
 			<li><label>结束营业时间</label><input type = "text" name = "closetime" class="dfinput"/><i>格式:HH:MM:SS</i></li>
 
-			<li><label>&nbsp;</label><input type="submit"  class="btn" value="确认保存"/></li>
+			<li><label>&nbsp;</label><input type="submit"  name= "submit"  class="btn" value="确认保存"/></li>
 		</ul>
-
+</form>
 	</div>
+
 </body>
 </html>
-<?php
-$result = mysql_query("select * from Shop");
-$num_rows = mysql_num_rows($result);
-
-
-if(isset($_POST['submit'])){
-
-
-	$name=$_POST['name'];
-	$sid=$num_rows+1;
-	$phone=$_POST['phone'];
-	$city=$_POST['city'];
-	$province=$_POST['province'];
-	$addr=$_POST['address'];
-	$pic=$_FILES['pic']['name'];
-	$ot=$_POST['opentime'];
-	$ct=$_POST['closetime'];
-
-$sql = "INSERT INTO Shop(shopid, name, phone, address, opentime, closetime, city, province) VALUES ($sid,$name,$phone,$addr,$ot,$ct,$city,$province);";
-
-if (mysql_query($sql,$con)) {
-	echo "<script type='text/javascript'> alert('添加成功');</script>";
-	?>
-
-	<?php
-} else {
-	echo "<script type='text/javascript'> alert('无法添加，请检查输入信息');</script>";
-	?>
-
-	<?php
-}
-
-}
-?>

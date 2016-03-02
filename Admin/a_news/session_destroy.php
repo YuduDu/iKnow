@@ -1,1 +1,0 @@
-<?php/** * Created by PhpStorm. * User: huangsiman * Date: 2/1/16 * Time: 13:20 */session_destroy();
