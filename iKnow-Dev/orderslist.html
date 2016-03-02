@@ -20,6 +20,7 @@
 					self.reload(true);
 					//console.log('ordersreloaded')
 				});
+
 				function loadmoreorder(customid, pagenum) {
 					mui.ajax(url.list, {
 						data: {
@@ -31,15 +32,16 @@
 						timeout: 100000, //超时时间设置为10秒；
 						//async: false,
 						success: function(data) {
-							var obj = JSON.parse(data);
-							obj = obj.RespContent.Content
+							var obj_temp = JSON.parse(data);
+							obj_temp = obj_temp.RespContent.Content
 							var html = template('orderlisttemplate', {
-								list: obj
+								list: obj_temp
 							});
-							console.log(data);
-							if (data != '[]') {
+							obj = obj.concat(obj_temp);
+							if (obj_temp != '') {
 								var orderlistul = document.querySelector('#orderlist');
 								orderlistul.innerHTML += html;
+								console.log(orderlistul.innerHTML);
 								document.getElementById("moreordersbtn").innerHTML = '点击查看更多'
 							} else {
 								document.getElementById("moreordersbtn").innerHTML = '已加载完毕'
@@ -71,15 +73,14 @@
 								title: '正在加载...', //等待对话框上显示的提示内容
 							},
 							extras: {
-  							orderid: target.id.substring(0,target.id.length-3)
-  						}
+								orderid: target.id.substring(0, target.id.length - 3)
+							}
 						});
 					} else {
-//						var wv = plus.webview.create('orderdetail.html', 'orderdetail', {
-//							'popGesture': 'close'
-//						});
-//						wv.show("pop-in", 300);
-						
+						//						var wv = plus.webview.create('orderdetail.html', 'orderdetail', {
+						//							'popGesture': 'close'
+						//						});
+						//						wv.show("pop-in", 300);
 						mui.openWindow({
 							id: 'orderdetail',
 							url: "orderdetail.html",
@@ -96,46 +97,44 @@
 								title: '正在加载...', //等待对话框上显示的提示内容
 							},
 							extras: {
-  							orderid: target.id
-  						}
+								orderid: target.id
+							}
 						});
 					}
 				});
-				
-			
-				document.getElementById("moreordersbtn").addEventListener('tap',function(){
-					document.getElementById("moreordersbtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
-					var pagenum = Math.ceil(document.getElementById("orderlist").children.length / 10) + 1
-					loadmoreorder(plus.storage.getItem("useraccount"), pagenum)
-				})
-				//console.log('ordershehe')
+				document.getElementById("moreordersbtn").addEventListener('tap', function() {
+						document.getElementById("moreordersbtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  加载中'
+						var pagenum = Math.ceil(document.getElementById("orderlist").children.length / 10) + 1
+						loadmoreorder(plus.storage.getItem("useraccount"), pagenum)
+					})
+					//console.log('ordershehe')
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_order_list',
 						customid: plus.storage.getItem("useraccount"),
-						pagenum:'1'
+						pagenum: '1'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						var obj = JSON.parse(data);
+						this.obj = JSON.parse(data);
 						obj = obj.RespContent.Content
-						console.log(obj);
-						if(obj==''){
+						console.log('data:'+JSON.stringify(obj));
+						if (obj == '') {
 							//console.log('none')
 							document.getElementById("noitem").style.display = ''
 							document.getElementById("orderlist").style.display = 'none'
 							document.getElementById("moreordersbtn").style.display = 'none'
-						}else{
-							if(obj.length<5){
+						} else {
+							if (obj.length < 10) {
 								document.getElementById("moreordersbtn").style.display = 'none'
 							}
 							//console.log(data);
-						var html = template('orderlisttemplate', {
-							list: obj
-						});
-						//console.log(html);
-						document.getElementById('orderlist').innerHTML = html;
+							var html = template('orderlisttemplate', {
+								list: obj
+							});
+							//console.log(html);
+							document.getElementById('orderlist').innerHTML = html;
 						}
 					},
 					error: function(xhr, type, errorThrown) {
@@ -143,7 +142,6 @@
 						console.log(JSON.stringify(xhr));
 					}
 				});
-				
 			})
 		</script>
 		<style>
@@ -152,8 +150,13 @@
 				min-height: 100%;
 				background-color: #efeff4;
 			}
+			
 			.pic {
-				min-width:120px;min-height:80px;width120px;height:80px;margin-right:0px
+				min-width: 120px;
+				min-height: 80px;
+				width120px;
+				height: 80px;
+				margin-right: 0px
 			}
 		</style>
 	</head>
@@ -173,7 +176,7 @@
 			<ul class="mui-table-view-cell" style="height:auto;background-color:#ffffff;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="moreordersbtn">点击查看更多</ul>
 			<ul id="noitem" class="mui-table-view" style="display: none;top:15px">
 				<li class="mui-table-view-cell mui-media" style="text-align: center;">
-					<div style="text-align: center;"><img style="width:80px" src="img/sadface.png"/></div>
+					<div style="text-align: center;"><img style="width:80px" src="img/sadface.png" /></div>
 					<p>您还没有预约订单</p>
 				</li>
 			</ul>
@@ -181,8 +184,7 @@
 	</body>
 
 	<script id="orderlisttemplate" type="text/html ">
-		{{each list as value i}}
-		{{if value.status == 'UNPAID'}}
+		{{each list as value i}} {{if value.status == 'UNPAID'}}
 		<li id="{{value.orderid}}" class="mui-table-view-cell mui-media">
 			<a id="{{value.orderid}}" href="javascript:;">
 				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
@@ -195,23 +197,21 @@
 				</div>
 			</a>
 		</li>
-		{{/if}}
-		{{if value.status == 'UNCOMMENT'}}
+		{{/if}} {{if value.status == 'UNCOMMENT'}}
 		<li id="{{value.orderid}}" class="mui-table-view-cell mui-media">
-			<a href="javascript:;" id="{{value.orderid}}" >
+			<a href="javascript:;" id="{{value.orderid}}">
 				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
 				<div id="{{value.orderid}}" class="mui-media-body" style="position: relative">
 					<p id="{{value.orderid}}" class='mui-ellipsis mui-order-title'>{{value.servicename}}</p>
 					<span id="{{value.orderid}}" class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
 					<div id="{{value.orderid}}" style="margin-top: 5px;">
 						<span id="{{value.orderid}}" style="font-size:14px; color:#666666">￥{{value.unitprice}}</span>
-						<span id="{{value.orderid}}" ><button id="{{value.orderid}}btn" name="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
+						<span id="{{value.orderid}}"><button id="{{value.orderid}}btn" name="reviewbtn" class="mui-btn mui-btn-negative mui-btn-ordersbtn mui-pull-right" style="top:0px">评价</button></span>
 					</div>
 				</div>
 			</a>
 		</li>
-		{{/if}}
-		{{if value.status == 'DONE'}}
+		{{/if}} {{if value.status == 'DONE'}}
 		<li id="{{value.orderid}}" class="mui-table-view-cell mui-media">
 			<a id="{{value.orderid}}" href="javascript:;">
 				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
@@ -224,8 +224,7 @@
 				</div>
 			</a>
 		</li>
-		{{/if}}
-		{{/each}}
+		{{/if}} {{/each}}
 	</script>
 
 </html>

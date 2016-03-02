@@ -44,7 +44,7 @@
 					timeout: 100000, //超时时间设置为10秒；
 					async: false,
 					success: function(data) {
-						console.log(data);
+						console.log('massagistdetail:'+data);
 						this.obj = JSON.parse(data);
 						obj = obj.RespContent.Content
 						console.log(obj.shop_info.name)
@@ -75,18 +75,22 @@
 						if(obj.service_list.length == 0){
 							document.getElementById("moreservicebtn").style.display = 'none'
 						}
-						if(!obj.comment_list){
-							document.getElementById("morecommentbtn").style.display = 'none'
+						if(obj.comment_list==null){
+							document.getElementById("morecommentbtn").style.display = 'none';
+							document.getElementById('commentscontent').innerHTML = '暂无评论';
+						}
+						else{
+							var html2 = template('commenttemplate', {
+							list: obj.comment_list
+							});
+							document.getElementById('comments').innerHTML = html2;
 						}
 						var html1 = template('servicelisttemplate', {
 							list: obj.service_list
 						});
-						document.getElementById('servicelist').innerHTML = html1;
+						document.getElementById('servicelist1').innerHTML = html1;
 						console.log("comment"+obj.comment_list);
-						var html2 = template('commenttemplate', {
-							list: obj.comment_list
-						});
-						document.getElementById('comments').innerHTML = html2;
+						
 						
 					},
 					error: function(xhr, type, errorThrown) {
@@ -97,12 +101,13 @@
 				document.addEventListener('scroll', function(e) {
 					console.log("scrolled");
 					if (window.scrollY > 137) {
-						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,1)";
+						document.getElementById("header").style.backgroundColor = "rgba(28,166,20,1)";
 					} else {
-						document.getElementById("header").style.backgroundColor = "rgba(106,204,203,0.5)";
+						document.getElementById("header").style.backgroundColor = "rgba(28,166,20,0.5)";
 					}
 				});
-				mui('#servicelist').on('tap', 'li', function() {
+				
+				mui('#servicelist1').on('tap', 'li', function() {
 						mui.openWindow({
 							url: 'index_service_detail.html',
 							id: 'index_service_detail',
@@ -114,6 +119,33 @@
 								price: obj.service_list[this.getAttribute('data-id')].price,
 								latitude: obj.shop_info.latitude,
 								longtitude: obj.shop_info.longtitude
+							},
+							styles: {
+								popGesture: 'close'
+							},
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: '正在加载...', //等待对话框上显示的提示内容
+							}
+						})
+					})
+				mui('#servicelist2').on('tap', 'li', function() {
+						mui.openWindow({
+							url: 'index_service_detail.html',
+							id: 'index_service_detail',
+							extras: {
+								serviceid: obj2[this.getAttribute('data-id')].serviceid,
+								distance: distance,
+								servicename: obj2[this.getAttribute('data-id')].name,
+								shopname: obj.shop_info.name,
+								price: obj2[this.getAttribute('data-id')].price,
+								latitude: '0',
+								longtitude: '0'
 							},
 							styles: {
 								popGesture: 'close'
@@ -145,13 +177,16 @@
 						timeout: 100000, //超时时间设置为10秒；
 						//async: false,
 						success: function(data) {
-							var obj = JSON.parse(data);
-							obj = obj.RespContent.Content
+							console.log("allservices"+data);
+							obj2 = JSON.parse(data);
+							obj2 = obj2.RespContent.Content
 							var html = template('servicelisttemplate', {
-								list: obj
+								list: obj2
 							});
 							console.log(data);
-							document.getElementById('servicelist').innerHTML = html;
+							document.getElementById("servicelist1").style.display = 'none';
+							document.getElementById("servicelist2").style.display = '';
+							document.getElementById('servicelist2').innerHTML = html;
 							document.getElementById("moreservicebtn").style.display = 'none'
 						},
 						error: function(xhr, type, errorThrown) {
@@ -176,7 +211,7 @@
 							var html = template('commenttemplate', {
 								list: obj
 							});
-							console.log(data);
+							console.log('newobj:'+obj);
 							if (data != 'null') {
 								var commentsul = document.querySelector('#comments');
 								commentsul.innerHTML += html;
@@ -291,7 +326,16 @@
 				</li>
 			</ul>
 			<div style="background-color: #ffffff; height:auto;position:relative;top:6px;margin-left:10px;margin-right:10px">
-				<ul id="servicelist" class="mui-table-view">
+				<ul id="servicelist1" class="mui-table-view">
+					<li class="mui-table-view-cell" style="height:auto">
+						<a class="mui-navigate-right" style="height:auto">
+							<div>
+								<p id="servicename" class='mui-ellipsis' style="color:#666666;font-size:17px;margin-bottom:5px">加载中...</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<ul id="servicelist2" class="mui-table-view" style="display: none;">
 					<li class="mui-table-view-cell" style="height:auto">
 						<a class="mui-navigate-right" style="height:auto">
 							<div>
@@ -308,7 +352,7 @@
 			<div style="background-color: #ffffff; height:auto;position:relative;top:12px;margin:0 10px 25px 10px;">
 				<ul id="comments" class="mui-table-view">
 					<li class="mui-table-view-cell" style="height:70px">
-						<p style="word-wrap: break-word;color: #333333;">加载中...</p>
+						<p style="word-wrap: break-word;color: #333333;" id="commentscontent">加载中...</p>
 					</li>
 				</ul>
 				<ul class="mui-table-view-cell" style="height:auto;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="morecommentbtn">点击查看更多</ul>
