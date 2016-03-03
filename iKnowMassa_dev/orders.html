@@ -22,12 +22,15 @@
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
+						console.log(data)
 						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
+						console.log(JSON.stringify(obj))
 						var html = template('todaytemplate', {
 							list: obj
 						});
 						//console.log(html);
-						if(data!='[]'){document.getElementById('item2mobileul').innerHTML = html;}
+						if(obj!=''){document.getElementById('item2mobileul').innerHTML = html;}
 						else{document.getElementById('item2mobileul').innerHTML = '<h4 style="text-align:center;line-height: 60px;">暂无记录</h4>'}
 					},
 					error: function(xhr, type, errorThrown) {
@@ -46,10 +49,11 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
 						var html = template('historytemplate', {
 							list: obj
 						});
-						if(data!='[]'){document.getElementById('item3mobileul').innerHTML = html;}
+						if(obj!=''){document.getElementById('item3mobileul').innerHTML = html;}
 						else{document.getElementById('item3mobileul').innerHTML = '<h4 style="text-align:center;line-height: 60px;">暂无记录</h4>'}
 					},
 					error: function(xhr, type, errorThrown) {
@@ -68,10 +72,11 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
 						var html = template('futuretemplate', {
 							list: obj
 						});
-						if(data!='[]'){document.getElementById('item1mobileul').innerHTML = html;}
+						if(obj!=''){document.getElementById('item1mobileul').innerHTML = html;}
 						else{document.getElementById('item1mobileul').innerHTML = '<h4 style="text-align:center;line-height: 60px;">暂无记录</h4>'}
 					},
 					error: function(xhr, type, errorThrown) {
@@ -219,7 +224,7 @@
 					</div>
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
 						<ul id="item3mobileul" class="mui-table-view">
-							<div class="date">10月19日 周一</div>
+							<div class="date"></div>
 							<li class="mui-table-view-cell" style="font-size: 16px;">
 								<a id="item3a" class="mui-navigate-right" style="padding-top: 18px;">
 									<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span> 载入中...
@@ -232,7 +237,8 @@
 		</div>
 	</body>
 	<script id="todaytemplate" type="text/html ">
-		{{each list as value i}}
+		{{each list as value2 i}}
+		{{each value2 as value j}}
 		<li data-id="{{value.orderid}}" class="mui-table-view-cell" style="font-size: 16px;">
 			<a class="mui-navigate-right" style="padding-top: 18px;">
 				<div class="time">{{value.start.substring(0,5)}}
@@ -245,6 +251,7 @@
 				</div>
 			</a>
 		</li>
+		{{/each}}
 		{{/each}}
 	</script>
 	<script id="historytemplate" type="text/html ">

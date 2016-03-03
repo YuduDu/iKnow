@@ -56,13 +56,14 @@
 				
 				mui.ajax(url.statistic, {
 					data: {
-						massaid: '13233997914',
+						massaid: '15652519917',
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
-						obj = JSON.parse(data);
 						console.log(data);
+						obj = JSON.parse(data);
+						obj = obj.RespContent.Content
 						document.getElementById("ordernum").innerHTML = obj[0].ordernum
 						document.getElementById("money").innerHTML = obj[0].money
 					},

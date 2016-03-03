@@ -28,6 +28,7 @@
 					success: function(data) {
 						console.log(data);
 						obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
 						document.getElementById("servicename").innerHTML = obj.servicename
 						document.getElementById("servicetime").innerHTML = obj.servicetime
 						document.getElementById("amount").innerHTML = obj.amount
@@ -50,7 +51,7 @@
 							default:
 								break;
 						}
-						document.getElementById("promotion").innerHTML = obj.promotion
+						if(obj.promotion){document.getElementById("promotion").innerHTML = obj.promotion};
 						document.getElementById("customerid").innerHTML = obj.customerid
 					},
 					error: function(xhr, type, errorThrown) {

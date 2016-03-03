@@ -21,13 +21,15 @@
 				mui.ajax(url.list, {
 					data: {
 						action: 'get_service_list',
-						massaid: '15136352580',
+						massaid: massaid,
 						pagenum: '1'
 					},
 					type: 'post', //HTTP请求类型 
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
+						console.log(data);
 						obj = JSON.parse(data);
+						obj = obj.RespContent.Content
 						console.log(data);
 						var html = template('servicestemplate', {
 							list: obj

@@ -1,9 +1,9 @@
 var url = {
-		list: "http://gene.rnet.missouri.edu/iKnow/massagist_list.php",
-		basic_info: "http://gene.rnet.missouri.edu/iKnow/massagist_basic_info.php",
-		order_detail:"http://gene.rnet.missouri.edu/iKnow/massagist_order_detail.php",
-		login:"http://gene.rnet.missouri.edu/iKnow/massagist_login.php",
-		statistic:"http://gene.rnet.missouri.edu/iKnow/massagist_statistic.php"
+		list: "http://gene.rnet.missouri.edu/iKnow/Testing/massagist_list.php",
+		basic_info: "http://gene.rnet.missouri.edu/iKnow/Testing/massagist_basic_info.php",
+		order_detail:"http://gene.rnet.missouri.edu/iKnow/Testing/massagist_order_detail.php",
+		login:"http://gene.rnet.missouri.edu/iKnow/Testing/massagist_login.php",
+		statistic:"http://gene.rnet.missouri.edu/iKnow/Testing/massagist_statistic.php"
 }
 
 var id = {

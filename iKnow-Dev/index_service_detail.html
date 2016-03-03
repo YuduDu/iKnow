@@ -59,7 +59,8 @@
 //						}
 //					});
 				document.getElementById("orderbtn").addEventListener('tap', function() {
-					MtaH5.clickStat('orderbtn_in_servicedetail')
+					MtaH5.clickStat('orderbutton_servicedetail');
+					plus.statistic.eventTrig( 'orderbutton_servicedetail');
 					//显示预定提交页
 					mui.openWindow({
 						id: 'orderapplication',
@@ -127,7 +128,7 @@
 					}
 				});
 				document.getElementById("sharebtn").addEventListener('tap', function() {
-					void plus.statistic.eventTrig( 'sharebutton_servicedetail', 'share' );
+					plus.statistic.eventTrig( 'sharebutton_servicedetail');
 					console.log('tapped');
 					var ids = [{
 							id: "weixin",

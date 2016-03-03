@@ -171,7 +171,9 @@
 							timeout: 100000, //超时时间设置为10秒；   
 							success: function(data) {
 								console.log(data);
-								if (data == 'success') {
+								obj = JSON.parse(data);
+								obj = obj.RespContent.Status
+								if (obj == 'Success') {
 									//localStorage.setItem("useraccount", accountBox.value);
 									plus.storage.setItem("massaid", accountBox.value);
 									plus.nativeUI.toast('登陆成功');

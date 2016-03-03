@@ -123,10 +123,7 @@
 		"distribute": {
 			"plugins": {
 				"payment": {
-					"alipay": {
-						"description": "阿里支付",
-						"scheme": "2016022201156823"
-					}
+					"alipay": {"description":"阿里支付","scheme":""}
 				},
 				"statics": {
 					"umeng": {

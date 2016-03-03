@@ -20,6 +20,7 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content
 						var html = template('profiletemplate', obj);
 						document.getElementById('basicinfo').innerHTML = html;
 					},
@@ -39,6 +40,7 @@
 					timeout: 100000, //超时时间设置为10秒；  
 					success: function(data) {
 						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
 						var html = template('profiletemplate', obj);
 						document.getElementById('basicinfo').innerHTML = html;
 					},
