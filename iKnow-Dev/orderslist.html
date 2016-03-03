@@ -181,9 +181,7 @@
 				</li>
 			</ul>
 		</div>
-	</body>
-
-	<script id="orderlisttemplate" type="text/html ">
+		<script id="orderlisttemplate" type="text/html ">
 		{{each list as value i}} {{if value.status == 'UNPAID'}}
 		<li id="{{value.orderid}}" class="mui-table-view-cell mui-media">
 			<a id="{{value.orderid}}" href="javascript:;">
@@ -226,5 +224,6 @@
 		</li>
 		{{/if}} {{/each}}
 	</script>
-
+	<script type="text/javascript" src="http://pingjs.qq.com/h5/stats.js" name="MTAH5" sid="500023893" ></script>
+	</body>
 </html>

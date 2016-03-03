@@ -30,6 +30,12 @@
 				function beecloudPay(bcChannel) {
 					document.getElementById("WX_APP").disabled = "true";
 					document.getElementById("ALI_APP").disabled = "true";
+					if(bcChannel=='WX_APP'){
+						MtaH5.clickStat('WX_APP')
+					}
+					else(
+						MtaH5.clickStat('ALI_APP')
+					)
 					var billnumber = beecloud.genBillNo();
 					/*
 					 * 构建支付参数
@@ -346,7 +352,7 @@
 			//更换标题
 			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
 		</script>
-
+		<script type="text/javascript" src="http://pingjs.qq.com/h5/stats.js" name="MTAH5" sid="500023893" ></script>
 	</body>
 
 </html>
