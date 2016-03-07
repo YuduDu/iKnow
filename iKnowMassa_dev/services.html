@@ -63,9 +63,10 @@
 					success: function(data) {
 						console.log(data);
 						obj = JSON.parse(data);
-						obj = obj.RespContent.Content
+						obj = obj.RespContent.Content;
+						amount = Number(obj[0].money);
 						document.getElementById("ordernum").innerHTML = obj[0].ordernum
-						document.getElementById("money").innerHTML = obj[0].money
+						document.getElementById("money").innerHTML = amount.toFixed(2)
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);

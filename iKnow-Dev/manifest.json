@@ -5,16 +5,16 @@
 		"iPad"
 	],
 	"id": "H526EBBCC",
-	"name": "iKnow",
+	"name": "身知道",
 	"version": {
-		"name": "1.8.0",
+		"name": "1.8.1",
 		"code": "80"
 	},
 	"description": "",
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "login.html",
+	"launch_path": "users/login.html",
 	"developer": {
 		"name": "Yihan XU",
 		"email": "iknowapp@sina.com",

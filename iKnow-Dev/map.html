@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>地图</title>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				document.getElementById("map").src = self.src;
+				console.log(self.src);
+				plus.geolocation.getCurrentPosition(function(p) {
+					var des = new plus.maps.Point(Number(self.longitude), Number(self.latitude));
+					console.log(JSON.stringify(des));
+					var src = new plus.maps.Point(p.coords.longitude,p.coords.latitude);
+					document.getElementById("navbtn").addEventListener('tap',function(){
+						plus.maps.openSysMap( des, self.shopname, src );
+					})
+				}, function(e) {
+					document.getElementById("navbtn").style.display = 'none'
+				});
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+			})
+		</script>
+		<style type="text/css">
+			#map {
+				width: 100%;
+				position: fixed;
+				top: 0px;
+				bottom: 0px;
+				line-height: 200px;
+				text-align: center;
+				background: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #ffffff;">
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title" style="color: #ffffff;margin-right: 100px;margin-left: 100px;">地图</h1>
+			<a id="navbtn" class="fa fa-compass mui-pull-right icon-whilte" style="padding: 10px;font-size:24px"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div id="content" style="padding: 0px 0px 0px 0px; font-size:18px;line-height: 30px;color: #333333;">
+			<iframe id="map" src="" width="100%" height="100%"></iframe>
+		</div>
+	</body>
+
+</html>
