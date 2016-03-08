@@ -67,6 +67,9 @@
 				table.addEventListener('tap', selectCell);
 				console.log("order_massaid" + plus.storage.getItem('order_massaid'));
 				function loaddata(massagistid,serviceid,visittype){
+					mui("td").each(function(){
+						this.style.backgroundColor = '#ffffff'
+					})
 					mui.ajax(url.appt, {
 					data: {
 						massagistid: plus.storage.getItem('order_massaid'),
@@ -77,7 +80,13 @@
 					type: 'post', //HTTP请求类型
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-						var pickeddatetemp = datearray[0][0];
+						if(typeof pickeddatetemp !== 'undefined'){
+							
+						}
+						else{
+							pickeddatetemp=datearray[0][0];
+						}
+						console.log("pickeddatetemp:"+pickeddatetemp+'datearray[0][0]:'+datearray[0][0]);
 						console.log('appt:' + data);
 						var tempdata = JSON.parse(data)
 						var obj = JSON.parse(tempdata.RespContent.Content)
@@ -90,8 +99,7 @@
 								datecontrolitem[i].addEventListener('tap', function() {
 									var timename = document.getElementsByTagName('td')
 									for (i = 0; i < timename.length; i++) {
-										timename[i].style.display = '';
-										//timename[i].style.backgroundColorcolor = '#666666';
+										timename[i].style.backgroundColorcolor = '#fff';
 									}
 									console.log("pickeddatetemp" + pickeddatetemp);
 									document.getElementById(pickeddatetemp).className = 'mui-control-item';
@@ -103,6 +111,8 @@
 							//mui.trigger(datecontrolitem[0], 'tap');
 						} else {
 							//console.log("obj[0][0]" + obj[0][0]);
+							
+							
 							for (var i = 0; i < obj.length; i++) {
 								objdatetemp = obj[i][0].slice(5, 10);
 								objtimestarttemp = obj[i][0].slice(11, 16);
@@ -250,7 +260,7 @@
 			<a id="confirmbtn" class="mui-pull-right" style="color: #ffffff;padding: 12px 0px 12px 30px">确认</a>
 		</header>
 		<div class="mui-content" style="padding-right:0px;position: relative;">
-			<div style="width:100%;height:auto;background-color: #ffffff;padding-right:0px;position: relative;">
+			<div style="width:100%;height:auto;background-color: #ffffff;padding-right:0px;position: relative;border-bottom:solid #E0E0E0 2px">
 				<div style="width:100%;height:60px;border-bottom-style: solid;border-bottom-width: 2px;border-bottom-color: #F2F2F2;">
 					<div id="placecontrol" class="mui-segmented-control" style="width:70%;margin-left:15%;top:13px">
 						<a class="mui-control-item mui-active" id="todoor" style="font-size:16px">
