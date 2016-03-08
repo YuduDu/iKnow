@@ -307,7 +307,7 @@ a:active
     background-color: #efeff4;
 
     -webkit-overflow-scrolling: touch;
-}
+    }
 
 .mui-bar-nav ~ .mui-content
 {

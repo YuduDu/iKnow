@@ -21,8 +21,25 @@
 				var thismonth = nowdate.getMonth();
 				var timehtml = template('timerow1template', timeset1);
 				document.getElementById('timebody').innerHTML = timehtml;
+				mui("td").each(function(){
+					var idcount = this.id.split(':');	
+					var idcounts = Number(60*idcount[0]+idcount[1]);
+					var opencount = self.opentime.split(':');
+					var opencounts = Number(60*opencount[0]+opencount[1]);
+					var closecount = self.closetime.split(':');
+					var closecounts = Number(60*closecount[0]+closecount[1]);
+					if(idcounts<opencounts || idcounts>closecounts){
+						console.log('opentime:'+opencounts+'idtime:'+idcounts+'closetime:'+closecounts)
+						this.style.backgroundColor = '#f1f1f1';
+						this.style.color = '#999'
+					}
+				})
 				var selected,
 					selectCell = function(e) {
+						if(e.target.style.backgroundColor=='rgb(241, 241, 241)'){
+							mui.toast('所选时间不可用')
+							return;
+						};
 						var cell = e.target,
 							range, selection;
 						if (cell.tagName.toLowerCase() !== 'td') {
@@ -36,6 +53,7 @@
 							return;
 						}
 						if (selected) {
+							
 							selected.style.backgroundColor = '';
 							selected.style.color = '#666666';
 						}
@@ -63,7 +81,7 @@
 						console.log('appt:' + data);
 						var tempdata = JSON.parse(data)
 						var obj = JSON.parse(tempdata.RespContent.Content)
-						console.log("Content" + tempdata.RespContent.Content)
+						console.log("obj:" + obj)
 						if (obj == '') {
 							console.log('empty');
 							var datecontrolitem = document.getElementsByName("datecontrolitem")
@@ -93,7 +111,8 @@
 								if (objdatetemp == pickeddatetemp) {
 									for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
 										if (document.getElementById(k)) {
-											document.getElementById(k).style.display = 'none'
+											document.getElementById(k).style.backgroundColor = '#f1f1f1';
+											document.getElementById(k).style.color = '#999';
 										}
 									}
 								}
@@ -104,7 +123,8 @@
 								datecontrolitem[i].addEventListener('tap', function() {
 									var timename = document.getElementsByTagName('td')
 									for (i = 0; i < timename.length; i++) {
-										timename[i].style.display = ''
+										timename[i].style.backgroundColor = '#FFFFFF';
+										timename[i].style.color = '#666';
 									}
 									document.getElementById(pickeddatetemp).className = 'mui-control-item';
 									var pickeddate = this.id;
@@ -118,7 +138,8 @@
 										if (objdatetemp == pickeddate) {
 											for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
 												if (document.getElementById(k)) {
-													document.getElementById(k).style.display = 'none'
+													document.getElementById(k).style.backgroundColor = '#f1f1f1';
+													document.getElementById(k).style.color = '#999';
 												}
 											}
 										}
@@ -228,8 +249,8 @@
 			<h1 class="mui-title" style="color:#ffffff">服务时间</h1>
 			<a id="confirmbtn" class="mui-pull-right" style="color: #ffffff;padding: 12px 0px 12px 30px">确认</a>
 		</header>
-		<div class="mui-content" style="padding-right:0px">
-			<div style="width:100%;height:245px;background-color: #ffffff;padding-right:0px">
+		<div class="mui-content" style="padding-right:0px;position: relative;">
+			<div style="width:100%;height:auto;background-color: #ffffff;padding-right:0px;position: relative;">
 				<div style="width:100%;height:60px;border-bottom-style: solid;border-bottom-width: 2px;border-bottom-color: #F2F2F2;">
 					<div id="placecontrol" class="mui-segmented-control" style="width:70%;margin-left:15%;top:13px">
 						<a class="mui-control-item mui-active" id="todoor" style="font-size:16px">
@@ -248,13 +269,13 @@
 						</div>
 					</div>
 				</div>
-				<table id="table" border="0" cellspacing="" cellpadding="" style="padding: 0 10px 0 10px;width:100%;font-size: 14px;text-align: center;color:#666666">
+				<table id="table" border="0" cellspacing="" cellpadding="" style="padding: 0 10px 0 10px;width:100%;font-size: 14px;text-align: center;color:#666666;">
 					<tbody id="timebody">
 					</tbody>
 				</table>
 
 			</div>
-			<div style="height:50px;position: relative;top:10px;background-color: #ffffff;" id="addressdiv">
+			<div style="height:50px;position: relative;margin-top:15px;background-color: #ffffff;" id="addressdiv">
 				<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="namespan">上门地址</span>
 				<span class="mui-pull-right" style="width: 75%;line-height: 50px;padding-right: 0px;color: #ff9900;font-size: 12px;"><input id="add" type="text" style="border: hidden;font-size: 16px;" class="mui-input-clear" placeholder="请输入地址"></span>
 			</div>
@@ -271,6 +292,14 @@
 			</tr>
 			<tr id="timerow2" style="height:45px">
 				{{each list2 as value i}}
+				<td id="{{value}}">{{value}}</td>{{/each}}
+			</tr>
+			<tr id="timerow3" style="height:45px">
+				{{each list3 as value i}}
+				<td id="{{value}}">{{value}}</td>{{/each}}
+			</tr>
+			<tr id="timerow4" style="height:45px">
+				{{each list4 as value i}}
 				<td id="{{value}}">{{value}}</td>{{/each}}
 			</tr>
 		</script>

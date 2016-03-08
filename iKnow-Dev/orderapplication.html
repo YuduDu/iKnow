@@ -30,12 +30,6 @@
 				function beecloudPay(bcChannel) {
 					document.getElementById("WX_APP").disabled = "true";
 					document.getElementById("ALI_APP").disabled = "true";
-					if(bcChannel=='WX_APP'){
-						MtaH5.clickStat('WX_APP')
-					}
-					else(
-						MtaH5.clickStat('ALI_APP')
-					)
 					var billnumber = beecloud.genBillNo();
 					/*
 					 * 构建支付参数
@@ -209,7 +203,9 @@
 							title: '正在加载...', //等待对话框上显示的提示内容
 						},
 						extras: {
-							serviceid: self.serviceid
+							serviceid: self.serviceid,
+							opentime: self.opentime,
+							closetime: self.closetime
 						}
 					});
 				});

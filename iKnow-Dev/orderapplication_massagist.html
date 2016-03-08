@@ -22,6 +22,7 @@
 				var self = plus.webview.currentWebview();
 				document.getElementById("servicename").innerHTML = self.servicename;
 				document.getElementById("price").innerHTML = "￥" + self.price;
+				console.log(JSON.stringify(self.malist))
 				var html3 = template('3massagisttem', {
 					list: self.malist
 				});
@@ -29,6 +30,7 @@
 				var html2 = template('2massagisttem', {
 					list: self.malist
 				});
+				console.log(html2)
 				document.getElementById('2massagist').innerHTML = html2;
 				var html1 = template('1massagisttem', {
 					list: self.malist
@@ -101,7 +103,7 @@
 						<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
 						</div>
 						<div class="mui-media-body mui-media-body-massagistlist ">
-							<span name="maname">{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
+							<span name="maname">{{value.name}}</span><span><img src="img/star{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
 							<p class='mui-ellipsis-3' style="padding-right:45px">{{value.intro}}</p>
 						</div>
 					</a>
@@ -119,7 +121,7 @@
 						<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
 						</div>
 						<div class="mui-media-body mui-media-body-massagistlist ">
-							<span name="maname">{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
+							<span name="maname">{{value.name}}</span><span><img src="img/star{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
 							<p class='mui-ellipsis-3' style="padding-right:45px">{{value.intro}}</p>
 						</div>
 					</a>
@@ -137,7 +139,7 @@
 						<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
 						</div>
 						<div class="mui-media-body mui-media-body-massagistlist ">
-							<span name="maname">{{value.name}}</span><span><img src="img/v{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
+							<span name="maname">{{value.name}}</span><span><img src="img/star{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span>
 							<p class='mui-ellipsis-3' style="padding-right:45px">{{value.intro}}</p>
 						</div>
 					</a>

@@ -58,7 +58,6 @@
 				//						}
 				//					});
 				document.getElementById("orderbtn").addEventListener('tap', function() {
-					MtaH5.clickStat('orderbutton_servicedetail');
 					plus.statistic.eventTrig('orderbutton_servicedetail');
 					//显示预定提交页
 					mui.openWindow({
@@ -68,7 +67,9 @@
 							serviceid: self.serviceid,
 							servicename: self.servicename,
 							price: self.price,
-							addr: obj.address
+							addr: obj.address,
+							opentime: obj.opentime.slice(0,5),
+							closetime: obj.closetime.slice(0,5)
 						},
 						styles: {
 							popGesture: 'close'
@@ -408,7 +409,6 @@
 				</p>
 			</div>
 		</div>
-		<script type="text/javascript" src="http://pingjs.qq.com/h5/stats.js" name="MTAH5" sid="500023893" cid="500023898"></script>
 
 	</body>
 
