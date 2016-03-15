@@ -8,6 +8,8 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-ServicesList</title>
 		<script src="js/template.js"></script>
+		<script src="js/md5.js"></script>
+		<script src="js/lazyload.js"></script>
 		<script src="js/customize.js"></script>
 		<script src="js/mui.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
@@ -170,7 +172,7 @@
 			{{each list as value i}}
 			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
 				<a>
-					<img class="mui-media mui-pull-left " style="min-width:120px;min-height:80px;width120px;height:80px;margin-right:10px" src="{{value.pic}}">
+					<img class="mui-media mui-pull-left " style="min-width:120px;min-height:80px;width120px;height:80px;margin-right:10px" src="img/defaultpic.png" data-lazyload="{{value.pic}}" onload="lazyload(this)" >
 					<div class="mui-media-body ">
 						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.servicename}}</p>
 						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>

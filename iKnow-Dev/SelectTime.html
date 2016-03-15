@@ -21,22 +21,22 @@
 				var thismonth = nowdate.getMonth();
 				var timehtml = template('timerow1template', timeset1);
 				document.getElementById('timebody').innerHTML = timehtml;
-				mui("td").each(function(){
-					var idcount = this.id.split(':');	
-					var idcounts = Number(60*idcount[0]+idcount[1]);
+				mui("td").each(function() {
+					var idcount = this.id.split(':');
+					var idcounts = Number(60 * idcount[0] + idcount[1]);
 					var opencount = self.opentime.split(':');
-					var opencounts = Number(60*opencount[0]+opencount[1]);
+					var opencounts = Number(60 * opencount[0] + opencount[1]);
 					var closecount = self.closetime.split(':');
-					var closecounts = Number(60*closecount[0]+closecount[1]);
-					if(idcounts<opencounts || idcounts>closecounts){
-						console.log('opentime:'+opencounts+'idtime:'+idcounts+'closetime:'+closecounts)
+					var closecounts = Number(60 * closecount[0] + closecount[1]);
+					if (idcounts < opencounts || idcounts > closecounts) {
+						console.log('opentime:' + opencounts + 'idtime:' + idcounts + 'closetime:' + closecounts)
 						this.style.backgroundColor = '#f1f1f1';
 						this.style.color = '#999'
 					}
 				})
 				var selected,
 					selectCell = function(e) {
-						if(e.target.style.backgroundColor=='rgb(241, 241, 241)'){
+						if (e.target.style.backgroundColor == 'rgb(241, 241, 241)') {
 							mui.toast('所选时间不可用')
 							return;
 						};
@@ -53,7 +53,6 @@
 							return;
 						}
 						if (selected) {
-							
 							selected.style.backgroundColor = '';
 							selected.style.color = '#666666';
 						}
@@ -66,106 +65,101 @@
 					table = document.getElementById('table');
 				table.addEventListener('tap', selectCell);
 				console.log("order_massaid" + plus.storage.getItem('order_massaid'));
-				function loaddata(massagistid,serviceid,visittype){
-					mui("td").each(function(){
-						this.style.backgroundColor = '#ffffff'
+
+				function loaddata(massagistid, serviceid, visittype) {
+					document.getElementById("loadingspinner").style.display = ''
+					mui("td").each(function() {
+						this.style.backgroundColor = '#ffffff';
+						this.style.color = '#666'
 					})
 					mui.ajax(url.appt, {
-					data: {
-						massagistid: plus.storage.getItem('order_massaid'),
-						serviceid: self.serviceid,
-						type: visittype
-					},
-					//dataType: 'json', //服务器返回json格式数据
-					type: 'post', //HTTP请求类型
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						if(typeof pickeddatetemp !== 'undefined'){
-							
-						}
-						else{
-							pickeddatetemp=datearray[0][0];
-						}
-						console.log("pickeddatetemp:"+pickeddatetemp+'datearray[0][0]:'+datearray[0][0]);
-						console.log('appt:' + data);
-						var tempdata = JSON.parse(data)
-						var obj = JSON.parse(tempdata.RespContent.Content)
-						console.log("obj:" + obj)
-						if (obj == '') {
-							console.log('empty');
-							var datecontrolitem = document.getElementsByName("datecontrolitem")
-								//console.log(datecontrolitem.length)
-							for (i = 0; i < 28; i++) {
-								datecontrolitem[i].addEventListener('tap', function() {
-									var timename = document.getElementsByTagName('td')
-									for (i = 0; i < timename.length; i++) {
-										timename[i].style.backgroundColorcolor = '#fff';
-									}
-									console.log("pickeddatetemp" + pickeddatetemp);
-									document.getElementById(pickeddatetemp).className = 'mui-control-item';
-									finaltime[1] = pickeddatetemp;
-									console.log("pickeddatetemp" + pickeddatetemp);
-									console.log('hehe')
-								})
+						data: {
+							massagistid: plus.storage.getItem('order_massaid'),
+							serviceid: self.serviceid,
+							type: visittype
+						},
+						//dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						success: function(data) {
+							if (typeof pickeddatetemp !== 'undefined') {
+							} else {
+								pickeddatetemp = datearray[0][0];
 							}
-							//mui.trigger(datecontrolitem[0], 'tap');
-						} else {
-							//console.log("obj[0][0]" + obj[0][0]);
-							
-							
-							for (var i = 0; i < obj.length; i++) {
-								objdatetemp = obj[i][0].slice(5, 10);
-								objtimestarttemp = obj[i][0].slice(11, 16);
-								objtimeendtemp = obj[i][1].slice(11, 16)
-								console.log(objtimestarttemp)
-								if (objdatetemp == pickeddatetemp) {
-									for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
-										if (document.getElementById(k)) {
-											document.getElementById(k).style.backgroundColor = '#f1f1f1';
-											document.getElementById(k).style.color = '#999';
-										}
-									}
+							console.log("pickeddatetemp:" + pickeddatetemp + 'datearray[0][0]:' + datearray[0][0]);
+							console.log('appt:' + data);
+							var tempdata = JSON.parse(data)
+							var obj = JSON.parse(tempdata.RespContent.Content)
+							console.log("obj:" + obj)
+							if (obj == '') {
+								console.log('empty');
+								var datecontrolitem = document.getElementsByName("datecontrolitem")
+									//console.log(datecontrolitem.length)
+								for (i = 0; i < 28; i++) {
+									datecontrolitem[i].addEventListener('tap', function() {
+										
+										document.getElementById(this.id).className = 'mui-control-item';
+										finaltime[1] = this.id;
+										console.log('hehe')
+									})
 								}
-							}
-							var datecontrolitem = document.getElementsByName("datecontrolitem")
-								//console.log(datecontrolitem.length)
-							for (i = 0; i < 28; i++) {
-								datecontrolitem[i].addEventListener('tap', function() {
-									var timename = document.getElementsByTagName('td')
-									for (i = 0; i < timename.length; i++) {
-										timename[i].style.backgroundColor = '#FFFFFF';
-										timename[i].style.color = '#666';
-									}
-									document.getElementById(pickeddatetemp).className = 'mui-control-item';
-									var pickeddate = this.id;
-									pickeddatetemp = this.id;
-									finaltime[1] = pickeddate;
-									console.log("pickeddate" + pickeddate);
-									for (i = 0; i < obj.length; i++) {
-										objdatetemp = obj[i][0].slice(5, 10);
-										objtimestarttemp = obj[i][0].slice(11, 16);
-										objtimeendtemp = obj[i][1].slice(11, 16)
-										if (objdatetemp == pickeddate) {
-											for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
-												if (document.getElementById(k)) {
-													document.getElementById(k).style.backgroundColor = '#f1f1f1';
-													document.getElementById(k).style.color = '#999';
-												}
+								//mui.trigger(datecontrolitem[0], 'tap');
+							} else {
+								//console.log("obj[0][0]" + obj[0][0]);
+								for (var i = 0; i < obj.length; i++) {
+									objdatetemp = obj[i][0].slice(5, 10);
+									objtimestarttemp = obj[i][0].slice(11, 16);
+									objtimeendtemp = obj[i][1].slice(11, 16)
+									console.log(objtimestarttemp)
+									if (objdatetemp == pickeddatetemp) {
+										for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
+											if (document.getElementById(k)) {
+												document.getElementById(k).style.backgroundColor = '#f1f1f1';
+												document.getElementById(k).style.color = '#999';
 											}
 										}
 									}
-								})
+								}
+								var datecontrolitem = document.getElementsByName("datecontrolitem")
+									//console.log(datecontrolitem.length)
+								for (i = 0; i < 28; i++) {
+									datecontrolitem[i].addEventListener('tap', function() {
+										var timename = document.getElementsByTagName('td')
+										for (i = 0; i < timename.length; i++) {
+											timename[i].style.backgroundColor = '#FFFFFF';
+											timename[i].style.color = '#666';
+										}
+										document.getElementById(pickeddatetemp).className = 'mui-control-item';
+										var pickeddate = this.id;
+										pickeddatetemp = this.id;
+										finaltime[1] = pickeddate;
+										console.log("pickeddate" + pickeddate);
+										for (i = 0; i < obj.length; i++) {
+											objdatetemp = obj[i][0].slice(5, 10);
+											objtimestarttemp = obj[i][0].slice(11, 16);
+											objtimeendtemp = obj[i][1].slice(11, 16)
+											if (objdatetemp == pickeddate) {
+												for (k = objtimestarttemp; k != objtimeendtemp; k = addMinutes(k, '30')) {
+													if (document.getElementById(k)) {
+														document.getElementById(k).style.backgroundColor = '#f1f1f1';
+														document.getElementById(k).style.color = '#999';
+													}
+												}
+											}
+										}
+									})
+								}
 							}
+							document.getElementById("loadingspinner").style.display = 'none'
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(errorThrown);
 						}
-					},
-					error: function(xhr, type, errorThrown) {
-						//异常处理；
-						console.log(errorThrown);
-					}
-				});
+					});
 				}
-				plus.storage.setItem('visitingtype','VISITING')
-				loaddata(plus.storage.getItem('order_massaid'),self.serviceid,'visiting')
+				plus.storage.setItem('visitingtype', 'VISITING')
+				loaddata(plus.storage.getItem('order_massaid'), self.serviceid, 'visiting')
 				var datearray = new Array();
 				datearray[0] = new Array();
 				datearray[1] = new Array();
@@ -215,23 +209,23 @@
 				//console.log(datepanelhtml);
 				document.getElementById('datepanel').innerHTML = datepanelhtml;
 				var opener = plus.webview.currentWebview().opener();
+				
 				document.getElementById("toshop").addEventListener('tap', function() {
-					loaddata(plus.storage.getItem('order_massaid'),self.serviceid,'shop');
-					plus.storage.setItem('visitingtype','shop');
+					loaddata(plus.storage.getItem('order_massaid'), self.serviceid, 'shop');
+					plus.storage.setItem('visitingtype', 'shop');
 					document.getElementById("addressdiv").style.display = 'none';
+					plus.storage.removeItem('appttime');
+					finaltime[2] = ''
+
 				});
 				document.getElementById("todoor").addEventListener('tap', function() {
-					loaddata(plus.storage.getItem('order_massaid'),self.serviceid,'visiting');
-					plus.storage.setItem('visitingtype','visiting');
+					loaddata(plus.storage.getItem('order_massaid'), self.serviceid, 'visiting');
+					plus.storage.setItem('visitingtype', 'visiting');
 					document.getElementById("addressdiv").style.display = '';
-					
+					plus.storage.removeItem('appttime');
+					finaltime[2] = ''
 				})
 				document.getElementById("confirmbtn").addEventListener('tap', function() {
-					if (finaltime[1].slice(0, 1) < thismonth) {
-						plus.storage.setItem('apptyear', finaltime[0])
-					} else {
-						plus.storage.setItem('apptyear', finaltime[0] + 1)
-					}
 					if (finaltime[2] == '') {
 						plus.nativeUI.toast('请选择时间')
 							//console.log(finaltime[2])
@@ -239,9 +233,14 @@
 					}
 					var addinput = document.getElementById("add").value;
 					console.log("addinput" + addinput);
-					if (addinput == '' && plus.storage.getItem('visitingtype')=='VISITING') {
+					if (addinput == '' && plus.storage.getItem('visitingtype') == 'VISITING') {
 						plus.nativeUI.toast('请填写地址')
 						return;
+					}
+					if (finaltime[1].slice(0, 1) < thismonth) {
+						plus.storage.setItem('apptyear', finaltime[0])
+					} else {
+						plus.storage.setItem('apptyear', finaltime[0] + 1)
 					}
 					mui.fire(plus.webview.getWebviewById(opener.id), 'updateorder', {});
 					plus.storage.setItem('apptdate', finaltime[1]);
@@ -256,7 +255,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" style="top:0px">
 			<a id="backbtn" class="mui-icon mui-icon-left-nav mui-pull-left mui-action-back" style="color:#ffffff"></a>
-			<h1 class="mui-title" style="color:#ffffff">服务时间</h1>
+			<h1 class="mui-title" style="color:#ffffff">服务时间<span id="loadingspinner" class="mui-icon mui-spinner mui-spin" style="position: fixed;top:30px;"></span></h1>
 			<a id="confirmbtn" class="mui-pull-right" style="color: #ffffff;padding: 12px 0px 12px 30px">确认</a>
 		</header>
 		<div class="mui-content" style="padding-right:0px;position: relative;">
@@ -353,7 +352,7 @@
 				</div>
 			</div>
 		</script>
-		
+
 	</body>
 
 </html>

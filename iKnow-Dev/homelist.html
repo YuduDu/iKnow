@@ -8,6 +8,8 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow</title>
 		<script src="js/mui.js"></script>
+		<script src="js/md5.js"></script>
+		<script src="js/lazyload.js"></script>
 		<script src="js/customize.js"></script>
 		<script src="js/template.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
@@ -530,7 +532,7 @@
 			{{each list as value i}}
 			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
 				<a>
-					<img class="mui-media-object-large mui-pull-left serviceimg" src="{{value.pic}}">
+					<img class="mui-media-object-large mui-pull-left serviceimg" src="img/defaultpic.png" data-lazyload="{{value.pic}}" onload="lazyload(this)">
 					<div class="mui-media-body ">
 						<p class='mui-ellipsis servicename'>{{value.servicename}}</p>
 						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>
@@ -546,7 +548,7 @@
 		<script id="slidetemplate" type="text/html ">
 			{{each list as value i}}
 			<div data-id="{{value.id}}" class="mui-slider-item">
-				<a id="slider-image-{{value.id}}" href="javascript:;"><img src="{{value.pic}}" /></a>
+				<a id="slider-image-{{value.id}}" href="javascript:;"><img src="img/defaultslide.png" data-lazyload="{{value.pic}}" onload="lazyload(this)"/></a>
 			</div>
 			{{/each}}
 		</script>
@@ -557,7 +559,7 @@
 					<div class="pull-left mui-media-object-round profileimg" style="background-image: url({{value.pic}});">
 					</div>
 					<div class="mui-media-body mui-media-body-massagistlist ">
-						<span>{{value.name}}</span><span><img class="star" src="img/v{{value.stars}}.png"/></span>{{if value.distance!='null'}}<span class="mgdistance" style="">{{value.distance||0}} km</span>{{/if}} 
+						<span>{{value.name}}</span><span><img class="star" src="img/star{{value.stars}}.png"/></span>{{if value.distance!='null'}}<span class="mgdistance" style="">{{value.distance||0}} km</span>{{/if}} 
 						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
 						<p class='mui-ellipsis-2'>{{value.intro}}</p>
 					</div>

@@ -30,7 +30,7 @@ var citylist = {
 
 
 var constant = {
-	versionid: "1.8.0"
+	versionid: "1.8.2"
 }
 
 var categorypair = {

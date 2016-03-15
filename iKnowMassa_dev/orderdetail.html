@@ -52,7 +52,8 @@
 								break;
 						}
 						if(obj.promotion){document.getElementById("promotion").innerHTML = obj.promotion};
-						document.getElementById("customerid").innerHTML = obj.customerid
+						document.getElementById("customerid").innerHTML = obj.customerid;
+						document.getElementById("customerid").href = "tel:"+obj.customerid;
 					},
 					error: function(xhr, type, errorThrown) {
 						console.log(type);
@@ -72,8 +73,8 @@
 
 			<ul id="Services" style="height: auto;background-color: #ffffff;margin-bottom:15px;position: relative;top: 64px;padding-left: 0px;margin-top:0px">
 				<li class="mui-table-view-cell mui-media" style="position: relative;top:0px;">
-					<div id="servicename" style="display: inline;">单人全身精油按摩</div>
-					<div id='unitprice' class="mui-price mui-pull-right">￥98</div>
+					<div id="servicename" style="display: inline;">载入中...</div>
+					<div id='unitprice' class="mui-price mui-pull-right">￥</div>
 				</li>
 			</ul>
 			<div style="height:50px;position: relative;top:70px;background-color: #ffffff;">
@@ -95,7 +96,7 @@
 			</div>
 			<div style="height:50px;position: relative;top:93px;background-color: #ffffff;">
 				<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">订单合计</span>
-				<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="amount">$98</span>
+				<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="amount">￥</span>
 			</div>
 			<div style="height:50px;position: relative;top:94px;background-color: #ffffff;">
 				<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">服务时间</span>
@@ -103,7 +104,7 @@
 			</div>
 			<div style="height:50px;position: relative;top:95px;background-color: #ffffff;margin-bottom: 15px;">
 				<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">客户联系方式</span>
-				<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;" id="customerid">+86 13000000000</span>
+				<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #999999;font-size: 14px;"><a href="" id="customerid"></a></span>
 			</div>
 		</div>
 	</body>

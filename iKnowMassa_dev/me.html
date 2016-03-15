@@ -21,6 +21,7 @@
 					success: function(data) {
 						var obj = JSON.parse(data);
 						obj = obj.RespContent.Content
+						console.log("me:"+data);
 						var html = template('profiletemplate', obj);
 						document.getElementById('basicinfo').innerHTML = html;
 					},
@@ -118,6 +119,9 @@
 			.menu{
 				line-height:30px
 			}
+			.grey {
+				color: #999999
+			}
 		</style>
 	</head>
 
@@ -135,22 +139,22 @@
 			<ul class="mui-table-view" style="margin-top: 15px;">
 				
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right menu">
+					<a class="mui-navigate-right menu mui-disabled grey">
 						客服热线
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right menu">
+					<a class="mui-navigate-right menu mui-disabled grey">
 						关于我们
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right menu">
+					<a class="mui-navigate-right menu mui-disabled grey">
 						修改密码
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a id="exit" class="mui-navigate-right menu">
+					<a id="exit" class="mui-navigate-right menu grey">
 						退出登录
 					</a>
 				</li>

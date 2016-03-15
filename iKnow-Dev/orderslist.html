@@ -8,6 +8,8 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		<title>iKnow-Orderlist</title>
 		<script src="js/mui.js"></script>
+		<script src="js/md5.js"></script>
+		<script src="js/lazyload.js"></script>
 		<script src="js/template.js"></script>
 		<script src="js/customize.js"></script>
 		<link href="css/mui.css" rel="stylesheet" />
@@ -185,7 +187,7 @@
 		{{each list as value i}} {{if value.status == 'UNPAID'}}
 		<li id="{{value.orderid}}" class="mui-table-view-cell mui-media">
 			<a id="{{value.orderid}}" href="javascript:;">
-				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
+				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="img/defaultpic.png" data-lazyload="{{value.pic}}" onload="lazyload(this)">
 				<div id="{{value.orderid}}" class="mui-media-body" style="position: relative">
 					<p id="{{value.orderid}}" class='mui-order-title'>{{value.servicename}}</p>
 					<span id="{{value.orderid}}" class='mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
@@ -198,7 +200,7 @@
 		{{/if}} {{if value.status == 'UNCOMMENT'}}
 		<li id="{{value.orderid}}" class="mui-table-view-cell mui-media">
 			<a href="javascript:;" id="{{value.orderid}}">
-				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
+				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="img/defaultpic.png" data-lazyload="{{value.pic}}" onload="lazyload(this)">
 				<div id="{{value.orderid}}" class="mui-media-body" style="position: relative">
 					<p id="{{value.orderid}}" class='mui-ellipsis mui-order-title'>{{value.servicename}}</p>
 					<span id="{{value.orderid}}" class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>
@@ -212,7 +214,7 @@
 		{{/if}} {{if value.status == 'DONE'}}
 		<li id="{{value.orderid}}" class="mui-table-view-cell mui-media">
 			<a id="{{value.orderid}}" href="javascript:;">
-				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="{{value.pic}}">
+				<img id="{{value.orderid}}" class="mui-media-object-large mui-pull-left pic" src="img/defaultpic.png" data-lazyload="{{value.pic}}" onload="lazyload(this)">
 				<div id="{{value.orderid}}" class="mui-media-body" style="position: relative">
 					<p id="{{value.orderid}}" class='mui-ellipsis mui-order-title'>{{value.servicename}}</p>
 					<span id="{{value.orderid}}" class='mui-ellipsis mui-ellipsis' style="font-size:14px;color:#666666">{{value.shopname}}</span>

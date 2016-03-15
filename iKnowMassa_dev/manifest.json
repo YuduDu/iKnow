@@ -173,11 +173,11 @@
                 "ios": {
                     "iphone": {
                         "default": "", /*iPhone3启动图片选，分辨率：320x480*/
-                        "retina35": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/iOS/Resources/splash/Default@2x~iphone_640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-                        "retina40": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/iOS/Resources/splash/Default-568h@2x~iphone_640x1136.png",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
-                        "retina47": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/iOS/Resources/splash/Default-750@2x~iphone6-portrait_750x1334.png",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
-                        "retina55": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/iOS/Resources/splash/Default-1242@3x~iphone6s-portrait_1242x2208.png",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
-                        "retina55l": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/iOS/Resources/splash/Default-1242@3x~iphone6s-landscape_2208x1242.png"/*5.5 英寸设备(iPhone6 Plus)横屏启动图片，分辨率：2208x1242*/
+                        "retina35": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default@2x~iphone_640x960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-568h@2x~iphone_640x1136.png",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+                        "retina47": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-750@2x~iphone6-portrait_750x1334.png",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+                        "retina55": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-1242@3x~iphone6s-portrait_1242x2208.png",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+                        "retina55l": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/iOS/Resources/splash/Default-1242@3x~iphone6s-landscape_2208x1242.png"/*5.5 英寸设备(iPhone6 Plus)横屏启动图片，分辨率：2208x1242*/
                     },
                     "ipad": {
                         "portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -191,11 +191,11 @@
                     }
                 },
                 "android": {
-                    "mdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/Android/res/drawable-mdpi/screen.png", /*普通屏启动图片，分辨率：240x282*/
-                    "ldpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/Android/res/drawable-ldpi/screen.png", /*大屏启动图片，分辨率：320x442*/
-                    "hdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/Android/res/drawable-xhdpi/screen.png", /*高分屏启动图片，分辨率：480x762*/
-                    "xhdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/Android/res/drawable-xxhdpi/screen.png", /*720P高分屏启动图片，分辨率：720x1242*/
-                    "xxhdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets-2/Android/res/drawable-xxxhdpi/screen.png"/*1080P高分屏启动图片，分辨率：1080x1882*/
+                    "mdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable/screen.png", /*普通屏启动图片，分辨率：240x282*/
+                    "ldpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-hdpi/screen.png", /*大屏启动图片，分辨率：320x442*/
+                    "hdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-ldpi/screen.png", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-mdpi/screen.png", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi": "/Users/tonyaiken/Downloads/ApeToolsGeneratedAssets/Android/res/drawable-xhdpi/screen.png"/*1080P高分屏启动图片，分辨率：1080x1882*/
                 }
             }
         }
