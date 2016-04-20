@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-ServicesList</title>
+		<script src="js/template.js"></script>
+		<script src="js/md5.js"></script>
+		<script src="js/lazyload.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				//console.log(self.categoryid);
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				if (self.categoryid) {
+					actionvalue = 'get_services_list';
+					categoryidvalue = self.categoryid;
+				} else {
+					actionvalue = 'get_services_list';
+					categoryidvalue = "null";
+				}
+				console.log('actionvalue' + actionvalue);
+				console.log('categoryid' + categoryidvalue);
+				var currentcity = plus.storage.getItem('currentcity');
+				var location = '{"city":"'+currentcity+'"}';
+				mui.ajax(url.list, {
+					data: {
+						action: actionvalue,
+						location: location,
+						categoryid: categoryidvalue,
+						pagenum:'1'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						this.obj = JSON.parse(data)
+						obj = obj.RespContent.Content
+							//plus.geolocation.getCurrentPosition(function(p) {
+							//this.point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+						for (item in obj) {
+							var point2lat = eval(obj[item].latitude);
+							var point2long = eval(obj[item].longtitude);
+							if (self.mylatitude != 'null' && self.mylongtitude != 'null') {
+								obj[item].distance = distancefunc(self.mylatitude, self.mylongtitude, point2lat, point2long).toFixed(1);
+							} else {
+								obj[item].distance = 'null'
+							}
+						}
+						if (obj != '[]') {
+							var html = template('serviceslist', {
+								list: obj
+							});
+							document.getElementById('Services').innerHTML = html;
+						} else {
+							document.getElementById("Services").innerHTML = '<p style="text-align: center;padding-top: 40px;font-size: 18px;">暂无服务项目</p>'
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				switch (categoryidvalue) {
+					case '1':
+						document.getElementById("title").innerHTML = categorypair[1]
+						break;
+					case '2':
+						document.getElementById("title").innerHTML = categorypair[2]
+						break;
+					case '3':
+						document.getElementById("title").innerHTML = categorypair[3]
+						break;
+					case '4':
+						document.getElementById("title").innerHTML = categorypair[4]
+						break;
+					case '5':
+						document.getElementById("title").innerHTML = categorypair[5]
+						break;
+					case '6':
+						document.getElementById("title").innerHTML = categorypair[6]
+						break;
+				}
+				
+				document.getElementById("morebtn").addEventListener('tap',function(){
+					document.getElementById("morebtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  loading'
+					var pagenum = Math.ceil(document.getElementById("Services").children.length / 10) + 1
+					loadmore(categoryidvalue, pagenum)
+				})
+				function loadmore(category, pagenum) {
+					mui.ajax(url.list, {
+						data: {
+							action: 'get_services_list',
+							categoryid: category,
+							location: location,
+							pagenum: pagenum,
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；
+						//async: false,
+						success: function(data) {
+							this.obj = JSON.parse(data);
+							obj = obj.RespContent.Content
+						//plus.geolocation.getCurrentPosition(function(p) {
+							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+							if (obj != null) {
+							for  (item in obj ){
+							var point2lat =	eval(obj[item].latitude);
+							var point2long = eval(obj[item].longtitude);
+							if(self.mylatitude!='null'&&self.mylongtitude!='null'){obj[item].distance = distancefunc(self.mylatitude, self.mylongtitude, point2lat, point2long).toFixed(1);}
+									else{obj[item].distance = 'null'}
+							}
+						var html = template('serviceslist', {
+							list: obj
+						});
+						console.log(obj);
+							
+								var orderlistul = document.querySelector('#Services');
+								orderlistul.innerHTML += html;
+								document.getElementById("morebtn").innerHTML = 'more'
+							} else {
+								document.getElementById("morebtn").innerHTML = 'no more'
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(type);
+							console.log(JSON.stringify(xhr));
+						}
+					});
+				}
+				
+				mui('#Services').on('tap', 'li', function() {
+					console.log(obj[this.getAttribute('data-id')].serviceid);
+					mui.openWindow({
+						url: 'index_service_detail.html',
+						id: 'index_service_detail',
+						extras: {
+							serviceid: obj[this.getAttribute('data-id')].serviceid,
+							distance: obj[this.getAttribute('data-id')].distance,
+							servicename: obj[this.getAttribute('data-id')].servicename,
+							shopname: obj[this.getAttribute('data-id')].shopname,
+							price: obj[this.getAttribute('data-id')].price,
+							latitude: obj[this.getAttribute('data-id')].latitude,
+							longtitude: obj[this.getAttribute('data-id')].longtitude
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: 'loading...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+			})
+		</script>
+		<script id="serviceslist" type="text/html ">
+			{{each list as value i}}
+			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
+				<a>
+					<img class="mui-media mui-pull-left " style="min-width:120px;min-height:80px;width120px;height:80px;margin-right:10px" src="img/defaultpic.png" data-lazyload="{{value.pic}}" onload="lazyload(this)" >
+					<div class="mui-media-body ">
+						<p class='mui-ellipsis' style="color:#333333;font-size:17px;margin-bottom:0px">{{value.servicename}}</p>
+						<p class='mui-ellipsis mui-services-provider'>{{value.shopname}}</p>
+						{{if value.distance!='null'}}
+						<p class='mui-pull-right mui-service-distance'>{{value.distance||0}} km</p>{{/if}}
+						<span class='mui-price'>${{value.price}}</span>
+					</div>
+				</a>
+			</li>
+			{{/each}}
+		</script>
+		<script type="text/javascript">
+			 // H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground("#1abc9c");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="top:0px">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">Services</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div class="mui-content">
+			<ul id="Services" style="margin-top:15px;height: auto;background-color: #ffffff;position: relative;padding-left: 0px;margin-bottom: 1px;">
+				<li class="mui-table-view-cell mui-media">
+					<a>
+						<img class="mui-media-object-large mui-pull-left" style="width:120px;height:80px;margin-right: 10px;" src="img/defaultpic.png">
+						<div class="mui-media-body" style="color:#999999">
+							loading...
+						</div>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view-cell" style="height:auto;background-color:#ffffff;text-align:center;color:#ff9900;font-size:14px;margin-top:0px" id="morebtn">more</ul>
+		</div>
+		
+	</body>
+
+</html>

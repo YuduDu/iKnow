@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function(){
+				document.getElementById("myservicesbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'myservices.html',
+						id: 'myservices',
+						extras: {
+							
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: 'loading...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+				document.getElementById("myreviewsbtn").addEventListener('tap',function(){
+					mui.openWindow({
+						url: 'myreviews.html',
+						id: 'myrevuews',
+						extras: {
+							
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: 'loading...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+				
+				mui.ajax(url.statistic, {
+					data: {
+						massaid: '15652519917',
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log(data);
+						obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
+						amount = Number(obj[0].money);
+						document.getElementById("ordernum").innerHTML = obj[0].ordernum
+						document.getElementById("money").innerHTML = amount.toFixed(2)
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+			
+			})
+		</script>
+		<style>
+			.topstatus {
+				width: 100%;
+				height: 80px;
+				background-color: #FFFFFF;
+				margin-top: 0px;
+			}
+			.menu{
+				line-height:30px
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view topstatus" style="margin-top: 0px;">
+				<li class="mui-table-view-cell mui-media" style="padding: 15px 15px 0px 15px">
+					<div class="mui-table">
+		                <div class="mui-table-cell mui-col-xs-6">
+		                	<img class="mui-media-object mui-pull-left" src="img/ordersicon.png" style="width: 48px;margin-top: 5px;margin-right:0px">
+		               <div class="mui-media-body">
+						<h4 id="ordernum"></h4>
+						<p>Order Count</p>
+					</div>
+		                </div>
+		                <div class="mui-table-cell mui-col-xs-6">
+		                	<img class="mui-media-object mui-pull-left" src="img/amounticon.png" style="width: 48px;margin-top: 5px;margin-right:0px">
+		                <div class="mui-media-body">
+						<h4 id="money"></h4>
+						<p>Order Total</p>
+					</div>
+		                </div>
+		            </div>
+				</li>
+			</ul>
+			
+			<ul class="mui-table-view" style="margin-top: 15px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right menu" id="myservicesbtn">
+						My Services
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right menu" id="myreviewsbtn">
+						My Reviews
+					</a>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+
+</html>

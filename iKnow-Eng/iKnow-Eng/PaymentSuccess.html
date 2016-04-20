@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		      	mui.plusReady(function(){
+		      		document.getElementById("backbtn").addEventListener('tap',function(){
+		      		var applicationpage = plus.webview.getWebviewById('orderapplication');
+		      		var servicedetailpage = plus.webview.getWebviewById('index_service_detail');
+        				plus.webview.close(applicationpage);
+        				plus.webview.close(servicedetailpage);
+		      		mui.openWindow({
+							id: 'index',
+							url: "index.html",
+							styles: {
+								popGesture: 'close'
+							},
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								aniShow: 'slide-in-left', //页面显示动画，默认为”slide-in-right“;
+								duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+							},
+							waiting: {
+								autoShow: true, //自动显示等待框，默认为true
+								title: 'loading...', //等待对话框上显示的提示内容
+							}
+						});      			
+		      		})
+		
+		      	})
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="top:0px">
+			<a id="backbtn" class="mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff"></a>
+			<h1 class="mui-title" style="color:#ffffff">Payment Result</h1>
+		</header>
+		<div class="mui-content">
+			<div style="width:100%;height:100px;background-color: #ffffff;margin-top: 15px;">
+				<p style="text-align: center;color:#ff9900;padding-top: 36px;font-size: 24px;">Payment Success</p>
+			</div>
+		</div>
+		
+	</body>
+
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-OrderApplication</title>
+		<script src="js/mui.js"></script>
+		<script src="js/beecloud.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var massanametemp = 'null'
+				document.getElementById("servicename").innerHTML = self.servicename;
+				document.getElementById("price").innerHTML = "$" + self.price;
+				document.getElementById("totalspan").innerHTML = "$" + self.price;
+				plus.storage.setItem("order_qty", 1);
+				plus.storage.setItem("apptdate", '');
+				plus.storage.setItem('apptyear', '2016');
+				plus.storage.setItem("appttime", '');
+
+				function beecloudPay(bcChannel) {
+					document.getElementById("WX_APP").disabled = "true";
+					document.getElementById("ALI_APP").disabled = "true";
+					var billnumber = beecloud.genBillNo();
+					/*
+					 * 构建支付参数
+					 * 
+					 * app_id: BeeCloud控制台上创建的APP的appid，必填 
+					 * title: 订单标题，32个字节，最长支持16个汉字；必填
+					 * total_fee: 支付金额，以分为单位，大于0的整数，必填
+					 * bill_no: 订单号，8~32位数字和/或字母组合,确保在商户系统中唯一，必填
+					 * optional: 扩展参数,可以传入任意数量的key/value对来补充对业务逻辑的需求;此参数会在webhook回调中返回; 选填
+					 * bill_timeout: 订单失效时间,必须为非零正整数，单位为秒，必须大于360。选填 
+					 */
+					var payData = {
+						app_id: "6e747503-f31b-4260-acbe-0b498a175f2b",
+						channel: bcChannel,
+						title: "iKnow Pay-" + self.servicename.slice(0, 9),
+						total_fee: self.price * 100,
+						bill_no: billnumber,
+						optional: {},
+						bill_timeout: 360
+					};
+					/*
+					 *  发起支付
+					 *  payData: 支付参数
+					 *  cbsuccess: 支付成功回调
+					 *  cberror: 支付失败回调
+					 */
+					beecloud.payReq(payData, function(result) {
+						console.log("支付成功" + JSON.stringify(result));
+						mui.ajax(url.order, {
+							data: {
+								submit: billnumber,
+							},
+							//dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							success: function(data) {
+								console.log(data);
+								var obj = JSON.parse(data)
+								if (obj.RespCode != '111111') {
+									plus.nativeUI.toast('Payment Failed');
+									mui.back();
+									return;
+								}
+								if (!orderlistpage) {
+									var orderlistpage = plus.webview.getWebviewById('orderslist.html');
+								}
+								mui.fire(orderlistpage, 'refreshme', {});
+								console.log('refreshed')
+									//服务器返回响应，根据响应结果，分析是否登录成功；
+								mui.openWindow({
+									id: 'paymentsuccess',
+									url: "PaymentSuccess.html",
+									styles: {
+										popGesture: 'close'
+									},
+									show: {
+										autoShow: true, //页面loaded事件发生后自动显示，默认为true
+										aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+										duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+									},
+									waiting: {
+										autoShow: true, //自动显示等待框，默认为true
+										title: 'loading...', //等待对话框上显示的提示内容
+									}
+								});
+							},
+							error: function(xhr, type, errorThrown) {
+								//异常处理；
+								console.log(errorThrown);
+								console.log("error2");
+								plus.nativeUI.toast('Payment Failed');
+								mui.back();
+							}
+						}); //
+					}, function(e) {
+						console.log("-------- 支付失败 --------\n" + "错误码：" + e.code + '\n' + e.message);
+						mui.alert('Payment Failed');
+						document.getElementById("WX_APP").disabled = "";
+						document.getElementById("ALI_APP").disabled = "";
+					});
+				}
+				document.querySelector("#orderbtn").addEventListener('tap', function(e) {
+					console.log("name:" + plus.storage.getItem("order_massaname") + "\ntime:" + plus.storage.getItem("apptdate"));
+					if (plus.storage.getItem("order_massaname") == 'null' || plus.storage.getItem("order_qty") == null) {
+						mui.toast('Please select provider');
+						return;
+					}
+					if (plus.storage.getItem("apptdate") == null || plus.storage.getItem("appttime") == null) {
+						mui.toast('Please select appointment');
+						return;
+					}
+					console.log(e.target.id);
+					beecloudPay(e.target.id)
+					e.preventDefault();
+				});
+				document.getElementById("qtyselect").onchange = function() {
+					plus.storage.setItem("order_qty", this.value);
+					mui.fire(orderpage, 'updateorder', {});
+				}
+				document.getElementById('selectmassagist').addEventListener('tap', function(e) {
+					//显示热门服务分类页
+					mui.openWindow({
+						id: 'orderapplication_massagist',
+						url: 'orderapplication_massagist.html',
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						extras: {
+							serviceid: self.serviceid,
+							servicename: self.servicename,
+							price: self.price,
+							malist: malist,
+							massanametemp: massanametemp
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: 'loading...', //等待对话框上显示的提示内容
+						}
+					});
+				});
+				var newform = JSON.stringify({
+					"serviceid": self.serviceid,
+					"customerid": plus.storage.getItem("useraccount")
+				});
+				//console.log('hehe');
+				console.log("serviceid:" + self.serviceid + "customerid:" + plus.storage.getItem("useraccount"))
+				mui.ajax(url.order, {
+					data: {
+						basic_order: newform
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；   
+					success: function(data) {
+						console.log(data)
+						this.malist = JSON.parse(data);
+						malist = malist.RespContent.Content
+						document.getElementById("WX_APP").disabled = "";
+						document.getElementById("ALI_APP").disabled = "";
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log("error3");
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				//openWindowfunc('selecttimebtn', 'SelectTime');
+				document.getElementById('selecttimebtn').addEventListener('tap', function(e) {
+					//显示热门服务分类页
+					if (plus.storage.getItem('order_massaid') == '' || plus.storage.getItem('order_massaid') == null) {
+						plus.nativeUI.toast('Please select provider')
+						return;
+					}
+					mui.openWindow({
+						id: 'SelectTime',
+						url: "SelectTime.html",
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: 'loading...', //等待对话框上显示的提示内容
+						},
+						extras: {
+							serviceid: self.serviceid,
+							opentime: self.opentime,
+							closetime: self.closetime
+						}
+					});
+				});
+				document.getElementById("phonespan").innerHTML = plus.storage.getItem("useraccount");
+				plus.storage.setItem("order_qty", "1");
+				plus.storage.setItem("order_massaid", "null");
+				plus.storage.setItem("order_massaname", "null");
+				var orderpage = plus.webview.currentWebview();
+				//				mui.fire(orderpage, 'updateorder', {});
+				var massaname = null;
+				//				window.addEventListener('updatetime', function() {
+				//					//					if(plus.storage.getItem('appptdate')&&plus.storage.getItem('appttime')){
+				//					
+				//				})
+				window.addEventListener('updateorder', function(event) { //监听自定义事件
+					//console.log(plus.storage.getItem('apptdate') +'-'+ plus.storage.getItem('appttime'));
+					//console.log(('2015'+"-"+plus.storage.getItem("apptdate")+" "+plus.storage.getItem("appttime")+":00").toString());
+					if (plus.storage.getItem('apptdate')) {
+						document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
+					} else {
+						document.getElementById("timeslotspan").innerHTML = 'Select'
+					}
+					if (plus.storage.getItem("order_massaname")) {
+						massaname = plus.storage.getItem("order_massaname");
+						document.getElementById('massagistspan').innerHTML = massaname;
+					}
+					//										document.getElementById("timeslotspan").innerHTML = plus.storage.getItem('apptdate') + ' ' + plus.storage.getItem('appttime');
+					massanametemp = plus.storage.getItem("order_massaname");
+					var starttimestring = (plus.storage.getItem("apptyear") + "-" + plus.storage.getItem("apptdate") + " " + plus.storage.getItem("appttime") + ":00").toString();
+					console.log('starttime' + starttimestring);
+					if(plus.storage.getItem('visitingtype')=='VISITING'){
+						document.getElementById("addressidv").style.display = '';
+						document.getElementById("addressspan").innerHTML = plus.storage.getItem('address')
+					}
+					else{
+						document.getElementById("addressspan").innerHTML = self.addr
+					}
+					var newform = JSON.stringify({
+						"massaid": plus.storage.getItem("order_massaid"),
+						"qty": plus.storage.getItem("order_qty"),
+						"type": plus.storage.getItem('visitingtype'),
+						"address": plus.storage.getItem("address"),
+						"time": starttimestring
+					});
+					console.log('提交数据' + JSON.stringify(newform));
+					mui.ajax(url.order, {
+						data: {
+							order: newform
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；   
+						success: function(data) {
+							this.maorder = JSON.parse(data);
+							maorder = maorder.RespContent.Content
+							console.log('TOTAL:'+this.maorder);
+							document.getElementById("totalspan").innerHTML = "$" + this.maorder;
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log("error1");
+							console.log(type);
+							console.log(JSON.stringify(xhr));
+						}
+					});
+				});
+			})
+		</script>
+
+		<script type="text/javascript">
+			// H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground("#1abc9c");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="position:fixed">
+			<h1 id="title" class="mui-title" style="color: #ffffff;">Order Application</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div style="padding-top: 60px;">
+		<div style="height:60px;position: relative;background-color: #ffffff;">
+			<div class="mui-pull-left mui-ellipsis" style="font-size:14px;color: #333333;line-height: 60px;padding-left: 15px;max-width: 240px;" id="servicename"></div>
+			<div class="mui-pull-right" style="line-height: 60px;padding-right: 15px;color: #FF9900;font-size: 14px;" id="price"></div>
+		</div>
+		<div style="height:50px;position: relative;margin-top: 15px;background-color: #ffffff;">
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">Participants<span class="mui-pull-right" style="padding-left:60px;padding-right:40px;color:#ff9900" id="membersspan"><select id="qtyselect" style="padding:10px 0 10px 0;height:40px;margin:5px 0 5px 40px"><option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option></select></span></a>
+		</div>
+		<div style="height:50px;position: relative;margin-top:1px;background-color: #ffffff;">
+			<a id="selectmassagist" class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">Provider<span class="mui-pull-right" style="color:#ff9900;padding-right: 40px;" id="massagistspan">Select</span></a>
+		</div>
+		<div style="height:50px;position: relative;margin-top:1px;background-color: #ffffff;">
+			<a class="mui-navigate-right" style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="selecttimebtn">Appointment<span class="mui-pull-right" style="padding-right:40px;color:#ff9900" id="timeslotspan">Select</span></a>
+		</div>
+		<div style="height:50px;position: relative;margin-top:1px;background-color: #ffffff;display: none;" id="addressidv">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">Location</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="addressspan"></span>
+		</div>
+		<div style="height:50px;position: relative;margin-top:1px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;">Total</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="totalspan"></span>
+		</div>
+
+		<div style="height:50px;position: relative;margin-top:1px;background-color: #ffffff;">
+			<span style="font-size:14px;color: #333333;line-height: 50px;padding-left: 15px;" id="namespan">My Contact</span>
+			<span class="mui-pull-right" style="line-height: 50px;padding-right: 15px;color: #ff9900;font-size: 14px;" id="phonespan"></span>
+		</div>
+
+		<div id="orderbtn" style="text-align:center;position: relative;margin-top:15px;margin-bottom: 20px;">
+			<!--			<a id="WX_APP" class="mui-btn mui-btn-negative mui-disabled" style="width:90%;height:40px;line-height: 25px;background-color: #1FAE37;border-color:#1FAE37;">使用微信支付</a>
+-->
+			<button id="WX_APP" type="button" class="mui-btn mui-btn-success" style="width: 90%;height: 50px;" disabled="true">Pay with WeChat</button>
+			<button id="ALI_APP" type="button" class="mui-btn mui-btn-primary" style="width: 90%;height: 50px;margin-top: 10px;" disabled="true">Pay with Alipay</button>
+			<!--			<a id="ALI_APP" class="mui-btn mui-btn-negative mui-disabled" style="width:90%;height:40px;line-height: 25px;background-color: #3498db;border-color:#3498db;margin-top: 10px;">使用支付宝支付</a>
+--></div>
+</div>
+		<script>
+			//更换标题
+			title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+		</script>
+		
+	</body>
+
+</html>

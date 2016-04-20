@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-MassagistsList</title>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
+		<script src="js/mui.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var currentcity = plus.storage.getItem('currentcity');
+				var location = '{city:"' + currentcity + '"}';
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_massagist_list',
+						pagenum: '1',
+						location: location
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log(data);
+						this.obj = JSON.parse(data);
+						obj = obj.RespContent.Content
+						console.log(obj);
+							//plus.geolocation.getCurrentPosition(function(p) {
+							//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+						for (item in obj) {
+							var point2lat = eval(obj[item].latitude);
+							var point2long = eval(obj[item].longtitude);
+							if (self.mylatitude != 'null' && self.mylongtitude != 'null') {
+								obj[item].distance = distancefunc(self.mylatitude, self.mylongtitude, point2lat, point2long).toFixed(1);
+							} else {
+								obj[item].distance = 'null'
+							}
+						}
+						var html = template('massagistslist', {
+							list: obj
+						});
+						console.log(obj[1].distance);
+						document.getElementById('massagist').innerHTML = html;
+						//						},function(e){
+						//							Post2Template(url.list,'get_massagist_list','massagistslist','massagist');
+						//						})
+						//console.log(data);
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				document.getElementById("morebtn").addEventListener('tap', function() {
+					document.getElementById("morebtn").innerHTML = '<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span>  loading'
+					var pagenum = Math.ceil(document.getElementById("massagist").children.length / 10) + 1;
+					console.log(pagenum);
+					loadmore(pagenum)
+				})
+
+				function loadmore(pagenum) {
+					mui.ajax(url.list, {
+						data: {
+							action: 'get_massagist_list',
+							pagenum: pagenum,
+							location: location
+						},
+						type: 'post', //HTTP请求类型 
+						timeout: 100000, //超时时间设置为10秒；
+						//async: false,
+						success: function(data) {
+							console.log(data);
+							obj_temp = JSON.parse(data);
+							obj_temp = obj_temp.RespContent.Content;
+								//plus.geolocation.getCurrentPosition(function(p) {
+								//var point1 = new plus.maps.Point(p.coords.latitude, p.coords.longitude);
+							if (obj_temp != '') {
+								for (item in obj_temp) {
+									var point2lat = eval(obj_temp[item].latitude);
+									var point2long = eval(obj_temp[item].longtitude);
+									if (self.mylatitude != 'null' && self.mylongtitude != 'null') {
+										obj_temp[item].distance = distancefunc(self.mylatitude, self.mylongtitude, point2lat, point2long).toFixed(1);
+									} else {
+										obj_temp[item].distance = 'null'
+									}
+								}
+								var html = template('massagistslist', {
+									list: obj_temp
+								});
+								obj = obj.concat(obj_temp);
+								console.log(JSON.stringify(obj));
+								var orderlistul = document.querySelector('#massagist');
+								orderlistul.innerHTML += html;
+								document.getElementById("morebtn").innerHTML = 'more'
+							} else {
+								document.getElementById("morebtn").innerHTML = 'no more'
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log(type);
+							console.log(JSON.stringify(xhr));
+						}
+					});
+				}
+				mui('#massagist').on('tap', 'li', function() {
+					console.log("dataid:"+this.getAttribute('data-id'));
+					var selecteddataid = this.getAttribute('data-id')
+					var selectedli = obj.filter(function(obj){
+						return obj.massagistid==selecteddataid;
+					})
+					console.log('selectedli:'+JSON.stringify(selectedli))
+					mui.openWindow({
+						url: 'massagist_detail.html',
+						id: 'massagist_detail',
+						extras: {
+							massagistid: selectedli[0].massagistid,
+							name: selectedli[0].name,
+							distance: selectedli[0].distance,
+							intro: selectedli[0].intro,
+							shopname: selectedli[0].shopname,
+							price: selectedli[0].price
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: 'loading...', //等待对话框上显示的提示内容
+						}
+					})
+				})
+			})
+		</script>
+		<script id="massagistslist" type="text/html ">
+			{{each list as value i}}
+			<li data-id="{{value.massagistid}}" class="mui-table-view-cell mui-media ">
+				<a href="javascript:; ">
+					<div class="pull-left mui-media-object-round " style="margin:10px 10px 0 10px;background-image: url({{value.pic}});width:64px;height:64px;background-size: cover; ">
+					</div>
+					<div class="mui-media-body mui-media-body-massagistlist ">
+						<span>{{value.name}}</span><span><img src="img/star{{value.stars}}.png" style="position:relative;width:24px;height:24px;top:5px;left:5px"/></span> {{if value.distance!='null'}}<span style="float:right;top:5px;position:relative;color:#999999;font-size:14px">{{value.distance||0}} km</span>{{/if}}
+						<p class='mui-ellipsis mui-massagist-provider'>{{value.shopname}}</p>
+						<p class='mui-ellipsis-2'>{{value.intro}}</p>
+					</div>
+				</a>
+			</li>
+			{{/each}}
+		</script>
+		<script type="text/javascript">
+			// H5 plus事件处理
+			function plusReady() {
+				// 设置系统状态栏背景为红色
+				plus.navigator.setStatusBarBackground("#1abc9c");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+			}
+			if (window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="top:0px">
+			<h1 id="title" class="mui-title">Service Provider</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div class="mui-content" style="padding-top:15px">
+			<ul id="massagist" style="height: auto;background-color: #ffffff;margin-bottom:15px;position: relative;top: 64px;padding-left: 0px;margin-top:0px">
+				<li class="mui-table-view-cell mui-media ">
+					<a href="javascript:; ">
+						<div class="pull-left mui-media-object-round " style="margin:10px 0 0 10px;background-image: url(img/defaultprofilepic.png);width:64px;height:64px;background-size: cover; ">
+						</div>
+						<div class="mui-media-body mui-media-body-massagistlist" style="color:#999999;padding-left: 80px;">
+							loading
+						</div>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view-cell" style="height:auto;background-color:#ffffff;text-align:center;color:#ff9900;font-size:14px;margin-top:65px" id="morebtn">more</ul>
+		</div>
+		
+	</body>
+
+</html>

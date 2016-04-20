@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>iKnow-Service_detail</title>
+		<script src="js/mui.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack: true
+			});
+			var shares = {};
+			mui.plusReady(function() {
+				plus.share.getServices(function(s) {
+					if (s && s.length > 0) {
+						for (var i = 0; i < s.length; i++) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+						console.log('获取成功');
+					}
+				}, function() {
+					console.log("获取分享服务列表失败");
+				});
+				var self = plus.webview.currentWebview();
+				var service_id = self.serviceid;
+				var distance = self.distance;
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				//				var orderapplicationPage = mui.preload({
+				//						"id": 'main',
+				//						"url": 'main.html',
+				//						id: 'orderaplication',
+				//						url: "orderapplication.html",
+				//						extras: {
+				//							serviceid: self.serviceid,
+				//							servicename: self.servicename,
+				//							price: self.price
+				//						},
+				//						styles: {
+				//							popGesture: 'close'
+				//						},
+				//						show: {
+				//							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+				//							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+				//							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+				//						},
+				//						waiting: {
+				//							autoShow: true, //自动显示等待框，默认为true
+				//							title: 'loading...', //等待对话框上显示的提示内容
+				//						}
+				//					});
+				document.getElementById("orderbtn").addEventListener('tap', function() {
+					plus.statistic.eventTrig('orderbutton_servicedetail');
+					//显示预定提交页
+					mui.openWindow({
+						id: 'orderapplication',
+						url: "orderapplication.html",
+						extras: {
+							serviceid: self.serviceid,
+							servicename: self.servicename,
+							price: self.price,
+							addr: obj.address,
+							opentime: obj.opentime.slice(0,5),
+							closetime: obj.closetime.slice(0,5)
+						},
+						styles: {
+							popGesture: 'close'
+						},
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+							duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting: {
+							autoShow: true, //自动显示等待框，默认为true
+							title: 'loading...', //等待对话框上显示的提示内容
+						}
+					});
+					//					orderapplicationPage.show('pop-in', 300);
+				});
+				var mapview = "";
+				mui.ajax(url.indexservicedetail, {
+					data: {
+						serviceid: service_id
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；
+					async: false,
+					success: function(data) {
+						this.obj = JSON.parse(data);
+						obj = obj.RespContent.Content
+						console.log(data);
+						document.getElementById("orderbtn").className = 'mui-btn mui-btn-negative mui-pull-right'
+						document.getElementById("servicename").innerHTML = self.servicename;
+						document.getElementById("shortdesc").innerHTML = obj.shortdesc;
+						document.getElementById("price").innerHTML = "$" + obj.price;
+						document.getElementById("funcdes").innerHTML = obj.funcdes;
+						document.getElementById("shopname").innerHTML = obj.shopname;
+						document.getElementById("address").innerHTML = obj.address;
+						document.getElementById("duration").innerHTML = "Duration:" + obj.duration + "min";
+						var maplink = "http://api.map.baidu.com/marker?location=" + obj.latitude + "," + obj.longtitude + "&title=" + obj.shopname + "&content=" + obj.address + "&output=html&src=iKnowApp";
+						console.log(maplink);
+						document.getElementById("address").addEventListener('tap', function() {
+							mui.openWindow({
+								id: 'map',
+								url: "map.html",
+								extras: {
+									src: maplink,
+									latitude:obj.latitude,
+									longitude:obj.longtitude,
+									shopname:obj.shopname
+								},
+								styles: {
+									popGesture: 'close'
+								},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: 'loading...', //等待对话框上显示的提示内容
+								}
+							});
+						})
+						document.getElementById("intro").innerHTML = obj.intro;
+						document.getElementById("openhour").innerHTML = "Hours:" + obj.opentime.slice(0, 5) + "-" + obj.closetime.slice(0, 5);
+						document.getElementById("phone").href = "tel:" + obj.phone;
+						if (distance != 'null' && distance != undefined) {
+							document.getElementById("distance").innerHTML = distance + "km";
+						} else {
+							document.getElementById("distance").innerHTML = ''
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				document.addEventListener('scroll', function(e) {
+					console.log("scrolled");
+					if (window.scrollY > 137) {
+						document.getElementById("header").style.backgroundColor = "rgba(38,166,20,1)";
+					} else {
+						document.getElementById("header").style.backgroundColor = "rgba(38,166,20,0.5)";
+					}
+				});
+				document.getElementById("sharebtn").addEventListener('tap', function() {
+					plus.statistic.eventTrig('sharebutton_servicedetail');
+					console.log('tapped');
+					var ids = [{
+							id: "weixin",
+							ex: "WXSceneSession"
+						}, {
+							id: "weixin",
+							ex: "WXSceneTimeline"
+						}, {
+							id: "sinaweibo"
+						}],
+						bts = [{
+							title: "Share to Wechat Friend"
+						}, {
+							title: "Share to Wechat Circle"
+						}, {
+							title: "Share to Weibo"
+						}];
+					plus.nativeUI.actionSheet({
+						cancel: "Cancel",
+						buttons: bts
+					}, function(e) {
+						var i = e.index;
+						if (i > 0) {
+							var s_id = ids[i - 1].id;
+							var share = shares[s_id];
+							if (share) {
+								if (share.authenticated) {
+									shareMessage(share, ids[i - 1].ex);
+								} else {
+									share.authorize(function() {
+										shareMessage(share, ids[i - 1].ex, 'title', 'desc');
+									}, function(e) {
+										console.log("fail to authenticate：" + e.code + " - " + e.message);
+									});
+								}
+							} else {
+								mui.toast("failed to initiate share functions")
+							}
+						}
+					});
+				});
+			})
+		</script>
+
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+			
+			.detailpic {
+				width: 100%;
+				height: 200px;
+				position: relative;
+				background-image: url(img/detailbg.jpg);
+				background-size: cover
+			}
+			
+			#shopname {
+				position: absolute;
+				margin-left: 15px;
+				bottom: 20px;
+				color: #ffffff;
+				font-size: 16px
+			}
+			
+			#openhour {
+				position: absolute;
+				margin-left: 15px;
+				bottom: 0px;
+				color: #FFFFFF;
+				font-size: 14px
+			}
+			
+			#distance {
+				position: absolute;
+				margin-right: 15px;
+				bottom: 0px;
+				right: 0px;
+				color: #FFFFFF;
+				font-size: 14px
+			}
+			
+			#servicename {
+				font-size: 16px;
+				color: #333333;
+				padding-left: 15px;
+				padding-top: 15px;
+				line-height: 10px;
+			}
+			
+			#duration {
+				height: auto;
+				font-size: 14px;
+				color: #666666;
+				padding: 0 0 0px 15px;
+				line-height: 10px;
+			}
+			
+			#shortdesc {
+				height: auto;
+				font-size: 14px;
+				color: #666666;
+				padding: 0 0 10px 15px;
+				line-height: 10px;
+			}
+			
+			#locationdiv {
+				width: 40px;
+				height: 100%;
+				vertical-align: middle;
+				padding-left: 0px;
+				position: absolute;
+				line-height: 60px
+			}
+			
+			#locationbtn {
+				color: #1abc9c;
+				font-size: 32px;
+				line-height: 20px;
+				padding-left: 10px;
+			}
+			
+			#phone {
+				color: #ff9900;
+				font-size: 32px;
+				line-height: 21px
+			}
+			
+			#address {
+				padding: 20px 0 20px 0
+			}
+			
+			#servicedetail_wrap {
+				padding-bottom: 20px;
+			}
+			
+			#functiondiv {
+				width: 100%;
+				height: 100%;
+				vertical-align: middle;
+				position: absolute;
+				padding-left: 40px;
+			}
+			
+			#functiontable {
+				font-size: 14px;
+				height: 60px;
+				color: #666666;
+				margin-right: 50px
+			}
+			
+			#price {
+				line-height: 60px;
+				font-size: 28px;
+				color: #ff9900;
+				margin-left: 15px
+			}
+			
+			#pricediv {
+				background-color: #ffffff;
+				height: 60px;
+				position: relative;
+				margin-top: 15px
+			}
+			
+			#orderbtn {
+				margin: 14px 0 14px 0;
+				right: 15px
+			}
+			
+			.panel-titlediv-padded {
+				background-color: #ffffff;
+				height: 60px;
+				position: relative;
+				margin-top: 15px;
+				margin-left: 10px;
+				margin-right: 10px
+			}
+			
+			.panel-titletext-padded {
+				font-size: 20px;
+				color: #56abe4;
+				line-height: 60px;
+				padding-left: 15px;
+			}
+			
+			.panel-contentdiv-padded {
+				background-color: #ffffff;
+				height: auto;
+				position: relative;
+				margin: 1px 10px 0 10px;
+				padding: 15px 15px 15px 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title">Service Detail</h1>
+			<a id="sharebtn" class="mui-icon mui-icon-upload mui-pull-right icon-whilte naviconright"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte"></a>
+		</header>
+		<div id="servicedetail_wrap">
+			<div class="detailpic">
+				<p id="shopname"></p>
+				<p id="openhour">Hours:</p>
+				<p id="distance">locating</p>
+			</div>
+			<div style="background-color: #ffffff; height:auto;position:relative;">
+				<p id="servicename">loading...</p>
+				<p id="duration">loading...</p>
+				<p id="shortdesc" style="line-height: 20px;">loading...</p>
+			</div>
+			<div style="background-color: #ffffff; height:60px;position:relative;margin-top:15px">
+				<div id="locationdiv">
+					<!--<a id="locationbtn" class="mui-icon mui-icon-location" href="http://api.map.baidu.com/marker?location=40.047669,116.313082&title=我的位置&content=百度奎科大厦
+&output=html&src=yourComponyName|yourAppName"></a>-->
+					<a id="locationbtn" class="mui-icon mui-icon-location"></a>
+				</div>
+				<div id="functiondiv">
+					<table border="0px" id="functiontable">
+						<tr>
+							<td style="padding-right:40px">
+								<a id="address">loading address...</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div style="width:40px;height:100%;right:10px;padding-left:5px;position:absolute;line-height:60px">
+					<a class="mui-icon mui-icon-phone-filled" style="" href="" id="phone"></a>
+				</div>
+			</div>
+			<div id="pricediv">
+				<span id="price">$</span>
+				<a id="orderbtn" class="mui-btn mui-btn-negative mui-pull-right mui-disabled">Book Now</a>
+			</div>
+			<div class="panel-titlediv-padded">
+				<p class="panel-titletext-padded">Function</p>
+			</div>
+			<div class="panel-contentdiv-padded">
+				<p style="" id="funcdes">loading...
+				</p>
+			</div>
+			<div class="panel-titlediv-padded">
+				<p class="panel-titletext-padded">Instructions</p>
+			</div>
+			<div class="panel-contentdiv-padded">
+				<p id="intro">loading...
+				</p>
+			</div>
+		</div>
+
+	</body>
+
+</html>

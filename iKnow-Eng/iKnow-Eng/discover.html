@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title>discover</title>
+		<script src="js/mui.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_news',
+						pagenum:'1'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content
+						console.log(obj[0].pic);
+						var html = template('news', {
+							list: obj
+						});
+						document.getElementById('content').innerHTML = html;
+						mui('#content').on('tap', 'li', function() {
+							console.log(this.getAttribute('data-id'));
+							mui.openWindow({
+								url: 'disc_detail.html',
+								id: 'disc_detail',
+								extras: {
+									newsid: obj[this.getAttribute('data-id')].newsid,
+									newstitle: obj[this.getAttribute('data-id')].newstitle,
+									newscontent: obj[this.getAttribute('data-id')].newscontent
+								},
+								styles: {
+								popGesture: 'close'
+							},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: 'loading...', //等待对话框上显示的提示内容
+								}
+							})
+						})
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				
+				plus.webview.currentWebview().setStyle({
+					scrollIndicator: 'none'
+				});
+				document.getElementById("newslistbtn").addEventListener('tap', function() {
+					//显示科普文章列表页
+					mui.openWindow({
+						id: 'newslist',
+						url: 'newslist.html',
+						styles: {
+								popGesture: 'close'
+							},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: 'loading...', //等待对话框上显示的提示内容
+								}
+					});
+				});
+			})
+		</script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-grid-view" style="padding-top:10px;padding-right:0px">
+				<li class="mui-table-view-cell mui-media mui-col-xs-3">
+					<a href="#">
+						<img class="mui-media-object mui-media-object-round" src="img/ask.png">
+						<div class="mui-media-body-discover" style="color: #fc663d;">ASK</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3">
+					<a href="#">
+						<img class="mui-media-object mui-media-object-round" src="img/tutor.png">
+						<div class="mui-media-body-discover" style="color:#6bcdfd">TUTOR</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3">
+					<a href="#">
+						<img class="mui-media-object mui-media-object-round" src="img/test.png">
+						<div class="mui-media-body-discover" style="color:#6acb9a">TEST</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3">
+					<a href="#">
+						<img class="mui-media-object mui-media-object-round" src="img/shop.png">
+						<div class="mui-media-body-discover" style="color:#ff9600">SHOP</div>
+					</a>
+				</li>
+			</ul>
+
+			<ul class="mui-table-view" style="margin:15px 0px 0px 0px;line-height: 40px;">
+				<li class="mui-table-view-cell">
+					<a id="newslistbtn" class="mui-navigate-right" style="color:#CCB359">
+						Health News
+					</a>
+				</li>
+			</ul>
+			<ul id="content" class="mui-table-view" style="margin-top:0px">
+				<li class="mui-table-view-cell mui-media">
+				<a id="newsbtn">
+					<img class="mui-media-object mui-pull-right" src="img/defaultprofilepic.png">
+					<p class="mui-ellipsis-2 mui-ellipsis-discovertitle" style="color:#999999">loading...</p>
+				</a>
+			</li>
+			</ul>
+		</div>
+		<script id="news" type="text/html">
+			{{each list as value i}}
+			<li data-id="{{i}}" class="mui-table-view-cell mui-media">
+				<a id="newsbtn">
+					<img class="mui-media-object mui-pull-right" src="{{value.pic}}">
+					<p class="mui-ellipsis-2 mui-ellipsis-discovertitle">{{value.newstitle}}</p>
+				</a>
+			</li>
+			{{/each}}
+		</script>
+		<script>
+		</script>
+		
+	</body>
+
+</html>

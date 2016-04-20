@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_order_list',
+						pagenum: '1',
+						massaid: plus.storage.getItem('massaid'),
+						timearray: 'today'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log(data)
+						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
+						console.log(JSON.stringify(obj))
+						var html = template('todaytemplate', {
+							list: obj
+						});
+						//console.log(html);
+						if(obj!=''){document.getElementById('item2mobileul').innerHTML = html;}
+						else{document.getElementById('item2mobileul').innerHTML = '<h4 style="text-align:center;line-height: 60px;">No Record</h4>'}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_order_list',
+						pagenum: '1',
+						massaid: plus.storage.getItem('massaid'),
+						timearray: 'history'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
+						var html = template('historytemplate', {
+							list: obj
+						});
+						if(obj!=''){document.getElementById('item3mobileul').innerHTML = html;}
+						else{document.getElementById('item3mobileul').innerHTML = '<h4 style="text-align:center;line-height: 60px;">No Record</h4>'}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_order_list',
+						pagenum: '1',
+						massaid: '15652519917',
+						timearray: 'future'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log('orders'+data)
+						var obj = JSON.parse(data);
+						obj = obj.RespContent.Content;
+						var html = template('futuretemplate', {
+							list: obj
+						});
+						if(obj!=''){document.getElementById('item1mobileul').innerHTML = html;}
+						else{document.getElementById('item1mobileul').innerHTML = '<h4 style="text-align:center;line-height: 60px;">No Record</h4>'}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+				mui('#item2mobileul').on('tap','li',function(){
+					//console.log(this.getAttribute('data-id'))
+							mui.openWindow({
+								url:'orderdetail.html',
+								id:'orderdetail',
+								extras:{
+									orderid:this.dataset.id,
+								},
+								styles: {
+								popGesture: 'close'
+								},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: 'loading...', //等待对话框上显示的提示内容
+								}
+							})
+						})
+				mui('#item1mobileul').on('tap','li',function(){
+					//console.log(this.getAttribute('data-id'))
+							mui.openWindow({
+								url:'orderdetail.html',
+								id:'orderdetail',
+								extras:{
+									orderid:this.dataset.id,
+								},
+								styles: {
+								popGesture: 'close'
+								},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: 'loading...', //等待对话框上显示的提示内容
+								}
+							})
+						})
+				mui('#item3mobileul').on('tap','li',function(){
+					//console.log(this.getAttribute('data-id'))
+							mui.openWindow({
+								url:'orderdetail.html',
+								id:'orderdetail',
+								extras:{
+									orderid:this.dataset.id,
+								},
+								styles: {
+								popGesture: 'close'
+								},
+								show: {
+									autoShow: true, //页面loaded事件发生后自动显示，默认为true
+									aniShow: 'pop-in', //页面显示动画，默认为”slide-in-right“；
+									duration: 300 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+								},
+								waiting: {
+									autoShow: true, //自动显示等待框，默认为true
+									title: 'loading...', //等待对话框上显示的提示内容
+								}
+							})
+						})
+			})
+		</script>
+		<style>
+			.mui-control-content {
+				background-color: white;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			#sliderSegmentedControl {
+				background: #ffffff;
+				height: 40px;
+			}
+			#sliderProgressBar {
+				background-color: #61cccb;
+			}
+			.date {
+				background-color: #f2f2f2;
+				height: 40px;
+				padding: 15px 0 0 15px
+			}
+			.controlitemname {
+				font-size: 16px;
+				padding-top: 5px
+			}
+			.time {
+				float: left;
+				margin-right: 15px;
+			}
+			p {
+				font-size: 16px;
+			}
+			.mui-navigate-right {
+				padding-top: 18px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="position: fixed;z-index: 1;">
+					<a class="mui-control-item controlitemname" href="#item1mobile">
+				Future
+			</a>
+					<a class="mui-control-item controlitemname" href="#item2mobile">
+				Today
+			</a>
+					<a class="mui-control-item controlitemname" href="#item3mobile">
+				History
+			</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4" style="position: fixed;top:40px"></div>
+				<div class="mui-slider-group" style="margin-top:40px">
+					<div id="item1mobile" class="mui-slider-item mui-control-content">
+						<ul id="item1mobileul" class="mui-table-view">
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a id="item1a" class="mui-navigate-right" style="padding-top: 18px;">
+									<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span> loading
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content mui-active">
+						<ul id="item2mobileul" class="mui-table-view">
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a id="item2a" class="mui-navigate-right" style="padding-top: 18px;min-height: 30px;">
+									<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span> loading...
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<ul id="item3mobileul" class="mui-table-view">
+							<div class="date"></div>
+							<li class="mui-table-view-cell" style="font-size: 16px;">
+								<a id="item3a" class="mui-navigate-right" style="padding-top: 18px;">
+									<span id="indicator" class="mui-icon mui-spinner mui-spin" style="position: relative;top:6px;"></span> loading...
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script id="todaytemplate" type="text/html ">
+		{{each list as value2 i}}
+		{{each value2 as value j}}
+		<li data-id="{{value.orderid}}" class="mui-table-view-cell" style="font-size: 16px;">
+			<a class="mui-navigate-right" style="padding-top: 18px;">
+				<div class="time">{{value.start.substring(0,5)}}
+					<br>
+					<p>{{value.end.substring(0,5)}}</p>
+				</div>
+				<div style="margin-left:70px">{{value.servicename}}
+					<br>
+					<p>[Address Here]</p>
+				</div>
+			</a>
+		</li>
+		{{/each}}
+		{{/each}}
+	</script>
+	<script id="historytemplate" type="text/html ">
+		{{each list as value i}}
+		<div class="date">{{i}}</div>
+			{{each value as value2 j}}
+		<li data-id="{{value2.orderid}}" class="mui-table-view-cell" style="font-size: 16px;">
+			<a class="mui-navigate-right" style="padding-top: 18px;">
+				<div class="time">{{value2.start.substring(0,5)}}
+					<br>
+					<p>{{value2.end.substring(0,5)}}</p>
+				</div>
+				<div style="margin-left:70px">{{value2.servicename}}
+					<br>
+					<p>[Address Here]</p>
+				</div>
+			</a>
+		</li>
+			{{/each}}
+		{{/each}}
+	</script>
+	<script id="futuretemplate" type="text/html ">
+		{{each list as value i}}
+		<div class="date">{{i}}</div>
+			{{each value as value2 j}}
+		<li data-id="{{value2.orderid}}" class="mui-table-view-cell" style="font-size: 16px;">
+			<a class="mui-navigate-right" style="padding-top: 18px;">
+				<div class="time">{{value2.start.substring(0,5)}}
+					<br>
+					<p>{{value2.end.substring(0,5)}}</p>
+				</div>
+				<div style="margin-left:70px">{{value2.servicename}}
+					<br>
+					<p>[Address Here]</p>
+				</div>
+			</a>
+		</li>
+			{{/each}}
+		{{/each}}
+	</script>
+
+</html>

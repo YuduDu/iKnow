@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<title></title>
+		<script src="js/mui.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/customize.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				plus.navigator.setStatusBarBackground("#6acccb ");
+				plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+				var self = plus.webview.currentWebview();
+				var massaid = plus.storage.getItem('massaid')
+				console.log(massaid)
+				mui.ajax(url.list, {
+					data: {
+						action: 'get_service_list',
+						massaid: massaid,
+						pagenum: '1'
+					},
+					type: 'post', //HTTP请求类型 
+					timeout: 100000, //超时时间设置为10秒；  
+					success: function(data) {
+						console.log(data);
+						obj = JSON.parse(data);
+						obj = obj.RespContent.Content
+						console.log(data);
+						var html = template('servicestemplate', {
+							list: obj
+						});
+					document.getElementById('servicesul').innerHTML = html;
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+						console.log(JSON.stringify(xhr));
+					}
+				});
+			})
+		</script>
+		<style>
+			.mui-media-body{
+				padding-left: 0px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav " style="position: fixed; background-color: #6ACCCB;top:0px ">
+			<h1 id="title " class="mui-title " style="color: #ffffff; ">My Services</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left icon-whilte "></a>
+		</header>
+		<div class="mui-content">
+			<ul id="servicesul" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						<p>loading...</p>
+						<div class="mui-table">
+							<div class="mui-table-cell mui-col-xs-3 mui-text-left">
+								<span class="mui-h5"></span>
+							</div>
+							<div class="mui-table-cell mui-col-xs-3 mui-text-left">
+								<span class="mui-h5"></span>
+							</div>
+							<div class="mui-table-cell mui-col-xs-3 mui-text-left">
+								<span class="mui-h5"></span>
+							</div>
+							<div class="mui-table-cell mui-col-xs-3 mui-text-right">
+								<span class="mui-h5 mui-price""></span>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+<script id="servicestemplate" type="text/html ">
+		{{each list as value i}}
+		<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						<h4>{{value.servicename}}</h4>
+						<div class="mui-table">
+							<div class="mui-table-cell mui-col-xs-2 mui-text-left">
+								<span class="mui-h5">{{value.duration}}分钟</span>
+							</div>
+							<div class="mui-table-cell mui-col-xs-2 mui-text-left">
+								<span class="mui-h5">{{value.order_sum}}单</span>
+							</div>
+							<div class="mui-table-cell mui-col-xs-2 mui-text-left">
+								<span class="mui-h5">{{value.comment_sum}}评论</span>
+							</div>
+							<div class="mui-table-cell mui-col-xs-6 mui-text-right">
+								<span class="mui-h5 mui-price"">￥{{value.price}}</span>
+							</div>
+						</div>
+					</div>
+				</li>
+		{{/each}}
+	</script>
+</html>
